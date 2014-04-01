@@ -146,8 +146,19 @@ namespace NSEmbroidery.UI
 
             //Settings settings = new Settings(countOfCrissCrosses, 
             //BitmapConverter converter = new BitmapConverter(CurrentImage, 
+        }
 
 
+        private Resolution[] GetResolutions(Resolution currentResolution)
+        {
+
+            Resolution[] result = new Resolution[5];
+            for (int i = 0; i < 5; i++)
+            {
+                result[i].SetResolution(CurrentImage.Width * i, CurrentImage.Height * i);
+            }
+
+            return result;
         }
 
     }

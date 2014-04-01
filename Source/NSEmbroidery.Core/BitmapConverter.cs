@@ -7,11 +7,16 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core
 {
-    class BitmapConverter
+    public class BitmapConverter
     {
+
+//||||||||||||||||||Properties||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         public Bitmap Image { get; set; }
         public Color[] Colors { get; private set; }
+        public Settings Settings { get; private set; }
+
         private Object lockObj = new object();
+
 
         public int ImageWidth
         {
@@ -28,20 +33,57 @@ namespace NSEmbroidery.Core
             return Image.GetPixel(x, y);
         }
 
-        public BitmapConverter(string path, Color[] convertColors = null)
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//||||||||||||||||||Constructors||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+        public BitmapConverter(string path, Settings settings)
         {
             Image = new Bitmap(path);
+            Settings = settings;
         }
 
-        public BitmapConverter(Bitmap image, Color[] convertColors = null)
+        public BitmapConverter(string path, Color[] convertColors, Settings settings)
+            : this(path, settings)
+        {
+            Colors = convertColors;
+        }
+
+
+        public BitmapConverter(Bitmap image, Settings settings)
         {
             Image = new Bitmap(image);
+            Settings = settings;
         }
+
+        public BitmapConverter(Bitmap image, Color[] convertColors, Settings settings):this(image, settings)
+        {
+            Colors = convertColors;
+        }
+
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//||||||||||||||||||Seters||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
         public void SetColors(Color[] colors)
         {
             Colors = colors;
         }
+
+        public void SetResolution(Resolution resol)
+        {
+            Settings.Resolution = resol;
+        }
+
+        public void SetCrissCrossesXcount(int count)
+        {
+            Settings.CrissCrossXCount = count;
+        }
+
+        public void SetSymbols(char[] symbols)
+        {
+            Settings.Symbols = symbols;
+        }
+
+//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//||||||||||||||||||Methods|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
         public Bitmap ChangeResolution(int width)
         {
@@ -63,7 +105,7 @@ namespace NSEmbroidery.Core
 
 
 
-        public Bitmap ChangeColor(Color[] colors)
+        public Bitmap ChangeColor()
         {
             lock (lockObj)
             {
@@ -73,7 +115,7 @@ namespace NSEmbroidery.Core
                     for (int y = 0; y < tempImage.Height; y++)
                     {
                         Color oldColor = tempImage.GetPixel(x, y);
-                        Color colorAmoung = ChooseColorAmoung(oldColor, colors);
+                        Color colorAmoung = ChooseColorAmoung(oldColor, Colors);
                         tempImage.SetPixel(x, y, colorAmoung);
                     }
 
@@ -167,25 +209,39 @@ namespace NSEmbroidery.Core
            return result;
        }
 
+
+
+       public Bitmap GetScheme()
+       {
+           Bitmap scheme = new Bitmap(Settings.GetResolutionWidth(), Settings.GetResolutionHight());
+
+           CrissCross[,] cCrosses = GetScheme(CreateSymbols(new char[]{'$','@','#'}));
+
+           
+           int OneCrossDimention = Settings.GetResolutionWidth() / Settings.CrissCrossXCount;
+
+           int newX = 0;
+           int newY = 0;
+
+           for (int i = 0; i <= cCrosses.GetUpperBound(1); i++)
+           {
+               for (int j = 0; j <= cCrosses.GetUpperBound(0); j++)
+               {
+                   for (int y = newY; y < OneCrossDimention; y++)
+                       for (int x = newX; x < OneCrossDimention; x++)
+                       {
+                           scheme.SetPixel(x, y, cCrosses[i, j].Color);
+                       }
+                   newX += OneCrossDimention;
+               }
+
+               newY += OneCrossDimention;
+           }
+
+
+           return scheme;
+       }
+
     }
 
-
-
-
-    public class CrissCross
-    {
-        public Color Color { get; private set; }
-        public Char Symbol { get; private set; }
-
-
-        public void SetColor(Color color)
-        {
-            Color = color;
-        }
-
-        public void SetSymbol(char symbol)
-        {
-            Symbol = symbol;
-        }
-    }
 }

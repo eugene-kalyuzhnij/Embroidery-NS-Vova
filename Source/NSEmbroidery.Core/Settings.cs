@@ -37,5 +37,18 @@ namespace NSEmbroidery.Core
     {
         public int Height { get; set; }
         public int Width { get; set; }
+
+        public Resolution(int width, int height)
+        {
+            Height = height;
+            Width = width;
+        }
+
+
+        public void SetResolution(int width, int height)
+        {
+            Height = height;
+            Width = width;
+        }
     }
 }

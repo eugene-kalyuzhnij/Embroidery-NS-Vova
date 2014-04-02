@@ -6,26 +6,41 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core
 {
-    public class Settings
+    public static class Settings
     {
 
-        public Settings(int crissCrossXCount, Resolution resol, char[] symbols)
+        public static void SetResolution(Resolution resol)
         {
-            CrissCrossXCount = crissCrossXCount;
             Resolution = resol;
+        }
+
+        public static void SetSquareCont(int count)
+        {
+            SquareCount = count;
+        }
+
+        public static void SetSymbols(char[] symbols)
+        {
             Symbols = symbols;
         }
 
-        public int CrissCrossXCount { get; set; }
-        public Resolution Resolution { get; set; }
-        public char[] Symbols { get; set; }
+        public static void SetProperties(int squareCount, Resolution resolution, char[] symbols)
+        {
+            SetResolution(resolution);
+            SetSymbols(symbols);
+            SetSquareCont(squareCount);
+        }
 
-        public int GetResolutionWidth()
+        public static int SquareCount { get; set; }
+        public static Resolution Resolution { get; set; }
+        public static char[] Symbols { get; set; }
+
+        public static int GetResolutionWidth()
         {
             return Resolution.Width;
         }
 
-        public int GetResolutionHight()
+        public static int GetResolutionHight()
         {
             return Resolution.Height;
         }

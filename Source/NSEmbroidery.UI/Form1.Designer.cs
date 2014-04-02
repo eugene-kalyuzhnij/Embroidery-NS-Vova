@@ -37,13 +37,13 @@
             this.pictureBoxCurrentImage = new System.Windows.Forms.PictureBox();
             this.buttonChooseColor = new System.Windows.Forms.Button();
             this.panelColors = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxResult = new System.Windows.Forms.PictureBox();
             this.buttonCreateScheme = new System.Windows.Forms.Button();
             this.texBoxCountOfCrissCrosses = new System.Windows.Forms.TextBox();
             this.labelCount = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOpen
@@ -112,14 +112,14 @@
             this.panelColors.Size = new System.Drawing.Size(50, 389);
             this.panelColors.TabIndex = 4;
             // 
-            // pictureBox1
+            // pictureBoxResult
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(524, 82);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(414, 389);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxResult.Location = new System.Drawing.Point(524, 82);
+            this.pictureBoxResult.Name = "pictureBoxResult";
+            this.pictureBoxResult.Size = new System.Drawing.Size(414, 389);
+            this.pictureBoxResult.TabIndex = 5;
+            this.pictureBoxResult.TabStop = false;
             // 
             // buttonCreateScheme
             // 
@@ -156,7 +156,7 @@
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.texBoxCountOfCrissCrosses);
             this.Controls.Add(this.buttonCreateScheme);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxResult);
             this.Controls.Add(this.panelColors);
             this.Controls.Add(this.buttonChooseColor);
             this.Controls.Add(this.pictureBoxCurrentImage);
@@ -168,7 +168,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,7 +185,7 @@
         private System.Windows.Forms.PictureBox pictureBoxCurrentImage;
         private System.Windows.Forms.Button buttonChooseColor;
         private System.Windows.Forms.Panel panelColors;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxResult;
         private System.Windows.Forms.Button buttonCreateScheme;
         private System.Windows.Forms.TextBox texBoxCountOfCrissCrosses;
         private System.Windows.Forms.Label labelCount;

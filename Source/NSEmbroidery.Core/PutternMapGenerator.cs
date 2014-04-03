@@ -9,7 +9,6 @@ namespace NSEmbroidery.Core
 {
     public class PutternMapGenerator
     {
-        public Palette Palette { get; set; }
 
         public PutternMapGenerator()
         {
@@ -17,21 +16,21 @@ namespace NSEmbroidery.Core
 
         public PutternMapGenerator(Palette palette)
         {
-            Palette = palette;
+            Settings.Palette = palette;
         }
 
 
         public Canvas Generate(Canvas canvas)
         {
-            if (Palette == null || Palette.Count == 0)
-                throw new NotImplementPaletteException("Check that Palette isn't null or it has any colors");
+            if (Settings.Palette == null || Settings.Palette.Count == 0)
+                throw new NullReferenceException("Check that Palette isn't null or it has any colors");
             if (Settings.SquareCount <= 0)
-                throw new NotImplementSquaresException("SquareCount field is wrong");
+                throw new WrongFieldException("SquareCount field is wrong");
 
 
             Canvas tempCanvas = ReduceResolution(canvas);
 
-            List<Color> colors = Palette.GetAllColors();
+            List<Color> colors = Settings.Palette.GetAllColors();
             int width = tempCanvas.Width;
             int height = tempCanvas.Height;
 
@@ -87,15 +86,15 @@ namespace NSEmbroidery.Core
                 int sourceHeight = image.Height;
                 int sourceWidth = image.Width;
 
-                int newHeight = sourceHeight - Settings.SquareCount;
-                int newWidth = sourceWidth - Settings.SquareCount;
+                int newHeight = sourceHeight - Math.Abs(sourceHeight - Settings.SquareCount);
+                int newWidth = sourceWidth - Math.Abs(sourceWidth - Settings.SquareCount);
 
                 Bitmap tempImage = null;
                 if (newHeight > 0 && newWidth > 0)
                 {
                     tempImage = new Bitmap(image, new Size(newWidth, newHeight));
                 }
-                else throw new NotImplementResolutionException("Maybe parameter /'width = " + Settings.SquareCount.ToString() + "/' is too higher");
+                else throw new WrongFieldException();
 
                 canvas = CanvasConverter.ConvertBitmapToCanvas(tempImage);
 

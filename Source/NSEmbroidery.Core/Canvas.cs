@@ -35,7 +35,7 @@ namespace NSEmbroidery.Core
         {
             Width = resolution.Width;
             Height = resolution.Height;
-            Color = new Color[Width, Height];
+            Color = new Color[Height, Width];
         }
 
 
@@ -61,6 +61,22 @@ namespace NSEmbroidery.Core
                     }
 
             else throw new Exception("Not implement Color field");
+        }
+
+
+        public static Canvas DrawSymbol(Canvas canvas,int x, int y,int size, char symbol)
+        {
+            Bitmap tempBitmap = CanvasConverter.ConvertCanvasToBitmap(canvas);
+
+            Graphics g = Graphics.FromImage(tempBitmap);
+            Font font = new Font(FontFamily.GenericSansSerif, size, GraphicsUnit.Pixel);
+            FontFamily fFamily = FontFamily.GenericSansSerif;
+
+            g.DrawString(symbol.ToString(), font, Brushes.Black, new PointF(x, y));
+
+            Canvas resultCanvas = CanvasConverter.ConvertBitmapToCanvas(tempBitmap);
+
+            return resultCanvas;
         }
     }
 }

@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapConverter.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="CanvasConverter.cs" />
     <Compile Include="CrissCross.cs" />
@@ -48,9 +47,11 @@
     <Compile Include="IDecorator.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PutternCreator.cs" />
     <Compile Include="PutternMapGenerator.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SquaresDecorator.cs" />
+    <Compile Include="SymbolsDecorator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

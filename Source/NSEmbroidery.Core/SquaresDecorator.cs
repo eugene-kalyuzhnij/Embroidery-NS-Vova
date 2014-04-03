@@ -10,23 +10,20 @@ namespace NSEmbroidery.Core
     {
         public void Decorate(Canvas embroidery, Canvas puttern)
         {
-            Resolution putternResolution = puttern.GetResolution();
-            Resolution embroideryResolution = embroidery.GetResolution();
 
-            int squareWidth = embroideryResolution.Width / putternResolution.Width;
+            int squareWidth = embroidery.Width / puttern.Width;
 
             int newX = 0;
             int newY = 0;
 
-            for (int i = 0; i < putternResolution.Height; i++)
+            for (int i = 0; i < puttern.Height; i++)
             {
-                for (int j = 0; j < putternResolution.Width; j++)
+                for (int j = 0; j < puttern.Width; j++)
                 {
                     for (int y = newY; y < newY + squareWidth; y++)
                         for (int x = newX; x < newX + squareWidth; x++)
-                        {
                             embroidery.SetColor(x, y, puttern.GetColor(j, i));
-                        }
+
                     newX += squareWidth;
                 }
 

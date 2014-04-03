@@ -6,41 +6,43 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core
 {
-    public class NotImplementResolutionException : ApplicationException
+
+    public class WrongSymbolsRealisationException : ApplicationException
     {
-        public NotImplementResolutionException()
+        public WrongSymbolsRealisationException()
             : base()
         {
         }
 
-        public NotImplementResolutionException(string msg)
-            : base(msg)
-        {
-        }
-    }
-
-    public class NotImplementPaletteException : ApplicationException
-    {
-        public NotImplementPaletteException()
-            : base()
-        {
-        }
-
-        public NotImplementPaletteException(string msg)
+        public WrongSymbolsRealisationException(string msg)
             : base(msg)
         {
         }
     }
 
 
-    public class NotImplementSquaresException : ApplicationException
+    public class WrongColorRealisarionException : ApplicationException
     {
-        public NotImplementSquaresException()
+        public WrongColorRealisarionException()
             : base()
         {
         }
 
-        public NotImplementSquaresException(string msg)
+        public WrongColorRealisarionException(string msg)
+            : base(msg)
+        {
+        }
+    }
+
+
+    public class WrongFieldException : ApplicationException
+    {
+        public WrongFieldException()
+            : base()
+        {
+        }
+
+        public WrongFieldException(string msg)
             : base(msg)
         {
         }

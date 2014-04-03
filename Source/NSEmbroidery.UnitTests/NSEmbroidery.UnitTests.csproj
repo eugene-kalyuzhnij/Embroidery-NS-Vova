@@ -54,6 +54,7 @@
     <Compile Include="Test_CanvasConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test_PutternMapConverter.cs" />
+    <Compile Include="Test_SquaresDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">

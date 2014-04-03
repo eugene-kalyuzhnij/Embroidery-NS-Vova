@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core
 {
-    interface IDecorator
+    public interface IDecorator
     {
         void Decorate(Canvas embroidery, Canvas puttern);
     }

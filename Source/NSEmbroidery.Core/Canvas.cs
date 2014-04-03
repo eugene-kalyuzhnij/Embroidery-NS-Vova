@@ -17,12 +17,18 @@ namespace NSEmbroidery.Core
 
         public void SetColor(int x, int y, Color color)
         {
-            Color[x, y] = color;
+            Color[y, x] = color;
+        }
+
+
+        public Resolution GetResolution()
+        {
+            return new Resolution(Width, Height);
         }
 
         public Color GetColor(int x, int y)
         {
-            return Color[x, y];
+            return Color[y, x];
         }
 
         public Canvas(Resolution resolution)

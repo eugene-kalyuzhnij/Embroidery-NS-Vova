@@ -29,16 +29,14 @@ namespace NSEmbroidery.Core
                 throw new NotImplementSquaresException("SquareCount field is wrong");
 
 
-            Canvas tempCanvas = canvas;
-
-            ReduceResolution(tempCanvas);
+            Canvas tempCanvas = ReduceResolution(canvas);
 
             List<Color> colors = Palette.GetAllColors();
-            int width = canvas.Width;
-            int height = canvas.Height;
+            int width = tempCanvas.Width;
+            int height = tempCanvas.Height;
 
-            for (int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
                     Color oldColor = tempCanvas.GetColor(x, y);
                     Color colorAmoung = ChooseColorAmoung(oldColor, colors);
@@ -82,7 +80,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        private void ReduceResolution(Canvas canvas)
+        private Canvas ReduceResolution(Canvas canvas)
         {
                 Bitmap image = CanvasConverter.ConvertCanvasToBitmap(canvas);
 
@@ -100,6 +98,8 @@ namespace NSEmbroidery.Core
                 else throw new NotImplementResolutionException("Maybe parameter /'width = " + Settings.SquareCount.ToString() + "/' is too higher");
 
                 canvas = CanvasConverter.ConvertBitmapToCanvas(tempImage);
+
+                return canvas;
         }
 
     }

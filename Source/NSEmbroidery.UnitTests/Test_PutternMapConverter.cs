@@ -14,7 +14,8 @@ namespace NSEmbroidery.UnitTests
         {
             PutternMapGenerator mapGenerator = new PutternMapGenerator();
 
-            mapGenerator.Palette = new Palette(new Color[] { Color.Red, Color.Blue, Color.Green });
+            Palette palette = new Palette(new Color[] { Color.Red, Color.Blue, Color.Green });
+            Settings.Palette = palette;
             Settings.SquareCount = 2;
 
             Canvas can = new Canvas(new Resolution(4, 4));

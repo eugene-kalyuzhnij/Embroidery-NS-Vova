@@ -21,6 +21,27 @@ namespace NSEmbroidery.UI
         {
             InitializeComponent();
 
+            /*Bitmap test = new Bitmap(10, 17);
+
+            for (int y = 0; y < test.Height; y++)
+                for (int x = 0; x < test.Width; x++)
+                {
+                    if (y % 2 == 0)
+                    {
+                        if (x % 2 == 0)
+                            test.SetPixel(x, y, Color.Red);
+                        else test.SetPixel(x, y, Color.Blue);
+                    }
+                    else
+                    {
+                        if (x % 2 == 0)
+                            test.SetPixel(x, y, Color.Yellow);
+                        else test.SetPixel(x, y, Color.Green);
+                    }
+                }
+
+            test.Save("D:\\testImage.jpg");*/
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -146,13 +167,18 @@ namespace NSEmbroidery.UI
                 return;
             }
 
+            Settings settings = new Settings();
+            settings.Symbols = new char[] { '@', '$', '#', '*' };
+            settings.Palette = new Palette(this.GetColorsFromPanel());
+            settings.SquareCount = squareCount;
+            settings.CreateColorSymbolRelation();
 
-            PutternCreator creator = new PutternCreator(this.GetColorsFromPanel(), new char[] { '@', '$', '#', '*' }, CurrentImage, squareCount);
+
+            PutternCreator creator = new PutternCreator(CurrentImage);
+            creator.Settings = settings;
             Bitmap res = creator.GetImage();
 
             pictureBoxResult.Image = res;
-
-
         }
 
 

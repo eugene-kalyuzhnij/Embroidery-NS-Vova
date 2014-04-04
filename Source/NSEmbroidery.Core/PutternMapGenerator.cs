@@ -12,12 +12,11 @@ namespace NSEmbroidery.Core
 
         public PutternMapGenerator()
         {
+            Settings = new Settings();
         }
 
-        public PutternMapGenerator(Palette palette)
-        {
-            Settings.Palette = palette;
-        }
+
+        public Settings Settings { get; set; }
 
 
         public Canvas Generate(Canvas canvas)
@@ -27,8 +26,9 @@ namespace NSEmbroidery.Core
             if (Settings.SquareCount <= 0)
                 throw new WrongFieldException("SquareCount field is wrong");
 
+            int ratio = canvas.Width / Settings.SquareCount;
 
-            Canvas tempCanvas = ReduceResolution(canvas);
+            Canvas tempCanvas = ReduceResolution(canvas, ratio);
 
             List<Color> colors = Settings.Palette.GetAllColors();
             int width = tempCanvas.Width;
@@ -79,9 +79,63 @@ namespace NSEmbroidery.Core
         }
 
 
-        private Canvas ReduceResolution(Canvas canvas)
+        private Color AverageColor(Color[] colors)
         {
-                Bitmap image = CanvasConverter.ConvertCanvasToBitmap(canvas);
+            int averageA = 0;
+            int averageR = 0;
+            int averageG = 0;
+            int averageB = 0;
+
+            foreach (var color in colors)
+            {
+                averageA += color.A;
+                averageR += color.R;
+                averageG += color.G;
+                averageB += color.B;
+            }
+
+
+            averageA = averageA / colors.Length;
+            averageR = averageR / colors.Length;
+            averageG = averageG / colors.Length;
+            averageB = averageB / colors.Length;
+
+            return Color.FromArgb(averageA, averageR, averageG, averageB);
+        }
+
+
+        private Canvas ReduceResolution(Canvas bigCanvas, int ratio)
+        {
+            if (ratio > bigCanvas.Width || ratio > bigCanvas.Height)
+                throw new Exception("too big value of 'ratio'");
+
+            int newWidth = bigCanvas.Width / ratio;
+            int newHeight = bigCanvas.Height / ratio;
+
+            Canvas smallCanvas = new Canvas(new Resolution(newWidth, newHeight));
+
+            for(int smallY = 0, bigY = 0; smallY < newHeight; smallY++, bigY += ratio)
+                for (int smallX = 0, bigX = 0; smallX < newWidth; smallX++, bigX += ratio)
+                {
+                    Canvas partCanvas = bigCanvas.GetInnerCanvas(bigX, bigY, new Resolution(ratio, ratio));
+                    Color[] colors = new Color[ratio*ratio];
+
+                    int i = 0;
+                    foreach (var color in partCanvas)
+                    {
+                        colors[i++] = color;
+                    }
+
+                    Color resultColor = AverageColor(colors);
+                    smallCanvas.SetColor(smallX, smallY, resultColor);
+                    
+                }
+
+            return smallCanvas;
+
+
+            #region older realization
+            /* Bitmap image = CanvasConverter.ConvertCanvasToBitmap(canvas);
 
                 int sourceHeight = image.Height;
                 int sourceWidth = image.Width;
@@ -98,8 +152,15 @@ namespace NSEmbroidery.Core
 
                 canvas = CanvasConverter.ConvertBitmapToCanvas(tempImage);
 
-                return canvas;
+                return canvas;*/
+            #endregion
         }
+
+
+        /*private Canvas IncreaseResolution(int ratio, Canvas canvas)
+        {
+            //int newWidth = 
+        }*/
 
     }
 }

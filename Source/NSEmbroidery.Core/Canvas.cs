@@ -79,12 +79,47 @@ namespace NSEmbroidery.Core
             g.DrawString(symbol.ToString(), font, Brushes.Green, new PointF(0, 0));
 
 
-            for (int _y = y, i = 0; _y < y + squareWidth; _y++, i++)
+            Canvas innerCanvas = CanvasConverter.ConvertBitmapToCanvas(smallPart);
+
+            this.SetCanvas(x, y, innerCanvas);
+
+            /*for (int _y = y, i = 0; _y < y + squareWidth; _y++, i++)
                 for (int _x = x, j = 0; _x < x + squareWidth; _x++, j++)
                 {
                     Color partColor = smallPart.GetPixel(j, i);
                     this.SetColor(_x, _y, partColor);
+                }*/
+        }
+
+        public void SetCanvas(int x, int y, Canvas innerCanvas)
+        {
+            if (x + innerCanvas.Width > this.Width || y + innerCanvas.Height > this.Height)
+                throw new Exception();
+            
+
+            for (int _y = y, i = 0; _y < y + innerCanvas.Height; _y++, i++)
+                for (int _x = x, j = 0; _x < x + innerCanvas.Width; _x++, j++)
+                {
+                    this.SetColor(_x, _y, innerCanvas.GetColor(j, i));
                 }
+
+        }
+
+        public Canvas GetInnerCanvas(int x, int y, Resolution resol)
+        {
+            if (x + resol.Width > this.Width || y + resol.Height > this.Height)
+                throw new Exception();
+            
+            Canvas result = new Canvas(resol);
+
+            for (int _y = y, i = 0; _y < y + resol.Height; _y++, i++)
+                for (int _x = x, j = 0; _x < x + resol.Width; _x++, j++)
+                {
+                    result.SetColor(j, i, this.GetColor(x, y));
+                }
+
+            return result;
+
         }
 
     }

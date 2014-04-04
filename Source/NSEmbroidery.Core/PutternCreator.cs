@@ -11,29 +11,27 @@ namespace NSEmbroidery.Core
     {
 
         private Bitmap CurrentImage;
+        public Settings Settings{get; set;}
 
-        public PutternCreator(Color[] colors, char[] symbols, Bitmap image, int squareCount)
+        public PutternCreator(Bitmap image)
         {
             CurrentImage = image;
-            Settings.Resolution = new Resolution(image.Width, image.Height);
-            Settings.Palette = new Palette(colors);
-            Settings.Symbols = symbols;
-            Settings.SquareCount = squareCount;
-
-            Settings.CreateColorSymbolRelation();
         }
 
         public Bitmap GetImage()
         {
 
             PutternMapGenerator map = new PutternMapGenerator();
+
+            map.Settings = Settings;
             Canvas puttern = map.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
 
             Canvas result = CanvasConverter.ConvertBitmapToCanvas(CurrentImage);
 
             IDecorator decorator = new SquaresDecorator();
             decorator.Decorate(result, puttern);
-            IDecorator symbols = new SymbolsDecorator();
+            SymbolsDecorator symbols = new SymbolsDecorator();
+            symbols.Settings = Settings;
             symbols.Decorate(result, puttern);
 
             CurrentImage = CanvasConverter.ConvertCanvasToBitmap(result);

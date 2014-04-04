@@ -12,7 +12,7 @@ namespace NSEmbroidery.Core
         {
 
 
-             int squareWidth = checked(embroidery.Width / puttern.Width);
+            int squareWidth = checked(embroidery.Width / puttern.Width);
 
 
             int newX = 0;
@@ -22,7 +22,7 @@ namespace NSEmbroidery.Core
             {
                 for (int j = 0; j < puttern.Width; j++)
                 {
-                    for (int y = newY; y < newY + squareWidth; y++)
+                    for (int y = newY; y < newY + squareWidth; y++) 
                         for (int x = newX; x < newX + squareWidth; x++)
                             embroidery.SetColor(x, y, puttern.GetColor(j, i));
 

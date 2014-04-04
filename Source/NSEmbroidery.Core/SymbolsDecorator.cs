@@ -9,9 +9,11 @@ namespace NSEmbroidery.Core
 {
     public class SymbolsDecorator : IDecorator
     {
+
+        public Settings Settings { get; set; }
+
         public void Decorate(Canvas embroidery, Canvas puttern)
         {
-
             int squareWidth = embroidery.Width / puttern.Width;
 
 
@@ -21,7 +23,6 @@ namespace NSEmbroidery.Core
                     char symbol = GetSymbol(puttern.GetColor(putternX, puttrenY));
                     embroidery.SetSymbol(symbol, squareX, squareY, squareWidth);
                 }
-
         }
 
 

@@ -7,10 +7,10 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core
 {
-    public class PutternMapGenerator
+    public class PatternMapGenerator
     {
 
-        public PutternMapGenerator()
+        public PatternMapGenerator()
         {
             Settings = new Settings();
         }

@@ -12,15 +12,15 @@ namespace NSEmbroidery.Core
 
         public Settings Settings { get; set; }
 
-        public void Decorate(Canvas embroidery, Canvas puttern)
+        public void Decorate(Canvas embroidery, Canvas pattern)
         {
-            int squareWidth = embroidery.Width / puttern.Width;
+            int squareWidth = embroidery.Width / pattern.Width;
 
 
             for(int squareY = 0, puttrenY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, puttrenY++)
                 for (int squareX = 0, putternX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth, putternX++)
                 {
-                    char symbol = GetSymbol(puttern.GetColor(putternX, puttrenY));
+                    char symbol = GetSymbol(pattern.GetColor(putternX, puttrenY));
                     embroidery.SetSymbol(symbol, squareX, squareY, squareWidth);
                 }
         }

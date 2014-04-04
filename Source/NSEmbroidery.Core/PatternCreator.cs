@@ -7,13 +7,13 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core
 {
-    public class PutternCreator
+    public class PatternCreator
     {
 
         private Bitmap CurrentImage;
         public Settings Settings{get; set;}
 
-        public PutternCreator(Bitmap image)
+        public PatternCreator(Bitmap image)
         {
             CurrentImage = image;
         }
@@ -21,7 +21,7 @@ namespace NSEmbroidery.Core
         public Bitmap GetImage()
         {
 
-            PutternMapGenerator map = new PutternMapGenerator();
+            PatternMapGenerator map = new PatternMapGenerator();
 
             map.Settings = Settings;
             Canvas puttern = map.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));

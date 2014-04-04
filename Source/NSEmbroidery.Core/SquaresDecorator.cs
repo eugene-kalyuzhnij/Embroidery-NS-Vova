@@ -11,7 +11,9 @@ namespace NSEmbroidery.Core
         public void Decorate(Canvas embroidery, Canvas puttern)
         {
 
-            int squareWidth = embroidery.Width / puttern.Width;
+
+             int squareWidth = checked(embroidery.Width / puttern.Width);
+
 
             int newX = 0;
             int newY = 0;

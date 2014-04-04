@@ -48,4 +48,18 @@ namespace NSEmbroidery.Core
         }
     }
 
+    public class WrongResolutionException : ApplicationException
+    {
+        public WrongResolutionException()
+            : base()
+        {
+        }
+
+        public WrongResolutionException(string msg)
+            : base(msg)
+        {
+        }
+    }
+    
+
 }

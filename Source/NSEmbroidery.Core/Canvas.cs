@@ -64,19 +64,28 @@ namespace NSEmbroidery.Core
         }
 
 
-        public static Canvas DrawSymbol(Canvas canvas,int x, int y,int size, char symbol)
+        public void SetSymbol(char symbol, int x, int y, int squareWidth)
         {
-            Bitmap tempBitmap = CanvasConverter.ConvertCanvasToBitmap(canvas);
 
-            Graphics g = Graphics.FromImage(tempBitmap);
-            Font font = new Font(FontFamily.GenericSansSerif, size, GraphicsUnit.Pixel);
-            FontFamily fFamily = FontFamily.GenericSansSerif;
+            Bitmap smallPart = new Bitmap(squareWidth, squareWidth);
 
-            g.DrawString(symbol.ToString(), font, Brushes.Black, new PointF(x, y));
+            for (int _y = y, i = 0; _y < y + squareWidth; _y++, i++)
+                for (int _x = x, j = 0; _x < x + squareWidth; _x++, j++)
+                    smallPart.SetPixel(j, i, this.GetColor(_x, _y));
 
-            Canvas resultCanvas = CanvasConverter.ConvertBitmapToCanvas(tempBitmap);
+            Graphics g = Graphics.FromImage(smallPart);
+            Font font = new Font(FontFamily.GenericSansSerif, squareWidth, GraphicsUnit.Pixel);
 
-            return resultCanvas;
+            g.DrawString(symbol.ToString(), font, Brushes.Green, new PointF(0, 0));
+
+
+            for (int _y = y, i = 0; _y < y + squareWidth; _y++, i++)
+                for (int _x = x, j = 0; _x < x + squareWidth; _x++, j++)
+                {
+                    Color partColor = smallPart.GetPixel(j, i);
+                    this.SetColor(_x, _y, partColor);
+                }
         }
+
     }
 }

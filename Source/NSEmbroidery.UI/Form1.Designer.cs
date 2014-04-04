@@ -90,7 +90,7 @@
             this.pictureBoxCurrentImage.Location = new System.Drawing.Point(12, 82);
             this.pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             this.pictureBoxCurrentImage.Size = new System.Drawing.Size(418, 389);
-            this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            //this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCurrentImage.TabIndex = 2;
             this.pictureBoxCurrentImage.TabStop = false;
             // 
@@ -146,7 +146,7 @@
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(109, 26);
             this.labelCount.TabIndex = 8;
-            this.labelCount.Text = "Count of CrissCrosses\n(horisontal)";
+            this.labelCount.Text = "Count of squares\n(horisontal)";
             // 
             // Form1
             // 

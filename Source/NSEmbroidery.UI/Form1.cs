@@ -20,6 +20,7 @@ namespace NSEmbroidery.UI
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -134,17 +135,22 @@ namespace NSEmbroidery.UI
                 return;
             }
             
-            int countOfCrissCrosses = 0;
+            int squareCount = 0;
             try
             {
-                countOfCrissCrosses = Convert.ToInt32(texBoxCountOfCrissCrosses.Text);
+                squareCount = Convert.ToInt32(texBoxCountOfCrissCrosses.Text);
             }
             catch
             {
-                MessageBox.Show("Sure that Count of CrissCrosses is correct");
+                MessageBox.Show("Sure that Count of squares is correct");
+                return;
             }
 
-            //...
+
+            PutternCreator creator = new PutternCreator(this.GetColorsFromPanel(), new char[] { '@', '$', '#', '*' }, CurrentImage, squareCount);
+            Bitmap res = creator.GetImage();
+
+            pictureBoxResult.Image = res;
 
 
         }

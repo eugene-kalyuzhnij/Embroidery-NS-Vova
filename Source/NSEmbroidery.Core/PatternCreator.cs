@@ -13,10 +13,15 @@ namespace NSEmbroidery.Core
 
         private Bitmap CurrentImage;
         public Settings Settings{get; set;}
+        public bool Symbols{get; set;}
+        public bool Grid { get; set; }
 
         public PatternCreator(Bitmap image)
         {
             CurrentImage = image;
+
+            Symbols = false;
+            Grid = false;
         }
 
         public Bitmap GetImage()
@@ -31,8 +36,10 @@ namespace NSEmbroidery.Core
             DecoratorsCompositors decorator = new DecoratorsCompositors();
             decorator.Settings = Settings;
             decorator.AddDecorator(new SquaresDecorator());
-            decorator.AddDecorator(new SymbolsDecorator());
-            decorator.AddDecorator(new GridDecorator());
+            if(Symbols)
+                decorator.AddDecorator(new SymbolsDecorator());
+            if(Grid)
+                decorator.AddDecorator(new GridDecorator());
 
             decorator.Decporate(result, pattern);
 
@@ -47,7 +54,7 @@ namespace NSEmbroidery.Core
             int top = CurrentImage.Width;
             List<int> result = new List<int>();
 
-            for (int i = top - 1; i != 0; i--)
+            for (int i = top - 1; i > 1; i--)
                 if (top % i == 0) result.Add(i);
 
             return result;

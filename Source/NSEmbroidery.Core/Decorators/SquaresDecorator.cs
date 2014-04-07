@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NSEmbroidery.Core
+namespace NSEmbroidery.Core.Decorators
 {
     public class SquaresDecorator : IDecorator
     {

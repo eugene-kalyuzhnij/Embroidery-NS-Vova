@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace NSEmbroidery.Core
+namespace NSEmbroidery.Core.Decorators
 {
     public class SymbolsDecorator : IDecorator
     {

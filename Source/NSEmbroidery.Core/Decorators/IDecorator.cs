@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NSEmbroidery.Core
+namespace NSEmbroidery.Core.Decorators
 {
     public interface IDecorator
     {
-        void Decorate(Canvas embroidery, Canvas puttern);
+        void Decorate(Canvas embroidery, Canvas pattern);
     }
 }

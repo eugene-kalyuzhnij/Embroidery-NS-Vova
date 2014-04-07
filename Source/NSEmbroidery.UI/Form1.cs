@@ -15,32 +15,11 @@ namespace NSEmbroidery.UI
     public partial class Form1 : Form
     {
         Bitmap CurrentImage { get; set; }
-
+        PatternCreator creator;
 
         public Form1()
         {
             InitializeComponent();
-
-            /*Bitmap test = new Bitmap(10, 17);
-
-            for (int y = 0; y < test.Height; y++)
-                for (int x = 0; x < test.Width; x++)
-                {
-                    if (y % 2 == 0)
-                    {
-                        if (x % 2 == 0)
-                            test.SetPixel(x, y, Color.Red);
-                        else test.SetPixel(x, y, Color.Blue);
-                    }
-                    else
-                    {
-                        if (x % 2 == 0)
-                            test.SetPixel(x, y, Color.Yellow);
-                        else test.SetPixel(x, y, Color.Green);
-                    }
-                }
-
-            test.Save("D:\\testImage.jpg");*/
 
         }
 
@@ -65,6 +44,17 @@ namespace NSEmbroidery.UI
                             CurrentImage = new Bitmap(myStream);
                             pictureBoxCurrentImage.Image = CurrentImage;
                             pictureBoxCurrentImage.Refresh();
+
+                            creator = new PatternCreator(CurrentImage);
+                            List<int> allSquare = creator.GetPossibleSquareCounts();
+                            List<Resolution> resolutions = creator.GetPossibleResolutions(3);
+
+
+                            foreach (var item in allSquare)
+                                comboBoxSquareCount.Items.Add(item);
+
+                            foreach (var item in resolutions)
+                                comboBoxResolution.Items.Add(item);
                         }
                     }
                 }
@@ -159,7 +149,7 @@ namespace NSEmbroidery.UI
             int squareCount = 0;
             try
             {
-                squareCount = Convert.ToInt32(texBoxCountOfCrissCrosses.Text);
+                squareCount = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
             }
             catch
             {
@@ -168,13 +158,14 @@ namespace NSEmbroidery.UI
             }
 
             Settings settings = new Settings();
+            settings.Resolution = (Resolution)comboBoxResolution.SelectedItem;
             settings.Symbols = new char[] { '@', '$', '#', '*' };
             settings.Palette = new Palette(this.GetColorsFromPanel());
             settings.SquareCount = squareCount;
             settings.CreateColorSymbolRelation();
 
 
-            PutternCreator creator = new PutternCreator(CurrentImage);
+            PatternCreator creator = new PatternCreator(CurrentImage);
             creator.Settings = settings;
             Bitmap res = creator.GetImage();
 

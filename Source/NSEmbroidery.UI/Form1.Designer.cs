@@ -39,8 +39,10 @@
             this.panelColors = new System.Windows.Forms.Panel();
             this.pictureBoxResult = new System.Windows.Forms.PictureBox();
             this.buttonCreateScheme = new System.Windows.Forms.Button();
-            this.texBoxCountOfCrissCrosses = new System.Windows.Forms.TextBox();
             this.labelCount = new System.Windows.Forms.Label();
+            this.comboBoxSquareCount = new System.Windows.Forms.ComboBox();
+            this.comboBoxResolution = new System.Windows.Forms.ComboBox();
+            this.Resolution = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
@@ -90,7 +92,7 @@
             this.pictureBoxCurrentImage.Location = new System.Drawing.Point(12, 82);
             this.pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             this.pictureBoxCurrentImage.Size = new System.Drawing.Size(418, 389);
-            //this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCurrentImage.TabIndex = 2;
             this.pictureBoxCurrentImage.TabStop = false;
             // 
@@ -132,29 +134,49 @@
             this.buttonCreateScheme.UseVisualStyleBackColor = true;
             this.buttonCreateScheme.Click += new System.EventHandler(this.buttonCreateScheme_Click);
             // 
-            // texBoxCountOfCrissCrosses
-            // 
-            this.texBoxCountOfCrissCrosses.Location = new System.Drawing.Point(244, 46);
-            this.texBoxCountOfCrissCrosses.Name = "texBoxCountOfCrissCrosses";
-            this.texBoxCountOfCrissCrosses.Size = new System.Drawing.Size(75, 20);
-            this.texBoxCountOfCrissCrosses.TabIndex = 7;
-            // 
             // labelCount
             // 
             this.labelCount.AutoSize = true;
             this.labelCount.Location = new System.Drawing.Point(129, 40);
             this.labelCount.Name = "labelCount";
-            this.labelCount.Size = new System.Drawing.Size(109, 26);
+            this.labelCount.Size = new System.Drawing.Size(87, 26);
             this.labelCount.TabIndex = 8;
             this.labelCount.Text = "Count of squares\n(horisontal)";
+            // 
+            // comboBoxSquareCount
+            // 
+            this.comboBoxSquareCount.FormattingEnabled = true;
+            this.comboBoxSquareCount.Location = new System.Drawing.Point(222, 45);
+            this.comboBoxSquareCount.Name = "comboBoxSquareCount";
+            this.comboBoxSquareCount.Size = new System.Drawing.Size(93, 21);
+            this.comboBoxSquareCount.TabIndex = 9;
+            // 
+            // comboBoxResolution
+            // 
+            this.comboBoxResolution.FormattingEnabled = true;
+            this.comboBoxResolution.Location = new System.Drawing.Point(794, 46);
+            this.comboBoxResolution.Name = "comboBoxResolution";
+            this.comboBoxResolution.Size = new System.Drawing.Size(130, 21);
+            this.comboBoxResolution.TabIndex = 10;
+            // 
+            // Resolution
+            // 
+            this.Resolution.AutoSize = true;
+            this.Resolution.Location = new System.Drawing.Point(731, 49);
+            this.Resolution.Name = "Resolution";
+            this.Resolution.Size = new System.Drawing.Size(57, 13);
+            this.Resolution.TabIndex = 11;
+            this.Resolution.Text = "Resolution";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(998, 539);
+            this.Controls.Add(this.Resolution);
+            this.Controls.Add(this.comboBoxResolution);
+            this.Controls.Add(this.comboBoxSquareCount);
             this.Controls.Add(this.labelCount);
-            this.Controls.Add(this.texBoxCountOfCrissCrosses);
             this.Controls.Add(this.buttonCreateScheme);
             this.Controls.Add(this.pictureBoxResult);
             this.Controls.Add(this.panelColors);
@@ -187,8 +209,10 @@
         private System.Windows.Forms.Panel panelColors;
         private System.Windows.Forms.PictureBox pictureBoxResult;
         private System.Windows.Forms.Button buttonCreateScheme;
-        private System.Windows.Forms.TextBox texBoxCountOfCrissCrosses;
         private System.Windows.Forms.Label labelCount;
+        private System.Windows.Forms.ComboBox comboBoxSquareCount;
+        private System.Windows.Forms.ComboBox comboBoxResolution;
+        private System.Windows.Forms.Label Resolution;
     }
 }
 

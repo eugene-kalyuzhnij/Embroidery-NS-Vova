@@ -88,5 +88,10 @@ namespace NSEmbroidery.Core
             Height = height;
             Width = width;
         }
+
+        public override string ToString()
+        {
+            return Width.ToString() + "x" + Height.ToString();
+        }
     }
 }

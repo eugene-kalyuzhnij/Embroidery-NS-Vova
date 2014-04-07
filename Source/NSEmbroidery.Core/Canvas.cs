@@ -9,6 +9,9 @@ namespace NSEmbroidery.Core
 {
     public class Canvas : IEnumerable<Color>
     {
+
+
+
         Color[,] Color;
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -74,9 +77,14 @@ namespace NSEmbroidery.Core
                     smallPart.SetPixel(j, i, this.GetColor(_x, _y));
 
             Graphics g = Graphics.FromImage(smallPart);
-            Font font = new Font(FontFamily.GenericSansSerif, squareWidth, GraphicsUnit.Pixel);
 
-            g.DrawString(symbol.ToString(), font, Brushes.Green, new PointF(0, 0));
+
+            Font font = new Font(FontFamily.GenericSansSerif, squareWidth - 1, GraphicsUnit.Pixel);
+
+            string sym = symbol.ToString();
+            sym = sym.PadLeft(1, symbol);
+            
+            g.DrawString(sym, font, Brushes.Green, new PointF(-0.5f, -0.5f));
 
 
             Canvas innerCanvas = CanvasConverter.ConvertBitmapToCanvas(smallPart);
@@ -89,6 +97,48 @@ namespace NSEmbroidery.Core
                     Color partColor = smallPart.GetPixel(j, i);
                     this.SetColor(_x, _y, partColor);
                 }*/
+        }
+
+
+
+        public void SetBorder(int x, int y, int width, int height, Color color, Aligns align)
+        {
+
+            Canvas inner = null;
+
+            switch (align)
+            {
+                case Aligns.Left:
+                    {
+                        inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                        for (int _y = 0; _y < height; _y++)
+                            inner.SetColor(0, _y, color);
+                        break;
+                    }
+                case Aligns.Right:
+                    {
+                        inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                        for (int _y = 0; _y < height; _y++)
+                            inner.SetColor(width - 1, _y, color);
+                        break;
+                    }
+                case Aligns.Top:
+                    {
+                        inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                        for (int _x = 0; _x < width; _x++)
+                            inner.SetColor(_x, 0, color);
+                        break;
+                    }
+                case Aligns.Buttom:
+                    {
+                        inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                        for (int _x = 0; _x < width; _x++)
+                            inner.SetColor(_x, height - 1, color);
+                        break;
+                    }
+            }
+
+            this.SetCanvas(x, y, inner);
         }
 
         public void SetCanvas(int x, int y, Canvas innerCanvas)
@@ -115,7 +165,7 @@ namespace NSEmbroidery.Core
             for (int _y = y, i = 0; _y < y + resol.Height; _y++, i++)
                 for (int _x = x, j = 0; _x < x + resol.Width; _x++, j++)
                 {
-                    result.SetColor(j, i, this.GetColor(x, y));
+                    result.SetColor(j, i, this.GetColor(_x, _y));
                 }
 
             return result;
@@ -123,4 +173,13 @@ namespace NSEmbroidery.Core
         }
 
     }
+
+    public enum Aligns
+    {
+        Left = 0,
+        Right = 1,
+        Top = 2,
+        Buttom = 3
+    }
+
 }

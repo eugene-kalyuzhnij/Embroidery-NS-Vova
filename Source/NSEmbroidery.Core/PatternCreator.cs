@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NSEmbroidery.Core.Decorators;
 
 namespace NSEmbroidery.Core
 {
@@ -20,24 +21,50 @@ namespace NSEmbroidery.Core
 
         public Bitmap GetImage()
         {
-
             PatternMapGenerator map = new PatternMapGenerator();
 
             map.Settings = Settings;
-            Canvas puttern = map.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
+            Canvas pattern = map.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
 
-            Canvas result = CanvasConverter.ConvertBitmapToCanvas(CurrentImage);
+            Canvas result = new Canvas(Settings.Resolution);
 
-            IDecorator decorator = new SquaresDecorator();
-            decorator.Decorate(result, puttern);
-            SymbolsDecorator symbols = new SymbolsDecorator();
-            symbols.Settings = Settings;
-            symbols.Decorate(result, puttern);
+            DecoratorsCompositors decorator = new DecoratorsCompositors();
+            decorator.Settings = Settings;
+            decorator.AddDecorator(new SquaresDecorator());
+            decorator.AddDecorator(new SymbolsDecorator());
+            decorator.AddDecorator(new GridDecorator());
+
+            decorator.Decporate(result, pattern);
 
             CurrentImage = CanvasConverter.ConvertCanvasToBitmap(result);
 
             return CurrentImage;
-
         }
+
+
+        public List<int> GetPossibleSquareCounts()
+        {
+            int top = CurrentImage.Width;
+            List<int> result = new List<int>();
+
+            for (int i = top - 1; i != 0; i--)
+                if (top % i == 0) result.Add(i);
+
+            return result;
+        }
+
+
+        public List<Resolution> GetPossibleResolutions(int count)
+        {
+            List<Resolution> result = new List<Resolution>();
+            Resolution current = new Resolution(CurrentImage.Width, CurrentImage.Height);  
+            for (int i = 1; i <= count; i++)
+            {
+                result.Add(new Resolution(current.Width * i, current.Height * i));
+            }
+
+            return result;
+        }
+
     }
 }

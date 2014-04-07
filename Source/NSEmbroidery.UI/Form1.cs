@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using NSEmbroidery.Core;
+using System.Drawing.Imaging;
 
 namespace NSEmbroidery.UI
 {
@@ -16,11 +17,12 @@ namespace NSEmbroidery.UI
     {
         Bitmap CurrentImage { get; set; }
         PatternCreator creator;
+        List<TextBox> textBoxes;
 
         public Form1()
         {
             InitializeComponent();
-
+            textBoxes = new List<TextBox>();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,13 +43,18 @@ namespace NSEmbroidery.UI
                     {
                         using (myStream)
                         {
+
+                            DeleteAllItems(comboBoxSquareCount);
+                            DeleteAllItems(comboBoxResolution);
+                            pictureBoxResult.Image = null;
+
                             CurrentImage = new Bitmap(myStream);
                             pictureBoxCurrentImage.Image = CurrentImage;
-                            pictureBoxCurrentImage.Refresh();
 
                             creator = new PatternCreator(CurrentImage);
+                            
                             List<int> allSquare = creator.GetPossibleSquareCounts();
-                            List<Resolution> resolutions = creator.GetPossibleResolutions(3);
+                            List<Resolution> resolutions = creator.GetPossibleResolutions(5);
 
 
                             foreach (var item in allSquare)
@@ -63,6 +70,13 @@ namespace NSEmbroidery.UI
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
+        }
+
+
+        private void DeleteAllItems(ComboBox comboBox)
+        {
+            for (int i = 0; i < comboBox.Items.Count; )
+                comboBox.Items.RemoveAt(i);
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -157,15 +171,59 @@ namespace NSEmbroidery.UI
                 return;
             }
 
+            if (squareCount == 0)
+            {
+                MessageBox.Show("Choose Count of squares");
+                return;
+            }
+
+            List<Char> symbols = new List<char>();
+            foreach (var item in textBoxes)
+            {
+                try
+                {
+                    symbols.Add(Convert.ToChar(item.Text));
+                }
+                catch
+                {
+                    MessageBox.Show("Sumbols data is incorrext");
+                    return;
+                }
+            }
+
+            if (comboBoxResolution.SelectedItem == null)
+            {
+                MessageBox.Show("Choose resolution");
+                    return;
+            }
+
+            Color[] palette = this.GetColorsFromPanel();
+
+            if (palette.Length == 0)
+            {
+                MessageBox.Show("Choose palette");
+                return;
+            }
+
+
+
+            char[] masSymbols = new char[symbols.Count];
+            int i = 0;
+            foreach (var item in symbols)
+                masSymbols[i++] = item;
+
+
             Settings settings = new Settings();
             settings.Resolution = (Resolution)comboBoxResolution.SelectedItem;
-            settings.Symbols = new char[] { '@', '$', '#', '*' };
-            settings.Palette = new Palette(this.GetColorsFromPanel());
+            settings.Symbols = masSymbols;
+            settings.Palette = new Palette(palette);
             settings.SquareCount = squareCount;
-            settings.CreateColorSymbolRelation();
+
 
 
             PatternCreator creator = new PatternCreator(CurrentImage);
+            if (palette.Length <= masSymbols.Length) { creator.Symbols = true; settings.CreateColorSymbolRelation(); }
+            if (checkBoxGrid.CheckState == CheckState.Checked) creator.Grid = true;
             creator.Settings = settings;
             Bitmap res = creator.GetImage();
 
@@ -174,6 +232,88 @@ namespace NSEmbroidery.UI
 
 
 
+
+
+
+
+
+        private void addTextBox_Click(object sender, EventArgs e)
+        {
+            TextBox box = new TextBox();
+            if (textBoxes.Count == 0)
+            {
+                box.Location = new System.Drawing.Point(25, 5);
+                box.TabIndex = 0;
+            }
+            else
+            {
+              //  box.TabIndex = textBoxes.Count - 1;
+                box.Location = new System.Drawing.Point(25, textBoxes.Last().Location.Y + 25);
+            }
+            box.Name = "Symbol";
+            box.Size = new System.Drawing.Size(30, 20);
+            
+
+            addTextBox.Location = new Point(addTextBox.Location.X, addTextBox.Location.Y + 25);
+            buttonMinus.Location = new Point(buttonMinus.Location.X, buttonMinus.Location.Y + 25);
+            textBoxes.Add(box);
+            panelSymbols.Controls.Add(box);
+
+
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
+
+            if (saveFileDialog1.FileName != "")
+            {
+                System.IO.FileStream fs =
+                   (System.IO.FileStream)saveFileDialog1.OpenFile();
+ 
+                switch (saveFileDialog1.FilterIndex)
+                {
+                    case 1:
+                        this.pictureBoxResult.Image.Save(fs,
+                           System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+
+                    case 2:
+                        this.pictureBoxResult.Image.Save(fs,
+                           System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
+
+                    case 3:
+                        this.pictureBoxResult.Image.Save(fs,
+                           System.Drawing.Imaging.ImageFormat.Gif);
+                        break;
+                }
+
+                fs.Close();
+            }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (textBoxes.Count > 0)
+            {
+                panelSymbols.Controls.Remove(textBoxes.Last());
+                buttonMinus.Location = new Point(buttonMinus.Location.X, buttonMinus.Location.Y - 25);
+                addTextBox.Location = new Point(addTextBox.Location.X, addTextBox.Location.Y - 25);
+
+                textBoxes.Remove(textBoxes.Last());
+            }
+        }
 
 
 

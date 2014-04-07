@@ -43,14 +43,22 @@
             this.comboBoxSquareCount = new System.Windows.Forms.ComboBox();
             this.comboBoxResolution = new System.Windows.Forms.ComboBox();
             this.Resolution = new System.Windows.Forms.Label();
+            this.panelSymbols = new System.Windows.Forms.Panel();
+            this.addTextBox = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.checkBoxGrid = new System.Windows.Forms.CheckBox();
+            this.buttonMinus = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
+            this.panelSymbols.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOpen
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(12, 44);
+            this.buttonOpen.Location = new System.Drawing.Point(11, 49);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(75, 23);
             this.buttonOpen.TabIndex = 0;
@@ -65,7 +73,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(998, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1000, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -89,7 +97,7 @@
             // pictureBoxCurrentImage
             // 
             this.pictureBoxCurrentImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxCurrentImage.Location = new System.Drawing.Point(12, 82);
+            this.pictureBoxCurrentImage.Location = new System.Drawing.Point(11, 87);
             this.pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             this.pictureBoxCurrentImage.Size = new System.Drawing.Size(418, 389);
             this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -98,7 +106,7 @@
             // 
             // buttonChooseColor
             // 
-            this.buttonChooseColor.Location = new System.Drawing.Point(334, 44);
+            this.buttonChooseColor.Location = new System.Drawing.Point(333, 49);
             this.buttonChooseColor.Name = "buttonChooseColor";
             this.buttonChooseColor.Size = new System.Drawing.Size(96, 23);
             this.buttonChooseColor.TabIndex = 3;
@@ -109,23 +117,24 @@
             // panelColors
             // 
             this.panelColors.AutoScroll = true;
-            this.panelColors.Location = new System.Drawing.Point(451, 82);
+            this.panelColors.Location = new System.Drawing.Point(449, 54);
             this.panelColors.Name = "panelColors";
-            this.panelColors.Size = new System.Drawing.Size(50, 389);
+            this.panelColors.Size = new System.Drawing.Size(50, 202);
             this.panelColors.TabIndex = 4;
             // 
             // pictureBoxResult
             // 
             this.pictureBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxResult.Location = new System.Drawing.Point(524, 82);
+            this.pictureBoxResult.Location = new System.Drawing.Point(0, 3);
             this.pictureBoxResult.Name = "pictureBoxResult";
             this.pictureBoxResult.Size = new System.Drawing.Size(414, 389);
+            this.pictureBoxResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxResult.TabIndex = 5;
             this.pictureBoxResult.TabStop = false;
             // 
             // buttonCreateScheme
             // 
-            this.buttonCreateScheme.Location = new System.Drawing.Point(524, 44);
+            this.buttonCreateScheme.Location = new System.Drawing.Point(523, 49);
             this.buttonCreateScheme.Name = "buttonCreateScheme";
             this.buttonCreateScheme.Size = new System.Drawing.Size(96, 23);
             this.buttonCreateScheme.TabIndex = 6;
@@ -137,7 +146,7 @@
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(129, 40);
+            this.labelCount.Location = new System.Drawing.Point(128, 45);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(87, 26);
             this.labelCount.TabIndex = 8;
@@ -146,7 +155,7 @@
             // comboBoxSquareCount
             // 
             this.comboBoxSquareCount.FormattingEnabled = true;
-            this.comboBoxSquareCount.Location = new System.Drawing.Point(222, 45);
+            this.comboBoxSquareCount.Location = new System.Drawing.Point(221, 50);
             this.comboBoxSquareCount.Name = "comboBoxSquareCount";
             this.comboBoxSquareCount.Size = new System.Drawing.Size(93, 21);
             this.comboBoxSquareCount.TabIndex = 9;
@@ -154,7 +163,7 @@
             // comboBoxResolution
             // 
             this.comboBoxResolution.FormattingEnabled = true;
-            this.comboBoxResolution.Location = new System.Drawing.Point(794, 46);
+            this.comboBoxResolution.Location = new System.Drawing.Point(793, 51);
             this.comboBoxResolution.Name = "comboBoxResolution";
             this.comboBoxResolution.Size = new System.Drawing.Size(130, 21);
             this.comboBoxResolution.TabIndex = 10;
@@ -162,35 +171,101 @@
             // Resolution
             // 
             this.Resolution.AutoSize = true;
-            this.Resolution.Location = new System.Drawing.Point(731, 49);
+            this.Resolution.Location = new System.Drawing.Point(730, 54);
             this.Resolution.Name = "Resolution";
             this.Resolution.Size = new System.Drawing.Size(57, 13);
             this.Resolution.TabIndex = 11;
             this.Resolution.Text = "Resolution";
             // 
+            // panelSymbols
+            // 
+            this.panelSymbols.AutoScroll = true;
+            this.panelSymbols.Controls.Add(this.buttonMinus);
+            this.panelSymbols.Controls.Add(this.addTextBox);
+            this.panelSymbols.Location = new System.Drawing.Point(435, 262);
+            this.panelSymbols.Name = "panelSymbols";
+            this.panelSymbols.Size = new System.Drawing.Size(82, 270);
+            this.panelSymbols.TabIndex = 5;
+            // 
+            // addTextBox
+            // 
+            this.addTextBox.Location = new System.Drawing.Point(3, 3);
+            this.addTextBox.Name = "addTextBox";
+            this.addTextBox.Size = new System.Drawing.Size(28, 23);
+            this.addTextBox.TabIndex = 1;
+            this.addTextBox.Text = "+";
+            this.addTextBox.UseVisualStyleBackColor = true;
+            this.addTextBox.Click += new System.EventHandler(this.addTextBox_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBoxResult);
+            this.panel1.Location = new System.Drawing.Point(524, 82);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(435, 411);
+            this.panel1.TabIndex = 12;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(524, 509);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 13;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // checkBoxGrid
+            // 
+            this.checkBoxGrid.AutoSize = true;
+            this.checkBoxGrid.Location = new System.Drawing.Point(221, 27);
+            this.checkBoxGrid.Name = "checkBoxGrid";
+            this.checkBoxGrid.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxGrid.TabIndex = 14;
+            this.checkBoxGrid.Text = "Grid";
+            this.checkBoxGrid.UseVisualStyleBackColor = true;
+            // 
+            // buttonMinus
+            // 
+            this.buttonMinus.Location = new System.Drawing.Point(49, 3);
+            this.buttonMinus.Name = "buttonMinus";
+            this.buttonMinus.Size = new System.Drawing.Size(30, 23);
+            this.buttonMinus.TabIndex = 2;
+            this.buttonMinus.Text = "-";
+            this.buttonMinus.UseVisualStyleBackColor = true;
+            this.buttonMinus.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 539);
+            this.ClientSize = new System.Drawing.Size(1000, 549);
+            this.Controls.Add(this.checkBoxGrid);
+            this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.panelSymbols);
             this.Controls.Add(this.Resolution);
             this.Controls.Add(this.comboBoxResolution);
             this.Controls.Add(this.comboBoxSquareCount);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.buttonCreateScheme);
-            this.Controls.Add(this.pictureBoxResult);
             this.Controls.Add(this.panelColors);
             this.Controls.Add(this.buttonChooseColor);
             this.Controls.Add(this.pictureBoxCurrentImage);
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).EndInit();
+            this.panelSymbols.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +288,12 @@
         private System.Windows.Forms.ComboBox comboBoxSquareCount;
         private System.Windows.Forms.ComboBox comboBoxResolution;
         private System.Windows.Forms.Label Resolution;
+        private System.Windows.Forms.Panel panelSymbols;
+        private System.Windows.Forms.Button addTextBox;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.CheckBox checkBoxGrid;
+        private System.Windows.Forms.Button buttonMinus;
     }
 }
 

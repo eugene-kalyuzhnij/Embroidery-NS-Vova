@@ -41,6 +41,7 @@ namespace NSEmbroidery.Core
         public Palette Palette { get; set; }
         public Dictionary<Color, Char> ColorSymbolRelation;
         public Color SymbolColor { get; set; }
+        public GridType GridType { get; set; }
 
         public int GetResolutionWidth()
         {
@@ -94,5 +95,12 @@ namespace NSEmbroidery.Core
         {
             return Width.ToString() + "x" + Height.ToString();
         }
+    }
+
+
+
+    public enum GridType
+    {
+        SolidLine
     }
 }

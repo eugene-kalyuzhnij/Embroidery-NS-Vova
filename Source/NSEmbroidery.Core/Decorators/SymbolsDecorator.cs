@@ -15,7 +15,7 @@ namespace NSEmbroidery.Core.Decorators
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
             int squareWidth = embroidery.Width / Settings.SquareCount;
-            if (embroidery.Height < Settings.SquareCount * squareWidth)
+            if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
 
             try

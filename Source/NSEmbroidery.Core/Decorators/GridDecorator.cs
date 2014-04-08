@@ -15,7 +15,7 @@ namespace NSEmbroidery.Core.Decorators
         {
             int squareWidth = embroidery.Width / Settings.SquareCount;
 
-            if (embroidery.Height < Settings.SquareCount * squareWidth)
+            if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
 
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)

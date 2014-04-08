@@ -82,14 +82,13 @@ namespace NSEmbroidery.Core
             Graphics g = Graphics.FromImage(smallPart);
 
 
-            Font font = new Font(FontFamily.GenericSansSerif, squareWidth - 1, GraphicsUnit.Pixel);
-
+            Font font = new Font("Arial", squareWidth - 1, GraphicsUnit.Pixel);
             string sym = symbol.ToString();
             sym = sym.PadLeft(1, symbol);
 
             SolidBrush brush = new SolidBrush(color);
 
-            g.DrawString(sym, font, brush, new PointF(-0.5f, -1f));
+            g.DrawString(sym, font, brush, new PointF(0f, 0f));
 
 
             Canvas innerCanvas = CanvasConverter.ConvertBitmapToCanvas(smallPart);

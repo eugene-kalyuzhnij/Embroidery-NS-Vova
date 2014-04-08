@@ -106,19 +106,13 @@ namespace NSEmbroidery.Core
             {
                 if (current.Width % i == 0)
                 {
-                    int newResol = current.Width / i;
-                    int differ = current.Width - newResol;
-                    result.Add(new Resolution(current.Width / i, current.Height - differ));
+                    result.Add(new Resolution(current.Width / i, current.Height / i));
                 }
 
             }
 
             for (int i = 1; i <= count; i++)
-            {
-                    int newResol = current.Width * i;
-                    int differ = newResol - current.Width;
-                    result.Add(new Resolution(current.Width * i, current.Height + differ));
-            }
+                    result.Add(new Resolution(current.Width * i, current.Height * i));
 
             return result;
         }

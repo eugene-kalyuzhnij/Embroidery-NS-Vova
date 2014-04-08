@@ -59,7 +59,7 @@ namespace NSEmbroidery.UI
                             creator = new PatternCreator(CurrentImage);
                             
                             List<int> allSquare = creator.GetPossibleSquareCounts();
-                            List<Resolution> resolutions = creator.GetPossibleResolutions(5);
+                            List<Resolution> resolutions = creator.GetPossibleResolutions(6);
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
                             foreach (var item in allSquare)

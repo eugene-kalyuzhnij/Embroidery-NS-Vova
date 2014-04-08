@@ -16,7 +16,7 @@ namespace NSEmbroidery.Core
             get{return colors.Count;}
         }
 
-        public List<Color> GetAllColors()
+        public List<Color> GetAllColorsList()
         {
             return colors;
         }
@@ -37,6 +37,15 @@ namespace NSEmbroidery.Core
         public Palette(List<Color> colors)
         {
             this.colors = colors;
+        }
+
+        public Color[] GetAllColors()
+        {
+            Color[] result = new Color[Count];
+            for (int i = 0; i < Count; i++)
+                result[i] = colors[i];
+
+            return result;
         }
 
         

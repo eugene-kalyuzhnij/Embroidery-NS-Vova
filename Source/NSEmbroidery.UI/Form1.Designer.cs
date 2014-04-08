@@ -44,11 +44,14 @@
             this.comboBoxResolution = new System.Windows.Forms.ComboBox();
             this.Resolution = new System.Windows.Forms.Label();
             this.panelSymbols = new System.Windows.Forms.Panel();
+            this.buttonMinus = new System.Windows.Forms.Button();
             this.addTextBox = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.checkBoxGrid = new System.Windows.Forms.CheckBox();
-            this.buttonMinus = new System.Windows.Forms.Button();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
+            this.labelresolution = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
@@ -187,6 +190,16 @@
             this.panelSymbols.Size = new System.Drawing.Size(82, 270);
             this.panelSymbols.TabIndex = 5;
             // 
+            // buttonMinus
+            // 
+            this.buttonMinus.Location = new System.Drawing.Point(49, 3);
+            this.buttonMinus.Name = "buttonMinus";
+            this.buttonMinus.Size = new System.Drawing.Size(30, 23);
+            this.buttonMinus.TabIndex = 2;
+            this.buttonMinus.Text = "-";
+            this.buttonMinus.UseVisualStyleBackColor = true;
+            this.buttonMinus.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // addTextBox
             // 
             this.addTextBox.Location = new System.Drawing.Point(3, 3);
@@ -226,21 +239,37 @@
             this.checkBoxGrid.Text = "Grid";
             this.checkBoxGrid.UseVisualStyleBackColor = true;
             // 
-            // buttonMinus
+            // textBoxWidth
             // 
-            this.buttonMinus.Location = new System.Drawing.Point(49, 3);
-            this.buttonMinus.Name = "buttonMinus";
-            this.buttonMinus.Size = new System.Drawing.Size(30, 23);
-            this.buttonMinus.TabIndex = 2;
-            this.buttonMinus.Text = "-";
-            this.buttonMinus.UseVisualStyleBackColor = true;
-            this.buttonMinus.Click += new System.EventHandler(this.button1_Click_1);
+            this.textBoxWidth.Location = new System.Drawing.Point(635, 27);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(44, 20);
+            this.textBoxWidth.TabIndex = 15;
+            // 
+            // textBoxHeight
+            // 
+            this.textBoxHeight.Location = new System.Drawing.Point(685, 27);
+            this.textBoxHeight.Name = "textBoxHeight";
+            this.textBoxHeight.Size = new System.Drawing.Size(44, 20);
+            this.textBoxHeight.TabIndex = 16;
+            // 
+            // labelresolution
+            // 
+            this.labelresolution.AutoSize = true;
+            this.labelresolution.Location = new System.Drawing.Point(551, 28);
+            this.labelresolution.Name = "labelresolution";
+            this.labelresolution.Size = new System.Drawing.Size(35, 13);
+            this.labelresolution.TabIndex = 17;
+            this.labelresolution.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 549);
+            this.Controls.Add(this.labelresolution);
+            this.Controls.Add(this.textBoxHeight);
+            this.Controls.Add(this.textBoxWidth);
             this.Controls.Add(this.checkBoxGrid);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.panelSymbols);
@@ -294,6 +323,9 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.CheckBox checkBoxGrid;
         private System.Windows.Forms.Button buttonMinus;
+        private System.Windows.Forms.TextBox textBoxWidth;
+        private System.Windows.Forms.TextBox textBoxHeight;
+        private System.Windows.Forms.Label labelresolution;
     }
 }
 

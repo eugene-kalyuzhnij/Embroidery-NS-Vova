@@ -51,6 +51,8 @@ namespace NSEmbroidery.UI
                             CurrentImage = new Bitmap(myStream);
                             pictureBoxCurrentImage.Image = CurrentImage;
 
+                            labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
+
                             creator = new PatternCreator(CurrentImage);
                             
                             List<int> allSquare = creator.GetPossibleSquareCounts();
@@ -191,11 +193,11 @@ namespace NSEmbroidery.UI
                 }
             }
 
-            if (comboBoxResolution.SelectedItem == null)
-            {
-                MessageBox.Show("Choose resolution");
-                    return;
-            }
+            //if (comboBoxResolution.SelectedItem == null)
+           // {
+            //    MessageBox.Show("Choose resolution");
+             //       return;
+           // }
 
             Color[] palette = this.GetColorsFromPanel();
 
@@ -205,6 +207,18 @@ namespace NSEmbroidery.UI
                 return;
             }
 
+            int width;
+            int height;
+            try
+            {
+               width = Convert.ToInt32(textBoxWidth.Text);
+               height = Convert.ToInt32(textBoxHeight.Text);
+            }
+            catch
+            {
+                MessageBox.Show("With and height have to be initialized");
+                return;
+            }
 
 
             char[] masSymbols = new char[symbols.Count];
@@ -212,22 +226,22 @@ namespace NSEmbroidery.UI
             foreach (var item in symbols)
                 masSymbols[i++] = item;
 
-
-            Settings settings = new Settings();
-            settings.Resolution = (Resolution)comboBoxResolution.SelectedItem;
-            settings.Symbols = masSymbols;
-            settings.Palette = new Palette(palette);
-            settings.SquareCount = squareCount;
-
-
-
             PatternCreator creator = new PatternCreator(CurrentImage);
-            if (palette.Length <= masSymbols.Length) { creator.Symbols = true; settings.CreateColorSymbolRelation(); }
-            if (checkBoxGrid.CheckState == CheckState.Checked) creator.Grid = true;
-            creator.Settings = settings;
-            Bitmap res = creator.GetImage();
+            if (palette.Length <= masSymbols.Length)
+            {
+                creator.SymbolsFlag = true;
+                creator.Symbols = masSymbols;
+            }
+            if (checkBoxGrid.CheckState == CheckState.Checked) 
+                creator.GridFlag = true;
 
-            pictureBoxResult.Image = res;
+            creator.SquareCount = squareCount;
+            creator.Resolution = new Resolution(width, height);
+            creator.Palette = palette;
+
+            Bitmap result = creator.GetImage();
+
+            pictureBoxResult.Image = result;
         }
 
 

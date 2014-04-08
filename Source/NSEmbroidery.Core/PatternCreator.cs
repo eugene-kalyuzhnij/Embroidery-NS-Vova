@@ -51,6 +51,12 @@ namespace NSEmbroidery.Core
             set { Settings.Resolution = value; }
         }
 
+        public Color SymbolColor
+        {
+            get { return Settings.SymbolColor; }
+            set { Settings.SymbolColor = value; }
+        }
+
 
         public Bitmap GetImage()
         {
@@ -94,10 +100,24 @@ namespace NSEmbroidery.Core
         public List<Resolution> GetPossibleResolutions(int count)//Don't work correctly
         {
             List<Resolution> result = new List<Resolution>();
-            Resolution current = new Resolution(CurrentImage.Width, CurrentImage.Height);  
+            Resolution current = new Resolution(CurrentImage.Width, CurrentImage.Height);
+
+            for (int i = count; i >= 2; i--)
+            {
+                if (current.Width % i == 0)
+                {
+                    int newResol = current.Width / i;
+                    int differ = current.Width - newResol;
+                    result.Add(new Resolution(current.Width / i, current.Height - differ));
+                }
+
+            }
+
             for (int i = 1; i <= count; i++)
             {
-                result.Add(new Resolution(current.Width * i, current.Height * i));
+                    int newResol = current.Width * i;
+                    int differ = newResol - current.Width;
+                    result.Add(new Resolution(current.Width * i, current.Height + differ));
             }
 
             return result;

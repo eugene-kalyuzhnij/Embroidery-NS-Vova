@@ -31,12 +31,15 @@ namespace NSEmbroidery.Core.Decorators
                 throw new NullReferenceException(e.Message);
             }
 
-
-            for(int squareY = 0, puttrenY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, puttrenY++)
-                for (int squareX = 0, putternX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth, putternX++)
+            Color symbolColor;
+            if(Settings.SymbolColor == Color.Empty) symbolColor = Color.Black;
+            else symbolColor = Settings.SymbolColor;
+                
+            for(int squareY = 0, patternY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, patternY++)
+                for (int squareX = 0, patternX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth, patternX++)
                 {
-                    char symbol = GetSymbol(pattern.GetColor(putternX, puttrenY));
-                    embroidery.SetSymbol(symbol, squareX, squareY, squareWidth);
+                    char symbol = GetSymbol(pattern.GetColor(patternX, patternY));
+                    embroidery.SetSymbol(symbol, squareX, squareY, squareWidth, symbolColor);
                 }
         }
 

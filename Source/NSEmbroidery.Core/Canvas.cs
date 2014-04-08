@@ -70,7 +70,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        public void SetSymbol(char symbol, int x, int y, int squareWidth)
+        public void SetSymbol(char symbol, int x, int y, int squareWidth, Color color)
         {
 
             Bitmap smallPart = new Bitmap(squareWidth, squareWidth);
@@ -86,8 +86,10 @@ namespace NSEmbroidery.Core
 
             string sym = symbol.ToString();
             sym = sym.PadLeft(1, symbol);
-            
-            g.DrawString(sym, font, Brushes.Green, new PointF(-0.5f, -0.5f));
+
+            SolidBrush brush = new SolidBrush(color);
+
+            g.DrawString(sym, font, brush, new PointF(-0.5f, -1f));
 
 
             Canvas innerCanvas = CanvasConverter.ConvertBitmapToCanvas(smallPart);

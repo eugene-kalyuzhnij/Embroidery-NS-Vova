@@ -9,10 +9,14 @@ namespace NSEmbroidery.Core.Decorators
 {
     class GridDecorator : IDecorator
     {
+        public Settings Settings { get; set; }
+
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
-            int squareWidth = embroidery.Width / pattern.Width;
+            int squareWidth = embroidery.Width / Settings.SquareCount;
 
+            if (embroidery.Height < Settings.SquareCount * squareWidth)
+                throw new WrongResolutionException("Resolution.Height has to be higher");
 
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)
                 for (int squareX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth)

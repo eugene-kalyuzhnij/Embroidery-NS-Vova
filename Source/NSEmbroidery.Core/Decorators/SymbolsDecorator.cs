@@ -14,7 +14,22 @@ namespace NSEmbroidery.Core.Decorators
 
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
-            int squareWidth = embroidery.Width / pattern.Width;
+            int squareWidth = embroidery.Width / Settings.SquareCount;
+            if (embroidery.Height < Settings.SquareCount * squareWidth)
+                throw new WrongResolutionException("Resolution.Height has to be higher");
+
+            try
+            {
+                Settings.CreateColorSymbolRelation();
+            }
+            catch (WrongSymbolsRealisationException e)
+            {
+                throw new WrongSymbolsRealisationException(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException(e.Message);
+            }
 
 
             for(int squareY = 0, puttrenY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, puttrenY++)

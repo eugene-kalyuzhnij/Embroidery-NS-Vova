@@ -21,12 +21,11 @@ namespace NSEmbroidery.Core.Decorators
             Decorators.Add(decorator);
         }
 
-        public void Decporate(Canvas embroidery, Canvas pattern)
+        public void Decorate(Canvas embroidery, Canvas pattern)
         {
             foreach (var item in Decorators)
             {
-                var decor = item as SymbolsDecorator;
-                if (decor != null) decor.Settings = Settings;
+                item.Settings = Settings;
                 item.Decorate(embroidery, pattern);
             }
         }

@@ -9,5 +9,6 @@ namespace NSEmbroidery.Core.Decorators
     public interface IDecorator
     {
         void Decorate(Canvas embroidery, Canvas pattern);
+        Settings Settings { get; set; }
     }
 }

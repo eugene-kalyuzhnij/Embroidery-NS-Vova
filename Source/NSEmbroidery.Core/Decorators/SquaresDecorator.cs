@@ -8,12 +8,14 @@ namespace NSEmbroidery.Core.Decorators
 {
     public class SquaresDecorator : IDecorator
     {
+        public Settings Settings { get; set; }
+
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
+            int squareWidth = embroidery.Width / Settings.SquareCount;
 
-
-            int squareWidth = checked(embroidery.Width / pattern.Width);
-
+            if (embroidery.Height < Settings.SquareCount * squareWidth)
+                throw new WrongResolutionException("Resolution.Height has to be higher");
 
             int newX = 0;
             int newY = 0;
@@ -32,7 +34,9 @@ namespace NSEmbroidery.Core.Decorators
                 newY += squareWidth;
                 newX = 0;
             }
-            
+  
         }
+
+
     }
 }

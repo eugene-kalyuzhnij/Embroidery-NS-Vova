@@ -40,6 +40,7 @@ namespace NSEmbroidery.Core
         public char[] Symbols { get; set; }
         public Palette Palette { get; set; }
         public Dictionary<Color, Char> ColorSymbolRelation;
+        public Color SymbolColor { get; set; }
 
         public int GetResolutionWidth()
         {

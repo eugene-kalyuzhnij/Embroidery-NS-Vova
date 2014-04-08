@@ -18,6 +18,7 @@ namespace NSEmbroidery.UI
         Bitmap CurrentImage { get; set; }
         PatternCreator creator;
         List<TextBox> textBoxes;
+        Color SymbolColor;
 
         public Form1()
         {
@@ -53,11 +54,13 @@ namespace NSEmbroidery.UI
 
                             labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
 
+
+/*--------------------using dll here--------------------------------------------------------------------------------------------------*/
                             creator = new PatternCreator(CurrentImage);
                             
                             List<int> allSquare = creator.GetPossibleSquareCounts();
                             List<Resolution> resolutions = creator.GetPossibleResolutions(5);
-
+/*------------------------------------------------------------------------------------------------------------------------------------*/
 
                             foreach (var item in allSquare)
                                 comboBoxSquareCount.Items.Add(item);
@@ -95,7 +98,7 @@ namespace NSEmbroidery.UI
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 AddColorToPanelColor(MyDialog.Color);
         }
-
+        
 
         private void AddColorToPanelColor(Color color)
         {
@@ -193,11 +196,11 @@ namespace NSEmbroidery.UI
                 }
             }
 
-            //if (comboBoxResolution.SelectedItem == null)
-           // {
-            //    MessageBox.Show("Choose resolution");
-             //       return;
-           // }
+            if (comboBoxResolution.SelectedItem == null)
+            {
+                MessageBox.Show("Choose resolution");
+                    return;
+            }
 
             Color[] palette = this.GetColorsFromPanel();
 
@@ -207,26 +210,15 @@ namespace NSEmbroidery.UI
                 return;
             }
 
-            int width;
-            int height;
-            try
-            {
-               width = Convert.ToInt32(textBoxWidth.Text);
-               height = Convert.ToInt32(textBoxHeight.Text);
-            }
-            catch
-            {
-                MessageBox.Show("With and height have to be initialized");
-                return;
-            }
-
 
             char[] masSymbols = new char[symbols.Count];
             int i = 0;
             foreach (var item in symbols)
                 masSymbols[i++] = item;
 
-            PatternCreator creator = new PatternCreator(CurrentImage);
+
+ /*--------------------using dll here------------------------------------------------*/
+            creator = new PatternCreator(CurrentImage);
             if (palette.Length <= masSymbols.Length)
             {
                 creator.SymbolsFlag = true;
@@ -235,11 +227,13 @@ namespace NSEmbroidery.UI
             if (checkBoxGrid.CheckState == CheckState.Checked) 
                 creator.GridFlag = true;
 
+            creator.SymbolColor = SymbolColor;
             creator.SquareCount = squareCount;
-            creator.Resolution = new Resolution(width, height);
+            creator.Resolution = (Resolution)comboBoxResolution.SelectedItem;
             creator.Palette = palette;
 
             Bitmap result = creator.GetImage();
+/*-----------------------------------------------------------------------------------*/
 
             pictureBoxResult.Image = result;
         }
@@ -327,6 +321,17 @@ namespace NSEmbroidery.UI
 
                 textBoxes.Remove(textBoxes.Last());
             }
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            MyDialog.AllowFullOpen = false;
+            MyDialog.ShowHelp = true;
+            MyDialog.Color = Color.FromArgb(255, 255, 128, 128);
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+                SymbolColor = MyDialog.Color;
+                
         }
 
 

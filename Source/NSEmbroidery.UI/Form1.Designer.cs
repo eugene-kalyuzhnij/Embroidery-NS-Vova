@@ -49,9 +49,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.checkBoxGrid = new System.Windows.Forms.CheckBox();
-            this.textBoxWidth = new System.Windows.Forms.TextBox();
-            this.textBoxHeight = new System.Windows.Forms.TextBox();
             this.labelresolution = new System.Windows.Forms.Label();
+            this.buttonSymbolColor = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
@@ -61,7 +60,7 @@
             // 
             // buttonOpen
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(11, 49);
+            this.buttonOpen.Location = new System.Drawing.Point(12, 47);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(75, 23);
             this.buttonOpen.TabIndex = 0;
@@ -100,7 +99,7 @@
             // pictureBoxCurrentImage
             // 
             this.pictureBoxCurrentImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxCurrentImage.Location = new System.Drawing.Point(11, 87);
+            this.pictureBoxCurrentImage.Location = new System.Drawing.Point(12, 85);
             this.pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             this.pictureBoxCurrentImage.Size = new System.Drawing.Size(418, 389);
             this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -109,7 +108,7 @@
             // 
             // buttonChooseColor
             // 
-            this.buttonChooseColor.Location = new System.Drawing.Point(333, 49);
+            this.buttonChooseColor.Location = new System.Drawing.Point(334, 47);
             this.buttonChooseColor.Name = "buttonChooseColor";
             this.buttonChooseColor.Size = new System.Drawing.Size(96, 23);
             this.buttonChooseColor.TabIndex = 3;
@@ -120,7 +119,7 @@
             // panelColors
             // 
             this.panelColors.AutoScroll = true;
-            this.panelColors.Location = new System.Drawing.Point(449, 54);
+            this.panelColors.Location = new System.Drawing.Point(450, 52);
             this.panelColors.Name = "panelColors";
             this.panelColors.Size = new System.Drawing.Size(50, 202);
             this.panelColors.TabIndex = 4;
@@ -137,7 +136,7 @@
             // 
             // buttonCreateScheme
             // 
-            this.buttonCreateScheme.Location = new System.Drawing.Point(523, 49);
+            this.buttonCreateScheme.Location = new System.Drawing.Point(524, 47);
             this.buttonCreateScheme.Name = "buttonCreateScheme";
             this.buttonCreateScheme.Size = new System.Drawing.Size(96, 23);
             this.buttonCreateScheme.TabIndex = 6;
@@ -149,7 +148,7 @@
             // labelCount
             // 
             this.labelCount.AutoSize = true;
-            this.labelCount.Location = new System.Drawing.Point(128, 45);
+            this.labelCount.Location = new System.Drawing.Point(129, 43);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(87, 26);
             this.labelCount.TabIndex = 8;
@@ -158,7 +157,7 @@
             // comboBoxSquareCount
             // 
             this.comboBoxSquareCount.FormattingEnabled = true;
-            this.comboBoxSquareCount.Location = new System.Drawing.Point(221, 50);
+            this.comboBoxSquareCount.Location = new System.Drawing.Point(222, 48);
             this.comboBoxSquareCount.Name = "comboBoxSquareCount";
             this.comboBoxSquareCount.Size = new System.Drawing.Size(93, 21);
             this.comboBoxSquareCount.TabIndex = 9;
@@ -166,7 +165,7 @@
             // comboBoxResolution
             // 
             this.comboBoxResolution.FormattingEnabled = true;
-            this.comboBoxResolution.Location = new System.Drawing.Point(793, 51);
+            this.comboBoxResolution.Location = new System.Drawing.Point(794, 49);
             this.comboBoxResolution.Name = "comboBoxResolution";
             this.comboBoxResolution.Size = new System.Drawing.Size(130, 21);
             this.comboBoxResolution.TabIndex = 10;
@@ -174,7 +173,7 @@
             // Resolution
             // 
             this.Resolution.AutoSize = true;
-            this.Resolution.Location = new System.Drawing.Point(730, 54);
+            this.Resolution.Location = new System.Drawing.Point(731, 52);
             this.Resolution.Name = "Resolution";
             this.Resolution.Size = new System.Drawing.Size(57, 13);
             this.Resolution.TabIndex = 11;
@@ -185,7 +184,7 @@
             this.panelSymbols.AutoScroll = true;
             this.panelSymbols.Controls.Add(this.buttonMinus);
             this.panelSymbols.Controls.Add(this.addTextBox);
-            this.panelSymbols.Location = new System.Drawing.Point(435, 262);
+            this.panelSymbols.Location = new System.Drawing.Point(436, 260);
             this.panelSymbols.Name = "panelSymbols";
             this.panelSymbols.Size = new System.Drawing.Size(82, 270);
             this.panelSymbols.TabIndex = 5;
@@ -221,7 +220,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(524, 509);
+            this.buttonSave.Location = new System.Drawing.Point(525, 507);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 13;
@@ -232,44 +231,39 @@
             // checkBoxGrid
             // 
             this.checkBoxGrid.AutoSize = true;
-            this.checkBoxGrid.Location = new System.Drawing.Point(221, 27);
+            this.checkBoxGrid.Location = new System.Drawing.Point(222, 25);
             this.checkBoxGrid.Name = "checkBoxGrid";
             this.checkBoxGrid.Size = new System.Drawing.Size(45, 17);
             this.checkBoxGrid.TabIndex = 14;
             this.checkBoxGrid.Text = "Grid";
             this.checkBoxGrid.UseVisualStyleBackColor = true;
             // 
-            // textBoxWidth
-            // 
-            this.textBoxWidth.Location = new System.Drawing.Point(635, 27);
-            this.textBoxWidth.Name = "textBoxWidth";
-            this.textBoxWidth.Size = new System.Drawing.Size(44, 20);
-            this.textBoxWidth.TabIndex = 15;
-            // 
-            // textBoxHeight
-            // 
-            this.textBoxHeight.Location = new System.Drawing.Point(685, 27);
-            this.textBoxHeight.Name = "textBoxHeight";
-            this.textBoxHeight.Size = new System.Drawing.Size(44, 20);
-            this.textBoxHeight.TabIndex = 16;
-            // 
             // labelresolution
             // 
             this.labelresolution.AutoSize = true;
-            this.labelresolution.Location = new System.Drawing.Point(551, 28);
+            this.labelresolution.Location = new System.Drawing.Point(791, 29);
             this.labelresolution.Name = "labelresolution";
             this.labelresolution.Size = new System.Drawing.Size(35, 13);
             this.labelresolution.TabIndex = 17;
             this.labelresolution.Text = "label1";
+            // 
+            // buttonSymbolColor
+            // 
+            this.buttonSymbolColor.Location = new System.Drawing.Point(334, 480);
+            this.buttonSymbolColor.Name = "buttonSymbolColor";
+            this.buttonSymbolColor.Size = new System.Drawing.Size(96, 23);
+            this.buttonSymbolColor.TabIndex = 18;
+            this.buttonSymbolColor.Text = "Symbol Color";
+            this.buttonSymbolColor.UseVisualStyleBackColor = true;
+            this.buttonSymbolColor.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 549);
+            this.Controls.Add(this.buttonSymbolColor);
             this.Controls.Add(this.labelresolution);
-            this.Controls.Add(this.textBoxHeight);
-            this.Controls.Add(this.textBoxWidth);
             this.Controls.Add(this.checkBoxGrid);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.panelSymbols);
@@ -323,9 +317,8 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.CheckBox checkBoxGrid;
         private System.Windows.Forms.Button buttonMinus;
-        private System.Windows.Forms.TextBox textBoxWidth;
-        private System.Windows.Forms.TextBox textBoxHeight;
         private System.Windows.Forms.Label labelresolution;
+        private System.Windows.Forms.Button buttonSymbolColor;
     }
 }
 

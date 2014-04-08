@@ -36,6 +36,9 @@ namespace NSEmbroidery.Core
 
         public Canvas(Resolution resolution)
         {
+            if (resolution == null)
+                throw new NotInitializedException("Resolution is not initialized");
+
             Width = resolution.Width;
             Height = resolution.Height;
             Color = new Color[Height, Width];

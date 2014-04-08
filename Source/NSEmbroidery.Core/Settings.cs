@@ -59,10 +59,10 @@ namespace NSEmbroidery.Core
             if (Symbols == null)
                 throw new NullReferenceException("Object Symbols is null");
             if (Symbols.Length < Palette.Count)
-                throw new WrongFieldException("symbols have to be more than colors in palette");
+                throw new WrongSymbolsRealisationException("Symbols have to be more than colors");
 
             ColorSymbolRelation = new Dictionary<Color,char>();
-            List<Color> colors = Palette.GetAllColors();
+            List<Color> colors = Palette.GetAllColorsList();
 
             for (int i = 0; i < Palette.Count; i++)
                 ColorSymbolRelation.Add(colors[i], Symbols[i]);

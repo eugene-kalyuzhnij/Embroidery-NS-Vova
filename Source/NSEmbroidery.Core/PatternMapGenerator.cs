@@ -24,13 +24,13 @@ namespace NSEmbroidery.Core
             if (Settings.Palette == null || Settings.Palette.Count == 0)
                 throw new NullReferenceException("Check that Palette isn't null or it has any colors");
             if (Settings.SquareCount <= 0)
-                throw new WrongFieldException("SquareCount field is wrong");
+                throw new NotInitializedException("Square count has to be initialized and inherent");
 
             int ratio = canvas.Width / Settings.SquareCount;
 
             Canvas tempCanvas = ReduceResolution(canvas, ratio);
 
-            List<Color> colors = Settings.Palette.GetAllColors();
+            List<Color> colors = Settings.Palette.GetAllColorsList();
             int width = tempCanvas.Width;
             int height = tempCanvas.Height;
 

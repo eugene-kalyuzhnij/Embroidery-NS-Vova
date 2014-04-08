@@ -12,40 +12,70 @@ namespace NSEmbroidery.Core
     {
 
         private Bitmap CurrentImage;
-        public Settings Settings{get; set;}
-        public bool Symbols{get; set;}
-        public bool Grid { get; set; }
+        Settings Settings{get; set;}
+        public bool SymbolsFlag{get; set;}
+        public bool GridFlag { get; set; }
+        public bool ColorFlag { get; set; }
 
         public PatternCreator(Bitmap image)
         {
             CurrentImage = image;
+            Settings = new Core.Settings();
 
-            Symbols = false;
-            Grid = false;
+            ColorFlag = true;
+            SymbolsFlag = false;
+            GridFlag = false;
         }
+
+
+        public int SquareCount { 
+            get { return Settings.SquareCount; }
+            set { Settings.SquareCount = value; }
+        }
+
+        public Color[] Palette
+        {
+            get { return Settings.Palette.GetAllColors(); }
+            set { Settings.Palette = new Palette(value); }
+        }
+
+        public Char[] Symbols
+        {
+            get { return Settings.Symbols; }
+            set { Settings.Symbols = value; }
+        }
+
+        public Resolution Resolution
+        {
+            get{return Settings.Resolution;}
+            set { Settings.Resolution = value; }
+        }
+
 
         public Bitmap GetImage()
         {
-            PatternMapGenerator map = new PatternMapGenerator();
 
-            map.Settings = Settings;
-            Canvas pattern = map.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
+            PatternMapGenerator mapGenerator = new PatternMapGenerator();
 
-            Canvas result = new Canvas(Settings.Resolution);
+            mapGenerator.Settings = Settings;
+            Canvas pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
 
             DecoratorsCompositors decorator = new DecoratorsCompositors();
             decorator.Settings = Settings;
-            decorator.AddDecorator(new SquaresDecorator());
-            if(Symbols)
+
+            if(ColorFlag)
+                decorator.AddDecorator(new SquaresDecorator());
+            if(SymbolsFlag)
                 decorator.AddDecorator(new SymbolsDecorator());
-            if(Grid)
+            if(GridFlag)
                 decorator.AddDecorator(new GridDecorator());
 
-            decorator.Decporate(result, pattern);
+            if (Settings.Resolution == null) throw new NullReferenceException("Resolution is null");
 
-            CurrentImage = CanvasConverter.ConvertCanvasToBitmap(result);
+            Canvas result = new Canvas(Settings.Resolution);
+            decorator.Decorate(result, pattern);
 
-            return CurrentImage;
+            return CanvasConverter.ConvertCanvasToBitmap(result);
         }
 
 
@@ -61,7 +91,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        public List<Resolution> GetPossibleResolutions(int count)
+        public List<Resolution> GetPossibleResolutions(int count)//Don't work correctly
         {
             List<Resolution> result = new List<Resolution>();
             Resolution current = new Resolution(CurrentImage.Width, CurrentImage.Height);  

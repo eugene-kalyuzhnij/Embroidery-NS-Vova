@@ -21,32 +21,19 @@ namespace NSEmbroidery.Core
     }
 
 
-    public class WrongColorRealisarionException : ApplicationException
+    public class NotInitializedException : ApplicationException
     {
-        public WrongColorRealisarionException()
+        public NotInitializedException()
             : base()
         {
         }
 
-        public WrongColorRealisarionException(string msg)
+        public NotInitializedException(string msg)
             : base(msg)
         {
         }
     }
 
-
-    public class WrongFieldException : ApplicationException
-    {
-        public WrongFieldException()
-            : base()
-        {
-        }
-
-        public WrongFieldException(string msg)
-            : base(msg)
-        {
-        }
-    }
 
     public class WrongResolutionException : ApplicationException
     {

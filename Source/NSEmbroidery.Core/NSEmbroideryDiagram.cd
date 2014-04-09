@@ -3,7 +3,7 @@
   <Class Name="NSEmbroidery.Core.Settings" Collapsed="true">
     <Position X="3.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAUIAAAABAAAAAAAAAACQQEAAAACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAUIAAAABAAAIAAAAAACQQEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,11 +24,11 @@
       <FileName>PatternMapGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NSEmbroidery.Core.Decorators.SquaresDecorator" Collapsed="true">
+  <Class Name="NSEmbroidery.Core.Decorators.CellsDecorator" Collapsed="true">
     <Position X="8.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAA=</HashCode>
-      <FileName>Decorators\SquaresDecorator.cs</FileName>
+      <FileName>Decorators\CellsDecorator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -62,7 +62,7 @@
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAIBAAAIAAAgAACEAAEAAEAAAgAAAAAAAIAA=</HashCode>
+      <HashCode>AAAAQAAAAIBAAAIAAAgAACEQAEAAEAAAgAAAAAAAIAA=</HashCode>
       <FileName>PatternCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,21 +95,6 @@
       <FileName>Calculate.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NSEmbroidery.Core.Decorators.BorderAlgorithms.LineBorder" Collapsed="true">
-    <Position X="11.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Decorators\BorderAlgorithms\LineBorder.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="NSEmbroidery.Core.Decorators.BorderAlgorithms.ContextBorderAlgorithm" Collapsed="true">
-    <Position X="10" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAQAAAA=</HashCode>
-      <FileName>Decorators\BorderAlgorithms\ContextBorderAlgorithm.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Interface Name="NSEmbroidery.Core.Decorators.IDecorator" Collapsed="true">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -117,17 +102,10 @@
       <FileName>Decorators\IDecorator.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="NSEmbroidery.Core.Decorators.BorderAlgorithms.IBorderAlgorithm" Collapsed="true">
-    <Position X="11.75" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Decorators\BorderAlgorithms\IBorderAlgorithm.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="NSEmbroidery.Core.GridType" Collapsed="true">
     <Position X="1" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core.Decorators
 {
-    public class SquaresDecorator : IDecorator
+    public class CellsDecorator : IDecorator
     {
         public Settings Settings { get; set; }
 
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
-            int squareWidth = embroidery.Width / Settings.SquareCount;
+            int squareWidth = embroidery.Width / Settings.CellsCount;
 
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");

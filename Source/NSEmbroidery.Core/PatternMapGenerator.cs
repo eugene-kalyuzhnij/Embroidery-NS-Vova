@@ -23,10 +23,10 @@ namespace NSEmbroidery.Core
         {
             if (Settings.Palette == null || Settings.Palette.Count == 0)
                 throw new NullReferenceException("Check that Palette isn't null or it has any colors");
-            if (Settings.SquareCount <= 0)
+            if (Settings.CellsCount <= 0)
                 throw new NotInitializedException("Square count has to be initialized and inherent");
 
-            int ratio = canvas.Width / Settings.SquareCount;
+            int ratio = canvas.Width / Settings.CellsCount;
 
             Canvas tempCanvas = ReduceResolution(canvas, ratio);
 

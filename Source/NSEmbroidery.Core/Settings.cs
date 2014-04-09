@@ -12,7 +12,7 @@ namespace NSEmbroidery.Core
 
         public void SetSquareCont(int count)
         {
-            SquareCount = count;
+            CellsCount = count;
         }
 
         public void SetSymbols(char[] symbols)
@@ -26,7 +26,7 @@ namespace NSEmbroidery.Core
             SetSquareCont(squareCount);
         }
 
-        public int SquareCount { get; set; }
+        public int CellsCount { get; set; }
         public char[] Symbols { get; set; }
         public Palette Palette { get; set; }
         public Dictionary<Color, Char> ColorSymbolRelation;
@@ -82,6 +82,7 @@ namespace NSEmbroidery.Core
 
     public enum GridType
     {
-        SolidLine
+        SolidLine,
+        Points
     }
 }

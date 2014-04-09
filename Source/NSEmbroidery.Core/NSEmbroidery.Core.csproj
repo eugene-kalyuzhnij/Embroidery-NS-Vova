@@ -43,19 +43,16 @@
     <Compile Include="Calculate.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="CanvasConverter.cs" />
-    <Compile Include="Decorators\BorderAlgorithms\ContextBorderAlgorithm.cs" />
     <Compile Include="Decorators\DecoratorsCompositors.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Decorators\GridDecorator.cs" />
     <Compile Include="Decorators\IDecorator.cs" />
-    <Compile Include="Decorators\BorderAlgorithms\IBorderAlgorithm.cs" />
-    <Compile Include="Decorators\BorderAlgorithms\LineBorder.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PatternCreator.cs" />
     <Compile Include="PatternMapGenerator.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Decorators\SquaresDecorator.cs" />
+    <Compile Include="Decorators\CellsDecorator.cs" />
     <Compile Include="Decorators\SymbolsDecorator.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -26,10 +26,16 @@ namespace NSEmbroidery.Core
             GridFlag = false;
         }
 
+        public GridType GridType
+        {
+            get { return Settings.GridType; }
+            set { Settings.GridType = value; }
+        }
+
 
         public int CellsCount { 
-            get { return Settings.SquareCount; }
-            set { Settings.SquareCount = value; }
+            get { return Settings.CellsCount; }
+            set { Settings.CellsCount = value; }
         }
 
         public Color[] Palette
@@ -63,7 +69,7 @@ namespace NSEmbroidery.Core
             decorator.Settings = Settings;
 
             if(ColorFlag)
-                decorator.AddDecorator(new SquaresDecorator());
+                decorator.AddDecorator(new CellsDecorator());
             if(SymbolsFlag)
                 decorator.AddDecorator(new SymbolsDecorator());
             if(GridFlag)
@@ -91,7 +97,7 @@ namespace NSEmbroidery.Core
 
         }
 
-        public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, bool grid)
+        public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, bool grid, GridType type)
         {
             PatternCreator creator = new PatternCreator();
             creator.CellsCount = cellsCount;
@@ -103,6 +109,7 @@ namespace NSEmbroidery.Core
             }
             creator.Palette = palette;
             creator.GridFlag = grid;
+            creator.GridType = type;
 
             Bitmap result = creator.GetEmbroidery(image, cellsCount, resolutionCoefficient);
 

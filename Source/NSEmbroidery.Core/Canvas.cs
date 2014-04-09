@@ -105,7 +105,7 @@ namespace NSEmbroidery.Core
 
 
 
-        public void SetBorder(int x, int y, int width, int height, Color color, Aligns align)
+        public void SetBorder(int x, int y, int width, int height, Color color, Aligns align, GridType type)
         {
 
             Canvas inner = null;
@@ -116,28 +116,60 @@ namespace NSEmbroidery.Core
                     {
                         inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
                         for (int _y = 0; _y < height; _y++)
-                            inner.SetColor(0, _y, color);
+                        {
+                            if (type == GridType.SolidLine)
+                                inner.SetColor(0, _y, color);
+                            else if (type == GridType.Points)
+                            {
+                                if (_y % 3 == 0)
+                                    inner.SetColor(0, _y, color);
+                            }
+                        }
                         break;
                     }
                 case Aligns.Right:
                     {
                         inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
                         for (int _y = 0; _y < height; _y++)
-                            inner.SetColor(width - 1, _y, color);
+                        {
+                            if (type == GridType.SolidLine)
+                                inner.SetColor(width - 1, _y, color);
+                            else if (type == GridType.Points)
+                            {
+                                if (_y % 3 == 0)
+                                    inner.SetColor(width - 1, _y, color);
+                            }
+                        }
                         break;
                     }
                 case Aligns.Top:
                     {
                         inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
                         for (int _x = 0; _x < width; _x++)
-                            inner.SetColor(_x, 0, color);
+                        {
+                            if (type == GridType.SolidLine)
+                                inner.SetColor(_x, 0, color);
+                            else if (type == GridType.Points)
+                            {
+                                if (_x % 3 == 0)
+                                    inner.SetColor(_x, 0, color);
+                            }
+                        }
                         break;
                     }
                 case Aligns.Buttom:
                     {
                         inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
                         for (int _x = 0; _x < width; _x++)
-                            inner.SetColor(_x, height - 1, color);
+                        {
+                            if (type == GridType.SolidLine)
+                                inner.SetColor(_x, height - 1, color);
+                            else if (type == GridType.Points)
+                            {
+                                if (_x % 3 == 0)
+                                    inner.SetColor(_x, height - 1, color);
+                            }
+                        }
                         break;
                     }
             }

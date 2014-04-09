@@ -15,7 +15,7 @@ namespace NSEmbroidery.Core
             int top = image.Width;
             List<int> result = new List<int>();
 
-            for (int i = top - 1; i > 1; i--)
+            for (int i = top; i > 1; i--)
                 if (top % i == 0) result.Add(i);
 
             return result;
@@ -27,7 +27,7 @@ namespace NSEmbroidery.Core
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
 
             PatternMapGenerator mapGenerator = new PatternMapGenerator();
-            mapGenerator.Settings.SquareCount = cellsCount;
+            mapGenerator.Settings.CellsCount = cellsCount;
             mapGenerator.Settings.Palette = new Palette(colors);
             Canvas pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image));
 

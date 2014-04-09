@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using NSEmbroidery.Core.Decorators.BorderAlgorithms;
 
 namespace NSEmbroidery.Core.Decorators
 {
@@ -15,9 +14,8 @@ namespace NSEmbroidery.Core.Decorators
         public void Decorate(Canvas embroidery, Canvas pattern)
         {
 
-            ContextBorderAlgorithm borderAlgorithm = new ContextBorderAlgorithm(Settings.GridType);
 
-            int squareWidth = embroidery.Width / Settings.SquareCount;
+            int squareWidth = embroidery.Width / Settings.CellsCount;
 
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
@@ -25,9 +23,11 @@ namespace NSEmbroidery.Core.Decorators
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)
                 for (int squareX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth)
                 {
-                    borderAlgorithm.ExecuteAlgorithm(embroidery, squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Left);
-                    borderAlgorithm.ExecuteAlgorithm(embroidery, squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom);
+                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Left, Settings.GridType);
+                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom, Settings.GridType);
                 }
+
+
         }
 
 

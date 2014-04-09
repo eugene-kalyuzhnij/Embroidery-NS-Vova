@@ -16,7 +16,6 @@ namespace NSEmbroidery.UI
     public partial class Form1 : Form
     {
         Bitmap CurrentImage { get; set; }
-        PatternCreator creator;
         List<TextBox> textBoxes;
         Color SymbolColor;
         List<int> possibleCells;
@@ -57,11 +56,8 @@ namespace NSEmbroidery.UI
 
                             labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
 
-
-/*--------------------using dll here--------------------------------------------------------------------------------------------------*/
                             possibleCells = Calculate.PossibleCellsCount(CurrentImage);
 
-/*------------------------------------------------------------------------------------------------------------------------------------*/
 
                             foreach (var item in possibleCells)
                                 comboBoxSquareCount.Items.Add(item);
@@ -165,18 +161,21 @@ namespace NSEmbroidery.UI
                 return;
             }
             
-            int squareCount = 0;
-            try
-            {
-                squareCount = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
-            }
-            catch
-            {
-                MessageBox.Show("Sure that Count of squares is correct");
-                return;
-            }
 
-            if (squareCount == 0)
+
+            int cellsCount = 0;
+
+                try
+                {
+                    cellsCount = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
+                }
+                catch
+                {
+                    MessageBox.Show("Sure that Count of cells is correct");
+                    return;
+                }
+
+            if (cellsCount == 0)
             {
                 MessageBox.Show("Choose Count of squares");
                 return;
@@ -230,11 +229,11 @@ namespace NSEmbroidery.UI
                 grid = true;
 
 /*--------------------using dll here------------------------------------------------*/
-
-            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, squareCount, palette, masSymbols, SymbolColor, grid);
+            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, GridType.Points);
 /*-----------------------------------------------------------------------------------*/
 
             pictureBoxResult.Image = result;
+
         }
 
 
@@ -369,7 +368,32 @@ namespace NSEmbroidery.UI
             cellsChanged = true;
         }
 
+        private void button1_Click_3(object sender, EventArgs e)
+        {
 
+        }
+
+        private void button1_Click_4(object sender, EventArgs e)
+        {
+            this.DeleteAllItems(this.comboBoxResolution);
+
+            int cells = 0;
+            cells = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
+
+            Color[] palette = this.GetColorsFromPanel();
+            if (palette.Length > 0)
+            {
+                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 20);
+
+                foreach (var item in resolutions)
+                    comboBoxResolution.Items.Add(item.Key);
+            }
+            else
+            {
+                MessageBox.Show("Create palette");
+                return;
+            }
+        }
 
     }
 }

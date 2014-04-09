@@ -35,27 +35,27 @@
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pictureBoxCurrentImage = new System.Windows.Forms.PictureBox();
-            this.buttonChooseColor = new System.Windows.Forms.Button();
-            this.panelColors = new System.Windows.Forms.Panel();
             this.pictureBoxResult = new System.Windows.Forms.PictureBox();
             this.buttonCreateScheme = new System.Windows.Forms.Button();
             this.labelCount = new System.Windows.Forms.Label();
             this.comboBoxSquareCount = new System.Windows.Forms.ComboBox();
             this.comboBoxResolution = new System.Windows.Forms.ComboBox();
             this.Resolution = new System.Windows.Forms.Label();
-            this.panelSymbols = new System.Windows.Forms.Panel();
-            this.buttonMinus = new System.Windows.Forms.Button();
-            this.addTextBox = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.checkBoxGrid = new System.Windows.Forms.CheckBox();
             this.labelresolution = new System.Windows.Forms.Label();
+            this.buttonChooseColor = new System.Windows.Forms.Button();
+            this.panelColors = new System.Windows.Forms.Panel();
+            this.checkBoxGrid = new System.Windows.Forms.CheckBox();
             this.buttonSymbolColor = new System.Windows.Forms.Button();
+            this.addTextBox = new System.Windows.Forms.Button();
+            this.buttonMinus = new System.Windows.Forms.Button();
+            this.panelSymbols = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
-            this.panelSymbols.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelSymbols.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOpen
@@ -105,24 +105,6 @@
             this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCurrentImage.TabIndex = 2;
             this.pictureBoxCurrentImage.TabStop = false;
-            // 
-            // buttonChooseColor
-            // 
-            this.buttonChooseColor.Location = new System.Drawing.Point(334, 47);
-            this.buttonChooseColor.Name = "buttonChooseColor";
-            this.buttonChooseColor.Size = new System.Drawing.Size(96, 23);
-            this.buttonChooseColor.TabIndex = 3;
-            this.buttonChooseColor.Text = "Choose color";
-            this.buttonChooseColor.UseVisualStyleBackColor = true;
-            this.buttonChooseColor.Click += new System.EventHandler(this.buttonChooseColor_Click);
-            // 
-            // panelColors
-            // 
-            this.panelColors.AutoScroll = true;
-            this.panelColors.Location = new System.Drawing.Point(450, 52);
-            this.panelColors.Name = "panelColors";
-            this.panelColors.Size = new System.Drawing.Size(50, 202);
-            this.panelColors.TabIndex = 4;
             // 
             // pictureBoxResult
             // 
@@ -181,36 +163,6 @@
             this.Resolution.TabIndex = 11;
             this.Resolution.Text = "Resolution";
             // 
-            // panelSymbols
-            // 
-            this.panelSymbols.AutoScroll = true;
-            this.panelSymbols.Controls.Add(this.buttonMinus);
-            this.panelSymbols.Controls.Add(this.addTextBox);
-            this.panelSymbols.Location = new System.Drawing.Point(436, 260);
-            this.panelSymbols.Name = "panelSymbols";
-            this.panelSymbols.Size = new System.Drawing.Size(82, 270);
-            this.panelSymbols.TabIndex = 5;
-            // 
-            // buttonMinus
-            // 
-            this.buttonMinus.Location = new System.Drawing.Point(49, 3);
-            this.buttonMinus.Name = "buttonMinus";
-            this.buttonMinus.Size = new System.Drawing.Size(30, 23);
-            this.buttonMinus.TabIndex = 2;
-            this.buttonMinus.Text = "-";
-            this.buttonMinus.UseVisualStyleBackColor = true;
-            this.buttonMinus.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // addTextBox
-            // 
-            this.addTextBox.Location = new System.Drawing.Point(3, 3);
-            this.addTextBox.Name = "addTextBox";
-            this.addTextBox.Size = new System.Drawing.Size(28, 23);
-            this.addTextBox.TabIndex = 1;
-            this.addTextBox.Text = "+";
-            this.addTextBox.UseVisualStyleBackColor = true;
-            this.addTextBox.Click += new System.EventHandler(this.addTextBox_Click);
-            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
@@ -230,6 +182,32 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // labelresolution
+            // 
+            this.labelresolution.AutoSize = true;
+            this.labelresolution.Location = new System.Drawing.Point(21, 485);
+            this.labelresolution.Name = "labelresolution";
+            this.labelresolution.Size = new System.Drawing.Size(0, 13);
+            this.labelresolution.TabIndex = 17;
+            // 
+            // buttonChooseColor
+            // 
+            this.buttonChooseColor.Location = new System.Drawing.Point(334, 47);
+            this.buttonChooseColor.Name = "buttonChooseColor";
+            this.buttonChooseColor.Size = new System.Drawing.Size(96, 23);
+            this.buttonChooseColor.TabIndex = 3;
+            this.buttonChooseColor.Text = "Choose color";
+            this.buttonChooseColor.UseVisualStyleBackColor = true;
+            this.buttonChooseColor.Click += new System.EventHandler(this.buttonChooseColor_Click);
+            // 
+            // panelColors
+            // 
+            this.panelColors.AutoScroll = true;
+            this.panelColors.Location = new System.Drawing.Point(450, 52);
+            this.panelColors.Name = "panelColors";
+            this.panelColors.Size = new System.Drawing.Size(50, 202);
+            this.panelColors.TabIndex = 4;
+            // 
             // checkBoxGrid
             // 
             this.checkBoxGrid.AutoSize = true;
@@ -240,14 +218,6 @@
             this.checkBoxGrid.Text = "Grid";
             this.checkBoxGrid.UseVisualStyleBackColor = true;
             // 
-            // labelresolution
-            // 
-            this.labelresolution.AutoSize = true;
-            this.labelresolution.Location = new System.Drawing.Point(21, 485);
-            this.labelresolution.Name = "labelresolution";
-            this.labelresolution.Size = new System.Drawing.Size(0, 13);
-            this.labelresolution.TabIndex = 17;
-            // 
             // buttonSymbolColor
             // 
             this.buttonSymbolColor.Location = new System.Drawing.Point(334, 480);
@@ -257,6 +227,37 @@
             this.buttonSymbolColor.Text = "Symbol Color";
             this.buttonSymbolColor.UseVisualStyleBackColor = true;
             this.buttonSymbolColor.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // addTextBox
+            // 
+            this.addTextBox.Location = new System.Drawing.Point(3, 3);
+            this.addTextBox.Name = "addTextBox";
+            this.addTextBox.Size = new System.Drawing.Size(28, 23);
+            this.addTextBox.TabIndex = 1;
+            this.addTextBox.Text = "+";
+            this.addTextBox.UseVisualStyleBackColor = true;
+            this.addTextBox.Click += new System.EventHandler(this.addTextBox_Click);
+            // 
+            // buttonMinus
+            // 
+            this.buttonMinus.Location = new System.Drawing.Point(49, 3);
+            this.buttonMinus.Name = "buttonMinus";
+            this.buttonMinus.Size = new System.Drawing.Size(30, 23);
+            this.buttonMinus.TabIndex = 2;
+            this.buttonMinus.Text = "-";
+            this.buttonMinus.UseVisualStyleBackColor = true;
+            this.buttonMinus.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // panelSymbols
+            // 
+            this.panelSymbols.AllowDrop = true;
+            this.panelSymbols.AutoScroll = true;
+            this.panelSymbols.Controls.Add(this.buttonMinus);
+            this.panelSymbols.Controls.Add(this.addTextBox);
+            this.panelSymbols.Location = new System.Drawing.Point(436, 260);
+            this.panelSymbols.Name = "panelSymbols";
+            this.panelSymbols.Size = new System.Drawing.Size(83, 270);
+            this.panelSymbols.TabIndex = 5;
             // 
             // Form1
             // 
@@ -287,9 +288,9 @@
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).EndInit();
-            this.panelSymbols.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelSymbols.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,22 +305,22 @@
         private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBoxCurrentImage;
-        private System.Windows.Forms.Button buttonChooseColor;
-        private System.Windows.Forms.Panel panelColors;
         private System.Windows.Forms.PictureBox pictureBoxResult;
         private System.Windows.Forms.Button buttonCreateScheme;
         private System.Windows.Forms.Label labelCount;
         private System.Windows.Forms.ComboBox comboBoxSquareCount;
         private System.Windows.Forms.ComboBox comboBoxResolution;
         private System.Windows.Forms.Label Resolution;
-        private System.Windows.Forms.Panel panelSymbols;
-        private System.Windows.Forms.Button addTextBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.CheckBox checkBoxGrid;
-        private System.Windows.Forms.Button buttonMinus;
         private System.Windows.Forms.Label labelresolution;
+        private System.Windows.Forms.Button buttonChooseColor;
+        private System.Windows.Forms.Panel panelColors;
+        private System.Windows.Forms.CheckBox checkBoxGrid;
         private System.Windows.Forms.Button buttonSymbolColor;
+        private System.Windows.Forms.Button addTextBox;
+        private System.Windows.Forms.Button buttonMinus;
+        private System.Windows.Forms.Panel panelSymbols;
     }
 }
 

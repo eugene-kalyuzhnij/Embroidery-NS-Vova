@@ -10,14 +10,6 @@ namespace NSEmbroidery.Core
     public class Settings
     {
 
-
-        public void SetResolution(Resolution resol)
-        {
-            Resolution = resol;
-        }
-
-
-
         public void SetSquareCont(int count)
         {
             SquareCount = count;
@@ -28,30 +20,19 @@ namespace NSEmbroidery.Core
             Symbols = symbols;
         }
 
-        public void SetProperties(int squareCount, Resolution resolution, char[] symbols)
+        public void SetProperties(int squareCount, char[] symbols)
         {
-            SetResolution(resolution);
             SetSymbols(symbols);
             SetSquareCont(squareCount);
         }
 
         public int SquareCount { get; set; }
-        public Resolution Resolution { get; set; }
         public char[] Symbols { get; set; }
         public Palette Palette { get; set; }
         public Dictionary<Color, Char> ColorSymbolRelation;
         public Color SymbolColor { get; set; }
         public GridType GridType { get; set; }
 
-        public int GetResolutionWidth()
-        {
-            return Resolution.Width;
-        }
-
-        public int GetResolutionHight()
-        {
-            return Resolution.Height;
-        }
 
 
         public void CreateColorSymbolRelation()

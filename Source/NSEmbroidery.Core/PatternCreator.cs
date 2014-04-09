@@ -17,6 +17,8 @@ namespace NSEmbroidery.Core
         public bool GridFlag { get; set; }
         public bool ColorFlag { get; set; }
 
+        private Canvas pattern;
+
         public PatternCreator(Bitmap image)
         {
             CurrentImage = image;
@@ -45,12 +47,6 @@ namespace NSEmbroidery.Core
             set { Settings.Symbols = value; }
         }
 
-        public Resolution Resolution
-        {
-            get{return Settings.Resolution;}
-            set { Settings.Resolution = value; }
-        }
-
         public Color SymbolColor
         {
             get { return Settings.SymbolColor; }
@@ -58,13 +54,13 @@ namespace NSEmbroidery.Core
         }
 
 
-        public Bitmap GetImage()
+        public Bitmap GetEmbroidery(Bitmap image, int horisontalCellCount, int ratio)
         {
 
             PatternMapGenerator mapGenerator = new PatternMapGenerator();
 
             mapGenerator.Settings = Settings;
-            Canvas pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(CurrentImage));
+            pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image));
 
             DecoratorsCompositors decorator = new DecoratorsCompositors();
             decorator.Settings = Settings;
@@ -76,46 +72,18 @@ namespace NSEmbroidery.Core
             if(GridFlag)
                 decorator.AddDecorator(new GridDecorator());
 
-            if (Settings.Resolution == null) throw new NullReferenceException("Resolution is null");
 
-            Canvas result = new Canvas(Settings.Resolution);
+            Resolution resolution;
+            resolution = new Resolution(pattern.Width * ratio, pattern.Height * ratio);
+
+            Canvas result = new Canvas(resolution);
             decorator.Decorate(result, pattern);
 
             return CanvasConverter.ConvertCanvasToBitmap(result);
         }
 
 
-        public List<int> GetPossibleSquareCounts()
-        {
-            int top = CurrentImage.Width;
-            List<int> result = new List<int>();
 
-            for (int i = top - 1; i > 1; i--)
-                if (top % i == 0) result.Add(i);
-
-            return result;
-        }
-
-
-        public List<Resolution> GetPossibleResolutions(int count)//Don't work correctly
-        {
-            List<Resolution> result = new List<Resolution>();
-            Resolution current = new Resolution(CurrentImage.Width, CurrentImage.Height);
-
-            for (int i = count; i >= 2; i--)
-            {
-                if (current.Width % i == 0)
-                {
-                    result.Add(new Resolution(current.Width / i, current.Height / i));
-                }
-
-            }
-
-            for (int i = 1; i <= count; i++)
-                    result.Add(new Resolution(current.Width * i, current.Height * i));
-
-            return result;
-        }
 
     }
 }

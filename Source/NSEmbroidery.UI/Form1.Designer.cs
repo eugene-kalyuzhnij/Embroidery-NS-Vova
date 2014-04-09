@@ -44,18 +44,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelresolution = new System.Windows.Forms.Label();
-            this.buttonChooseColor = new System.Windows.Forms.Button();
             this.panelColors = new System.Windows.Forms.Panel();
             this.checkBoxGrid = new System.Windows.Forms.CheckBox();
             this.buttonSymbolColor = new System.Windows.Forms.Button();
             this.addTextBox = new System.Windows.Forms.Button();
             this.buttonMinus = new System.Windows.Forms.Button();
             this.panelSymbols = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelColorChoice = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelSymbols.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOpen
@@ -190,16 +192,6 @@
             this.labelresolution.Size = new System.Drawing.Size(0, 13);
             this.labelresolution.TabIndex = 17;
             // 
-            // buttonChooseColor
-            // 
-            this.buttonChooseColor.Location = new System.Drawing.Point(334, 47);
-            this.buttonChooseColor.Name = "buttonChooseColor";
-            this.buttonChooseColor.Size = new System.Drawing.Size(96, 23);
-            this.buttonChooseColor.TabIndex = 3;
-            this.buttonChooseColor.Text = "Choose color";
-            this.buttonChooseColor.UseVisualStyleBackColor = true;
-            this.buttonChooseColor.Click += new System.EventHandler(this.buttonChooseColor_Click);
-            // 
             // panelColors
             // 
             this.panelColors.AutoScroll = true;
@@ -211,7 +203,7 @@
             // checkBoxGrid
             // 
             this.checkBoxGrid.AutoSize = true;
-            this.checkBoxGrid.Location = new System.Drawing.Point(222, 25);
+            this.checkBoxGrid.Location = new System.Drawing.Point(334, 50);
             this.checkBoxGrid.Name = "checkBoxGrid";
             this.checkBoxGrid.Size = new System.Drawing.Size(45, 17);
             this.checkBoxGrid.TabIndex = 14;
@@ -259,11 +251,33 @@
             this.panelSymbols.Size = new System.Drawing.Size(83, 270);
             this.panelSymbols.TabIndex = 5;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(403, 47);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // panelColorChoice
+            // 
+            this.panelColorChoice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelColorChoice.Location = new System.Drawing.Point(436, 43);
+            this.panelColorChoice.Name = "panelColorChoice";
+            this.panelColorChoice.Size = new System.Drawing.Size(164, 71);
+            this.panelColorChoice.TabIndex = 20;
+            this.panelColorChoice.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 549);
+            this.Controls.Add(this.panelColorChoice);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonSymbolColor);
             this.Controls.Add(this.labelresolution);
             this.Controls.Add(this.checkBoxGrid);
@@ -275,7 +289,6 @@
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.buttonCreateScheme);
             this.Controls.Add(this.panelColors);
-            this.Controls.Add(this.buttonChooseColor);
             this.Controls.Add(this.pictureBoxCurrentImage);
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.menuStrip1);
@@ -291,6 +304,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelSymbols.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,13 +328,14 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label labelresolution;
-        private System.Windows.Forms.Button buttonChooseColor;
         private System.Windows.Forms.Panel panelColors;
         private System.Windows.Forms.CheckBox checkBoxGrid;
         private System.Windows.Forms.Button buttonSymbolColor;
         private System.Windows.Forms.Button addTextBox;
         private System.Windows.Forms.Button buttonMinus;
         private System.Windows.Forms.Panel panelSymbols;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panelColorChoice;
     }
 }
 

@@ -26,6 +26,8 @@ namespace NSEmbroidery.UI
         {
             InitializeComponent();
             textBoxes = new List<TextBox>();
+            pictureBoxes = new List<PictureBox>();
+            this.FillPanelPalette();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,6 +75,57 @@ namespace NSEmbroidery.UI
         }
 
 
+        List<PictureBox> pictureBoxes;
+        private void FillPanelPalette()
+        {
+            int x = 0;
+            int y = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (i == 5)
+                { 
+                    y += 25;
+                    x = 0;
+                }
+
+                PictureBox color = new PictureBox();
+                color.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                color.BackColor = Color.Green;
+                color.Location = new System.Drawing.Point(5 + x, 5 + y);
+                color.Name = "Color";
+                color.Size = new System.Drawing.Size(20, 20);
+                color.TabStop = false;
+                color.Click += new EventHandler(ChoosedColor);
+
+                pictureBoxes.Add(color);
+                panelColorChoice.Controls.Add(color);
+
+                x += 25;
+
+            }
+
+            pictureBoxes[0].BackColor = Color.Red;
+            pictureBoxes[1].BackColor = Color.Green;
+            pictureBoxes[2].BackColor = Color.Gray;
+            pictureBoxes[3].BackColor = Color.Yellow;
+            pictureBoxes[4].BackColor = Color.White;
+            pictureBoxes[5].BackColor = Color.Black;
+            pictureBoxes[6].BackColor = Color.Blue;
+            pictureBoxes[7].BackColor = Color.DarkKhaki;
+            pictureBoxes[8].BackColor = Color.Brown;
+            pictureBoxes[9].BackColor = Color.Orange;
+        }
+
+        private void ChoosedColor(object sender, EventArgs e)
+        {
+            PictureBox picture = (PictureBox)sender;
+            AddColorToPanelColor(picture.BackColor);
+            panelColorChoice.Visible = false;
+
+
+        }
+
+
         private void DeleteAllItems(ComboBox comboBox)
         {
             if(comboBox.Items.Count > 0)
@@ -110,6 +163,7 @@ namespace NSEmbroidery.UI
             boxColor.Location = new Point(5, y);
             boxColor.BackColor = color;
             boxColor.Click += boxColor_Click;
+            boxColor.BorderStyle = BorderStyle.FixedSingle;
 
             panelColors.Controls.Add(boxColor);
             panelColors.Refresh();
@@ -229,7 +283,7 @@ namespace NSEmbroidery.UI
                 grid = true;
 
 /*--------------------using dll here------------------------------------------------*/
-            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, GridType.Points);
+            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, GridType.SolidLine);
 /*-----------------------------------------------------------------------------------*/
 
             pictureBoxResult.Image = result;
@@ -393,6 +447,13 @@ namespace NSEmbroidery.UI
                 MessageBox.Show("Create palette");
                 return;
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (!panelColorChoice.Visible)
+                panelColorChoice.Visible = true;
+            else panelColorChoice.Visible = false;
         }
 
     }

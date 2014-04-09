@@ -19,6 +19,9 @@ namespace NSEmbroidery.UI
         PatternCreator creator;
         List<TextBox> textBoxes;
         Color SymbolColor;
+        List<int> possibleCells;
+        Dictionary<Resolution, int> resolutions;
+        bool cellsChanged = false;
 
         public Form1()
         {
@@ -57,16 +60,14 @@ namespace NSEmbroidery.UI
 
 /*--------------------using dll here--------------------------------------------------------------------------------------------------*/
                             creator = new PatternCreator(CurrentImage);
-                            
-                            List<int> allSquare = creator.GetPossibleSquareCounts();
-                            List<Resolution> resolutions = creator.GetPossibleResolutions(6);
+
+                            possibleCells = Calculate.PossibleCellsCount(CurrentImage);
+
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
-                            foreach (var item in allSquare)
+                            foreach (var item in possibleCells)
                                 comboBoxSquareCount.Items.Add(item);
 
-                            foreach (var item in resolutions)
-                                comboBoxResolution.Items.Add(item);
                         }
                     }
                 }
@@ -229,10 +230,11 @@ namespace NSEmbroidery.UI
 
             creator.SymbolColor = SymbolColor;
             creator.SquareCount = squareCount;
-            creator.Resolution = (Resolution)comboBoxResolution.SelectedItem;
+            
             creator.Palette = palette;
-
-            Bitmap result = creator.GetImage();
+            int ratio;
+            resolutions.TryGetValue((Resolution)comboBoxResolution.SelectedItem, out ratio);
+            Bitmap result = creator.GetEmbroidery(CurrentImage, squareCount, ratio);
 /*-----------------------------------------------------------------------------------*/
 
             pictureBoxResult.Image = result;
@@ -332,6 +334,33 @@ namespace NSEmbroidery.UI
             if (MyDialog.ShowDialog() == DialogResult.OK)
                 SymbolColor = MyDialog.Color;
                 
+        }
+
+        private void comboBoxResolution_DropDown(object sender, EventArgs e)
+        {
+            if (cellsChanged)
+            {
+
+                ComboBox comboBox = (ComboBox)sender;
+                this.DeleteAllItems(comboBox);
+
+                int cells = 0;
+                cells = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
+
+                Color[] palette = this.GetColorsFromPanel();
+                if (palette.Length > 0)
+                    resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 10, palette);
+
+                foreach (var item in resolutions)
+                    comboBoxResolution.Items.Add(item.Key);
+
+                cellsChanged = false;
+            }
+        }
+
+        private void comboBoxSquareCount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cellsChanged = true;
         }
 
 

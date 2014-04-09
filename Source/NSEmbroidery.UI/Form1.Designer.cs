@@ -51,7 +51,6 @@
             this.checkBoxGrid = new System.Windows.Forms.CheckBox();
             this.labelresolution = new System.Windows.Forms.Label();
             this.buttonSymbolColor = new System.Windows.Forms.Button();
-            this.textBoxRatio = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
@@ -244,11 +243,10 @@
             // labelresolution
             // 
             this.labelresolution.AutoSize = true;
-            this.labelresolution.Location = new System.Drawing.Point(791, 29);
+            this.labelresolution.Location = new System.Drawing.Point(21, 485);
             this.labelresolution.Name = "labelresolution";
-            this.labelresolution.Size = new System.Drawing.Size(35, 13);
+            this.labelresolution.Size = new System.Drawing.Size(0, 13);
             this.labelresolution.TabIndex = 17;
-            this.labelresolution.Text = "label1";
             // 
             // buttonSymbolColor
             // 
@@ -260,19 +258,11 @@
             this.buttonSymbolColor.UseVisualStyleBackColor = true;
             this.buttonSymbolColor.Click += new System.EventHandler(this.button1_Click_2);
             // 
-            // textBoxRatio
-            // 
-            this.textBoxRatio.Location = new System.Drawing.Point(650, 28);
-            this.textBoxRatio.Name = "textBoxRatio";
-            this.textBoxRatio.Size = new System.Drawing.Size(52, 20);
-            this.textBoxRatio.TabIndex = 19;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 549);
-            this.Controls.Add(this.textBoxRatio);
             this.Controls.Add(this.buttonSymbolColor);
             this.Controls.Add(this.labelresolution);
             this.Controls.Add(this.checkBoxGrid);
@@ -330,7 +320,6 @@
         private System.Windows.Forms.Button buttonMinus;
         private System.Windows.Forms.Label labelresolution;
         private System.Windows.Forms.Button buttonSymbolColor;
-        private System.Windows.Forms.TextBox textBoxRatio;
     }
 }
 

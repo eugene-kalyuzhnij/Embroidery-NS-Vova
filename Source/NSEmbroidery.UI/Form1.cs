@@ -59,8 +59,6 @@ namespace NSEmbroidery.UI
 
 
 /*--------------------using dll here--------------------------------------------------------------------------------------------------*/
-                            creator = new PatternCreator(CurrentImage);
-
                             possibleCells = Calculate.PossibleCellsCount(CurrentImage);
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
@@ -81,6 +79,7 @@ namespace NSEmbroidery.UI
 
         private void DeleteAllItems(ComboBox comboBox)
         {
+            if(comboBox.Items.Count > 0)
             for (int i = 0; i < comboBox.Items.Count; )
                 comboBox.Items.RemoveAt(i);
         }
@@ -212,29 +211,27 @@ namespace NSEmbroidery.UI
             }
 
 
-            char[] masSymbols = new char[symbols.Count];
+
+            int ratio;
+            resolutions.TryGetValue((Resolution)comboBoxResolution.SelectedItem, out ratio);
+
+            char[] masSymbols = null;
+            masSymbols = new char[symbols.Count];
             int i = 0;
             foreach (var item in symbols)
                 masSymbols[i++] = item;
 
+            if (palette.Length > masSymbols.Length)
+                masSymbols = null;
 
- /*--------------------using dll here------------------------------------------------*/
-            creator = new PatternCreator(CurrentImage);
-            if (palette.Length <= masSymbols.Length)
-            {
-                creator.SymbolsFlag = true;
-                creator.Symbols = masSymbols;
-            }
-            if (checkBoxGrid.CheckState == CheckState.Checked) 
-                creator.GridFlag = true;
 
-            creator.SymbolColor = SymbolColor;
-            creator.SquareCount = squareCount;
-            
-            creator.Palette = palette;
-            int ratio;
-            resolutions.TryGetValue((Resolution)comboBoxResolution.SelectedItem, out ratio);
-            Bitmap result = creator.GetEmbroidery(CurrentImage, squareCount, ratio);
+            bool grid = false;
+            if (checkBoxGrid.CheckState == CheckState.Checked)
+                grid = true;
+
+/*--------------------using dll here------------------------------------------------*/
+
+            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, squareCount, palette, masSymbols, SymbolColor, grid);
 /*-----------------------------------------------------------------------------------*/
 
             pictureBoxResult.Image = result;
@@ -349,10 +346,17 @@ namespace NSEmbroidery.UI
 
                 Color[] palette = this.GetColorsFromPanel();
                 if (palette.Length > 0)
-                    resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 10, palette);
+                {
+                    resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 20);
 
-                foreach (var item in resolutions)
-                    comboBoxResolution.Items.Add(item.Key);
+                    foreach (var item in resolutions)
+                        comboBoxResolution.Items.Add(item.Key);
+                }
+                else
+                {
+                    MessageBox.Show("Create palette");
+                    return;
+                }
 
                 cellsChanged = false;
             }
@@ -360,6 +364,8 @@ namespace NSEmbroidery.UI
 
         private void comboBoxSquareCount_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.DeleteAllItems(comboBoxResolution);
+            comboBoxResolution.Items.Clear();
             cellsChanged = true;
         }
 

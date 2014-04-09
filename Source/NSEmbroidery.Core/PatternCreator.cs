@@ -10,18 +10,15 @@ namespace NSEmbroidery.Core
 {
     public class PatternCreator
     {
-
-        private Bitmap CurrentImage;
         Settings Settings{get; set;}
-        public bool SymbolsFlag{get; set;}
-        public bool GridFlag { get; set; }
-        public bool ColorFlag { get; set; }
+        private bool SymbolsFlag{get; set;}
+        private bool GridFlag { get; set; }
+        private bool ColorFlag { get; set; }
 
         private Canvas pattern;
 
-        public PatternCreator(Bitmap image)
+        public PatternCreator()
         {
-            CurrentImage = image;
             Settings = new Core.Settings();
 
             ColorFlag = true;
@@ -30,7 +27,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        public int SquareCount { 
+        public int CellsCount { 
             get { return Settings.SquareCount; }
             set { Settings.SquareCount = value; }
         }
@@ -82,7 +79,35 @@ namespace NSEmbroidery.Core
             return CanvasConverter.ConvertCanvasToBitmap(result);
         }
 
+        public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette)
+        {
+            PatternCreator creator = new PatternCreator();
+            creator.CellsCount = cellsCount;
+            creator.Palette = palette;
 
+            Bitmap result = creator.GetEmbroidery(image, cellsCount, resolutionCoefficient);
+
+            return result;
+
+        }
+
+        public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, bool grid)
+        {
+            PatternCreator creator = new PatternCreator();
+            creator.CellsCount = cellsCount;
+            if(symbols != null)
+            {
+                creator.SymbolsFlag = true;
+                creator.Symbols = symbols;
+                creator.SymbolColor = symbolColor;
+            }
+            creator.Palette = palette;
+            creator.GridFlag = grid;
+
+            Bitmap result = creator.GetEmbroidery(image, cellsCount, resolutionCoefficient);
+
+            return result;
+        }
 
 
     }

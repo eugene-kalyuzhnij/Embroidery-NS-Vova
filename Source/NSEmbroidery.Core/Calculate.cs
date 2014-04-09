@@ -22,7 +22,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions, Color[] colors)
+        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, Color[] colors, int countResolutions)
         {
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
 

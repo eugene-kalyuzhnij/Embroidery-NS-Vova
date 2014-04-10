@@ -9,19 +9,6 @@ namespace NSEmbroidery.Core
 {
     public static class Calculate
     {
-
-        public static List<int> PossibleCellsCount(Bitmap image)
-        {
-            int top = image.Width;
-            List<int> result = new List<int>();
-
-            for (int i = top; i > 1; i--)
-                if (top % i == 0) result.Add(i);
-
-            return result;
-        }
-
-
         public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, Color[] colors, int countResolutions)
         {
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();

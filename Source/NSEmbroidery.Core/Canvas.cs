@@ -103,6 +103,79 @@ namespace NSEmbroidery.Core
                 }*/
         }
 
+        private Color AverageColor(Color[] colors)
+        {
+            int averageA = 0;
+            int averageR = 0;
+            int averageG = 0;
+            int averageB = 0;
+
+            foreach (var color in colors)
+            {
+                averageA += color.A;
+                averageR += color.R;
+                averageG += color.G;
+                averageB += color.B;
+            }
+
+
+            averageA = averageA / colors.Length;
+            averageR = averageR / colors.Length;
+            averageG = averageG / colors.Length;
+            averageB = averageB / colors.Length;
+
+            
+            return System.Drawing.Color.FromArgb(averageA, averageR, averageG, averageB);
+        }
+
+
+        public Canvas ReduceResolution(int newWidth, int newHeight, int cellWidth)
+        {
+
+            Canvas smallCanvas = new Canvas(new Resolution(newWidth, newHeight));
+
+            for (int smallY = 0, bigY = 0; smallY < newHeight; smallY++, bigY += cellWidth)
+                for (int smallX = 0, bigX = 0; smallX < newWidth; smallX++, bigX += cellWidth)
+                {
+                    Canvas partCanvas = this.GetInnerCanvas(bigX, bigY, new Resolution(cellWidth, cellWidth));
+                    Color[] colors = new Color[cellWidth * cellWidth];
+
+                    int i = 0;
+                    foreach (var color in partCanvas)
+                    {
+                        colors[i++] = color;
+                    }
+
+                    Color resultColor = AverageColor(colors);
+                    smallCanvas.SetColor(smallX, smallY, resultColor);
+
+                }
+
+            return smallCanvas;
+
+
+            #region older realization
+            /* Bitmap image = CanvasConverter.ConvertCanvasToBitmap(canvas);
+
+                int sourceHeight = image.Height;
+                int sourceWidth = image.Width;
+
+                int newHeight = sourceHeight - Math.Abs(sourceHeight - Settings.SquareCount);
+                int newWidth = sourceWidth - Math.Abs(sourceWidth - Settings.SquareCount);
+
+                Bitmap tempImage = null;
+                if (newHeight > 0 && newWidth > 0)
+                {
+                    tempImage = new Bitmap(image, new Size(newWidth, newHeight));
+                }
+                else throw new WrongFieldException();
+
+                canvas = CanvasConverter.ConvertBitmapToCanvas(tempImage);
+
+                return canvas;*/
+            #endregion
+        }
+
 
 
         public void SetBorder(int x, int y, int width, int height, Color color, Aligns align, GridType type)

@@ -9,17 +9,26 @@ namespace NSEmbroidery.Core
 {
     public static class Calculate
     {
-        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, Color[] colors, int countResolutions)
+        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
         {
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
 
-            PatternMapGenerator mapGenerator = new PatternMapGenerator();
-            mapGenerator.Settings.CellsCount = cellsCount;
-            mapGenerator.Settings.Palette = new Palette(colors);
-            Canvas pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image));
+            if (cellsCount <= 0)
+                throw new NotInitializedException("Square count has to be initialized and inherent");
+
+            if (image.Width < cellsCount)
+                throw new WrongResolutionException("Image's width must be higher or input less cells");
+
+            int cellWidth = image.Width / cellsCount;
+
+            if (image.Height < cellWidth)
+                throw new WrongResolutionException("Image's height must be higher");
+
+            int newHeight = image.Height / cellWidth;
+            int newWidth = cellsCount;
 
             for (int i = 2; i < countResolutions + 2; i++)
-                result.Add(new Resolution(pattern.Width * i, pattern.Height * i), i);
+                result.Add(new Resolution(newWidth * i, newHeight * i), i);
 
             return result;
         }

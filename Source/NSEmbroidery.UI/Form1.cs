@@ -208,6 +208,7 @@ namespace NSEmbroidery.UI
             }
 
             resultLabel.Text = "Loading...";
+            resultLabel.Refresh();
 
 
             int ratio;
@@ -255,7 +256,7 @@ namespace NSEmbroidery.UI
 
         }
 
-        private void comboBoxResolution_DropDown(object sender, EventArgs e)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        private void comboBoxResolution_DropDown(object sender, EventArgs e)
         {
                 ComboBox comboBox = (ComboBox)sender;
 
@@ -270,19 +271,31 @@ namespace NSEmbroidery.UI
                     return;
                 }
 
-                Color[] palette = this.GetColorsFromPanel();
-                if (palette.Length > 0)
-                {
                     if (isChangedCells)
                     {
                         if (CurrentImage != null)
                         {
-                            resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 10);//Count of resolution here <-----------|
+                            try
+                            {
+                                labelWaitResolution.Text = "Wait...";
+                                labelWaitResolution.Refresh();
 
-                            foreach (var item in resolutions)
-                                comboBoxResolution.Items.Add(item.Key);
+                                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 15);//Count of resolution here <-----------|
 
-                            isChangedCells = false;
+                                foreach (var item in resolutions)
+                                    comboBoxResolution.Items.Add(item.Key);
+
+                                isChangedCells = false;
+
+                                labelWaitResolution.Text = "";
+                                labelWaitResolution.Refresh();
+                            }
+                            catch(Exception ex)
+                            {
+                                labelWaitResolution.Text = "";
+                                MessageBox.Show("Incorrect data: " + ex.Message);
+                                return;
+                            }
                         }
                         else
                         {
@@ -290,12 +303,6 @@ namespace NSEmbroidery.UI
                             return;
                         }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Create palette");
-                    return;
-                }
 
         }
 
@@ -349,10 +356,10 @@ namespace NSEmbroidery.UI
                             DeleteAllItems(comboBoxResolution);
                             comboBoxResolution.SelectedItem = null;
 
-                            textBoxCells.Text = "";
-
                             CurrentImage = new Bitmap(myStream);
                             pictureBoxCurrentImage.Image = CurrentImage;
+
+                            ShowInfoInTextBoxCells();
 
                             labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
                         }
@@ -363,6 +370,12 @@ namespace NSEmbroidery.UI
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
+        }
+
+        private void ShowInfoInTextBoxCells()
+        {
+            textBoxCells.ForeColor = Color.Gray;
+            textBoxCells.Text = "1..." + CurrentImage.Width.ToString();
         }
 
         private void pictureBoxSymbolColor_Click(object sender, EventArgs e)
@@ -407,6 +420,15 @@ namespace NSEmbroidery.UI
             this.DeleteAllItems(comboBoxResolution);
 
             isChangedCells = true;
+        }
+
+        private void textBoxCells_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (CurrentImage != null && textBoxCells.Text.Contains("1..."))
+            {
+                textBoxCells.Text = "";
+                textBoxCells.ForeColor = Color.Black;
+            }
         }
 
 

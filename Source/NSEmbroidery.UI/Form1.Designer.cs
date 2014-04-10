@@ -52,6 +52,7 @@
             this.radioButtonLine = new System.Windows.Forms.RadioButton();
             this.radioButtonPoints = new System.Windows.Forms.RadioButton();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.labelWaitResolution = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -205,6 +206,7 @@
             this.textBoxCells.Name = "textBoxCells";
             this.textBoxCells.Size = new System.Drawing.Size(58, 20);
             this.textBoxCells.TabIndex = 21;
+            this.textBoxCells.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBoxCells_MouseClick);
             this.textBoxCells.TextChanged += new System.EventHandler(this.textBoxCells_TextChanged);
             // 
             // buttonAddSymbols
@@ -278,12 +280,21 @@
             this.resultLabel.Size = new System.Drawing.Size(0, 13);
             this.resultLabel.TabIndex = 28;
             // 
+            // labelWaitResolution
+            // 
+            this.labelWaitResolution.AutoSize = true;
+            this.labelWaitResolution.Location = new System.Drawing.Point(639, 169);
+            this.labelWaitResolution.Name = "labelWaitResolution";
+            this.labelWaitResolution.Size = new System.Drawing.Size(0, 13);
+            this.labelWaitResolution.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
+            this.Controls.Add(this.labelWaitResolution);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.radioButtonPoints);
             this.Controls.Add(this.radioButtonLine);
@@ -343,6 +354,7 @@
         private System.Windows.Forms.RadioButton radioButtonLine;
         private System.Windows.Forms.RadioButton radioButtonPoints;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.Label labelWaitResolution;
     }
 }
 

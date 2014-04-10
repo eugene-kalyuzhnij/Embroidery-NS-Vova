@@ -18,71 +18,28 @@ namespace NSEmbroidery.UI
         Bitmap CurrentImage { get; set; }
         List<TextBox> textBoxes;
         Color SymbolColor;
-        List<int> possibleCells;
         Dictionary<Resolution, int> resolutions;
-        bool cellsChanged = false;
+        bool isChangedCells;
+
+        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, bool grid, GridType type);
 
         public Form1()
         {
             InitializeComponent();
             textBoxes = new List<TextBox>();
-            pictureBoxes = new List<PictureBox>();
             this.FillPanelPalette();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Stream myStream = null;
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            openFileDialog1.InitialDirectory = "D:\\";
-            openFileDialog1.Filter = "All files (*.*)|*.*|jpg files (*.jpg)|*.jpg|bmp files (*bmp)|*.bmp";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.RestoreDirectory = true;
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    if ((myStream = openFileDialog1.OpenFile()) != null)
-                    {
-                        using (myStream)
-                        {
-
-                            DeleteAllItems(comboBoxSquareCount);
-                            DeleteAllItems(comboBoxResolution);
-                            pictureBoxResult.Image = null;
-
-                            CurrentImage = new Bitmap(myStream);
-                            pictureBoxCurrentImage.Image = CurrentImage;
-
-                            labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
-
-                            possibleCells = Calculate.PossibleCellsCount(CurrentImage);
-
-
-                            foreach (var item in possibleCells)
-                                comboBoxSquareCount.Items.Add(item);
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
-            }
-        }
-
-
-        List<PictureBox> pictureBoxes;
+        
         private void FillPanelPalette()
         {
+
+            List<PictureBox> pictureBoxes = new List<PictureBox>();
             int x = 0;
             int y = 0;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 12; i++)
             {
-                if (i == 5)
+                if (i == 6)
                 { 
                     y += 25;
                     x = 0;
@@ -101,7 +58,6 @@ namespace NSEmbroidery.UI
                 panelColorChoice.Controls.Add(color);
 
                 x += 25;
-
             }
 
             pictureBoxes[0].BackColor = Color.Red;
@@ -114,6 +70,8 @@ namespace NSEmbroidery.UI
             pictureBoxes[7].BackColor = Color.DarkKhaki;
             pictureBoxes[8].BackColor = Color.Brown;
             pictureBoxes[9].BackColor = Color.Orange;
+            pictureBoxes[10].BackColor = Color.Aqua;
+            pictureBoxes[11].BackColor = Color.Bisque;
         }
 
         private void ChoosedColor(object sender, EventArgs e)
@@ -121,10 +79,7 @@ namespace NSEmbroidery.UI
             PictureBox picture = (PictureBox)sender;
             AddColorToPanelColor(picture.BackColor);
             panelColorChoice.Visible = false;
-
-
         }
-
 
         private void DeleteAllItems(ComboBox comboBox)
         {
@@ -137,30 +92,19 @@ namespace NSEmbroidery.UI
         {
 
         }
-
-        private void buttonChooseColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog MyDialog = new ColorDialog();
-            MyDialog.AllowFullOpen = false;
-            MyDialog.ShowHelp = true;
-            MyDialog.Color = Color.FromArgb(255, 255, 128, 128);
-            if (MyDialog.ShowDialog() == DialogResult.OK)
-                AddColorToPanelColor(MyDialog.Color);
-        }
         
-
         private void AddColorToPanelColor(Color color)
         {
-            int y;
+            int x;
             int countControls = panelColors.Controls.Count;
 
             if(countControls > 0)
-                y = panelColors.Controls[countControls - 1].Location.Y + 25;
-            else y = 10;
+                x = panelColors.Controls[countControls - 1].Location.X + 25;
+            else x = 10;
 
             PictureBox boxColor = new PictureBox();
             boxColor.Size = new Size(20, 20);
-            boxColor.Location = new Point(5, y);
+            boxColor.Location = new Point(x, 5);
             boxColor.BackColor = color;
             boxColor.Click += boxColor_Click;
             boxColor.BorderStyle = BorderStyle.FixedSingle;
@@ -168,7 +112,6 @@ namespace NSEmbroidery.UI
             panelColors.Controls.Add(boxColor);
             panelColors.Refresh();
         }
-
 
         private void boxColor_Click(object sender, EventArgs e)
         {
@@ -180,21 +123,19 @@ namespace NSEmbroidery.UI
             }
         }
 
-
         private void RefreshPanelColor()
         {
-            int y = 10;
+            int x = 10;
 
             foreach (PictureBox item in panelColors.Controls)
             {
-                item.Location = new Point(5, y);
+                item.Location = new Point(x, 5);
 
-                y += 25;
+                x += 25;
             }
         }
 
-
-        public Color[] GetColorsFromPanel()
+        private Color[] GetColorsFromPanel()
         {
             Color[] result = new Color[panelColors.Controls.Count];
             int i = 0;
@@ -206,8 +147,11 @@ namespace NSEmbroidery.UI
             return result;
         }
 
-        private void buttonCreateScheme_Click(object sender, EventArgs e)
+
+
+        private void buttonCreateEmbroidery_Click(object sender, EventArgs e)
         {
+
             //use dll here
             if(CurrentImage == null)
             {
@@ -219,15 +163,15 @@ namespace NSEmbroidery.UI
 
             int cellsCount = 0;
 
-                try
-                {
-                    cellsCount = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
-                }
-                catch
-                {
-                    MessageBox.Show("Sure that Count of cells is correct");
-                    return;
-                }
+            try
+            {
+                cellsCount = Convert.ToInt32(textBoxCells.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Count of cells is wrong");
+                return;
+            }
 
             if (cellsCount == 0)
             {
@@ -263,6 +207,7 @@ namespace NSEmbroidery.UI
                 return;
             }
 
+            resultLabel.Text = "Loading...";
 
 
             int ratio;
@@ -279,131 +224,72 @@ namespace NSEmbroidery.UI
 
 
             bool grid = false;
+            GridType type = GridType.SolidLine;
             if (checkBoxGrid.CheckState == CheckState.Checked)
+            {
                 grid = true;
+                if (radioButtonPoints.Checked)
+                    type = GridType.Points;
+            }
 
-/*--------------------using dll here------------------------------------------------*/
-            Bitmap result = PatternCreator.CreateEmbroidery(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, GridType.SolidLine);
+            Embroidery callMethod = new Embroidery(PatternCreator.CreateEmbroidery);
+
+/*--------------------using dll here-------------------------------------------------*/
+            IAsyncResult result = callMethod.BeginInvoke(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, type, null, null);
+            Bitmap embordieryImage = callMethod.EndInvoke(result);
 /*-----------------------------------------------------------------------------------*/
 
-            pictureBoxResult.Image = result;
+            ResultImage imageForm = new ResultImage();
+            imageForm.Image = embordieryImage;
+
+            resultLabel.Text = "";
+
+            imageForm.ShowDialog();
 
         }
 
-
-
-
-
-
-
-
-        private void addTextBox_Click(object sender, EventArgs e)
-        {
-            TextBox box = new TextBox();
-            if (textBoxes.Count == 0)
-            {
-                box.Location = new System.Drawing.Point(25, 5);
-                box.TabIndex = 0;
-            }
-            else
-            {
-              //  box.TabIndex = textBoxes.Count - 1;
-                box.Location = new System.Drawing.Point(25, textBoxes.Last().Location.Y + 25);
-            }
-            box.Name = "Symbol";
-            box.Size = new System.Drawing.Size(30, 20);
-            
-
-            addTextBox.Location = new Point(addTextBox.Location.X, addTextBox.Location.Y + 25);
-            buttonMinus.Location = new Point(buttonMinus.Location.X, buttonMinus.Location.Y + 25);
-            textBoxes.Add(box);
-            panelSymbols.Controls.Add(box);
-
-
-        }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "JPeg Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif";
-            saveFileDialog1.Title = "Save an Image File";
-            saveFileDialog1.ShowDialog();
-
-            if (saveFileDialog1.FileName != "")
-            {
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)saveFileDialog1.OpenFile();
- 
-                switch (saveFileDialog1.FilterIndex)
-                {
-                    case 1:
-                        this.pictureBoxResult.Image.Save(fs,
-                           System.Drawing.Imaging.ImageFormat.Jpeg);
-                        break;
-
-                    case 2:
-                        this.pictureBoxResult.Image.Save(fs,
-                           System.Drawing.Imaging.ImageFormat.Bmp);
-                        break;
-
-                    case 3:
-                        this.pictureBoxResult.Image.Save(fs,
-                           System.Drawing.Imaging.ImageFormat.Gif);
-                        break;
-                }
-
-                fs.Close();
-            }
-
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void comboBoxResolution_DropDown(object sender, EventArgs e)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         {
-            if (textBoxes.Count > 0)
-            {
-                panelSymbols.Controls.Remove(textBoxes.Last());
-                buttonMinus.Location = new Point(buttonMinus.Location.X, buttonMinus.Location.Y - 25);
-                addTextBox.Location = new Point(addTextBox.Location.X, addTextBox.Location.Y - 25);
-
-                textBoxes.Remove(textBoxes.Last());
-            }
-        }
-
-        private void button1_Click_2(object sender, EventArgs e)
-        {
-            ColorDialog MyDialog = new ColorDialog();
-            MyDialog.AllowFullOpen = false;
-            MyDialog.ShowHelp = true;
-            MyDialog.Color = Color.FromArgb(255, 255, 128, 128);
-            if (MyDialog.ShowDialog() == DialogResult.OK)
-                SymbolColor = MyDialog.Color;
-                
-        }
-
-        private void comboBoxResolution_DropDown(object sender, EventArgs e)
-        {
-            if (cellsChanged)
-            {
-
                 ComboBox comboBox = (ComboBox)sender;
-                this.DeleteAllItems(comboBox);
 
                 int cells = 0;
-                cells = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
+                try
+                {
+                    cells = Convert.ToInt32(textBoxCells.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Input count of cells first");
+                    return;
+                }
 
                 Color[] palette = this.GetColorsFromPanel();
                 if (palette.Length > 0)
                 {
-                    resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 20);
+                    if (isChangedCells)
+                    {
+                        if (CurrentImage != null)
+                        {
+                            resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 10);//Count of resolution here <-----------|
 
-                    foreach (var item in resolutions)
-                        comboBoxResolution.Items.Add(item.Key);
+                            foreach (var item in resolutions)
+                                comboBoxResolution.Items.Add(item.Key);
+
+                            isChangedCells = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Open image first");
+                            return;
+                        }
+                    }
                 }
                 else
                 {
@@ -411,42 +297,6 @@ namespace NSEmbroidery.UI
                     return;
                 }
 
-                cellsChanged = false;
-            }
-        }
-
-        private void comboBoxSquareCount_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.DeleteAllItems(comboBoxResolution);
-            comboBoxResolution.Items.Clear();
-            cellsChanged = true;
-        }
-
-        private void button1_Click_3(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click_4(object sender, EventArgs e)
-        {
-            this.DeleteAllItems(this.comboBoxResolution);
-
-            int cells = 0;
-            cells = Convert.ToInt32(comboBoxSquareCount.SelectedItem);
-
-            Color[] palette = this.GetColorsFromPanel();
-            if (palette.Length > 0)
-            {
-                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, palette, 20);
-
-                foreach (var item in resolutions)
-                    comboBoxResolution.Items.Add(item.Key);
-            }
-            else
-            {
-                MessageBox.Show("Create palette");
-                return;
-            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -455,6 +305,110 @@ namespace NSEmbroidery.UI
                 panelColorChoice.Visible = true;
             else panelColorChoice.Visible = false;
         }
+
+        private void buttonAddSymbols_Click(object sender, EventArgs e)
+        {
+            int colorsLength = this.GetColorsFromPanel().Length;
+            if (colorsLength > 0)
+            {
+                int x = 5;
+                for (int i = 0; i < colorsLength; i++)
+                {
+
+                    TextBox textBox = new TextBox();
+                    textBox.Size = new Size(30, 10);
+                    textBox.Location = new Point(x, 5);
+
+                    textBoxes.Add(textBox);
+                    panelSymbols.Controls.Add(textBox);
+
+                    x = x + 35;
+                }
+            }
+            else MessageBox.Show("Create palette first");
+        }
+
+        private void openImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream myStream = null;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "D:\\";
+            openFileDialog1.Filter = "All files (*.*)|*.*|jpg files (*.jpg)|*.jpg|bmp files (*bmp)|*.bmp";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    if ((myStream = openFileDialog1.OpenFile()) != null)
+                    {
+                        using (myStream)
+                        {
+                            DeleteAllItems(comboBoxResolution);
+                            comboBoxResolution.SelectedItem = null;
+
+                            textBoxCells.Text = "";
+
+                            CurrentImage = new Bitmap(myStream);
+                            pictureBoxCurrentImage.Image = CurrentImage;
+
+                            labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+            }
+        }
+
+        private void pictureBoxSymbolColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog MyDialog = new ColorDialog();
+            MyDialog.AllowFullOpen = false;
+            MyDialog.ShowHelp = true;
+            MyDialog.Color = Color.FromArgb(255, 255, 128, 128);
+            if (MyDialog.ShowDialog() == DialogResult.OK)
+            {
+                SymbolColor = MyDialog.Color;
+                pictureBoxSymbolColor.BackColor = MyDialog.Color;
+            }
+
+        }
+
+        private void checkBoxGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxGrid.Checked)
+            {
+                if(!(radioButtonPoints.Checked || radioButtonLine.Checked))
+                    radioButtonLine.Checked = true;
+            }
+            else
+            {
+                radioButtonLine.Checked = false;
+                radioButtonPoints.Checked = false;
+            }
+
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+           RadioButton radioButton = (RadioButton)sender;
+           if (radioButton.Checked)
+                checkBoxGrid.Checked = true;
+        }
+
+        private void textBoxCells_TextChanged(object sender, EventArgs e)
+        {
+            this.comboBoxResolution.SelectedItem = null;
+            this.DeleteAllItems(comboBoxResolution);
+
+            isChangedCells = true;
+        }
+
 
     }
 }

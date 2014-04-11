@@ -53,10 +53,23 @@
             this.radioButtonPoints = new System.Windows.Forms.RadioButton();
             this.resultLabel = new System.Windows.Forms.Label();
             this.labelWaitResolution = new System.Windows.Forms.Label();
+            this.panelCreateColor = new System.Windows.Forms.Panel();
+            this.buttonCencel = new System.Windows.Forms.Button();
+            this.pictureBoxColorCreated = new System.Windows.Forms.PictureBox();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxB = new System.Windows.Forms.TextBox();
+            this.textBoxG = new System.Windows.Forms.TextBox();
+            this.textBoxR = new System.Windows.Forms.TextBox();
+            this.buttonCreateColor = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSymbolColor)).BeginInit();
+            this.panelCreateColor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorCreated)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -288,12 +301,127 @@
             this.labelWaitResolution.Size = new System.Drawing.Size(0, 13);
             this.labelWaitResolution.TabIndex = 29;
             // 
+            // panelCreateColor
+            // 
+            this.panelCreateColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCreateColor.Controls.Add(this.buttonCencel);
+            this.panelCreateColor.Controls.Add(this.pictureBoxColorCreated);
+            this.panelCreateColor.Controls.Add(this.buttonAdd);
+            this.panelCreateColor.Controls.Add(this.label4);
+            this.panelCreateColor.Controls.Add(this.label3);
+            this.panelCreateColor.Controls.Add(this.label2);
+            this.panelCreateColor.Controls.Add(this.textBoxB);
+            this.panelCreateColor.Controls.Add(this.textBoxG);
+            this.panelCreateColor.Controls.Add(this.textBoxR);
+            this.panelCreateColor.Location = new System.Drawing.Point(468, 47);
+            this.panelCreateColor.Name = "panelCreateColor";
+            this.panelCreateColor.Size = new System.Drawing.Size(205, 82);
+            this.panelCreateColor.TabIndex = 21;
+            this.panelCreateColor.Visible = false;
+            // 
+            // buttonCencel
+            // 
+            this.buttonCencel.Location = new System.Drawing.Point(117, 52);
+            this.buttonCencel.Name = "buttonCencel";
+            this.buttonCencel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCencel.TabIndex = 8;
+            this.buttonCencel.Text = "Cencel";
+            this.buttonCencel.UseVisualStyleBackColor = true;
+            this.buttonCencel.Click += new System.EventHandler(this.buttonCencel_Click);
+            // 
+            // pictureBoxColorCreated
+            // 
+            this.pictureBoxColorCreated.BackColor = System.Drawing.Color.Black;
+            this.pictureBoxColorCreated.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxColorCreated.Location = new System.Drawing.Point(162, 3);
+            this.pictureBoxColorCreated.Name = "pictureBoxColorCreated";
+            this.pictureBoxColorCreated.Size = new System.Drawing.Size(38, 38);
+            this.pictureBoxColorCreated.TabIndex = 7;
+            this.pictureBoxColorCreated.TabStop = false;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(36, 52);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(100, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Blue";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(50, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Green";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Red";
+            // 
+            // textBoxB
+            // 
+            this.textBoxB.Location = new System.Drawing.Point(103, 21);
+            this.textBoxB.Name = "textBoxB";
+            this.textBoxB.Size = new System.Drawing.Size(44, 20);
+            this.textBoxB.TabIndex = 2;
+            this.textBoxB.Click += new System.EventHandler(this.textBoxR_Click);
+            this.textBoxB.TextChanged += new System.EventHandler(this.textBoxR_TextChanged);
+            // 
+            // textBoxG
+            // 
+            this.textBoxG.Location = new System.Drawing.Point(53, 21);
+            this.textBoxG.Name = "textBoxG";
+            this.textBoxG.Size = new System.Drawing.Size(44, 20);
+            this.textBoxG.TabIndex = 1;
+            this.textBoxG.Click += new System.EventHandler(this.textBoxR_Click);
+            this.textBoxG.TextChanged += new System.EventHandler(this.textBoxR_TextChanged);
+            // 
+            // textBoxR
+            // 
+            this.textBoxR.Location = new System.Drawing.Point(3, 21);
+            this.textBoxR.Name = "textBoxR";
+            this.textBoxR.Size = new System.Drawing.Size(44, 20);
+            this.textBoxR.TabIndex = 0;
+            this.textBoxR.Click += new System.EventHandler(this.textBoxR_Click);
+            this.textBoxR.TextChanged += new System.EventHandler(this.textBoxR_TextChanged);
+            // 
+            // buttonCreateColor
+            // 
+            this.buttonCreateColor.Location = new System.Drawing.Point(521, 62);
+            this.buttonCreateColor.Name = "buttonCreateColor";
+            this.buttonCreateColor.Size = new System.Drawing.Size(75, 23);
+            this.buttonCreateColor.TabIndex = 30;
+            this.buttonCreateColor.Text = "Create color";
+            this.buttonCreateColor.UseVisualStyleBackColor = true;
+            this.buttonCreateColor.Click += new System.EventHandler(this.buttonCreateColor_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
+            this.Controls.Add(this.panelCreateColor);
+            this.Controls.Add(this.panelColorChoice);
+            this.Controls.Add(this.buttonCreateColor);
             this.Controls.Add(this.labelWaitResolution);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.radioButtonPoints);
@@ -303,7 +431,6 @@
             this.Controls.Add(this.panelSymbols);
             this.Controls.Add(this.buttonAddSymbols);
             this.Controls.Add(this.textBoxCells);
-            this.Controls.Add(this.panelColorChoice);
             this.Controls.Add(this.pictureBoxColorChoice);
             this.Controls.Add(this.labelresolution);
             this.Controls.Add(this.checkBoxGrid);
@@ -315,14 +442,19 @@
             this.Controls.Add(this.pictureBoxCurrentImage);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Embroidery Creator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSymbolColor)).EndInit();
+            this.panelCreateColor.ResumeLayout(false);
+            this.panelCreateColor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorCreated)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,6 +487,17 @@
         private System.Windows.Forms.RadioButton radioButtonPoints;
         private System.Windows.Forms.Label resultLabel;
         private System.Windows.Forms.Label labelWaitResolution;
+        private System.Windows.Forms.Panel panelCreateColor;
+        private System.Windows.Forms.Button buttonCencel;
+        private System.Windows.Forms.PictureBox pictureBoxColorCreated;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxB;
+        private System.Windows.Forms.TextBox textBoxG;
+        private System.Windows.Forms.TextBox textBoxR;
+        private System.Windows.Forms.Button buttonCreateColor;
     }
 }
 

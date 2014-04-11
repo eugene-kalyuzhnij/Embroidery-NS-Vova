@@ -28,6 +28,7 @@ namespace NSEmbroidery.UI
             InitializeComponent();
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
+            this.textBoxCells.Select();
         }
 
         
@@ -424,13 +425,88 @@ namespace NSEmbroidery.UI
 
         private void textBoxCells_MouseClick(object sender, MouseEventArgs e)
         {
-            if (CurrentImage != null && textBoxCells.Text.Contains("1..."))
-            {
-                textBoxCells.Text = "";
-                textBoxCells.ForeColor = Color.Black;
-            }
+
         }
 
+        private void textBoxR_TextChanged(object sender, EventArgs e)
+        {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+
+            //---------Red-------------------
+            try
+            {
+                r = Convert.ToInt32(textBoxR.Text);
+                if (r > 255)
+                {
+                    textBoxR.Text = "255";
+                    r = 255;
+                }
+            }
+            catch
+            {
+                r = 0;
+            }
+            //----------Green--------------
+            try
+            {
+                g = Convert.ToInt32(textBoxG.Text);
+                if (g > 255)
+                {
+                    textBoxG.Text = "255";
+                    g = 255;
+                }
+            }
+            catch
+            {
+                g = 0;
+            }
+            //------------Blue-------------
+            try
+            {
+                b = Convert.ToInt32(textBoxB.Text);
+                if (b > 255)
+                {
+                    textBoxB.Text = "255";
+                    b = 255;
+                }
+            }
+            catch
+            {
+                b = 0;
+            }
+
+
+            pictureBoxColorCreated.BackColor = Color.FromArgb(r, g, b);
+            pictureBoxColorCreated.Refresh();
+
+        }
+
+        private void textBoxR_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCreateColor_Click(object sender, EventArgs e)
+        {
+            textBoxR.Text = "0";
+            textBoxG.Text = "0";
+            textBoxB.Text = "0";
+            panelCreateColor.Visible = true;
+            
+        }
+
+        private void buttonCencel_Click(object sender, EventArgs e)
+        {
+            panelCreateColor.Visible = false;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            this.AddColorToPanelColor(pictureBoxColorCreated.BackColor);
+            panelCreateColor.Visible = false;
+        }
 
     }
 }

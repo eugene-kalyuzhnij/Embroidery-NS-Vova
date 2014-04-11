@@ -28,7 +28,7 @@ namespace NSEmbroidery.UI
             InitializeComponent();
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
-            this.textBoxCells.Select();
+            this.pictureBoxCurrentImage.Select();
         }
 
         
@@ -96,22 +96,27 @@ namespace NSEmbroidery.UI
         
         private void AddColorToPanelColor(Color color)
         {
-            int x;
-            int countControls = panelColors.Controls.Count;
+            var allColors = GetColorsFromPanel();
+            if (allColors != null)
+                foreach (var item in allColors)
+                    if (item == color) return;
 
-            if(countControls > 0)
-                x = panelColors.Controls[countControls - 1].Location.X + 25;
-            else x = 10;
+                int x;
+                int countControls = panelColors.Controls.Count;
 
-            PictureBox boxColor = new PictureBox();
-            boxColor.Size = new Size(20, 20);
-            boxColor.Location = new Point(x, 5);
-            boxColor.BackColor = color;
-            boxColor.Click += boxColor_Click;
-            boxColor.BorderStyle = BorderStyle.FixedSingle;
+                if (countControls > 0)
+                    x = panelColors.Controls[countControls - 1].Location.X + 25;
+                else x = 10;
 
-            panelColors.Controls.Add(boxColor);
-            panelColors.Refresh();
+                PictureBox boxColor = new PictureBox();
+                boxColor.Size = new Size(20, 20);
+                boxColor.Location = new Point(x, 5);
+                boxColor.BackColor = color;
+                boxColor.Click += boxColor_Click;
+                boxColor.BorderStyle = BorderStyle.FixedSingle;
+
+                panelColors.Controls.Add(boxColor);
+                panelColors.Refresh();
         }
 
         private void boxColor_Click(object sender, EventArgs e)
@@ -138,14 +143,19 @@ namespace NSEmbroidery.UI
 
         private Color[] GetColorsFromPanel()
         {
-            Color[] result = new Color[panelColors.Controls.Count];
-            int i = 0;
-            foreach (PictureBox item in panelColors.Controls)
+            if (panelColors.Controls.Count > 0)
             {
-                result[i++] = item.BackColor;
+                Color[] result = new Color[panelColors.Controls.Count];
+                int i = 0;
+                foreach (PictureBox item in panelColors.Controls)
+                {
+                    result[i++] = item.BackColor;
+                }
+
+                return result;
             }
 
-            return result;
+            return null;
         }
 
 
@@ -316,22 +326,23 @@ namespace NSEmbroidery.UI
 
         private void buttonAddSymbols_Click(object sender, EventArgs e)
         {
-            int colorsLength = this.GetColorsFromPanel().Length;
-            if (colorsLength > 0)
+            if (GetColorsFromPanel() != null)
             {
-                int x = 5;
-                for (int i = 0; i < colorsLength; i++)
-                {
+                int colorsLength = this.GetColorsFromPanel().Length;
 
-                    TextBox textBox = new TextBox();
-                    textBox.Size = new Size(30, 10);
-                    textBox.Location = new Point(x, 5);
+                    int x = 5;
+                    for (int i = 0; i < colorsLength; i++)
+                    {
 
-                    textBoxes.Add(textBox);
-                    panelSymbols.Controls.Add(textBox);
+                        TextBox textBox = new TextBox();
+                        textBox.Size = new Size(30, 10);
+                        textBox.Location = new Point(x, 5);
 
-                    x = x + 35;
-                }
+                        textBoxes.Add(textBox);
+                        panelSymbols.Controls.Add(textBox);
+
+                        x = x + 35;
+                    }
             }
             else MessageBox.Show("Create palette first");
         }
@@ -425,7 +436,11 @@ namespace NSEmbroidery.UI
 
         private void textBoxCells_MouseClick(object sender, MouseEventArgs e)
         {
-
+            if (textBoxCells.Text.Contains("1..."))
+            {
+                textBoxCells.ForeColor = Color.Black;
+                textBoxCells.Text = "";
+            }
         }
 
         private void textBoxR_TextChanged(object sender, EventArgs e)

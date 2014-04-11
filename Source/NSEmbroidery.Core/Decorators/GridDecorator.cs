@@ -23,7 +23,7 @@ namespace NSEmbroidery.Core.Decorators
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)
                 for (int squareX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth)
                 {
-                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Left, Settings.GridType);
+                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Right, Settings.GridType);
                     embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom, Settings.GridType);
                 }
 

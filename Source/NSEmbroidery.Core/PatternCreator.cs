@@ -12,7 +12,7 @@ namespace NSEmbroidery.Core
     {
         Settings Settings{get; set;}
         private bool SymbolsFlag{get; set;}
-        private bool GridFlag { get; set; }
+        private bool gridFlag { get; set; }
         private bool ColorFlag { get; set; }
 
         private Canvas pattern;
@@ -23,13 +23,19 @@ namespace NSEmbroidery.Core
 
             ColorFlag = true;
             SymbolsFlag = false;
-            GridFlag = false;
+            gridFlag = false;
         }
 
         public GridType GridType
         {
             get { return Settings.GridType; }
             set { Settings.GridType = value; }
+        }
+
+
+        public bool GridFlag { 
+            get { return gridFlag; }
+            set { gridFlag = value; }
         }
 
 
@@ -59,7 +65,7 @@ namespace NSEmbroidery.Core
 
         public Bitmap GetEmbroidery(Bitmap image, int horisontalCellCount, int ratio)
         {
-
+            Settings.CellsCount = horisontalCellCount;
             PatternMapGenerator mapGenerator = new PatternMapGenerator();
 
             mapGenerator.Settings = Settings;
@@ -72,7 +78,7 @@ namespace NSEmbroidery.Core
                 decorator.AddDecorator(new CellsDecorator());
             if(SymbolsFlag)
                 decorator.AddDecorator(new SymbolsDecorator());
-            if(GridFlag)
+            if(gridFlag)
                 decorator.AddDecorator(new GridDecorator());
 
 
@@ -108,7 +114,7 @@ namespace NSEmbroidery.Core
                 creator.SymbolColor = symbolColor;
             }
             creator.Palette = palette;
-            creator.GridFlag = grid;
+            creator.gridFlag = grid;
             creator.GridType = type;
 
             Bitmap result = creator.GetEmbroidery(image, cellsCount, resolutionCoefficient);

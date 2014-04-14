@@ -22,8 +22,17 @@ namespace NSEmbroidery.Core
         public DecoratorsComposition DecoratorsComposition{ get; set; }
 
 
+
+
         public Bitmap GetEmbroidery(Bitmap image, Settings settings)
         {
+            if (settings.CellsCount <= 0)
+                throw new NotInitializedException("cellsCount has to be > 0");
+            if (settings.Coefficient <= 0)
+                throw new NotInitializedException("coefficient has to be > 0");
+            if (settings.Palette == null)
+                throw new NotInitializedException("palette has to be not null");
+
             Canvas pattern = PatternMapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image), settings);
             Resolution resolution = new Resolution(pattern.Width * settings.Coefficient, pattern.Height * settings.Coefficient);
 
@@ -42,6 +51,8 @@ namespace NSEmbroidery.Core
         }
 
 
+
+
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
 
@@ -55,17 +66,15 @@ namespace NSEmbroidery.Core
 
             Bitmap result = patternCreator.GetEmbroidery(image, new Settings()
             {
-                CellsCount = cellsCount,
-                Coefficient = resolutionCoefficient,
-                Palette = new Palette(palette),
+                CellsCount = cellsCount,//!!!
+                Coefficient = resolutionCoefficient,//!!!
+                Palette = new Palette(palette),//!!!
                 Symbols = symbols,
                 SymbolColor = symbolColor,
                 GridType = type
             });
 
             return result;
-
-
         }
 
 

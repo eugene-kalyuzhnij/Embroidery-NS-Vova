@@ -11,6 +11,7 @@ namespace NSEmbroidery.Core
     public class PatternCreator
     {
 
+
         public PatternCreator()
         {
         }
@@ -66,9 +67,9 @@ namespace NSEmbroidery.Core
 
             Bitmap result = patternCreator.GetEmbroidery(image, new Settings()
             {
-                CellsCount = cellsCount,//!!!
-                Coefficient = resolutionCoefficient,//!!!
-                Palette = new Palette(palette),//!!!
+                CellsCount = cellsCount,
+                Coefficient = resolutionCoefficient,
+                Palette = new Palette(palette),
                 Symbols = symbols,
                 SymbolColor = symbolColor,
                 GridType = type
@@ -76,6 +77,7 @@ namespace NSEmbroidery.Core
 
             return result;
         }
+
 
 
     }

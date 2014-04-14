@@ -12,36 +12,32 @@ namespace NSEmbroidery.Core
 
         public PatternMapGenerator()
         {
-            Settings = new Settings();
         }
 
-
-        Settings Settings { get; set; }
 
 
         public Canvas Generate(Canvas canvas, Settings settings)
         {
-            Settings = settings;
 
-            if (Settings.Palette == null || Settings.Palette.Count == 0)
+            if (settings.Palette == null || settings.Palette.Count == 0)
                 throw new NullReferenceException("Check that Palette isn't null or it has any colors");
-            if (Settings.CellsCount <= 0)
+            if (settings.CellsCount <= 0)
                 throw new NotInitializedException("Square count has to be initialized and inherent");
 
-            if (canvas.Width < Settings.CellsCount)
+            if (canvas.Width < settings.CellsCount)
                 throw new WrongResolutionException("Image's width must be higher or input less cells");
 
-            int cellWidth = canvas.Width / Settings.CellsCount;
+            int cellWidth = canvas.Width / settings.CellsCount;
 
             if (canvas.Height < cellWidth)
                 throw new WrongResolutionException("Image's height must be higher");
 
             int newHeight = canvas.Height / cellWidth;
-            int newWidth = Settings.CellsCount;
+            int newWidth = settings.CellsCount;
 
             Canvas tempCanvas = canvas.ReduceResolution(newWidth, newHeight, cellWidth);
 
-            List<Color> colors = Settings.Palette.GetAllColorsList();
+            List<Color> colors = settings.Palette.GetAllColorsList();
 
             for (int y = 0; y < tempCanvas.Height; y++)
                 for (int x = 0; x < tempCanvas.Width; x++)

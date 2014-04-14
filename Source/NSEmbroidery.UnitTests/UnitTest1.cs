@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSEmbroidery.Core;
 using System.Drawing;
 using System.Collections;
+using NSEmbroidery.Core.Decorators;
 
 namespace NSEmbroidery.UnitTests
 {
@@ -61,11 +62,21 @@ namespace NSEmbroidery.UnitTests
             #endregion
 
 
+            var patternCreator = new PatternCreator()
+            {
+                PatternMapGenerator = new PatternMapGenerator(),
+                CanvasConverter = new CanvasConverter(),
+                DecoratorsComposition = new DecoratorsComposition()
+            };
 
-            PatternCreator creator = new PatternCreator();
-            creator.Palette = new Color[] { Color.Red, Color.Green, Color.Blue };
 
-            Bitmap actual = creator.GetEmbroidery(inputImage, 3, 2);
+            Bitmap actual = patternCreator.GetEmbroidery(inputImage, new Settings()
+            {
+                CellsCount = 3,
+                Coefficient = 2,
+                Palette = new Palette(new Color[]{Color.Red, Color.Blue, Color.Green}),
+            });
+
 
             Assert.IsTrue(actual.Height == expectedImage.Height && actual.Width == expectedImage.Width);
 
@@ -126,10 +137,22 @@ namespace NSEmbroidery.UnitTests
 
 
 
-            PatternCreator creator = new PatternCreator();
-            creator.Palette = new Color[] { Color.Red, Color.Green, Color.Blue };
-            creator.GridFlag = true;
-            Bitmap actual = creator.GetEmbroidery(inputImage, 3, 2);
+
+            var patternCreator = new PatternCreator()
+            {
+                PatternMapGenerator = new PatternMapGenerator(),
+                CanvasConverter = new CanvasConverter(),
+                DecoratorsComposition = new DecoratorsComposition()
+            };
+
+
+            Bitmap actual = patternCreator.GetEmbroidery(inputImage, new Settings()
+            {
+                CellsCount = 3,
+                Coefficient = 2,
+                Palette = new Palette(new Color[] { Color.Red, Color.Blue, Color.Green }),
+                GridType = GridType.SolidLine
+            });
 
             Assert.IsTrue(actual.Height == expectedImage.Height && actual.Width == expectedImage.Width);
 
@@ -142,5 +165,7 @@ namespace NSEmbroidery.UnitTests
                 }
 
         }
+
+
     }
 }

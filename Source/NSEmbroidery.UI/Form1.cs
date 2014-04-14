@@ -117,6 +117,18 @@ namespace NSEmbroidery.UI
 
                 panelColors.Controls.Add(boxColor);
                 panelColors.Refresh();
+
+                if (panelSymbols.Controls.Count > 0)
+                {
+                    int xTextBox = textBoxes.Last().Location.X + 35;
+                    TextBox textBox = new TextBox();
+                    textBox.Size = new Size(30, 10);
+                    textBox.Location = new Point(xTextBox, 5);
+                    textBox.Text = (panelSymbols.Controls.Count + 1).ToString();
+
+                    textBoxes.Add(textBox);
+                    panelSymbols.Controls.Add(textBox);
+                }
         }
 
         private void boxColor_Click(object sender, EventArgs e)
@@ -126,6 +138,12 @@ namespace NSEmbroidery.UI
             {
                 panelColors.Controls.Remove(boxColor);
                 RefreshPanelColor();
+
+                if (panelSymbols.Controls.Count > 0)
+                {
+                    panelSymbols.Controls.RemoveAt(panelSymbols.Controls.Count - 1);
+                    textBoxes.Remove(textBoxes.Last());
+                }
             }
         }
 
@@ -212,7 +230,7 @@ namespace NSEmbroidery.UI
 
             Color[] palette = this.GetColorsFromPanel();
 
-            if (palette.Length == 0)
+            if (palette == null)
             {
                 MessageBox.Show("Choose palette");
                 return;
@@ -291,7 +309,7 @@ namespace NSEmbroidery.UI
                                 labelWaitResolution.Text = "Wait...";
                                 labelWaitResolution.Refresh();
 
-                                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 15);//Count of resolution here <-----------|
+                                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
 
                                 foreach (var item in resolutions)
                                     comboBoxResolution.Items.Add(item.Key);
@@ -340,6 +358,7 @@ namespace NSEmbroidery.UI
 
                         textBoxes.Add(textBox);
                         panelSymbols.Controls.Add(textBox);
+                        textBox.Text = (i + 1).ToString();
 
                         x = x + 35;
                     }
@@ -374,6 +393,8 @@ namespace NSEmbroidery.UI
                             ShowInfoInTextBoxCells();
 
                             labelresolution.Text = CurrentImage.Width.ToString() + "x" + CurrentImage.Height.ToString();
+
+                            this.pictureBoxColorChoice.Focus();
                         }
                     }
                 }
@@ -387,7 +408,7 @@ namespace NSEmbroidery.UI
         private void ShowInfoInTextBoxCells()
         {
             textBoxCells.ForeColor = Color.Gray;
-            textBoxCells.Text = "1..." + CurrentImage.Width.ToString();
+            textBoxCells.Text = "2..." + CurrentImage.Width.ToString();
         }
 
         private void pictureBoxSymbolColor_Click(object sender, EventArgs e)
@@ -434,9 +455,15 @@ namespace NSEmbroidery.UI
             isChangedCells = true;
         }
 
-        private void textBoxCells_MouseClick(object sender, MouseEventArgs e)
+        private void textBoxCells_LostFocus(object sender, EventArgs e)
         {
-            if (textBoxCells.Text.Contains("1..."))
+            if (CurrentImage != null && textBoxCells.Text == "")
+                ShowInfoInTextBoxCells();
+        }
+
+        private void textBoxCells_GotFocus(object sender, EventArgs e)
+        {
+            if (textBoxCells.Text.Contains("2..."))
             {
                 textBoxCells.ForeColor = Color.Black;
                 textBoxCells.Text = "";
@@ -521,6 +548,11 @@ namespace NSEmbroidery.UI
         {
             this.AddColorToPanelColor(pictureBoxColorCreated.BackColor);
             panelCreateColor.Visible = false;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

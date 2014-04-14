@@ -15,9 +15,9 @@ namespace NSEmbroidery.UI
         Bitmap image;
         public Bitmap Image
         {
-            get { return image; }
-            set 
-            { 
+            get{ return image; }
+            set
+            {
                 pictureBoxResultImage.Image = value;
 
                 int width, height = 0;

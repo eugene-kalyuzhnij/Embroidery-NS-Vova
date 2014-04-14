@@ -64,6 +64,7 @@
             this.textBoxG = new System.Windows.Forms.TextBox();
             this.textBoxR = new System.Windows.Forms.TextBox();
             this.buttonCreateColor = new System.Windows.Forms.Button();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -87,7 +88,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openImageToolStripMenuItem});
+            this.openImageToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -95,7 +97,7 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openImageToolStripMenuItem.Text = "Open Image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
             // 
@@ -219,8 +221,9 @@
             this.textBoxCells.Name = "textBoxCells";
             this.textBoxCells.Size = new System.Drawing.Size(58, 20);
             this.textBoxCells.TabIndex = 21;
-            this.textBoxCells.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBoxCells_MouseClick);
             this.textBoxCells.TextChanged += new System.EventHandler(this.textBoxCells_TextChanged);
+            this.textBoxCells.GotFocus += new System.EventHandler(this.textBoxCells_GotFocus);
+            this.textBoxCells.LostFocus += new System.EventHandler(this.textBoxCells_LostFocus);
             // 
             // buttonAddSymbols
             // 
@@ -413,6 +416,13 @@
             this.buttonCreateColor.UseVisualStyleBackColor = true;
             this.buttonCreateColor.Click += new System.EventHandler(this.buttonCreateColor_Click);
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,6 +508,7 @@
         private System.Windows.Forms.TextBox textBoxG;
         private System.Windows.Forms.TextBox textBoxR;
         private System.Windows.Forms.Button buttonCreateColor;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

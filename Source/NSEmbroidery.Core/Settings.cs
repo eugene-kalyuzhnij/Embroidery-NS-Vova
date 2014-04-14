@@ -32,6 +32,7 @@ namespace NSEmbroidery.Core
         public Dictionary<Color, Char> ColorSymbolRelation;
         public Color SymbolColor { get; set; }
         public GridType GridType { get; set; }
+        public int Coefficient { get; set; }
 
 
 
@@ -53,35 +54,9 @@ namespace NSEmbroidery.Core
         }
     }
 
-
-    public class Resolution
-    {
-        public int Height { get; set; }
-        public int Width { get; set; }
-
-        public Resolution(int width, int height)
-        {
-            Height = height;
-            Width = width;
-        }
-
-
-        public void SetResolution(int width, int height)
-        {
-            Height = height;
-            Width = width;
-        }
-
-        public override string ToString()
-        {
-            return Width.ToString() + "x" + Height.ToString();
-        }
-    }
-
-
-
     public enum GridType
     {
+        None,
         SolidLine,
         Points
     }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core.Decorators
 {
-    class DecoratorsCompositors
+    public class DecoratorsComposition
     {
         List<IDecorator> Decorators;
         public Settings Settings { get; set; }
 
-        public DecoratorsCompositors()
+        public DecoratorsComposition()
         {
             Decorators = new List<IDecorator>();
         }

@@ -10,17 +10,15 @@ namespace NSEmbroidery.Core.Decorators
     public class SymbolsDecorator : IDecorator
     {
 
-        public Settings Settings { get; set; }
-
-        public void Decorate(Canvas embroidery, Canvas pattern)
+        public void Decorate(Canvas embroidery, Canvas pattern, Settings settings)
         {
-            int squareWidth = embroidery.Width / Settings.CellsCount;
+            int squareWidth = embroidery.Width / settings.CellsCount;
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
 
             try
             {
-                Settings.CreateColorSymbolRelation();
+                settings.CreateColorSymbolRelation();
             }
             catch (WrongSymbolsRealisationException e)
             {
@@ -32,13 +30,13 @@ namespace NSEmbroidery.Core.Decorators
             }
 
             Color symbolColor;
-            if(Settings.SymbolColor == Color.Empty) symbolColor = Color.Black;
-            else symbolColor = Settings.SymbolColor;
+            if(settings.SymbolColor == Color.Empty) symbolColor = Color.Black;
+            else symbolColor = settings.SymbolColor;
                 
             for(int squareY = 0, patternY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, patternY++)
                 for (int squareX = 0, patternX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth, patternX++)
                 {
-                    char symbol = GetSymbol(pattern.GetColor(patternX, patternY));
+                    char symbol = GetSymbol(pattern.GetColor(patternX, patternY), settings);
                     embroidery.SetSymbol(symbol, squareX, squareY, squareWidth, symbolColor);
                 }
         }
@@ -52,10 +50,10 @@ namespace NSEmbroidery.Core.Decorators
         }
 
 
-        private char GetSymbol(Color color)
+        private char GetSymbol(Color color, Settings settings)
         {
             char symbol;
-            if (!Settings.ColorSymbolRelation.TryGetValue(color, out symbol))
+            if (!settings.ColorSymbolRelation.TryGetValue(color, out symbol))
                 throw new Exception("There are no value for this key, key = " + color.ToString());
 
             return symbol;

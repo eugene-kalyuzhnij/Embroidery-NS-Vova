@@ -72,7 +72,7 @@ namespace NSEmbroidery.Core
 
         public void SetSymbol(char symbol, int x, int y, int squareWidth, Color color)
         {
-
+            CanvasConverter converter = new CanvasConverter();
             Bitmap smallPart = new Bitmap(squareWidth, squareWidth);
 
             for (int _y = y, i = 0; _y < y + squareWidth; _y++, i++)
@@ -91,7 +91,7 @@ namespace NSEmbroidery.Core
             g.DrawString(sym, font, brush, new PointF(0f, 0f));
 
 
-            Canvas innerCanvas = CanvasConverter.ConvertBitmapToCanvas(smallPart);
+            Canvas innerCanvas = converter.ConvertBitmapToCanvas(smallPart);
 
             this.SetCanvas(x, y, innerCanvas);
 

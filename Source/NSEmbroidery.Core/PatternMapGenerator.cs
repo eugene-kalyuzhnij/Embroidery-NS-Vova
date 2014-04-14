@@ -16,11 +16,13 @@ namespace NSEmbroidery.Core
         }
 
 
-        public Settings Settings { get; set; }
+        Settings Settings { get; set; }
 
 
-        public Canvas Generate(Canvas canvas)
+        public Canvas Generate(Canvas canvas, Settings settings)
         {
+            Settings = settings;
+
             if (Settings.Palette == null || Settings.Palette.Count == 0)
                 throw new NullReferenceException("Check that Palette isn't null or it has any colors");
             if (Settings.CellsCount <= 0)

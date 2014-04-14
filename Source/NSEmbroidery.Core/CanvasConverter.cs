@@ -9,7 +9,7 @@ namespace NSEmbroidery.Core
 {
     public class CanvasConverter
     {
-        public static Canvas ConvertBitmapToCanvas(Bitmap image)
+        public Canvas ConvertBitmapToCanvas(Bitmap image)
         {
             int width = image.Width;
             int height = image.Height;
@@ -24,7 +24,7 @@ namespace NSEmbroidery.Core
             return canvas;
         }
 
-        public static Bitmap ConvertCanvasToBitmap(Canvas canvas)
+        public Bitmap ConvertCanvasToBitmap(Canvas canvas)
         {
             int width = canvas.Width;
             int height = canvas.Height;

@@ -9,13 +9,11 @@ namespace NSEmbroidery.Core.Decorators
 {
     class GridDecorator : IDecorator
     {
-        public Settings Settings { get; set; }
 
-        public void Decorate(Canvas embroidery, Canvas pattern)
+        public void Decorate(Canvas embroidery, Canvas pattern, Settings settings)
         {
 
-
-            int squareWidth = embroidery.Width / Settings.CellsCount;
+            int squareWidth = embroidery.Width / settings.CellsCount;
 
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
@@ -23,13 +21,12 @@ namespace NSEmbroidery.Core.Decorators
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)
                 for (int squareX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth)
                 {
-                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Right, Settings.GridType);
-                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom, Settings.GridType);
+                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Right, settings.GridType);
+                    embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom, settings.GridType);
                 }
 
 
         }
-
 
     }
 }

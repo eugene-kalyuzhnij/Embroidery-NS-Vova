@@ -65,14 +65,14 @@ namespace NSEmbroidery.Core
 
         public Bitmap GetEmbroidery(Bitmap image, int horisontalCellCount, int ratio)
         {
-            Settings.CellsCount = horisontalCellCount;
+            CanvasConverter converter = new CanvasConverter();
+            DecoratorsCompositors decorator = new DecoratorsCompositors();
             PatternMapGenerator mapGenerator = new PatternMapGenerator();
 
-            mapGenerator.Settings = Settings;
-            pattern = mapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image));
+            Settings.CellsCount = horisontalCellCount;
 
-            DecoratorsCompositors decorator = new DecoratorsCompositors();
-            decorator.Settings = Settings;
+            pattern = mapGenerator.Generate(converter.ConvertBitmapToCanvas(image), Settings);
+            Resolution resolution = new Resolution(pattern.Width * ratio, pattern.Height * ratio);
 
             if(ColorFlag)
                 decorator.AddDecorator(new CellsDecorator());
@@ -82,13 +82,10 @@ namespace NSEmbroidery.Core
                 decorator.AddDecorator(new GridDecorator());
 
 
-            Resolution resolution;
-            resolution = new Resolution(pattern.Width * ratio, pattern.Height * ratio);
-
             Canvas result = new Canvas(resolution);
-            decorator.Decorate(result, pattern);
+            decorator.Decorate(result, pattern, Settings);
 
-            return CanvasConverter.ConvertCanvasToBitmap(result);
+            return converter.ConvertCanvasToBitmap(result);
         }
 
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette)

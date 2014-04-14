@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -64,7 +65,6 @@
             this.textBoxG = new System.Windows.Forms.TextBox();
             this.textBoxR = new System.Windows.Forms.TextBox();
             this.buttonCreateColor = new System.Windows.Forms.Button();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -97,9 +97,16 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openImageToolStripMenuItem.Text = "Open Image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -129,6 +136,7 @@
             this.pictureBoxCurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxCurrentImage.TabIndex = 2;
             this.pictureBoxCurrentImage.TabStop = false;
+            this.pictureBoxCurrentImage.Click += new System.EventHandler(this.pictureBoxCurrentImage_Click);
             // 
             // buttonCreateScheme
             // 
@@ -415,13 +423,6 @@
             this.buttonCreateColor.Text = "Create color";
             this.buttonCreateColor.UseVisualStyleBackColor = true;
             this.buttonCreateColor.Click += new System.EventHandler(this.buttonCreateColor_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 

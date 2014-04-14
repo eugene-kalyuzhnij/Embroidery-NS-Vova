@@ -21,7 +21,7 @@ namespace NSEmbroidery.UI
         Dictionary<Resolution, int> resolutions;
         bool isChangedCells;
 
-        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, bool grid, GridType type);
+        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
 
         public Form1()
         {
@@ -253,19 +253,19 @@ namespace NSEmbroidery.UI
                 masSymbols = null;
 
 
-            bool grid = false;
-            GridType type = GridType.SolidLine;
+            GridType type = GridType.None;
             if (checkBoxGrid.CheckState == CheckState.Checked)
             {
-                grid = true;
                 if (radioButtonPoints.Checked)
                     type = GridType.Points;
+                else if (radioButtonLine.Checked)
+                    type = GridType.SolidLine;
             }
 
             Embroidery callMethod = new Embroidery(PatternCreator.CreateEmbroidery);
 
 /*--------------------using dll here-------------------------------------------------*/
-            IAsyncResult result = callMethod.BeginInvoke(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, grid, type, null, null);
+            IAsyncResult result = callMethod.BeginInvoke(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
             Bitmap embordieryImage = callMethod.EndInvoke(result);
 /*-----------------------------------------------------------------------------------*/
 
@@ -275,6 +275,7 @@ namespace NSEmbroidery.UI
             resultLabel.Text = "";
 
             imageForm.ShowDialog();
+            imageForm.Dispose();
 
         }
 
@@ -553,6 +554,11 @@ namespace NSEmbroidery.UI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void pictureBoxCurrentImage_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

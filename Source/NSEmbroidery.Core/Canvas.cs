@@ -151,7 +151,7 @@ namespace NSEmbroidery.Core
 
             if (type == GridType.Points)
             {
-                #region LineGridAlgorithm
+                #region PointsGridAlgorithm
                 switch (align)
                 {
                     case Aligns.Left:
@@ -199,7 +199,7 @@ namespace NSEmbroidery.Core
             }
             else
             {
-                #region PointsGridAlgorithm
+                #region LineGridAlgorithm
                 switch (align)
                 {
                     case Aligns.Left:

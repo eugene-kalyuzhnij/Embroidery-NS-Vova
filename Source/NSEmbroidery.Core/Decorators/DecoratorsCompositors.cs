@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ninject;
 
 namespace NSEmbroidery.Core.Decorators
 {
     public class DecoratorsComposition
     {
-        List<IDecorator> Decorators;
+        List<IDecorator> Decorators { get; set; }
+
         public Settings Settings { get; set; }
 
         public DecoratorsComposition()

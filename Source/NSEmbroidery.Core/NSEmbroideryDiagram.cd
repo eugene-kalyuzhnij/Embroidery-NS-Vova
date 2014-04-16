@@ -3,7 +3,7 @@
   <Class Name="NSEmbroidery.Core.Settings" Collapsed="true">
     <Position X="3.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAUIAAAABAAAIAAAAAACQQEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAUIAAAABAAAIAAAAAACQQEEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -11,23 +11,23 @@
     <Position X="2.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAEAAAAAEAAAAAAAAAAAIAAAAAAAAA=</HashCode>
-      <FileName>Settings.cs</FileName>
+      <FileName>Resolution.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NSEmbroidery.Core.PatternMapGenerator" Collapsed="true">
+  <Class Name="NSEmbroidery.Core.PatternMapGenerator">
     <Position X="3.5" Y="2" Width="2" />
     <Compartments>
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAEAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAACA=</HashCode>
       <FileName>PatternMapGenerator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NSEmbroidery.Core.Decorators.CellsDecorator" Collapsed="true">
     <Position X="8.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\CellsDecorator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -35,7 +35,7 @@
   <Class Name="NSEmbroidery.Core.Decorators.SymbolsDecorator" Collapsed="true">
     <Position X="8.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAAgAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\SymbolsDecorator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -43,12 +43,12 @@
   <Class Name="NSEmbroidery.Core.Decorators.GridDecorator" Collapsed="true">
     <Position X="8.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\GridDecorator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="NSEmbroidery.Core.Decorators.DecoratorsCompositors" Collapsed="true">
+  <Class Name="NSEmbroidery.Core.Decorators.DecoratorsComposition">
     <Position X="6.25" Y="2" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAABAAAAAAAAgAAAAAAgAAA=</HashCode>
@@ -56,13 +56,13 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NSEmbroidery.Core.PatternCreator" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="1" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAIBAAAIAAAgAACEQAEAAEAAAgAAgAAAAIAA=</HashCode>
+      <HashCode>AAAABAAAAIAAAAAAAAgAAAAAAAAQAAAgAAAAAAAAAAA=</HashCode>
       <FileName>PatternCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -98,14 +98,14 @@
   <Interface Name="NSEmbroidery.Core.Decorators.IDecorator" Collapsed="true">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\IDecorator.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="NSEmbroidery.Core.GridType" Collapsed="true">
     <Position X="1" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Enum>

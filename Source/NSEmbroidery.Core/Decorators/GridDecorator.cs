@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core.Decorators
 {
-    class GridDecorator : IDecorator
+    public class GridDecorator : IDecorator
     {
 
         public void Decorate(Canvas embroidery, Canvas pattern, Settings settings)

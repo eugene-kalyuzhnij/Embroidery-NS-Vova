@@ -10,12 +10,6 @@ namespace NSEmbroidery.Core
     public class PatternMapGenerator
     {
 
-        public PatternMapGenerator()
-        {
-        }
-
-
-
         public Canvas Generate(Canvas canvas, Settings settings)
         {
 

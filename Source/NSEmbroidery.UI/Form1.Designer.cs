@@ -65,6 +65,7 @@
             this.textBoxG = new System.Windows.Forms.TextBox();
             this.textBoxR = new System.Windows.Forms.TextBox();
             this.buttonCreateColor = new System.Windows.Forms.Button();
+            this.buttonRemoveSymbols = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -140,7 +141,7 @@
             // 
             // buttonCreateScheme
             // 
-            this.buttonCreateScheme.Location = new System.Drawing.Point(475, 352);
+            this.buttonCreateScheme.Location = new System.Drawing.Point(475, 371);
             this.buttonCreateScheme.Name = "buttonCreateScheme";
             this.buttonCreateScheme.Size = new System.Drawing.Size(105, 23);
             this.buttonCreateScheme.TabIndex = 6;
@@ -249,7 +250,7 @@
             this.panelSymbols.BackColor = System.Drawing.SystemColors.MenuBar;
             this.panelSymbols.Location = new System.Drawing.Point(468, 286);
             this.panelSymbols.Name = "panelSymbols";
-            this.panelSymbols.Size = new System.Drawing.Size(209, 51);
+            this.panelSymbols.Size = new System.Drawing.Size(209, 31);
             this.panelSymbols.TabIndex = 23;
             // 
             // pictureBoxSymbolColor
@@ -424,12 +425,24 @@
             this.buttonCreateColor.UseVisualStyleBackColor = true;
             this.buttonCreateColor.Click += new System.EventHandler(this.buttonCreateColor_Click);
             // 
+            // buttonRemoveSymbols
+            // 
+            this.buttonRemoveSymbols.Location = new System.Drawing.Point(474, 323);
+            this.buttonRemoveSymbols.Name = "buttonRemoveSymbols";
+            this.buttonRemoveSymbols.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveSymbols.TabIndex = 31;
+            this.buttonRemoveSymbols.Text = "Remove";
+            this.buttonRemoveSymbols.UseVisualStyleBackColor = true;
+            this.buttonRemoveSymbols.Visible = false;
+            this.buttonRemoveSymbols.Click += new System.EventHandler(this.buttonRemoveSymbols_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
+            this.Controls.Add(this.buttonRemoveSymbols);
             this.Controls.Add(this.panelCreateColor);
             this.Controls.Add(this.panelColorChoice);
             this.Controls.Add(this.buttonCreateColor);
@@ -510,6 +523,7 @@
         private System.Windows.Forms.TextBox textBoxR;
         private System.Windows.Forms.Button buttonCreateColor;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRemoveSymbols;
     }
 }
 

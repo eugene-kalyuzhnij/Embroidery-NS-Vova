@@ -143,6 +143,8 @@ namespace NSEmbroidery.UI
                 {
                     panelSymbols.Controls.RemoveAt(panelSymbols.Controls.Count - 1);
                     textBoxes.Remove(textBoxes.Last());
+                    if (panelSymbols.Controls.Count == 0)
+                        buttonRemoveSymbols.Visible = false;
                 }
             }
         }
@@ -363,6 +365,7 @@ namespace NSEmbroidery.UI
 
                         x = x + 35;
                     }
+                    buttonRemoveSymbols.Visible = true;
             }
             else MessageBox.Show("Create palette first");
         }
@@ -559,6 +562,14 @@ namespace NSEmbroidery.UI
         private void pictureBoxCurrentImage_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonRemoveSymbols_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < panelSymbols.Controls.Count; )
+                panelSymbols.Controls.RemoveAt(0);
+
+            buttonRemoveSymbols.Visible = false;
         }
 
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using NSEmbroidery.Core.Decorators;
 using NSEmbroidery.Core.Interfaces;
+using Ninject;
 
 namespace NSEmbroidery.Core
 {
@@ -17,10 +18,13 @@ namespace NSEmbroidery.Core
         {
         }
 
+        [Inject]
         public IPatternMapGenerator PatternMapGenerator { get; set; }
 
+        [Inject]
         public ICanvasConverter CanvasConverter { get; set; }
 
+        [Inject]
         public IDecoratorsComposition DecoratorsComposition{ get; set; }
 
 
@@ -33,7 +37,7 @@ namespace NSEmbroidery.Core
             if (settings.Coefficient <= 0)
                 throw new NotInitializedException("coefficient has to be > 0");
             if (settings.Palette == null)
-                throw new NotInitializedException("palette has to be not null");
+                throw new NotInitializedException("palette doesn't have to be null");
 
             Canvas pattern = PatternMapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image), settings);
             Resolution resolution = new Resolution(pattern.Width * settings.Coefficient, pattern.Height * settings.Coefficient);
@@ -58,11 +62,20 @@ namespace NSEmbroidery.Core
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
 
+            IKernel kernel = new StandardKernel();
+            kernel.Bind<IPatternMapGenerator>().To<PatternMapGenerator>();
+            kernel.Bind<IDecoratorsComposition>().To<DecoratorsComposition>();
+            kernel.Bind<ICanvasConverter>().To<CanvasConverter>();
+
+            var patternMapGenerator = kernel.Get<IPatternMapGenerator>();
+            var decoratoComposition = kernel.Get<IDecoratorsComposition>();
+            var canvasConverter = kernel.Get<ICanvasConverter>();
+
             var patternCreator = new PatternCreator()
             {
-                PatternMapGenerator = new PatternMapGenerator(),
-                CanvasConverter = new CanvasConverter(),
-                DecoratorsComposition = new DecoratorsComposition()
+                PatternMapGenerator = patternMapGenerator,
+                CanvasConverter = canvasConverter,
+                DecoratorsComposition = decoratoComposition
             };
 
 

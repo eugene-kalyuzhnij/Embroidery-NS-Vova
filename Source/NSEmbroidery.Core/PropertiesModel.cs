@@ -16,7 +16,6 @@ namespace NSEmbroidery.Core
 
         public override void Load()
         {
-            this.Bind<IDecoratorsComposition>().To<DecoratorsComposition>();
             this.Bind<IPatternMapGenerator>().To<PatternMapGenerator>();
             this.Bind<ICanvasConverter>().To<CanvasConverter>();
         }

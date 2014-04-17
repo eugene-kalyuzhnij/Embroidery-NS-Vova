@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NSEmbroidery.Core.Decorators;
 
 namespace NSEmbroidery.Core
 {
@@ -33,7 +34,7 @@ namespace NSEmbroidery.Core
         public Color SymbolColor { get; set; }
         public GridType GridType { get; set; }
         public int Coefficient { get; set; }
-
+        public DecoratorsComposition DecoratorsComposition { get; set; }
 
 
         public void CreateColorSymbolRelation()
@@ -50,7 +51,12 @@ namespace NSEmbroidery.Core
 
             for (int i = 0; i < Palette.Count; i++)
                 ColorSymbolRelation.Add(colors[i], Symbols[i]);
+        }
 
+
+        public void Decorate(Canvas embroidery, Canvas pattern)
+        {
+            DecoratorsComposition.Decorate(embroidery, pattern, this);
         }
     }
 

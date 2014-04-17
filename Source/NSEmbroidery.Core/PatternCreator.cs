@@ -24,10 +24,6 @@ namespace NSEmbroidery.Core
         [Inject]
         public ICanvasConverter CanvasConverter { get; set; }
 
-        [Inject]
-        public IDecoratorsComposition DecoratorsComposition{ get; set; }
-
-
 
 
         public Bitmap GetEmbroidery(Bitmap image, Settings settings)
@@ -42,16 +38,9 @@ namespace NSEmbroidery.Core
             Canvas pattern = PatternMapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image), settings);
             Resolution resolution = new Resolution(pattern.Width * settings.Coefficient, pattern.Height * settings.Coefficient);
 
-            if(settings.Palette != null)
-                DecoratorsComposition.AddDecorator(new CellsDecorator());
-            if(settings.Symbols != null)
-                DecoratorsComposition.AddDecorator(new SymbolsDecorator());
-            if(settings.GridType != Core.GridType.None)
-                DecoratorsComposition.AddDecorator(new GridDecorator());
-
 
             Canvas result = new Canvas(resolution);
-            DecoratorsComposition.Decorate(result, pattern, settings);
+            settings.Decorate(result, pattern);
 
             return CanvasConverter.ConvertCanvasToBitmap(result);
         }
@@ -65,26 +54,34 @@ namespace NSEmbroidery.Core
             IKernel kernel = new StandardKernel(new PropertiesModel());
 
             var patternMapGenerator = kernel.Get<IPatternMapGenerator>();
-            var decoratoComposition = kernel.Get<IDecoratorsComposition>();
             var canvasConverter = kernel.Get<ICanvasConverter>();
 
             var patternCreator = new PatternCreator()
             {
                 PatternMapGenerator = patternMapGenerator,
                 CanvasConverter = canvasConverter,
-                DecoratorsComposition = decoratoComposition
             };
 
-
-            Bitmap result = patternCreator.GetEmbroidery(image, new Settings()
+            Settings settings = new Settings()
             {
                 CellsCount = cellsCount,
                 Coefficient = resolutionCoefficient,
                 Palette = new Palette(palette),
                 Symbols = symbols,
                 SymbolColor = symbolColor,
-                GridType = type
-            });
+                GridType = type,
+                DecoratorsComposition = new DecoratorsComposition()
+            };
+
+            if (settings.Palette != null)
+                settings.DecoratorsComposition.AddDecorator(new CellsDecorator());
+            if (settings.Symbols != null)
+                settings.DecoratorsComposition.AddDecorator(new SymbolsDecorator());
+            if (settings.GridType != Core.GridType.None)
+                settings.DecoratorsComposition.AddDecorator(new GridDecorator());
+
+
+            Bitmap result = patternCreator.GetEmbroidery(image, settings);
 
             return result;
         }

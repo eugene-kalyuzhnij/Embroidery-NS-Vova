@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitDecorators.cs" />
     <Compile Include="UnitPatternMapGenerator.cs" />
+    <Compile Include="UnitCanvas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">

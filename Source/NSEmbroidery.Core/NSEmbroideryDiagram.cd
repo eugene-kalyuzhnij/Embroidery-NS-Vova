@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="NSEmbroidery.Core.Settings" Collapsed="true">
-    <Position X="3.5" Y="5.5" Width="1.5" />
+    <Position X="0.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAUIAAAABAAAIAAAAAACQQEEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NSEmbroidery.Core.Resolution" Collapsed="true">
-    <Position X="2.75" Y="6.25" Width="1.5" />
+    <Position X="0.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAEAAAAAEAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Resolution.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NSEmbroidery.Core.PatternMapGenerator">
-    <Position X="3.5" Y="2" Width="2" />
+  <Class Name="NSEmbroidery.Core.PatternMapGenerator" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="2" />
     <Compartments>
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
@@ -23,9 +23,10 @@
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAACA=</HashCode>
       <FileName>PatternMapGenerator.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.Decorators.CellsDecorator" Collapsed="true">
-    <Position X="8.25" Y="1.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\CellsDecorator.cs</FileName>
@@ -33,7 +34,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.Decorators.SymbolsDecorator" Collapsed="true">
-    <Position X="8.25" Y="2.5" Width="1.5" />
+    <Position X="6.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAgAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\SymbolsDecorator.cs</FileName>
@@ -41,22 +42,23 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.Decorators.GridDecorator" Collapsed="true">
-    <Position X="8.25" Y="3.5" Width="1.5" />
+    <Position X="6.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\GridDecorator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="NSEmbroidery.Core.Decorators.DecoratorsComposition">
-    <Position X="6.25" Y="2" Width="1.75" />
+  <Class Name="NSEmbroidery.Core.Decorators.DecoratorsComposition" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAAAAAAAAAAAAAABAAAAAAAAgAAAAAAgAAA=</HashCode>
-      <FileName>Decorators\DecoratorsCompositors.cs</FileName>
+      <FileName>Decorators\DecoratorsComposition.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.PatternCreator" Collapsed="true">
-    <Position X="1" Y="0.75" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Properties" Collapsed="true" />
@@ -67,21 +69,22 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NSEmbroidery.Core.Palette" Collapsed="true">
-    <Position X="4.5" Y="6.25" Width="1.5" />
+    <Position X="0.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAACAAQAABAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>Palette.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NSEmbroidery.Core.CanvasConverter" Collapsed="true">
-    <Position X="1" Y="4.5" Width="1.5" />
+    <Position X="2.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CanvasConverter.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.Canvas" Collapsed="true">
-    <Position X="1" Y="3.75" Width="1.5" />
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAYDAAACBAABAAAAEQAAAAAAACAAAgAiAAAACA=</HashCode>
       <FileName>Canvas.cs</FileName>
@@ -89,28 +92,28 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NSEmbroidery.Core.Calculate" Collapsed="true">
-    <Position X="6.25" Y="5.5" Width="1.5" />
+    <Position X="3.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Calculate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="NSEmbroidery.Core.Decorators.IDecorator" Collapsed="true">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Decorators\IDecorator.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="NSEmbroidery.Core.GridType" Collapsed="true">
-    <Position X="1" Y="5.5" Width="1.5" />
+    <Position X="3.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="NSEmbroidery.Core.Aligns" Collapsed="true">
-    <Position X="1" Y="6.25" Width="1.5" />
+    <Position X="3.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACACAAAAAAAA=</HashCode>
       <FileName>Canvas.cs</FileName>

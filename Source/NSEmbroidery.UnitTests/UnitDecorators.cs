@@ -15,7 +15,7 @@ namespace NSEmbroidery.UnitTests
     {
 
         [TestMethod]
-        public void TestMethod_CellsDecorator()
+        public void Test_CellsDecorator()
         {
 
             Settings settings = new Settings();
@@ -24,7 +24,6 @@ namespace NSEmbroidery.UnitTests
             settings.Palette = new Palette(new Color[] { Color.Red, Color.Green, Color.Blue }); 
 
             Canvas pattern = new Canvas(new Resolution(3, 2));
-
 #region FillingPattern
              for (int y = 0; y < 2; y++)
                 for (int x = 0; x < 3; x++)
@@ -40,7 +39,6 @@ namespace NSEmbroidery.UnitTests
 
 
             Canvas expectedCanvas = new Canvas(new Resolution(6, 4));
-
 #region FillingFillingExpectedCanvas
             for (int y = 0; y < 4; y++)
                 for (int x = 0; x < 6; x++)
@@ -78,7 +76,7 @@ namespace NSEmbroidery.UnitTests
 
 
         [TestMethod]
-        public void TestMethod_GridDecorator()
+        public void Test_GridDecorator()
         {
             Settings settings = new Settings();
             settings.CellsCount = 3;
@@ -122,7 +120,7 @@ namespace NSEmbroidery.UnitTests
 
             Canvas actual = new Canvas(new Resolution(6, 4));
 
-#region FillingExpectedCanvas
+#region Filling actual
             for (int y = 0; y < 4; y++)
                 for (int x = 0; x < 6; x++)
                         actual.SetColor(x, y, Color.Green);

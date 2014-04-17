@@ -9,7 +9,7 @@ namespace NSEmbroidery.UnitTests
     public class UnitPatternMapGenerator
     {
         [TestMethod]
-        public void TestMethod_Generate()
+        public void Test_PatternMapGenerator_Generate()
         {
             Canvas expectedPattern = new Canvas(new Resolution(3, 2));
 

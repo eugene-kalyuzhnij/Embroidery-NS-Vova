@@ -62,10 +62,7 @@ namespace NSEmbroidery.Core
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
 
-            IKernel kernel = new StandardKernel();
-            kernel.Bind<IPatternMapGenerator>().To<PatternMapGenerator>();
-            kernel.Bind<IDecoratorsComposition>().To<DecoratorsComposition>();
-            kernel.Bind<ICanvasConverter>().To<CanvasConverter>();
+            IKernel kernel = new StandardKernel(new PropertiesModel());
 
             var patternMapGenerator = kernel.Get<IPatternMapGenerator>();
             var decoratoComposition = kernel.Get<IDecoratorsComposition>();

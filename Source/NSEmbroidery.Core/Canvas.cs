@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NSEmbroidery.Core.Interfaces;
 
 namespace NSEmbroidery.Core
 {
@@ -143,9 +144,8 @@ namespace NSEmbroidery.Core
                         colors[i++] = color;
                     }
 
-                    Color resultColor = AverageColor(colors);
+                    Color resultColor = this.AverageColor(colors);
                     smallCanvas.SetColor(smallX, smallY, resultColor);
-
                 }
 
             return smallCanvas;
@@ -248,7 +248,7 @@ namespace NSEmbroidery.Core
         public void SetCanvas(int x, int y, Canvas innerCanvas)
         {
             if (x + innerCanvas.Width > this.Width || y + innerCanvas.Height > this.Height)
-                throw new Exception("Can't set inner canvas");
+                throw new WrongResolutionException("Can't set inner canvas");
             
 
             for (int _y = y, i = 0; _y < y + innerCanvas.Height; _y++, i++)
@@ -262,7 +262,7 @@ namespace NSEmbroidery.Core
         public Canvas GetInnerCanvas(int x, int y, Resolution resol)
         {
             if (x + resol.Width > this.Width || y + resol.Height > this.Height)
-                throw new Exception("Can't get inner canvas");
+                throw new WrongResolutionException("Can't get inner canvas");
             
             Canvas result = new Canvas(resol);
 

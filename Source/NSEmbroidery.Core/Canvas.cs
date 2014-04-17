@@ -45,24 +45,32 @@ namespace NSEmbroidery.Core
         public IEnumerator<Color> GetEnumerator()
         {
             if (Color != null)
-                for (int i = 0; i <= Color.GetUpperBound(1); i++)
-                    for (int j = 0; j <= Color.GetUpperBound(0); j++)
-                    {
-                        yield return Color[i, j];
-                    }
+            {
+                int width = Color.GetUpperBound(1);
+                int height = Color.GetUpperBound(0);
 
+                for (int y = 0; y <= height; y++)
+                    for (int x = 0; x <= width; x++)
+                    {
+                        yield return Color[y, x];
+                    }
+            }
             else throw new Exception("Not implement Color field");
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             if (Color != null)
-                for (int i = 0; i < Color.GetUpperBound(1); i++)
-                    for (int j = 0; j < Color.GetUpperBound(0); j++)
-                    {
-                        yield return Color[i, j];
-                    }
+            {
+                int width = Color.GetUpperBound(1);
+                int height = Color.GetUpperBound(0);
 
+                for (int y = 0; y <= height; y++)
+                    for (int x = 0; x <= width; x++)
+                    {
+                        yield return Color[y, x];
+                    }
+            }
             else throw new Exception("Not implement Color field");
         }
 

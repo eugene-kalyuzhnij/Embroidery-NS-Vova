@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using NSEmbroidery.Core.Decorators;
+using NSEmbroidery.Core.Interfaces;
 
 namespace NSEmbroidery.Core
 {
@@ -16,11 +17,11 @@ namespace NSEmbroidery.Core
         {
         }
 
-        public PatternMapGenerator PatternMapGenerator { get; set; }
+        public IPatternMapGenerator PatternMapGenerator { get; set; }
 
-        public CanvasConverter CanvasConverter { get; set; }
+        public ICanvasConverter CanvasConverter { get; set; }
 
-        public DecoratorsComposition DecoratorsComposition{ get; set; }
+        public IDecoratorsComposition DecoratorsComposition{ get; set; }
 
 
 

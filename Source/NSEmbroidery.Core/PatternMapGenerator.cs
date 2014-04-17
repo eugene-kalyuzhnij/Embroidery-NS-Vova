@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NSEmbroidery.Core.Interfaces;
 
 namespace NSEmbroidery.Core
 {
-    public class PatternMapGenerator
+    public class PatternMapGenerator : IPatternMapGenerator
     {
 
         public Canvas Generate(Canvas canvas, Settings settings)

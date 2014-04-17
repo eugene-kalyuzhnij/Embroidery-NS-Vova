@@ -46,10 +46,13 @@
     <Compile Include="Calculate.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="CanvasConverter.cs" />
-    <Compile Include="Decorators\DecoratorsCompositors.cs" />
+    <Compile Include="Decorators\DecoratorsComposition.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Decorators\GridDecorator.cs" />
     <Compile Include="Decorators\IDecorator.cs" />
+    <Compile Include="Interfaces\ICanvasConverter.cs" />
+    <Compile Include="Interfaces\IDecoratorsComposition.cs" />
+    <Compile Include="Interfaces\IPatternMapGenerator.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PatternCreator.cs" />

@@ -7,14 +7,14 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core
 {
-    public static class Calculate
+    public class Calculate
     {
-        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
+        public Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
         {
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
 
             if (cellsCount <= 0)
-                throw new NotInitializedException("Square count has to be initialized and inherent");
+                throw new WrongInitializedException("Square count has to be initialized and inherent");
 
             if (image.Width < cellsCount)
                 throw new WrongResolutionException("Image's width must be higher or input less cells");
@@ -34,12 +34,12 @@ namespace NSEmbroidery.Core
         }
 
 
-        public static Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient)
+        public Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient)
         {
             Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
 
             if (cellsCount <= 0)
-                throw new NotInitializedException("Square count has to be initialized and inherent");
+                throw new WrongInitializedException("Square count has to be initialized and inherent");
 
             if (image.Width < cellsCount)
                 throw new WrongResolutionException("Image's width must be higher or input less cells");

@@ -17,7 +17,7 @@ namespace NSEmbroidery.Core
             if (settings.Palette == null || settings.Palette.Count == 0)
                 throw new NullReferenceException("Check that Palette isn't null or it has any colors");
             if (settings.CellsCount <= 0)
-                throw new NotInitializedException("Square count has to be initialized and inherent");
+                throw new WrongInitializedException("Square count has to be initialized and more than zero");
 
             if (canvas.Width < settings.CellsCount)
                 throw new WrongResolutionException("Image's width must be higher or input less cells");
@@ -46,8 +46,11 @@ namespace NSEmbroidery.Core
         }
 
 
-        private Color ChooseColorAmoung(Color oldColor, List<Color> amoungColors)
+        public Color ChooseColorAmoung(Color oldColor, List<Color> amoungColors)
         {
+            if (amoungColors == null || amoungColors.Count == 0)
+                throw new WrongInitializedException("Wrong 'amoungColors' parametr");
+
             Color resultColor;
             int min = GetDifference(oldColor, amoungColors[0]);
 
@@ -68,7 +71,7 @@ namespace NSEmbroidery.Core
         }
 
 
-        private int GetDifference(Color color1, Color color2)
+        public int GetDifference(Color color1, Color color2)
         {
             int dif = 0;
             dif += Math.Abs(color1.A - color2.A);

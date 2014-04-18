@@ -11,7 +11,7 @@ namespace NSEmbroidery.Core
     public class Canvas : IEnumerable<Color>
     {
 
-        Color[,] Color;
+        public Color[,] Color;
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -31,10 +31,21 @@ namespace NSEmbroidery.Core
         public Canvas(Resolution resolution)
         {
             if (resolution == null)
-                throw new NotInitializedException("Resolution is not initialized");
+                throw new WrongInitializedException("Resolution is not initialized");
 
             Width = resolution.Width;
             Height = resolution.Height;
+            Color = new Color[Height, Width];
+        }
+
+        public Canvas(int width, int height)
+        {
+            if (width <= 0 || height <= 0)
+                throw new WrongInitializedException("width or height have to be more than zero");
+
+            Width = width;
+            Height = height;
+
             Color = new Color[Height, Width];
         }
 
@@ -77,6 +88,11 @@ namespace NSEmbroidery.Core
 
         public void SetSymbol(char symbol, int x, int y, int squareWidth, Color color)
         {
+            if (squareWidth <= 0)
+                throw new WrongInitializedException("squareWidth has to be more than zero");
+            if (x < 0 || y < 0)
+                throw new WrongInitializedException("'x' or 'y' has to be equal or more than zero");
+
             CanvasConverter converter = new CanvasConverter();
             Bitmap smallPart = new Bitmap(squareWidth, squareWidth);
 
@@ -102,7 +118,7 @@ namespace NSEmbroidery.Core
 
         }
 
-        private Color AverageColor(Color[] colors)
+        public Color AverageColor(Color[] colors)
         {
             int averageA = 0;
             int averageR = 0;

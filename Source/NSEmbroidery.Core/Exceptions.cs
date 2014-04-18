@@ -21,14 +21,14 @@ namespace NSEmbroidery.Core
     }
 
 
-    public class NotInitializedException : ApplicationException
+    public class WrongInitializedException : ApplicationException
     {
-        public NotInitializedException()
+        public WrongInitializedException()
             : base()
         {
         }
 
-        public NotInitializedException(string msg)
+        public WrongInitializedException(string msg)
             : base(msg)
         {
         }

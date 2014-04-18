@@ -137,7 +137,7 @@ namespace NSEmbroidery.UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(WrongResolutionException))]
-        public void Test_Canvas_setInnerCanvasException()
+        public void Test_Canvas_SetInnerCanvasException()
         {
             Canvas canvas = new Canvas(new Resolution(10, 8));
             #region Filling canvas
@@ -214,6 +214,341 @@ namespace NSEmbroidery.UnitTests
                 }
 
         }
+
+        [TestMethod]
+        public void Test_Canvas_GetResolution()
+        {
+            Canvas canvas = new Canvas(8, 6);
+
+            Resolution expectedResolution = new Resolution(8, 6);
+
+            Assert.AreEqual(expectedResolution.Width, canvas.GetResolution().Width);
+            Assert.AreEqual(expectedResolution.Height, canvas.GetResolution().Height);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_GetColor()
+        {
+            Canvas canvas = new Canvas(4, 2);
+            canvas.Color[0, 3] = Color.Black;
+            
+            Assert.AreEqual(Color.Black, canvas.GetColor(3, 0));
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderRight()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(3, 0, Color.Black);
+            expectedCanvas.SetColor(3, 1, Color.Black);
+            expectedCanvas.SetColor(3, 2, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Right, GridType.SolidLine);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetColor()
+        {
+            Canvas canvas = new Canvas(4, 2);
+
+            canvas.SetColor(3, 0, Color.Red);
+
+            Assert.AreEqual(Color.Red, canvas.Color[0, 3]);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderLeft()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(0, 0, Color.Black);
+            expectedCanvas.SetColor(0, 1, Color.Black);
+            expectedCanvas.SetColor(0, 2, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Left, GridType.SolidLine);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderButtom()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(0, 2, Color.Black);
+            expectedCanvas.SetColor(1, 2, Color.Black);
+            expectedCanvas.SetColor(2, 2, Color.Black);
+            expectedCanvas.SetColor(3, 2, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Buttom, GridType.SolidLine);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderTop()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(0, 0, Color.Black);
+            expectedCanvas.SetColor(1, 0, Color.Black);
+            expectedCanvas.SetColor(2, 0, Color.Black);
+            expectedCanvas.SetColor(3, 0, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Top, GridType.SolidLine);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderPointsTop()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(0, 0, Color.Black);
+            expectedCanvas.SetColor(3, 0, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Top, GridType.Points);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderPointsButtom()
+        {
+            Canvas canvas = new Canvas(4, 3);
+
+            Canvas expectedCanvas = new Canvas(4, 3);
+            expectedCanvas.SetColor(0, 2, Color.Black);
+            expectedCanvas.SetColor(3, 2, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 3, Color.Black, Aligns.Buttom, GridType.Points);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderPointsRight()
+        {
+            Canvas canvas = new Canvas(4, 4);
+
+            Canvas expectedCanvas = new Canvas(4, 4);
+            expectedCanvas.SetColor(3, 0, Color.Black);
+            expectedCanvas.SetColor(3, 3, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 4, Color.Black, Aligns.Right, GridType.Points);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetBorderPointsLeft()
+        {
+            Canvas canvas = new Canvas(4, 4);
+
+            Canvas expectedCanvas = new Canvas(4, 4);
+            expectedCanvas.SetColor(0, 0, Color.Black);
+            expectedCanvas.SetColor(0, 3, Color.Black);
+
+            canvas.SetBorder(0, 0, 4, 4, Color.Black, Aligns.Left, GridType.Points);
+
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_Constructor1Exception()
+        {
+            Resolution resol = null;
+            Canvas canvas = new Canvas(resol);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_Constructor1()
+        {
+            Canvas canvas = new Canvas(new Resolution(3, 2));
+
+            Assert.AreEqual(canvas.Width, 3);
+            Assert.AreEqual(canvas.Height, 2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_Constructor2Exception()
+        {
+            Canvas canvas = new Canvas(-1, 1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_Constructor2Exception2()
+        {
+            Canvas canvas = new Canvas(1, 0);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_Constructor2()
+        {
+            Canvas canvas = new Canvas(3, 2);
+
+            Assert.AreEqual(canvas.Width, 3);
+            Assert.AreEqual(canvas.Height, 2);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_AverageColor()
+        {
+            Canvas canvas = new Canvas(1, 1);
+
+            Color expectedColor = Color.FromArgb(255, 127, 0, 127);
+
+            Color actualColor = canvas.AverageColor(new Color[] { Color.Red, Color.Blue });
+
+            Assert.AreEqual(expectedColor, actualColor);
+        }
+
+        [TestMethod]
+        public void Test_Canvas_SetSymbol()
+        {
+            Bitmap temp = new Bitmap(4, 4);
+
+            Graphics g = Graphics.FromImage(temp);
+
+
+            Font font = new Font("Arial", 4 - 1, GraphicsUnit.Pixel);
+            string sym = "#";
+            sym = sym.PadLeft(1, '#');
+
+            SolidBrush brush = new SolidBrush(Color.Black);
+
+            g.DrawString(sym, font, brush, new PointF(0f, 0f));
+
+            CanvasConverter converter = new CanvasConverter();
+            Canvas expectedCanvas = converter.ConvertBitmapToCanvas(temp);
+
+
+            Canvas canvas = new Canvas(4, 4);
+            canvas.SetSymbol('#', 0, 0, 4, Color.Black);
+
+            Assert.IsTrue(canvas.Width == expectedCanvas.Width && canvas.Height == expectedCanvas.Height);
+
+            for (int y = 0; y < canvas.Height; y++)
+                for (int x = 0; x < canvas.Width; x++)
+                {
+                    Color actualColor = canvas.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue(actualColor == expectedColor);
+                }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_SetSymbolException1()
+        {
+            Canvas canvas = new Canvas(4, 4);
+            canvas.SetSymbol('#', 0, 0, -4, Color.Black);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_SetSymbolException2()
+        {
+            Canvas canvas = new Canvas(4, 4);
+            canvas.SetSymbol('#', 0, -1, 4, Color.Black);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongInitializedException))]
+        public void Test_Canvas_SetSymbolException3()
+        {
+            Canvas canvas = new Canvas(4, 4);
+            canvas.SetSymbol('#', -1, 0, 4, Color.Black);
+        }
+
 
     }
 }

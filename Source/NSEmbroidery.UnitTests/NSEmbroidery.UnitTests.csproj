@@ -61,6 +61,7 @@
     <Compile Include="UnitDecorators.cs" />
     <Compile Include="UnitPatternMapGenerator.cs" />
     <Compile Include="UnitCanvas.cs" />
+    <Compile Include="UnitCalculate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">

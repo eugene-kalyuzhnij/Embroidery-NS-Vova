@@ -12,13 +12,15 @@ namespace NSEmbroidery.Core
     {
         public Canvas ConvertBitmapToCanvas(Bitmap image)
         {
+            if (image == null) throw new NullReferenceException("'image' can't be null");
+
             int width = image.Width;
             int height = image.Height;
 
             Canvas canvas = new Canvas(new Resolution(width, height));
 
-            for(int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
+            for(int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
                     canvas.SetColor(x, y, image.GetPixel(x, y));
                 }
@@ -27,6 +29,8 @@ namespace NSEmbroidery.Core
 
         public Bitmap ConvertCanvasToBitmap(Canvas canvas)
         {
+            if (canvas == null) throw new NullReferenceException("'canvas' can't be null");
+
             int width = canvas.Width;
             int height = canvas.Height;
 

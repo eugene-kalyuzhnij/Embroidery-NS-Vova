@@ -41,6 +41,8 @@ namespace NSEmbroidery.Core
 
         public Color[] GetAllColors()
         {
+            if (colors.Count == 0) throw new WrongInitializedException("Add colors first");
+
             Color[] result = new Color[Count];
             for (int i = 0; i < Count; i++)
                 result[i] = colors[i];

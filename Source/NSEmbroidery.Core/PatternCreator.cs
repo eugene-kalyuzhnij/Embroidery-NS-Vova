@@ -18,10 +18,8 @@ namespace NSEmbroidery.Core
         {
         }
 
-        [Inject]
         public IPatternMapGenerator PatternMapGenerator { get; set; }
 
-        [Inject]
         public ICanvasConverter CanvasConverter { get; set; }
 
 
@@ -32,8 +30,8 @@ namespace NSEmbroidery.Core
                 throw new WrongInitializedException("cellsCount has to be > 0");
             if (settings.Coefficient <= 0)
                 throw new WrongInitializedException("coefficient has to be > 0");
-            if (settings.Palette == null)
-                throw new WrongInitializedException("palette doesn't have to be null");
+            if (settings.Palette == null || settings.Palette.Count == 0)
+                throw new WrongInitializedException("palette has to be initialized");
 
             Canvas pattern = PatternMapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image), settings);
             Resolution resolution = new Resolution(pattern.Width * settings.Coefficient, pattern.Height * settings.Coefficient);

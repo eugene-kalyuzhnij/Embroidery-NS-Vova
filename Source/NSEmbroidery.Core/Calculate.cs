@@ -16,6 +16,9 @@ namespace NSEmbroidery.Core
             if (cellsCount <= 0)
                 throw new WrongInitializedException("Square count has to be initialized and inherent");
 
+            if (countResolutions < 0)
+                throw new WrongInitializedException("Count of resolution has to be more than zero");
+
             if (image.Width < cellsCount)
                 throw new WrongResolutionException("Image's width must be higher or input less cells");
 
@@ -55,7 +58,7 @@ namespace NSEmbroidery.Core
             int newHeight = image.Height / cellWidth;
             int newWidth = cellsCount;
 
-            for (int i = minCoefficient; i < maxCoefficient; i++)
+            for (int i = minCoefficient; i <= maxCoefficient; i++)
                 result.Add(new Resolution(newWidth * i, newHeight * i), i);
 
             return result;

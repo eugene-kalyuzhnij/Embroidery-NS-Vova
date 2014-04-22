@@ -5,27 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using NSEmbroidery.Core.Decorators;
+using NSEmbroidery.Core.Interfaces;
 
 namespace NSEmbroidery.Core
 {
     public class Settings
     {
-
-        public void SetSquareCont(int count)
-        {
-            CellsCount = count;
-        }
-
-        public void SetSymbols(char[] symbols)
-        {
-            Symbols = symbols;
-        }
-
-        public void SetProperties(int squareCount, char[] symbols)
-        {
-            SetSymbols(symbols);
-            SetSquareCont(squareCount);
-        }
 
         public int CellsCount { get; set; }
         public char[] Symbols { get; set; }
@@ -34,15 +19,15 @@ namespace NSEmbroidery.Core
         public Color SymbolColor { get; set; }
         public GridType GridType { get; set; }
         public int Coefficient { get; set; }
-        public DecoratorsComposition DecoratorsComposition { get; set; }
+        public IDecoratorsComposition DecoratorsComposition { get; set; }
 
 
         public void CreateColorSymbolRelation()
         {
-            if (Palette == null)
-                throw new NullReferenceException("Object Palette is null");
+            if (Palette == null || Palette.Count == 0)
+                throw new NullReferenceException("Palette is null");
             if (Symbols == null)
-                throw new NullReferenceException("Object Symbols is null");
+                throw new NullReferenceException("Symbols is null");
             if (Symbols.Length < Palette.Count)
                 throw new WrongSymbolsRealisationException("Symbols have to be more than colors");
 

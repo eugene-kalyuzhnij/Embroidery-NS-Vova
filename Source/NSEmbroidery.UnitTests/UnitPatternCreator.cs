@@ -28,7 +28,7 @@ namespace NSEmbroidery.UnitTests
             settings.Palette = new Palette(new Color[]{Color.Red, Color.Blue});
             settings.DecoratorsComposition = mockDecoratorCompositions.Object;
 
-            PatternCreator creator = new PatternCreator();
+            EmbroideryCreator creator = new EmbroideryCreator();
             creator.CanvasConverter = mockCanvasConverter.Object;
             creator.PatternMapGenerator = mockPatternMapGenerator.Object;
 
@@ -49,7 +49,7 @@ namespace NSEmbroidery.UnitTests
         {
             Settings settings = new Settings();
 
-            PatternCreator creator = new PatternCreator();
+            EmbroideryCreator creator = new EmbroideryCreator();
 
             Bitmap image = new Bitmap(4, 2);
             creator.GetEmbroidery(image, settings);
@@ -65,7 +65,7 @@ namespace NSEmbroidery.UnitTests
                 Coefficient = 0
             };
 
-            PatternCreator creator = new PatternCreator();
+            EmbroideryCreator creator = new EmbroideryCreator();
 
             Bitmap image = new Bitmap(5, 3);
             creator.GetEmbroidery(image, settings);
@@ -82,7 +82,7 @@ namespace NSEmbroidery.UnitTests
                 Coefficient = 1,
             };
 
-            PatternCreator creator = new PatternCreator();
+            EmbroideryCreator creator = new EmbroideryCreator();
 
             Bitmap image = new Bitmap(5, 3);
             creator.GetEmbroidery(image, settings);
@@ -99,7 +99,7 @@ namespace NSEmbroidery.UnitTests
                 Palette = new Palette()
             };
 
-            PatternCreator creator = new PatternCreator();
+            EmbroideryCreator creator = new EmbroideryCreator();
 
             Bitmap image = new Bitmap(5, 3);
             creator.GetEmbroidery(image, settings);

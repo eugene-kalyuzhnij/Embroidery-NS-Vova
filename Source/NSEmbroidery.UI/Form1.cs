@@ -264,7 +264,7 @@ namespace NSEmbroidery.UI
                     type = GridType.SolidLine;
             }
 
-            Embroidery callMethod = new Embroidery(PatternCreator.CreateEmbroidery);
+            Embroidery callMethod = new Embroidery(EmbroideryCreator.CreateEmbroidery);
 
 /*--------------------using dll here-------------------------------------------------*/
             IAsyncResult result = callMethod.BeginInvoke(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
@@ -312,7 +312,8 @@ namespace NSEmbroidery.UI
                                 labelWaitResolution.Text = "Wait...";
                                 labelWaitResolution.Refresh();
 
-                                resolutions = Calculate.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
+                                Calculate calc = new Calculate();
+                                resolutions = calc.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
 
                                 foreach (var item in resolutions)
                                     comboBoxResolution.Items.Add(item.Key);

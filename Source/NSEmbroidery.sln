@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.UI", "NSEmbroi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.UnitTests", "NSEmbroidery.UnitTests\NSEmbroidery.UnitTests.csproj", "{1752545C-D610-4EE5-A727-AE12D341BF72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbroideryService", "EmbroideryService\EmbroideryService.csproj", "{C22153C3-4EC3-4882-B76C-BC5B00A97DD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{1752545C-D610-4EE5-A727-AE12D341BF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1752545C-D610-4EE5-A727-AE12D341BF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1752545C-D610-4EE5-A727-AE12D341BF72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22153C3-4EC3-4882-B76C-BC5B00A97DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22153C3-4EC3-4882-B76C-BC5B00A97DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22153C3-4EC3-4882-B76C-BC5B00A97DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22153C3-4EC3-4882-B76C-BC5B00A97DD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

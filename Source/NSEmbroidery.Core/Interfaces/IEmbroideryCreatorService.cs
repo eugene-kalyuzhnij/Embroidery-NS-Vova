@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.ServiceModel;
+using NSEmbroidery.Core;
 
-namespace NSEmbroidery.Core
+namespace NSEmbroidery.Core.Interfaces
 {
     [ServiceContract]
     public interface IEmbroideryCreatorService

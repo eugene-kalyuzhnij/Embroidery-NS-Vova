@@ -51,7 +51,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Decorators\GridDecorator.cs" />
     <Compile Include="Decorators\IDecorator.cs" />
-    <Compile Include="IEmbroideryCreatorService.cs" />
+    <Compile Include="Interfaces\IEmbroideryCreatorService.cs" />
     <Compile Include="Interfaces\ICanvasConverter.cs" />
     <Compile Include="Interfaces\IDecoratorsComposition.cs" />
     <Compile Include="Interfaces\IPatternMapGenerator.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="Decorators\SymbolsDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="NSEmbroideryDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>

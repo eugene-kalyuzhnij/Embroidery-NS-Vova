@@ -10,11 +10,11 @@ using Ninject;
 
 namespace NSEmbroidery.Core
 {
-    public class PatternCreator
+    public class EmbroideryCreator : IEmbroideryCreatorService
     {
 
 
-        public PatternCreator()
+        public EmbroideryCreator()
         {
         }
 
@@ -54,7 +54,7 @@ namespace NSEmbroidery.Core
             var patternMapGenerator = kernel.Get<IPatternMapGenerator>();
             var canvasConverter = kernel.Get<ICanvasConverter>();
 
-            var patternCreator = new PatternCreator()
+            var patternCreator = new EmbroideryCreator()
             {
                 PatternMapGenerator = patternMapGenerator,
                 CanvasConverter = canvasConverter,

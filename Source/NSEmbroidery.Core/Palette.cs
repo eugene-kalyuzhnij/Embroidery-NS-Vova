@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core
 {
+    [Serializable]
     public class Palette
     {
 
@@ -26,6 +27,7 @@ namespace NSEmbroidery.Core
             colors = new List<Color>();
         }
 
+        
         public Palette(Color[] colors):this()
         {
             foreach (var color in colors)

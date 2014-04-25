@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculate.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="CanvasConverter.cs" />
     <Compile Include="Decorators\DecoratorsComposition.cs" />

@@ -14,5 +14,12 @@ namespace NSEmbroidery.Core.Interfaces
     {
         [OperationContract]
         Bitmap GetEmbroidery(Bitmap input, Settings settings);
+
+        [OperationContract(Name="PossibleResolutionsCount")]
+        Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions);
+
+        [OperationContract]
+        Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient);
+
     }
 }

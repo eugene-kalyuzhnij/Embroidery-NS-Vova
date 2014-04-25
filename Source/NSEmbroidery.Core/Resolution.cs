@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core
 {
+    [Serializable]
     public class Resolution
     {
         public int Height { get; set; }

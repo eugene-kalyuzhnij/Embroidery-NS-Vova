@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9aaa366b-5bfa-4f6f-bea8-cd73a7714e79" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8020/EmbroideryCreator" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EmbroideryCreator.xsd" MetadataType="Schema" ID="0ceef225-68e8-49eb-86e6-dac905df97e3" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?xsd=xsd2" />
+    <MetadataFile FileName="EmbroideryCreator1.xsd" MetadataType="Schema" ID="66d61431-24dd-41c1-80c5-efdbb094bd38" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?xsd=xsd4" />
+    <MetadataFile FileName="EmbroideryCreator2.xsd" MetadataType="Schema" ID="c0b0470d-bb6b-4e0f-86a7-81fdf3763387" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?xsd=xsd1" />
+    <MetadataFile FileName="EmbroideryCreator3.xsd" MetadataType="Schema" ID="0378240f-9d73-48b0-ad99-6f83d2fd251f" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?xsd=xsd3" />
+    <MetadataFile FileName="EmbroideryCreator.disco" MetadataType="Disco" ID="c6455c00-f84e-4b25-a04b-6445dece3614" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?disco" />
+    <MetadataFile FileName="EmbroideryCreator.wsdl" MetadataType="Wsdl" ID="9f4937a3-95e3-4e86-abed-c608da8eca1e" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?wsdl" />
+    <MetadataFile FileName="EmbroideryCreator4.xsd" MetadataType="Schema" ID="1fe5cb3f-f4d7-4402-bdda-64f215971d49" SourceId="1" SourceUrl="http://localhost:8020/EmbroideryCreator?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

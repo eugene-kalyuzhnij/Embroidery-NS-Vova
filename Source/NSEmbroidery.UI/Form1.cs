@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using NSEmbroidery.Core;
 using System.Drawing.Imaging;
+using NSEmbroidery.UI.Embroidery;//SERVICE
+using NSEmbroidery.Core;
 
 namespace NSEmbroidery.UI
 {
@@ -18,13 +19,17 @@ namespace NSEmbroidery.UI
         Bitmap CurrentImage { get; set; }
         List<TextBox> textBoxes;
         Color SymbolColor;
-        Dictionary<Resolution, int> resolutions;
+        Dictionary<NSEmbroidery.Core.Resolution, int> resolutions;
         bool isChangedCells;
 
-        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
+        EmbroideryCreatorServiceClient embroideryService = new EmbroideryCreatorServiceClient();
+
+        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, NSEmbroidery.Core.GridType type);
 
         public Form1()
         {
+            
+
             InitializeComponent();
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
@@ -243,7 +248,7 @@ namespace NSEmbroidery.UI
 
 
             int ratio;
-            resolutions.TryGetValue((Resolution)comboBoxResolution.SelectedItem, out ratio);
+            resolutions.TryGetValue((NSEmbroidery.Core.Resolution)comboBoxResolution.SelectedItem, out ratio);
 
             char[] masSymbols = null;
             masSymbols = new char[symbols.Count];
@@ -255,15 +260,16 @@ namespace NSEmbroidery.UI
                 masSymbols = null;
 
 
-            GridType type = GridType.None;
+            NSEmbroidery.Core.GridType type = NSEmbroidery.Core.GridType.None;
             if (checkBoxGrid.CheckState == CheckState.Checked)
             {
                 if (radioButtonPoints.Checked)
-                    type = GridType.Points;
+                    type = NSEmbroidery.Core.GridType.Points;
                 else if (radioButtonLine.Checked)
-                    type = GridType.SolidLine;
+                    type = NSEmbroidery.Core.GridType.SolidLine;
             }
 
+            
             Embroidery callMethod = new Embroidery(EmbroideryCreator.CreateEmbroidery);
 
 /*--------------------using dll here-------------------------------------------------*/
@@ -312,8 +318,8 @@ namespace NSEmbroidery.UI
                                 labelWaitResolution.Text = "Wait...";
                                 labelWaitResolution.Refresh();
 
-                                Calculate calc = new Calculate();
-                                resolutions = calc.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
+                                EmbroideryCreator creator = new EmbroideryCreator();
+                                resolutions = creator.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
 
                                 foreach (var item in resolutions)
                                     comboBoxResolution.Items.Add(item.Key);

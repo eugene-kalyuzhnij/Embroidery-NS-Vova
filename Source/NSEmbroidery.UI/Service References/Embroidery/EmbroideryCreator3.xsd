@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+  <xs:complexType name="Settings">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CellsCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Coefficient" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColorSymbolRelation" nillable="true" type="q1:ArrayOfKeyValueOfColorcharCPcNqsMH" />
+      <xs:element minOccurs="0" name="DecoratorsComposition" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="GridType" type="tns:GridType" />
+      <xs:element minOccurs="0" name="Palette" nillable="true" type="tns:Palette" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="SymbolColor" type="q2:Color" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Symbols" nillable="true" type="q3:ArrayOfchar" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Settings" nillable="true" type="tns:Settings" />
+  <xs:simpleType name="GridType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="SolidLine" />
+      <xs:enumeration value="Points" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GridType" nillable="true" type="tns:GridType" />
+  <xs:complexType name="Palette">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System.Drawing" name="colors" nillable="true" type="q4:ArrayOfColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Palette" nillable="true" type="tns:Palette" />
+  <xs:complexType name="Resolution">
+    <xs:sequence>
+      <xs:element name="_x003C_Height_x003E_k__BackingField" type="xs:int" />
+      <xs:element name="_x003C_Width_x003E_k__BackingField" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Resolution" nillable="true" type="tns:Resolution" />
+</xs:schema>

@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +60,11 @@
     <Compile Include="ResultImage.Designer.cs">
       <DependentUpon>ResultImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service References\Embroidery\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -73,7 +80,12 @@
     <EmbeddedResource Include="ResultImage.resx">
       <DependentUpon>ResultImage.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\NSEmbroidery.Core.Resolution.datasource" />
+    <None Include="Properties\DataSources\System.Drawing.Bitmap.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -83,9 +95,46 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\Embroidery\EmbroideryCreator.wsdl" />
+    <None Include="Service References\Embroidery\EmbroideryCreator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Embroidery\EmbroideryCreator1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Embroidery\EmbroideryCreator2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Embroidery\EmbroideryCreator3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.Resolution.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Embroidery\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">

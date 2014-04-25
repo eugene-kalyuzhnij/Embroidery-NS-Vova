@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmbroideryService
+namespace NSEmbroidery.Host
 {
     static class Program
     {
@@ -17,7 +17,7 @@ namespace EmbroideryService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new EmbroideryCreatorService() 
+                new EmbroideryService() 
             };
             ServiceBase.Run(ServicesToRun);
         }

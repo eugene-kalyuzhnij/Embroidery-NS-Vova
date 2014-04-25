@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WcfServiceLibrary1")]
+[assembly: AssemblyTitle("NSEmbroidery.Host")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("______")]
-[assembly: AssemblyProduct("WcfServiceLibrary1")]
+[assembly: AssemblyProduct("NSEmbroidery.Host")]
 [assembly: AssemblyCopyright("Copyright © ______ 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("22e54f47-3b82-4712-b501-c3b146e809f6")]
+[assembly: Guid("f3cfe67b-a628-41a6-b51f-3e06e93b306b")]
 
 // Version information for an assembly consists of the following four values:
 //

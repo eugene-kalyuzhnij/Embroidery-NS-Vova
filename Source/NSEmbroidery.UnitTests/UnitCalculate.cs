@@ -26,7 +26,7 @@ namespace NSEmbroidery.UnitTests
         [TestMethod]
         public void Test_Calculate_PossibleResolutions_Count()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
 
             Dictionary<Resolution, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 5);
 
@@ -46,7 +46,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongInitializedException))]
         public void Test_Calculate_PossibleResolutions_CountException1()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(10, 3), 0, 5);
         }
 
@@ -54,7 +54,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongInitializedException))]
         public void Test_Calculate_PossibleResolutions_CountException2()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(10, 3), 3, -1);
         }
 
@@ -62,7 +62,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongResolutionException))]
         public void Test_Calculate_PossibleResolutions_CountException3()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(2, 3), 3, 0);
         }
 
@@ -70,14 +70,14 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongResolutionException))]
         public void Test_Calculate_PossibleResolutions_CountException4()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(11, 2), 3, 0);
         }
 
         [TestMethod]
         public void Test_Calculate_PossibleResolutions_Coefficient()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
 
             Dictionary<Resolution, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 3, 5);
 
@@ -97,7 +97,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongInitializedException))]
         public void Test_Calculate_PossibleResolutions_CoefficientException1()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(1, 1), -1, 3, 5);
         }
 
@@ -105,7 +105,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongResolutionException))]
         public void Test_Calculate_PossibleResolutions_CoefficientException2()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(1, 1), 2, 3, 5);
         }
 
@@ -113,7 +113,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(WrongResolutionException))]
         public void Test_Calculate_PossibleResolutions_CoefficientException3()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(11, 2), 3, 3, 5);
         }
 
@@ -121,7 +121,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(Exception))]
         public void Test_Calculate_PossibleResolutions_CoefficientException4()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(11, 7), 3, 1, 5);
         }
 
@@ -129,7 +129,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(Exception))]
         public void Test_Calculate_PossibleResolutions_CoefficientException5()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(11, 7), 3, 4, 4);
         }
 
@@ -137,7 +137,7 @@ namespace NSEmbroidery.UnitTests
         [ExpectedException(typeof(Exception))]
         public void Test_Calculate_PossibleResolutions_CoefficientException6()
         {
-            Calculate calculate = new Calculate();
+            EmbroideryCreator calculate = new EmbroideryCreator();
             calculate.PossibleResolutions(new Bitmap(11, 7), 3, 4, 3);
         }
 

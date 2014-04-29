@@ -5,8 +5,9 @@
       <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
-      <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
-      <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
+      <xsd:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd5" namespace="http://schemas.microsoft.com/Message" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEmbroideryCreatorService_GetEmbroidery_InputMessage">

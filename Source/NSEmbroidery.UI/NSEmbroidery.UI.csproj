@@ -111,8 +111,8 @@
     <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.Resolution.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Service References\Embroidery\EmbroideryCreator5.xsd">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -135,12 +135,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">
-      <Project>{b57d7d46-b223-482c-adfa-b6dae373f99c}</Project>
-      <Name>NSEmbroidery.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

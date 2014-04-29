@@ -1,48 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
-  <xs:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:8020/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
-  <xs:complexType name="ArrayOfKeyValueOfColorcharCPcNqsMH">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfColorcharCPcNqsMH">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Drawing" name="Key" type="q1:Color" />
-            <xs:element name="Value" type="ser:char" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfColorcharCPcNqsMH" nillable="true" type="tns:ArrayOfKeyValueOfColorcharCPcNqsMH" />
-  <xs:complexType name="ArrayOfchar">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="char" type="ser:char" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfchar" nillable="true" type="tns:ArrayOfchar" />
-  <xs:complexType name="ArrayOfKeyValueOfResolutionintibCrbgia">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfResolutionintibCrbgia">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" name="Key" nillable="true" type="q2:Resolution" />
-            <xs:element name="Value" type="xs:int" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfResolutionintibCrbgia" nillable="true" type="tns:ArrayOfKeyValueOfResolutionintibCrbgia" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="GridType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="SolidLine" />
+      <xs:enumeration value="Points" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GridType" nillable="true" type="tns:GridType" />
 </xs:schema>

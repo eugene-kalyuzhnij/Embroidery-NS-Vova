@@ -14,6 +14,12 @@
     <xs:attribute ref="ser:FactoryType" />
   </xs:complexType>
   <xs:element name="Image" nillable="true" type="tns:Image" />
+  <xs:complexType name="ArrayOfColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Color" type="tns:Color" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfColor" nillable="true" type="tns:ArrayOfColor" />
   <xs:complexType name="Color">
     <xs:annotation>
       <xs:appinfo>
@@ -28,10 +34,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Color" nillable="true" type="tns:Color" />
-  <xs:complexType name="ArrayOfColor">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Color" type="tns:Color" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfColor" nillable="true" type="tns:ArrayOfColor" />
 </xs:schema>

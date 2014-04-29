@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
 using NSEmbroidery.UI.Embroidery;//SERVICE
-using NSEmbroidery.Core;
 
 namespace NSEmbroidery.UI
 {
@@ -19,21 +18,74 @@ namespace NSEmbroidery.UI
         Bitmap CurrentImage { get; set; }
         List<TextBox> textBoxes;
         Color SymbolColor;
-        Dictionary<NSEmbroidery.Core.Resolution, int> resolutions;
+        Dictionary<string, int> resolutions;
         bool isChangedCells;
 
-        EmbroideryCreatorServiceClient embroideryService = new EmbroideryCreatorServiceClient();
+        EmbroideryCreatorServiceClient embroideryService;
 
-        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, NSEmbroidery.Core.GridType type);
+        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
 
         public Form1()
         {
-            
-
             InitializeComponent();
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
+
+            embroideryService = new EmbroideryCreatorServiceClient();
+
+        }
+
+        public static byte[] ReadToEnd(System.IO.Stream stream)
+        {
+            long originalPosition = 0;
+
+            if (stream.CanSeek)
+            {
+                originalPosition = stream.Position;
+                stream.Position = 0;
+            }
+
+            try
+            {
+                byte[] readBuffer = new byte[4096];
+
+                int totalBytesRead = 0;
+                int bytesRead;
+
+                while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
+                {
+                    totalBytesRead += bytesRead;
+
+                    if (totalBytesRead == readBuffer.Length)
+                    {
+                        int nextByte = stream.ReadByte();
+                        if (nextByte != -1)
+                        {
+                            byte[] temp = new byte[readBuffer.Length * 2];
+                            Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
+                            Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
+                            readBuffer = temp;
+                            totalBytesRead++;
+                        }
+                    }
+                }
+
+                byte[] buffer = readBuffer;
+                if (readBuffer.Length != totalBytesRead)
+                {
+                    buffer = new byte[totalBytesRead];
+                    Buffer.BlockCopy(readBuffer, 0, buffer, 0, totalBytesRead);
+                }
+                return buffer;
+            }
+            finally
+            {
+                if (stream.CanSeek)
+                {
+                    stream.Position = originalPosition;
+                }
+            }
         }
 
         
@@ -187,7 +239,7 @@ namespace NSEmbroidery.UI
 
         private void buttonCreateEmbroidery_Click(object sender, EventArgs e)
         {
-
+            #region Exceptions
             //use dll here
             if(CurrentImage == null)
             {
@@ -248,7 +300,7 @@ namespace NSEmbroidery.UI
 
 
             int ratio;
-            resolutions.TryGetValue((NSEmbroidery.Core.Resolution)comboBoxResolution.SelectedItem, out ratio);
+            resolutions.TryGetValue((string)comboBoxResolution.SelectedItem, out ratio);
 
             char[] masSymbols = null;
             masSymbols = new char[symbols.Count];
@@ -260,32 +312,37 @@ namespace NSEmbroidery.UI
                 masSymbols = null;
 
 
-            NSEmbroidery.Core.GridType type = NSEmbroidery.Core.GridType.None;
+            GridType type = GridType.None;
             if (checkBoxGrid.CheckState == CheckState.Checked)
             {
                 if (radioButtonPoints.Checked)
-                    type = NSEmbroidery.Core.GridType.Points;
+                    type = GridType.Points;
                 else if (radioButtonLine.Checked)
-                    type = NSEmbroidery.Core.GridType.SolidLine;
+                    type = GridType.SolidLine;
             }
+            #endregion
 
+/*--------------------using service here-------------------------------------------------*/
             
-            Embroidery callMethod = new Embroidery(EmbroideryCreator.CreateEmbroidery);
+            using (Bitmap image = new Bitmap(CurrentImage))
+            {
+                using (Stream embroideryImageStream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
+                {
+                    Bitmap embroideryImage = new Bitmap(embroideryImageStream);
+                    ResultImage imageForm = new ResultImage();
+                    imageForm.Image = embroideryImage;
 
-/*--------------------using dll here-------------------------------------------------*/
-            IAsyncResult result = callMethod.BeginInvoke(CurrentImage, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
-            Bitmap embordieryImage = callMethod.EndInvoke(result);
-/*-----------------------------------------------------------------------------------*/
+                    resultLabel.Text = "";
 
-            ResultImage imageForm = new ResultImage();
-            imageForm.Image = embordieryImage;
-
-            resultLabel.Text = "";
-
-            imageForm.ShowDialog();
-            imageForm.Dispose();
+                    imageForm.ShowDialog();
+                    imageForm.Dispose();
+                }
+            }
+            //Bitmap embordieryImage = callMethod.EndInvoke(result);
+/*---------------------------------------------------------------------------------------*/
 
         }
+
 
         
 
@@ -318,8 +375,10 @@ namespace NSEmbroidery.UI
                                 labelWaitResolution.Text = "Wait...";
                                 labelWaitResolution.Refresh();
 
-                                EmbroideryCreator creator = new EmbroideryCreator();
-                                resolutions = creator.PossibleResolutions(CurrentImage, cells, 4, 15);//Count of resolutions here <-----------|
+                                using (Bitmap image = new Bitmap(CurrentImage))
+                                {
+                                    resolutions = embroideryService.PossibleResolutions(image, cells, 4, 15);//Count of resolutions here <-----------|
+                                }
 
                                 foreach (var item in resolutions)
                                     comboBoxResolution.Items.Add(item.Key);

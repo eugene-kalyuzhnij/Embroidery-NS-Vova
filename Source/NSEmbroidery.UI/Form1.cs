@@ -34,6 +34,26 @@ namespace NSEmbroidery.UI
 
             embroideryService = new EmbroideryCreatorServiceClient();
 
+            /*try
+            {
+                
+
+                Bitmap image = new Bitmap(4000, 5000);
+                for (int y = 0; y < image.Height; y++)
+                    for (int x = 0; x < image.Width; x++)
+                        image.SetPixel(x, y, Color.Red);
+
+            
+                Stream resultStream = embroideryService.GetEmbroidery(image, 5, 1000, new Color[] { Color.Blue }, null, Color.Black, GridType.SolidLine);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }*/
+
+
         }
 
         public static byte[] ReadToEnd(System.IO.Stream stream)
@@ -326,11 +346,12 @@ namespace NSEmbroidery.UI
             
             using (Bitmap image = new Bitmap(CurrentImage))
             {
-                using (Stream embroideryImageStream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
+                using (Stream stream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
                 {
-                    Bitmap embroideryImage = new Bitmap(embroideryImageStream);
+                    Stream secondStream = new MemoryStream(ReadToEnd(stream));
+                    Image embroideryImage = Image.FromStream(secondStream);
                     ResultImage imageForm = new ResultImage();
-                    imageForm.Image = embroideryImage;
+                    imageForm.Image = new Bitmap(embroideryImage);
 
                     resultLabel.Text = "";
 

@@ -80,9 +80,7 @@
     <EmbeddedResource Include="ResultImage.resx">
       <DependentUpon>ResultImage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\NSEmbroidery.Core.Resolution.datasource" />
     <None Include="Properties\DataSources\System.Drawing.Bitmap.datasource" />

@@ -32,6 +32,21 @@ namespace NSEmbroidery.UnitTests
             palette.GetAllColors();
         }
 
+        [TestMethod]
+        public void Test_Palette_Count()
+        {
+            Palette palette = new Palette(new Color[] { Color.Red, Color.Blue });
+
+            Assert.IsTrue(palette.Count == 2);
+        }
+
+
+        [TestMethod]
+        public void Test_Palette_CountException()
+        {
+            Palette palette = new Palette();
+            Assert.IsTrue(palette.Count == 0);
+        }
 
     }
 }

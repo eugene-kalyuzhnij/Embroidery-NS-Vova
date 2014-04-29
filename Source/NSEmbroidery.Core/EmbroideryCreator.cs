@@ -54,6 +54,7 @@ namespace NSEmbroidery.Core
 
            MemoryStream stream = new MemoryStream();
            resultImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+           //WebOperationContext.Current.OutgoingResponse.ContentType = "image/jpeg";
            stream.Position = 0;
 
            return stream;

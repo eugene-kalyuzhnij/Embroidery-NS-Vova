@@ -30,6 +30,7 @@ namespace NSEmbroidery.Host
 
         protected override void OnStart(string[] args)
         {
+            this.RequestAdditionalTime(0);
             try
             {
                 if (host != null)

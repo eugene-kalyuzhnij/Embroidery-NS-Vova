@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NSEmbroidery.Core.Decorators
 {
+
     public class CellsDecorator : IDecorator
     {
 

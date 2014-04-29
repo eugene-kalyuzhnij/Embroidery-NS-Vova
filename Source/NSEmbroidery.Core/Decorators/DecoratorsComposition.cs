@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Ninject;
 using NSEmbroidery.Core.Interfaces;
+using System.Runtime.Serialization;
 
 namespace NSEmbroidery.Core.Decorators
 {
+
     public class DecoratorsComposition : IDecoratorsComposition
     {
-        List<IDecorator> Decorators { get; set; }
-
-        public Settings Settings { get; set; }
+        public List<IDecorator> Decorators { get; set; }
 
         public DecoratorsComposition()
         {

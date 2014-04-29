@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace NSEmbroidery.Core.Decorators
 {
+
     public class SymbolsDecorator : IDecorator
     {
 

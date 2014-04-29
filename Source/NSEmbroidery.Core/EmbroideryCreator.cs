@@ -7,6 +7,9 @@ using System.Drawing;
 using NSEmbroidery.Core.Decorators;
 using NSEmbroidery.Core.Interfaces;
 using Ninject;
+using System.Diagnostics;
+using System.IO;
+using System.ServiceModel.Web;
 
 namespace NSEmbroidery.Core
 {
@@ -45,6 +48,16 @@ namespace NSEmbroidery.Core
 
 
 
+        public Stream GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
+        {
+           Bitmap resultImage = CreateEmbroidery(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
+
+           MemoryStream stream = new MemoryStream();
+           resultImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+           stream.Position = 0;
+
+           return stream;
+        }
 
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
@@ -78,16 +91,15 @@ namespace NSEmbroidery.Core
             if (settings.GridType != Core.GridType.None)
                 settings.DecoratorsComposition.AddDecorator(new GridDecorator());
 
-
             Bitmap result = patternCreator.GetEmbroidery(image, settings);
 
             return result;
         }
 
 
-        public Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
+        public Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
         {
-            Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
+            Dictionary<string, int> result = new Dictionary<string, int>();
 
             if (cellsCount <= 0)
                 throw new WrongInitializedException("Square count has to be initialized and inherent");
@@ -107,15 +119,16 @@ namespace NSEmbroidery.Core
             int newWidth = cellsCount;
 
             for (int i = 2; i < countResolutions + 2; i++)
-                result.Add(new Resolution(newWidth * i, newHeight * i), i);
+                result.Add(new Resolution(newWidth * i, newHeight * i).ToString(), i);
 
             return result;
         }
 
 
-        public Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient)
+        public Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient)
         {
-            Dictionary<Resolution, int> result = new Dictionary<Resolution, int>();
+
+            Dictionary<string, int> result = new Dictionary<string, int>();
 
             if (cellsCount <= 0)
                 throw new WrongInitializedException("Square count has to be initialized and inherent");
@@ -131,11 +144,13 @@ namespace NSEmbroidery.Core
             if (minCoefficient < 2 || minCoefficient >= maxCoefficient)
                 throw new Exception("minCoefficient has to be less than maxCoefficient and more than 2");
 
+
             int newHeight = image.Height / cellWidth;
             int newWidth = cellsCount;
 
+
             for (int i = minCoefficient; i <= maxCoefficient; i++)
-                result.Add(new Resolution(newWidth * i, newHeight * i), i);
+                result.Add(new Resolution(newWidth * i, newHeight * i).ToString(), i);
 
             return result;
         }

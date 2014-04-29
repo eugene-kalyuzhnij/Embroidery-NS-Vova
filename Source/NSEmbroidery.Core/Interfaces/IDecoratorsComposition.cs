@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NSEmbroidery.Core.Decorators;
+using System.Runtime.Serialization;
 
 namespace NSEmbroidery.Core.Interfaces
 {

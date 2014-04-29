@@ -6,19 +6,28 @@ using System.Threading.Tasks;
 using System.Drawing;
 using NSEmbroidery.Core.Decorators;
 using NSEmbroidery.Core.Interfaces;
+using System.Runtime.Serialization;
 
 namespace NSEmbroidery.Core
 {
+    [DataContract]
     public class Settings
     {
-
+        [DataMember]
         public int CellsCount { get; set; }
+        [DataMember]
         public char[] Symbols { get; set; }
+        [DataMember]
         public Palette Palette { get; set; }
+
         public Dictionary<Color, Char> ColorSymbolRelation;
+        [DataMember]
         public Color SymbolColor { get; set; }
+        [DataMember]
         public GridType GridType { get; set; }
+        [DataMember]
         public int Coefficient { get; set; }
+        [DataMember]
         public IDecoratorsComposition DecoratorsComposition { get; set; }
 
 

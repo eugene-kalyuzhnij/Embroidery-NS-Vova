@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.ServiceModel;
 using NSEmbroidery.Core;
+using System.IO;
+using System.ServiceModel.Web;
 
 namespace NSEmbroidery.Core.Interfaces
 {
@@ -13,13 +15,12 @@ namespace NSEmbroidery.Core.Interfaces
     public interface IEmbroideryCreatorService
     {
         [OperationContract]
-        Bitmap GetEmbroidery(Bitmap input, Settings settings);
+        Stream GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
 
         [OperationContract(Name="PossibleResolutionsCount")]
-        Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions);
+        Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions);
 
         [OperationContract]
-        Dictionary<Resolution, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient);
-
+        Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient);
     }
 }

@@ -11,7 +11,7 @@ namespace NSEmbroidery.UnitTests
     public class UnitCalculate
     {
 
-        private string DictionaryToString(Dictionary<Resolution, int> dictionary)
+        private string DictionaryToString(Dictionary<string, int> dictionary)
         {
             String resultString = "";
             foreach (var key in dictionary.Keys)
@@ -28,14 +28,14 @@ namespace NSEmbroidery.UnitTests
         {
             EmbroideryCreator calculate = new EmbroideryCreator();
 
-            Dictionary<Resolution, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 5);
+            Dictionary<string, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 5);
 
-            Dictionary<Resolution, int> expected = new Dictionary<Resolution, int>();
+            Dictionary<string, int> expected = new Dictionary<string, int>();
             int startWidth = 3;
             int startHeight = 2;
 
             for (int i = 2; i < 5 + 2; i++)
-                expected.Add(new Resolution(i * startWidth, i * startHeight), i);
+                expected.Add(new Resolution(i * startWidth, i * startHeight).ToString(), i);
 
             Assert.IsTrue(expected.Count == actual.Count);
 
@@ -79,14 +79,14 @@ namespace NSEmbroidery.UnitTests
         {
             EmbroideryCreator calculate = new EmbroideryCreator();
 
-            Dictionary<Resolution, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 3, 5);
+            Dictionary<string, int> actual = calculate.PossibleResolutions(new Bitmap(11, 7), 3, 3, 5);
 
-            Dictionary<Resolution, int> expected = new Dictionary<Resolution, int>();
+            Dictionary<string, int> expected = new Dictionary<string, int>();
             int startWidth = 3;
             int startHeight = 2;
 
             for (int i = 3; i <= 5; i++)
-                expected.Add(new Resolution(i * startWidth, i * startHeight), i);
+                expected.Add(new Resolution(i * startWidth, i * startHeight).ToString(), i);
 
             Assert.IsTrue(expected.Count == actual.Count);
 

@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Drawing.Imaging;
-using NSEmbroidery.UI.Embroidery;//SERVICE
 
 namespace NSEmbroidery.UI
 {
@@ -21,9 +19,9 @@ namespace NSEmbroidery.UI
         Dictionary<string, int> resolutions;
         bool isChangedCells;
 
-        EmbroideryCreatorServiceClient embroideryService;
+        NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient embroideryService;
 
-        private delegate Bitmap Embroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
+       // private delegate System.Drawing.Bitmap Embroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
 
         public Form1()
         {
@@ -32,80 +30,30 @@ namespace NSEmbroidery.UI
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
 
-            embroideryService = new EmbroideryCreatorServiceClient();
+            embroideryService = new NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient();
 
-            /*try
+            try
             {
                 
+                Bitmap image = new Bitmap(200, 200);
+               // for (int y = 0; y < image.Height; y++)
+               //     for (int x = 0; x < image.Width; x++)
+               //         image.SetPixel(x, y, Color.Red);
 
-                Bitmap image = new Bitmap(4000, 5000);
-                for (int y = 0; y < image.Height; y++)
-                    for (int x = 0; x < image.Width; x++)
-                        image.SetPixel(x, y, Color.Red);
+                MemoryStream inputStream = new MemoryStream();
+                image.Save(inputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-            
-                Stream resultStream = embroideryService.GetEmbroidery(image, 5, 1000, new Color[] { Color.Blue }, null, Color.Black, GridType.SolidLine);
-
+                NSEmbroidery.UI.Embroidery.InputData data = new Embroidery.InputData();
+                
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
-            }*/
-
-
-        }
-
-        public static byte[] ReadToEnd(System.IO.Stream stream)
-        {
-            long originalPosition = 0;
-
-            if (stream.CanSeek)
-            {
-                originalPosition = stream.Position;
-                stream.Position = 0;
             }
 
-            try
-            {
-                byte[] readBuffer = new byte[4096];
 
-                int totalBytesRead = 0;
-                int bytesRead;
-
-                while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
-                {
-                    totalBytesRead += bytesRead;
-
-                    if (totalBytesRead == readBuffer.Length)
-                    {
-                        int nextByte = stream.ReadByte();
-                        if (nextByte != -1)
-                        {
-                            byte[] temp = new byte[readBuffer.Length * 2];
-                            Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-                            Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
-                            readBuffer = temp;
-                            totalBytesRead++;
-                        }
-                    }
-                }
-
-                byte[] buffer = readBuffer;
-                if (readBuffer.Length != totalBytesRead)
-                {
-                    buffer = new byte[totalBytesRead];
-                    Buffer.BlockCopy(readBuffer, 0, buffer, 0, totalBytesRead);
-                }
-                return buffer;
-            }
-            finally
-            {
-                if (stream.CanSeek)
-                {
-                    stream.Position = originalPosition;
-                }
-            }
         }
 
         
@@ -260,7 +208,6 @@ namespace NSEmbroidery.UI
         private void buttonCreateEmbroidery_Click(object sender, EventArgs e)
         {
             #region Exceptions
-            //use dll here
             if(CurrentImage == null)
             {
                 MessageBox.Show("Open any image first!");
@@ -332,13 +279,13 @@ namespace NSEmbroidery.UI
                 masSymbols = null;
 
 
-            GridType type = GridType.None;
+            NSEmbroidery.UI.Embroidery.GridType type = NSEmbroidery.UI.Embroidery.GridType.None;
             if (checkBoxGrid.CheckState == CheckState.Checked)
             {
                 if (radioButtonPoints.Checked)
-                    type = GridType.Points;
+                    type = NSEmbroidery.UI.Embroidery.GridType.Points;
                 else if (radioButtonLine.Checked)
-                    type = GridType.SolidLine;
+                    type = NSEmbroidery.UI.Embroidery.GridType.SolidLine;
             }
             #endregion
 
@@ -346,9 +293,9 @@ namespace NSEmbroidery.UI
             
             using (Bitmap image = new Bitmap(CurrentImage))
             {
-                using (Stream stream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
+               // using (Stream stream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
                 {
-                    Stream secondStream = new MemoryStream(ReadToEnd(stream));
+                    /*Stream secondStream = new MemoryStream(ReadToEnd(stream));
                     Image embroideryImage = Image.FromStream(secondStream);
                     ResultImage imageForm = new ResultImage();
                     imageForm.Image = new Bitmap(embroideryImage);
@@ -356,7 +303,7 @@ namespace NSEmbroidery.UI
                     resultLabel.Text = "";
 
                     imageForm.ShowDialog();
-                    imageForm.Dispose();
+                    imageForm.Dispose();*/
                 }
             }
             //Bitmap embordieryImage = callMethod.EndInvoke(result);
@@ -398,7 +345,7 @@ namespace NSEmbroidery.UI
 
                                 using (Bitmap image = new Bitmap(CurrentImage))
                                 {
-                                    resolutions = embroideryService.PossibleResolutions(image, cells, 4, 15);//Count of resolutions here <-----------|
+                                    //resolutions = embroideryService.PossibleResolutions(image, cells, 4, 15);//Count of resolutions here <-----------|
                                 }
 
                                 foreach (var item in resolutions)

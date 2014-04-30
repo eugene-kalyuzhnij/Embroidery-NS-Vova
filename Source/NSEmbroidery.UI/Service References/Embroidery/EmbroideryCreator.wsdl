@@ -2,19 +2,28 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="EmbroideryCreator" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
-      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd5" namespace="http://schemas.microsoft.com/Message" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd1" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd4" namespace="System.Drawing" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd0" namespace="http://schemas.microsoft.com/Message" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
+      <xsd:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IEmbroideryCreatorService_GetEmbroidery_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetEmbroidery" />
+  <wsdl:message name="InputData">
+    <wsdl:part name="parameters" element="tns:InputData" />
   </wsdl:message>
-  <wsdl:message name="IEmbroideryCreatorService_GetEmbroidery_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetEmbroideryResponse" />
+  <wsdl:message name="InputData_Headers">
+    <wsdl:part xmlns:q1="System.Drawing" name="SymbolColor" element="q1:SymbolColor" />
+    <wsdl:part name="CellsCount" element="tns:CellsCount" />
+    <wsdl:part name="GridType" element="tns:GridType" />
+    <wsdl:part name="Palette" element="tns:Palette" />
+    <wsdl:part name="ResolutionCoefficient" element="tns:ResolutionCoefficient" />
+    <wsdl:part name="Symbols" element="tns:Symbols" />
+  </wsdl:message>
+  <wsdl:message name="Result">
+    <wsdl:part name="parameters" element="tns:Result" />
   </wsdl:message>
   <wsdl:message name="IEmbroideryCreatorService_PossibleResolutionsCount_InputMessage">
     <wsdl:part name="parameters" element="tns:PossibleResolutionsCount" />
@@ -30,8 +39,8 @@
   </wsdl:message>
   <wsdl:portType name="IEmbroideryCreatorService">
     <wsdl:operation name="GetEmbroidery">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery" message="tns:IEmbroideryCreatorService_GetEmbroidery_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse" message="tns:IEmbroideryCreatorService_GetEmbroidery_OutputMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery" name="InputData" message="tns:InputData" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse" name="Result" message="tns:Result" />
     </wsdl:operation>
     <wsdl:operation name="PossibleResolutionsCount">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCount" message="tns:IEmbroideryCreatorService_PossibleResolutionsCount_InputMessage" />
@@ -46,10 +55,16 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetEmbroidery">
       <soap:operation soapAction="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery" style="document" />
-      <wsdl:input>
+      <wsdl:input name="InputData">
+        <soap:header message="tns:InputData_Headers" part="SymbolColor" use="literal" />
+        <soap:header message="tns:InputData_Headers" part="CellsCount" use="literal" />
+        <soap:header message="tns:InputData_Headers" part="GridType" use="literal" />
+        <soap:header message="tns:InputData_Headers" part="Palette" use="literal" />
+        <soap:header message="tns:InputData_Headers" part="ResolutionCoefficient" use="literal" />
+        <soap:header message="tns:InputData_Headers" part="Symbols" use="literal" />
         <soap:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
+      <wsdl:output name="Result">
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

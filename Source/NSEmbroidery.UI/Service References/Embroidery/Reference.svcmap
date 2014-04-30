@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8bb593a1-3888-40fd-bf2c-c05c90249d7b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bcf685c3-c52d-4259-8cf1-7d9be5c867c0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,14 +22,15 @@
     <MetadataSource Address="http://localhost:8030/EmbroideryCreator" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="EmbroideryCreator.xsd" MetadataType="Schema" ID="7d19d1cc-e15f-485c-a606-05424ff13482" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd0" />
-    <MetadataFile FileName="EmbroideryCreator1.xsd" MetadataType="Schema" ID="f3ef9a33-7074-409b-b5d6-d92517efb1a4" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd4" />
-    <MetadataFile FileName="EmbroideryCreator2.xsd" MetadataType="Schema" ID="d320d10c-ba1c-4911-8426-61f67dd8d640" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd3" />
-    <MetadataFile FileName="EmbroideryCreator.wsdl" MetadataType="Wsdl" ID="f2d9b395-75b6-4a48-9569-9ca843ef689b" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?wsdl" />
-    <MetadataFile FileName="EmbroideryCreator.disco" MetadataType="Disco" ID="0190c8b3-d379-4e9f-b284-8e9b4f4de7cd" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?disco" />
-    <MetadataFile FileName="EmbroideryCreator3.xsd" MetadataType="Schema" ID="9309b6d2-7f8b-4b1c-a229-ac638a9240e8" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd5" />
-    <MetadataFile FileName="EmbroideryCreator4.xsd" MetadataType="Schema" ID="5f52e063-0b4e-4057-bad9-74cd15eed897" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd1" />
-    <MetadataFile FileName="EmbroideryCreator5.xsd" MetadataType="Schema" ID="a3622c50-1f37-46aa-aa70-1ac581fba3a3" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd2" />
+    <MetadataFile FileName="EmbroideryCreator.xsd" MetadataType="Schema" ID="420b5c3b-6772-4fb2-bedd-0467a0e5d53b" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd0" />
+    <MetadataFile FileName="EmbroideryCreator5.xsd" MetadataType="Schema" ID="a4906267-3d28-4969-988c-e7012b5e7317" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd4" />
+    <MetadataFile FileName="EmbroideryCreator3.xsd" MetadataType="Schema" ID="c749bdb7-2b99-4c97-872a-1cbbba5aaebd" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd5" />
+    <MetadataFile FileName="EmbroideryCreator.wsdl" MetadataType="Wsdl" ID="37f13fbb-c2d1-4e1a-a78a-6bdc4fffea82" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?wsdl" />
+    <MetadataFile FileName="EmbroideryCreator.disco" MetadataType="Disco" ID="5fe9c3c7-ccc2-4577-875d-633b373b4c06" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?disco" />
+    <MetadataFile FileName="EmbroideryCreator2.xsd" MetadataType="Schema" ID="8ebc558c-5086-43ae-ab52-f0618397b736" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd3" />
+    <MetadataFile FileName="EmbroideryCreator4.xsd" MetadataType="Schema" ID="47909537-82dc-4a6f-bac3-f75ec12419f0" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd1" />
+    <MetadataFile FileName="EmbroideryCreator1.xsd" MetadataType="Schema" ID="67032c6c-a365-43ba-b123-97511561cb9a" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd2" />
+    <MetadataFile FileName="EmbroideryCreator6.xsd" MetadataType="Schema" ID="ff30aa51-183c-4e5e-9fae-987296eac8dd" SourceId="1" SourceUrl="http://localhost:8030/EmbroideryCreator?xsd=xsd6" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

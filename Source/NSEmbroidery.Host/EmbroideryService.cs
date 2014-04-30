@@ -23,7 +23,6 @@ namespace NSEmbroidery.Host
         {
             log.Source = ("EmbroiderySource");
             InitializeComponent();
-            
         }
 
         protected override void OnStart(string[] args)
@@ -39,7 +38,7 @@ namespace NSEmbroidery.Host
                 }
                 catch (Exception e)
                 {
-                    log.WriteEntry("Exception in StartThread: " + e.Message);
+                    log.WriteEntry("Exception in OnStart: " + e.Message);
                 }
 
                 log.WriteEntry("Hosting has started");
@@ -60,6 +59,8 @@ namespace NSEmbroidery.Host
             {
                 log.WriteEntry("Exception in OnStop " + e.Message);
             }
+
+            log.WriteEntry("Hosting has stoped");
 
         }
 

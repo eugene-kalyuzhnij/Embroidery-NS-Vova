@@ -15,7 +15,7 @@ namespace NSEmbroidery.Core.Interfaces
     public interface IEmbroideryCreatorService
     {
         [OperationContract]
-        Stream GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
+        Result GetEmbroidery(InputData contract);
 
         [OperationContract(Name="PossibleResolutionsCount")]
         Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions);

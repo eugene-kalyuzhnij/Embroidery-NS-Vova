@@ -15,10 +15,11 @@ namespace NSEmbroidery.Core
 {
     public class EmbroideryCreator : IEmbroideryCreatorService
     {
-
+        EventLog log  = new EventLog("EmbroideryServiceLog");
 
         public EmbroideryCreator()
         {
+            log.Source = "EmbroiderySource";
         }
 
         public IPatternMapGenerator PatternMapGenerator { get; set; }
@@ -48,17 +49,58 @@ namespace NSEmbroidery.Core
 
 
 
-        public Stream GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
+        public Result GetEmbroidery(InputData contract)
         {
-           Bitmap resultImage = CreateEmbroidery(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
+            log.WriteEntry(@"Come in GetEmbroidery().
+                                cells count = " + contract.CellsCount + Environment.NewLine +
+                                "resolution coefficient = " + contract.ResolutionCoefficient);
+
+
+            Bitmap inputImage = null;
+            Bitmap resultImage = null;
+
+            try
+            {
+                inputImage = new Bitmap(contract.InputImageStream);
+            }
+            catch (Exception ex)
+            {
+                log.WriteEntry(@"Exception was occured when input image was creating from the stream
+                                    Message: " + ex.Message);
+            }
+
+            try
+            {
+                resultImage = CreateEmbroidery(inputImage, contract.ResolutionCoefficient, contract.CellsCount, contract.Palette, contract.Symbols, contract.SymbolColor, contract.GridType);
+            }
+            catch (Exception ex)
+            {
+                log.WriteEntry(@"Exception was occurred in CreateEmbroidery method.
+                                    Message: " + ex.Message);
+            }
 
            MemoryStream stream = new MemoryStream();
-           resultImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-           //WebOperationContext.Current.OutgoingResponse.ContentType = "image/jpeg";
-           stream.Position = 0;
 
-           return stream;
+           try
+           {
+               resultImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+               stream.Position = 0;
+           }
+           catch (Exception ex)
+           {
+               log.WriteEntry(@"Exception was occurred when image was saving.
+                                    Message: " + ex.Message);
+           }
+
+           Result result = new Result();
+           result.ImageStream = stream;
+
+           log.WriteEntry("GetEmbroidery has valid stream and will return it");
+
+           return result;
         }
+
+
 
         public static Bitmap CreateEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
@@ -94,6 +136,7 @@ namespace NSEmbroidery.Core
 
             Bitmap result = patternCreator.GetEmbroidery(image, settings);
 
+            
             return result;
         }
 

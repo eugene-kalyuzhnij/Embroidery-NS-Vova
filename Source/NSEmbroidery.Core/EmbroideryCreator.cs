@@ -49,6 +49,33 @@ namespace NSEmbroidery.Core
 
 
 
+
+
+        public Bitmap GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
+        {
+            log.WriteEntry(@"Come in the GetEmbroidery(...)" + Environment.NewLine +
+                               "cells count = " + cellsCount + Environment.NewLine +
+                                "resolution coefficient = " + resolutionCoefficient);
+            Bitmap result = null;
+            try
+            {
+                result = CreateEmbroidery(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
+            }
+            catch (Exception ex)
+            {
+                log.WriteEntry(@"Exception in GetEmbroidery(...) occurred
+                                    Message: " + ex.Message);
+            }
+
+
+            log.WriteEntry(@"GetEmbroidery was executed
+                                Result image = " + result.ToString());
+
+            return result;
+        }
+
+        /*Old interface implementation
+          
         public Result GetEmbroidery(InputData contract)
         {
             log.WriteEntry(@"Come in GetEmbroidery().
@@ -98,7 +125,7 @@ namespace NSEmbroidery.Core
            log.WriteEntry("GetEmbroidery has valid stream and will return it");
 
            return result;
-        }
+        }*/
 
 
 

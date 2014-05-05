@@ -39,6 +39,7 @@ namespace NSEmbroidery.Host
                 catch (Exception e)
                 {
                     log.WriteEntry("Exception in OnStart: " + e.Message);
+                    return;
                 }
 
                 log.WriteEntry("Hosting has started");
@@ -58,6 +59,7 @@ namespace NSEmbroidery.Host
             catch (Exception e)
             {
                 log.WriteEntry("Exception in OnStop " + e.Message);
+                return;
             }
 
             log.WriteEntry("Hosting has stoped");

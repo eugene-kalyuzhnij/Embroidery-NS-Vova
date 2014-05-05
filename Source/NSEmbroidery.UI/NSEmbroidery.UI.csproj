@@ -109,24 +109,6 @@
     <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Embroidery\EmbroideryCreator5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Embroidery\EmbroideryCreator6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Embroidery\NSEmbroidery.UI.Embroidery.Result.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

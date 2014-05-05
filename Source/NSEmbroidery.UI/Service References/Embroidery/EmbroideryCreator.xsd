@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/Message" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/Message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:simpleType name="StreamBody">
-    <xs:restriction base="xs:base64Binary" />
-  </xs:simpleType>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
+  <xs:element name="GetEmbroidery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="image" nillable="true" type="q1:Bitmap" />
+        <xs:element minOccurs="0" name="resolutionCoefficient" type="xs:int" />
+        <xs:element minOccurs="0" name="cellsCount" type="xs:int" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="palette" nillable="true" type="q2:ArrayOfColor" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="symbols" nillable="true" type="q3:ArrayOfchar" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="symbolColor" type="q4:Color" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" minOccurs="0" name="type" type="q5:GridType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmbroideryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="GetEmbroideryResult" nillable="true" type="q6:Bitmap" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PossibleResolutionsCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="image" nillable="true" type="q7:Bitmap" />
+        <xs:element minOccurs="0" name="cellsCount" type="xs:int" />
+        <xs:element minOccurs="0" name="countResolutions" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PossibleResolutionsCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PossibleResolutionsCountResult" nillable="true" type="q8:ArrayOfKeyValueOfstringint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PossibleResolutions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="image" nillable="true" type="q9:Bitmap" />
+        <xs:element minOccurs="0" name="cellsCount" type="xs:int" />
+        <xs:element minOccurs="0" name="minCoefficient" type="xs:int" />
+        <xs:element minOccurs="0" name="maxCoefficient" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PossibleResolutionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PossibleResolutionsResult" nillable="true" type="q10:ArrayOfKeyValueOfstringint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

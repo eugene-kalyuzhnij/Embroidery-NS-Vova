@@ -66,6 +66,7 @@
             this.textBoxR = new System.Windows.Forms.TextBox();
             this.buttonCreateColor = new System.Windows.Forms.Button();
             this.buttonRemoveSymbols = new System.Windows.Forms.Button();
+            this.labelResolutionImage = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -85,6 +86,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(708, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -98,14 +100,14 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openImageToolStripMenuItem.Text = "Open Image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -120,7 +122,7 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             // 
             // openFileDialog1
@@ -180,7 +182,7 @@
             // labelresolution
             // 
             this.labelresolution.AutoSize = true;
-            this.labelresolution.Location = new System.Drawing.Point(21, 485);
+            this.labelresolution.Location = new System.Drawing.Point(23, 384);
             this.labelresolution.Name = "labelresolution";
             this.labelresolution.Size = new System.Drawing.Size(0, 13);
             this.labelresolution.TabIndex = 17;
@@ -300,7 +302,7 @@
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Location = new System.Drawing.Point(596, 357);
+            this.resultLabel.Location = new System.Drawing.Point(597, 376);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(0, 13);
             this.resultLabel.TabIndex = 28;
@@ -436,12 +438,21 @@
             this.buttonRemoveSymbols.Visible = false;
             this.buttonRemoveSymbols.Click += new System.EventHandler(this.buttonRemoveSymbols_Click);
             // 
+            // labelResolutionImage
+            // 
+            this.labelResolutionImage.AutoSize = true;
+            this.labelResolutionImage.Location = new System.Drawing.Point(23, 381);
+            this.labelResolutionImage.Name = "labelResolutionImage";
+            this.labelResolutionImage.Size = new System.Drawing.Size(0, 13);
+            this.labelResolutionImage.TabIndex = 32;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
+            this.Controls.Add(this.labelResolutionImage);
             this.Controls.Add(this.buttonRemoveSymbols);
             this.Controls.Add(this.panelCreateColor);
             this.Controls.Add(this.panelColorChoice);
@@ -524,6 +535,7 @@
         private System.Windows.Forms.Button buttonCreateColor;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button buttonRemoveSymbols;
+        private System.Windows.Forms.Label labelResolutionImage;
     }
 }
 

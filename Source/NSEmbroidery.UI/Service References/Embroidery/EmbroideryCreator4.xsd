@@ -1,60 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd0" namespace="http://schemas.microsoft.com/Message" />
-  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" />
-  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
-  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:element name="InputData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.microsoft.com/Message" name="InputImageStream" type="q1:StreamBody" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CellsCount" type="xs:int" />
-  <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core" name="GridType" type="q2:GridType" />
-  <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System.Drawing" name="Palette" nillable="true" type="q3:ArrayOfColor" />
-  <xs:element name="ResolutionCoefficient" type="xs:int" />
-  <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" name="Symbols" type="q4:char" />
-  <xs:element name="Result">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/Message" name="ImageStream" type="q5:StreamBody" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="PossibleResolutionsCount">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="image" nillable="true" type="q6:Bitmap" />
-        <xs:element minOccurs="0" name="cellsCount" type="xs:int" />
-        <xs:element minOccurs="0" name="countResolutions" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="PossibleResolutionsCountResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PossibleResolutionsCountResult" nillable="true" type="q7:ArrayOfKeyValueOfstringint" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="PossibleResolutions">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="image" nillable="true" type="q8:Bitmap" />
-        <xs:element minOccurs="0" name="cellsCount" type="xs:int" />
-        <xs:element minOccurs="0" name="minCoefficient" type="xs:int" />
-        <xs:element minOccurs="0" name="maxCoefficient" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="PossibleResolutionsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PossibleResolutionsResult" nillable="true" type="q9:ArrayOfKeyValueOfstringint" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/System.Drawing" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Drawing" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8030/EmbroideryCreator?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Bitmap">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Image" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Bitmap" nillable="true" type="tns:Bitmap" />
+  <xs:complexType name="Image">
+    <xs:sequence>
+      <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##local" processContents="skip" />
+    </xs:sequence>
+    <xs:attribute ref="ser:FactoryType" />
+  </xs:complexType>
+  <xs:element name="Image" nillable="true" type="tns:Image" />
+  <xs:complexType name="ArrayOfColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Color" type="tns:Color" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfColor" nillable="true" type="tns:ArrayOfColor" />
+  <xs:complexType name="Color">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="knownColor" type="xs:short" />
+      <xs:element name="name" nillable="true" type="xs:string" />
+      <xs:element name="state" type="xs:short" />
+      <xs:element name="value" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Color" nillable="true" type="tns:Color" />
 </xs:schema>

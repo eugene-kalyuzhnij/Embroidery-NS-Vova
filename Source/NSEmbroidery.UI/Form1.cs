@@ -32,26 +32,26 @@ namespace NSEmbroidery.UI
 
             embroideryService = new NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient();
 
-            try
+            /*try
             {
-                
+
                 Bitmap image = new Bitmap(200, 200);
-               // for (int y = 0; y < image.Height; y++)
-               //     for (int x = 0; x < image.Width; x++)
-               //         image.SetPixel(x, y, Color.Red);
 
-                MemoryStream inputStream = new MemoryStream();
-                image.Save(inputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                {
+                    for (int y = 0; y < image.Height; y++)
+                        for (int x = 0; x < image.Width; x++)
+                            image.SetPixel(x, y, Color.Red);
+                }
 
-                NSEmbroidery.UI.Embroidery.InputData data = new Embroidery.InputData();
-                
-                
+                Bitmap result = embroideryService.GetEmbroidery(image, 20, 50, new Color[] { Color.Blue }, null, Color.Black, Embroidery.GridType.SolidLine);
+
+                pictureBoxCurrentImage.Image = result;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
-            }
+            }*/
 
 
         }
@@ -290,21 +290,36 @@ namespace NSEmbroidery.UI
             #endregion
 
 /*--------------------using service here-------------------------------------------------*/
-            
-            using (Bitmap image = new Bitmap(CurrentImage))
+
+            try
             {
-               // using (Stream stream = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
+                using (Bitmap image = new Bitmap(CurrentImage))
                 {
-                    /*Stream secondStream = new MemoryStream(ReadToEnd(stream));
-                    Image embroideryImage = Image.FromStream(secondStream);
-                    ResultImage imageForm = new ResultImage();
-                    imageForm.Image = new Bitmap(embroideryImage);
+                    using (Bitmap resultImage = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
+                    {
+                        ResultImage imageForm = new ResultImage();
+                        imageForm.Image = new Bitmap(resultImage);
 
-                    resultLabel.Text = "";
+                        resultLabel.Text = "";
 
-                    imageForm.ShowDialog();
-                    imageForm.Dispose();*/
+                        imageForm.ShowDialog();
+
+                        /*Stream secondStream = new MemoryStream(ReadToEnd(stream));
+                        Image embroideryImage = Image.FromStream(secondStream);
+                        ResultImage imageForm = new ResultImage();
+                        imageForm.Image = new Bitmap(embroideryImage);
+
+                        resultLabel.Text = "";
+
+                        imageForm.ShowDialog();
+                        imageForm.Dispose();*/
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Resolution that was choosed is too large");
+                return;
             }
             //Bitmap embordieryImage = callMethod.EndInvoke(result);
 /*---------------------------------------------------------------------------------------*/
@@ -343,9 +358,23 @@ namespace NSEmbroidery.UI
                                 labelWaitResolution.Text = "Wait...";
                                 labelWaitResolution.Refresh();
 
-                                using (Bitmap image = new Bitmap(CurrentImage))
+                                try
                                 {
-                                    //resolutions = embroideryService.PossibleResolutions(image, cells, 4, 15);//Count of resolutions here <-----------|
+                                    using (Bitmap image = new Bitmap(CurrentImage))
+                                    {
+                                        resolutions = embroideryService.PossibleResolutions(image, cells, 2, 10);//Count of resolutions here <-----------|
+                                    }
+                                }
+                                catch (OutOfMemoryException ex)
+                                {
+                                    MessageBox.Show("Input image is too large");
+                                    labelWaitResolution.Text = "";
+                                    return;
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Occurred some exception. Try set less cells count" + Environment.NewLine
+                                                        + "Exception Message: " + ex.Message);
                                 }
 
                                 foreach (var item in resolutions)
@@ -604,6 +633,11 @@ namespace NSEmbroidery.UI
                 panelSymbols.Controls.RemoveAt(0);
 
             buttonRemoveSymbols.Visible = false;
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
     }

@@ -9,384 +9,44 @@
 //------------------------------------------------------------------------------
 
 namespace NSEmbroidery.UI.Embroidery {
+    using System.Runtime.Serialization;
     
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GridType", Namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core")]
+    public enum GridType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        None = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        SolidLine = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Points = 2,
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Embroidery.IEmbroideryCreatorService")]
     public interface IEmbroideryCreatorService {
         
-        // CODEGEN: Generating message contract since the wrapper name (InputData) of message InputData does not match the default value (GetEmbroidery)
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Image))]
-        NSEmbroidery.UI.Embroidery.Result GetEmbroidery(NSEmbroidery.UI.Embroidery.InputData request);
+        System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse")]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.Result> GetEmbroideryAsync(NSEmbroidery.UI.Embroidery.InputData request);
-        
-        // CODEGEN: Parameter 'PossibleResolutionsCountResult' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlArrayAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCount", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCountResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Image))]
-        NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse PossibleResolutionsCount(NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest request);
+        System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCount", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCountResponse")]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse> PossibleResolutionsCountAsync(NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest request);
+        System.Collections.Generic.Dictionary<string, int> PossibleResolutionsCount(System.Drawing.Bitmap image, int cellsCount, int countResolutions);
         
-        // CODEGEN: Parameter 'PossibleResolutionsResult' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlArrayAttribute'.
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutions", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsResponse")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(Image))]
-        NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse PossibleResolutions(NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCount", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCountResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, int>> PossibleResolutionsCountAsync(System.Drawing.Bitmap image, int cellsCount, int countResolutions);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutions", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsResponse")]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse> PossibleResolutionsAsync(NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest request);
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System.Drawing")]
-    public partial class Color : object, System.ComponentModel.INotifyPropertyChanged {
+        System.Collections.Generic.Dictionary<string, int> PossibleResolutions(System.Drawing.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient);
         
-        private short knownColorField;
-        
-        private string nameField;
-        
-        private short stateField;
-        
-        private long valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
-        public short knownColor {
-            get {
-                return this.knownColorField;
-            }
-            set {
-                this.knownColorField = value;
-                this.RaisePropertyChanged("knownColor");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=1)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-                this.RaisePropertyChanged("name");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-        public short state {
-            get {
-                return this.stateField;
-            }
-            set {
-                this.stateField = value;
-                this.RaisePropertyChanged("state");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-        public long value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-                this.RaisePropertyChanged("value");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bitmap))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System.Drawing")]
-    public partial class Image : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private System.Xml.XmlElement[] anyField;
-        
-        private System.Xml.XmlQualifiedName factoryTypeField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute(Namespace="", Order=0)]
-        public System.Xml.XmlElement[] Any {
-            get {
-                return this.anyField;
-            }
-            set {
-                this.anyField = value;
-                this.RaisePropertyChanged("Any");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://schemas.microsoft.com/2003/10/Serialization/")]
-        public System.Xml.XmlQualifiedName FactoryType {
-            get {
-                return this.factoryTypeField;
-            }
-            set {
-                this.factoryTypeField = value;
-                this.RaisePropertyChanged("FactoryType");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System.Drawing")]
-    public partial class Bitmap : Image {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/NSEmbroidery.Core")]
-    public enum GridType {
-        
-        /// <remarks/>
-        None,
-        
-        /// <remarks/>
-        SolidLine,
-        
-        /// <remarks/>
-        Points,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="InputData", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class InputData {
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="System.Drawing")]
-        public NSEmbroidery.UI.Embroidery.Color SymbolColor;
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
-        public int CellsCount;
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
-        public NSEmbroidery.UI.Embroidery.GridType GridType;
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/System.Drawing", IsNullable=false)]
-        public NSEmbroidery.UI.Embroidery.Color[] Palette;
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
-        public int ResolutionCoefficient;
-        
-        [System.ServiceModel.MessageHeaderAttribute(Namespace="http://tempuri.org/")]
-        public int Symbols;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public System.IO.Stream InputImageStream;
-        
-        public InputData() {
-        }
-        
-        public InputData(NSEmbroidery.UI.Embroidery.Color SymbolColor, int CellsCount, NSEmbroidery.UI.Embroidery.GridType GridType, NSEmbroidery.UI.Embroidery.Color[] Palette, int ResolutionCoefficient, int Symbols, System.IO.Stream InputImageStream) {
-            this.SymbolColor = SymbolColor;
-            this.CellsCount = CellsCount;
-            this.GridType = GridType;
-            this.Palette = Palette;
-            this.ResolutionCoefficient = ResolutionCoefficient;
-            this.Symbols = Symbols;
-            this.InputImageStream = InputImageStream;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="Result", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class Result {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        public System.IO.Stream ImageStream;
-        
-        public Result() {
-        }
-        
-        public Result(System.IO.Stream ImageStream) {
-            this.ImageStream = ImageStream;
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays")]
-    public partial class ArrayOfKeyValueOfstringintKeyValueOfstringint : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string keyField;
-        
-        private int valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
-        public string Key {
-            get {
-                return this.keyField;
-            }
-            set {
-                this.keyField = value;
-                this.RaisePropertyChanged("Key");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-        public int Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-                this.RaisePropertyChanged("Value");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="PossibleResolutionsCount", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class PossibleResolutionsCountRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public NSEmbroidery.UI.Embroidery.Bitmap image;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
-        public int cellsCount;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
-        public int countResolutions;
-        
-        public PossibleResolutionsCountRequest() {
-        }
-        
-        public PossibleResolutionsCountRequest(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int countResolutions) {
-            this.image = image;
-            this.cellsCount = cellsCount;
-            this.countResolutions = countResolutions;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="PossibleResolutionsCountResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class PossibleResolutionsCountResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("KeyValueOfstringint", Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays", IsNullable=false)]
-        public NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutionsCountResult;
-        
-        public PossibleResolutionsCountResponse() {
-        }
-        
-        public PossibleResolutionsCountResponse(NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutionsCountResult) {
-            this.PossibleResolutionsCountResult = PossibleResolutionsCountResult;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="PossibleResolutions", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class PossibleResolutionsRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public NSEmbroidery.UI.Embroidery.Bitmap image;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
-        public int cellsCount;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
-        public int minCoefficient;
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
-        public int maxCoefficient;
-        
-        public PossibleResolutionsRequest() {
-        }
-        
-        public PossibleResolutionsRequest(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient) {
-            this.image = image;
-            this.cellsCount = cellsCount;
-            this.minCoefficient = minCoefficient;
-            this.maxCoefficient = maxCoefficient;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(WrapperName="PossibleResolutionsResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
-    public partial class PossibleResolutionsResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
-        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("KeyValueOfstringint", Namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays", IsNullable=false)]
-        public NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutionsResult;
-        
-        public PossibleResolutionsResponse() {
-        }
-        
-        public PossibleResolutionsResponse(NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutionsResult) {
-            this.PossibleResolutionsResult = PossibleResolutionsResult;
-        }
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutions", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, int>> PossibleResolutionsAsync(System.Drawing.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -416,95 +76,28 @@ namespace NSEmbroidery.UI.Embroidery {
                 base(binding, remoteAddress) {
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        NSEmbroidery.UI.Embroidery.Result NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.GetEmbroidery(NSEmbroidery.UI.Embroidery.InputData request) {
-            return base.Channel.GetEmbroidery(request);
+        public System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type) {
+            return base.Channel.GetEmbroidery(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
         }
         
-        public System.IO.Stream GetEmbroidery(NSEmbroidery.UI.Embroidery.Color SymbolColor, int CellsCount, NSEmbroidery.UI.Embroidery.GridType GridType, NSEmbroidery.UI.Embroidery.Color[] Palette, int ResolutionCoefficient, int Symbols, System.IO.Stream InputImageStream) {
-            NSEmbroidery.UI.Embroidery.InputData inValue = new NSEmbroidery.UI.Embroidery.InputData();
-            inValue.SymbolColor = SymbolColor;
-            inValue.CellsCount = CellsCount;
-            inValue.GridType = GridType;
-            inValue.Palette = Palette;
-            inValue.ResolutionCoefficient = ResolutionCoefficient;
-            inValue.Symbols = Symbols;
-            inValue.InputImageStream = InputImageStream;
-            NSEmbroidery.UI.Embroidery.Result retVal = ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).GetEmbroidery(inValue);
-            return retVal.ImageStream;
+        public System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type) {
+            return base.Channel.GetEmbroideryAsync(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.Result> NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.GetEmbroideryAsync(NSEmbroidery.UI.Embroidery.InputData request) {
-            return base.Channel.GetEmbroideryAsync(request);
+        public System.Collections.Generic.Dictionary<string, int> PossibleResolutionsCount(System.Drawing.Bitmap image, int cellsCount, int countResolutions) {
+            return base.Channel.PossibleResolutionsCount(image, cellsCount, countResolutions);
         }
         
-        public System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.Result> GetEmbroideryAsync(NSEmbroidery.UI.Embroidery.Color SymbolColor, int CellsCount, NSEmbroidery.UI.Embroidery.GridType GridType, NSEmbroidery.UI.Embroidery.Color[] Palette, int ResolutionCoefficient, int Symbols, System.IO.Stream InputImageStream) {
-            NSEmbroidery.UI.Embroidery.InputData inValue = new NSEmbroidery.UI.Embroidery.InputData();
-            inValue.SymbolColor = SymbolColor;
-            inValue.CellsCount = CellsCount;
-            inValue.GridType = GridType;
-            inValue.Palette = Palette;
-            inValue.ResolutionCoefficient = ResolutionCoefficient;
-            inValue.Symbols = Symbols;
-            inValue.InputImageStream = InputImageStream;
-            return ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).GetEmbroideryAsync(inValue);
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, int>> PossibleResolutionsCountAsync(System.Drawing.Bitmap image, int cellsCount, int countResolutions) {
+            return base.Channel.PossibleResolutionsCountAsync(image, cellsCount, countResolutions);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.PossibleResolutionsCount(NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest request) {
-            return base.Channel.PossibleResolutionsCount(request);
+        public System.Collections.Generic.Dictionary<string, int> PossibleResolutions(System.Drawing.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient) {
+            return base.Channel.PossibleResolutions(image, cellsCount, minCoefficient, maxCoefficient);
         }
         
-        public NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutionsCount(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int countResolutions) {
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest inValue = new NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest();
-            inValue.image = image;
-            inValue.cellsCount = cellsCount;
-            inValue.countResolutions = countResolutions;
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse retVal = ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).PossibleResolutionsCount(inValue);
-            return retVal.PossibleResolutionsCountResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse> NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.PossibleResolutionsCountAsync(NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest request) {
-            return base.Channel.PossibleResolutionsCountAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsCountResponse> PossibleResolutionsCountAsync(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int countResolutions) {
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest inValue = new NSEmbroidery.UI.Embroidery.PossibleResolutionsCountRequest();
-            inValue.image = image;
-            inValue.cellsCount = cellsCount;
-            inValue.countResolutions = countResolutions;
-            return ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).PossibleResolutionsCountAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.PossibleResolutions(NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest request) {
-            return base.Channel.PossibleResolutions(request);
-        }
-        
-        public NSEmbroidery.UI.Embroidery.ArrayOfKeyValueOfstringintKeyValueOfstringint[] PossibleResolutions(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient) {
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest inValue = new NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest();
-            inValue.image = image;
-            inValue.cellsCount = cellsCount;
-            inValue.minCoefficient = minCoefficient;
-            inValue.maxCoefficient = maxCoefficient;
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse retVal = ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).PossibleResolutions(inValue);
-            return retVal.PossibleResolutionsResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse> NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService.PossibleResolutionsAsync(NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest request) {
-            return base.Channel.PossibleResolutionsAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<NSEmbroidery.UI.Embroidery.PossibleResolutionsResponse> PossibleResolutionsAsync(NSEmbroidery.UI.Embroidery.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient) {
-            NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest inValue = new NSEmbroidery.UI.Embroidery.PossibleResolutionsRequest();
-            inValue.image = image;
-            inValue.cellsCount = cellsCount;
-            inValue.minCoefficient = minCoefficient;
-            inValue.maxCoefficient = maxCoefficient;
-            return ((NSEmbroidery.UI.Embroidery.IEmbroideryCreatorService)(this)).PossibleResolutionsAsync(inValue);
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, int>> PossibleResolutionsAsync(System.Drawing.Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient) {
+            return base.Channel.PossibleResolutionsAsync(image, cellsCount, minCoefficient, maxCoefficient);
         }
     }
 }

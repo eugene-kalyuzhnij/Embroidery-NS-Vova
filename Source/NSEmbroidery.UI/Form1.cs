@@ -21,7 +21,7 @@ namespace NSEmbroidery.UI
 
         NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient embroideryService;
 
-       // private delegate System.Drawing.Bitmap Embroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type);
+        private delegate System.Drawing.Bitmap Embroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type);
 
         public Form1()
         {
@@ -291,37 +291,25 @@ namespace NSEmbroidery.UI
 
 /*--------------------using service here-------------------------------------------------*/
 
+            Embroidery embroideryDelegate = new Embroidery(embroideryService.GetEmbroidery);
+
             try
             {
-                using (Bitmap image = new Bitmap(CurrentImage))
-                {
-                    using (Bitmap resultImage = embroideryService.GetEmbroidery(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type))
-                    {
-                        ResultImage imageForm = new ResultImage();
-                        imageForm.Image = new Bitmap(resultImage);
+                Bitmap image = new Bitmap(CurrentImage);
+                IAsyncResult asuncResult = embroideryDelegate.BeginInvoke(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
+                Bitmap resultImage = embroideryDelegate.EndInvoke(asuncResult);
+                ResultImage imageForm = new ResultImage();
+                imageForm.Image = new Bitmap(resultImage);
 
-                        resultLabel.Text = "";
+                resultLabel.Text = "";
 
-                        imageForm.ShowDialog();
-
-                        /*Stream secondStream = new MemoryStream(ReadToEnd(stream));
-                        Image embroideryImage = Image.FromStream(secondStream);
-                        ResultImage imageForm = new ResultImage();
-                        imageForm.Image = new Bitmap(embroideryImage);
-
-                        resultLabel.Text = "";
-
-                        imageForm.ShowDialog();
-                        imageForm.Dispose();*/
-                    }
-                }
+                imageForm.ShowDialog();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Resolution that was choosed is too large");
                 return;
             }
-            //Bitmap embordieryImage = callMethod.EndInvoke(result);
 /*---------------------------------------------------------------------------------------*/
 
         }

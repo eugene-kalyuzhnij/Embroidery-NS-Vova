@@ -1,0 +1,1 @@
+﻿<%@ServiceHost language=c# Debug="true" Service="NSEmbroidery.Core.EmbroideryCreator, NSEmbroidery.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"%>

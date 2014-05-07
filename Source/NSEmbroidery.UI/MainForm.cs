@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.ServiceModel;
 using NSEmbroidery.UI.Embroidery;
+using System.Configuration;
 
 namespace NSEmbroidery.UI
 {
@@ -32,6 +33,12 @@ namespace NSEmbroidery.UI
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
             labelAddress.Text = Properties.Settings.Default.AddressOfService;
+
+            /*Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings.Clear();
+            config.Save(ConfigurationSaveMode.Modified, true);
+
+            ConfigurationManager.RefreshSection("appSettings");*/
         }
 
         

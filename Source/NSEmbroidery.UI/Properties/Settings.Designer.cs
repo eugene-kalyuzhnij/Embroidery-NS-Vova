@@ -23,12 +23,15 @@ namespace NSEmbroidery.UI.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8030/EmbroideryCreator")]
-        public string Address {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/Embroidery/EmbroideryCreator.svc")]
+        public string AddressOfService {
             get {
-                return ((string)(this["Address"]));
+                return ((string)(this["AddressOfService"]));
+            }
+            set {
+                this["AddressOfService"] = value;
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace NSEmbroidery.UI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,6 +32,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.servicesAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -67,6 +69,8 @@
             this.buttonCreateColor = new System.Windows.Forms.Button();
             this.buttonRemoveSymbols = new System.Windows.Forms.Button();
             this.labelResolutionImage = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            labelAddress = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -80,6 +84,7 @@
             this.menuStrip1.BackColor = System.Drawing.Color.MediumTurquoise;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -100,16 +105,31 @@
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openImageToolStripMenuItem.Text = "Open Image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.servicesAddressToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // servicesAddressToolStripMenuItem
+            // 
+            this.servicesAddressToolStripMenuItem.Name = "servicesAddressToolStripMenuItem";
+            this.servicesAddressToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.servicesAddressToolStripMenuItem.Text = "Service\'s address";
+            this.servicesAddressToolStripMenuItem.Click += new System.EventHandler(this.servicesAddressToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -122,7 +142,7 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             // 
             // openFileDialog1
@@ -446,12 +466,31 @@
             this.labelResolutionImage.Size = new System.Drawing.Size(0, 13);
             this.labelResolutionImage.TabIndex = 32;
             // 
-            // Form1
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(163, 384);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(51, 13);
+            this.label.TabIndex = 33;
+            this.label.Text = "Address: ";
+            // 
+            // labelAddress
+            // 
+            labelAddress.AutoSize = true;
+            labelAddress.Location = new System.Drawing.Point(212, 384);
+            labelAddress.Name = "labelAddress";
+            labelAddress.Size = new System.Drawing.Size(0, 13);
+            labelAddress.TabIndex = 34;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
+            this.Controls.Add(labelAddress);
+            this.Controls.Add(this.label);
             this.Controls.Add(this.labelResolutionImage);
             this.Controls.Add(this.buttonRemoveSymbols);
             this.Controls.Add(this.panelCreateColor);
@@ -479,7 +518,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Embroidery Creator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -536,6 +575,10 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button buttonRemoveSymbols;
         private System.Windows.Forms.Label labelResolutionImage;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem servicesAddressToolStripMenuItem;
+        private System.Windows.Forms.Label label;
+        public static System.Windows.Forms.Label labelAddress;
     }
 }
 

@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.ServiceModel;
+using NSEmbroidery.UI.Embroidery;
 
 namespace NSEmbroidery.UI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         Bitmap CurrentImage { get; set; }
         List<TextBox> textBoxes;
@@ -23,15 +25,13 @@ namespace NSEmbroidery.UI
 
         private delegate System.Drawing.Bitmap Embroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, NSEmbroidery.UI.Embroidery.GridType type);
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
-
-            embroideryService = new NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient();
-
+            labelAddress.Text = Properties.Settings.Default.AddressOfService;
         }
 
         
@@ -268,13 +268,16 @@ namespace NSEmbroidery.UI
             #endregion
 
 /*--------------------using service here-------------------------------------------------*/
-
+            string uri = Properties.Settings.Default.AddressOfService;
+            embroideryService = EmbroideryService.GetEmbroideryService(uri);
             Embroidery embroideryDelegate = new Embroidery(embroideryService.GetEmbroidery);
             try
             {
                 Bitmap image = new Bitmap(CurrentImage);
                 IAsyncResult asuncResult = embroideryDelegate.BeginInvoke(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
                 Bitmap resultImage = embroideryDelegate.EndInvoke(asuncResult);
+
+                embroideryService.Close();
                 ResultImage imageForm = new ResultImage();
                 imageForm.Image = new Bitmap(resultImage);
 
@@ -285,6 +288,7 @@ namespace NSEmbroidery.UI
             catch (Exception ex)
             {
                 MessageBox.Show("Resolution that was choosed is too large");
+                resultLabel.Text = "";
                 return;
             }
 /*---------------------------------------------------------------------------------------*/
@@ -327,7 +331,9 @@ namespace NSEmbroidery.UI
                                 {
                                     using (Bitmap image = new Bitmap(CurrentImage))
                                     {
+                                        embroideryService = EmbroideryService.GetEmbroideryService(Properties.Settings.Default.AddressOfService);
                                         resolutions = embroideryService.PossibleResolutions(image, cells, 2, 10);//Count of resolutions here <-----------|
+                                        embroideryService.Close();
                                     }
                                 }
                                 catch (OutOfMemoryException ex)
@@ -603,6 +609,12 @@ namespace NSEmbroidery.UI
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void servicesAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddressOfService newWindow = new AddressOfService();
+            newWindow.ShowDialog();
         }
 
     }

@@ -46,11 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AddressOfService.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AddressOfService.Designer.cs">
+      <DependentUpon>AddressOfService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmbroideryService.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,13 +72,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\EmbroideryIIS\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AddressOfService.resx">
+      <DependentUpon>AddressOfService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,6 +105,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Embroidery\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Service References\Embroidery\EmbroideryCreator.wsdl" />
     <None Include="Service References\Embroidery\EmbroideryCreator.xsd">
       <SubType>Designer</SubType>
@@ -116,59 +135,13 @@
     <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.wsdl" />
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Embroidery\" />
-    <WCFMetadataStorage Include="Service References\EmbroideryIIS\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\Embroidery\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EmbroideryIIS\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EmbroideryIIS\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\EmbroideryIIS\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

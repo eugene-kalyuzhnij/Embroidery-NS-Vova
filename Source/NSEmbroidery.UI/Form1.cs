@@ -32,28 +32,6 @@ namespace NSEmbroidery.UI
 
             embroideryService = new NSEmbroidery.UI.Embroidery.EmbroideryCreatorServiceClient();
 
-            /*try
-            {
-
-                Bitmap image = new Bitmap(200, 200);
-
-                {
-                    for (int y = 0; y < image.Height; y++)
-                        for (int x = 0; x < image.Width; x++)
-                            image.SetPixel(x, y, Color.Red);
-                }
-
-                Bitmap result = embroideryService.GetEmbroidery(image, 20, 50, new Color[] { Color.Blue }, null, Color.Black, Embroidery.GridType.SolidLine);
-
-                pictureBoxCurrentImage.Image = result;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }*/
-
-
         }
 
         
@@ -292,7 +270,6 @@ namespace NSEmbroidery.UI
 /*--------------------using service here-------------------------------------------------*/
 
             Embroidery embroideryDelegate = new Embroidery(embroideryService.GetEmbroidery);
-
             try
             {
                 Bitmap image = new Bitmap(CurrentImage);

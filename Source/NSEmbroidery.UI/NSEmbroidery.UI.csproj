@@ -65,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\EmbroideryIIS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,7 +85,9 @@
     <EmbeddedResource Include="ResultImage.resx">
       <DependentUpon>ResultImage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\NSEmbroidery.Core.Resolution.datasource" />
     <None Include="Properties\DataSources\System.Drawing.Bitmap.datasource" />
@@ -109,12 +116,29 @@
     <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.wsdl" />
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\Embroidery\" />
+    <WCFMetadataStorage Include="Service References\EmbroideryIIS\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
@@ -127,6 +151,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\Embroidery\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryIIS\EmbroideryCreator.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryIIS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryIIS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryIIS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -32,13 +32,12 @@ namespace NSEmbroidery.UI
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
-            labelAddress.Text = Properties.Settings.Default.AddressOfService;
 
-            /*Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings.Clear();
             config.Save(ConfigurationSaveMode.Modified, true);
 
-            ConfigurationManager.RefreshSection("appSettings");*/
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         

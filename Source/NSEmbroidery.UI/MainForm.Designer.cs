@@ -69,8 +69,6 @@
             this.buttonCreateColor = new System.Windows.Forms.Button();
             this.buttonRemoveSymbols = new System.Windows.Forms.Button();
             this.labelResolutionImage = new System.Windows.Forms.Label();
-            this.label = new System.Windows.Forms.Label();
-            labelAddress = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCurrentImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxColorChoice)).BeginInit();
@@ -127,8 +125,8 @@
             // servicesAddressToolStripMenuItem
             // 
             this.servicesAddressToolStripMenuItem.Name = "servicesAddressToolStripMenuItem";
-            this.servicesAddressToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.servicesAddressToolStripMenuItem.Text = "Service\'s address";
+            this.servicesAddressToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.servicesAddressToolStripMenuItem.Text = "Address of service";
             this.servicesAddressToolStripMenuItem.Click += new System.EventHandler(this.servicesAddressToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -466,31 +464,12 @@
             this.labelResolutionImage.Size = new System.Drawing.Size(0, 13);
             this.labelResolutionImage.TabIndex = 32;
             // 
-            // label
-            // 
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(163, 384);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(51, 13);
-            this.label.TabIndex = 33;
-            this.label.Text = "Address: ";
-            // 
-            // labelAddress
-            // 
-            labelAddress.AutoSize = true;
-            labelAddress.Location = new System.Drawing.Point(212, 384);
-            labelAddress.Name = "labelAddress";
-            labelAddress.Size = new System.Drawing.Size(0, 13);
-            labelAddress.TabIndex = 34;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(708, 406);
-            this.Controls.Add(labelAddress);
-            this.Controls.Add(this.label);
             this.Controls.Add(this.labelResolutionImage);
             this.Controls.Add(this.buttonRemoveSymbols);
             this.Controls.Add(this.panelCreateColor);
@@ -577,8 +556,6 @@
         private System.Windows.Forms.Label labelResolutionImage;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem servicesAddressToolStripMenuItem;
-        private System.Windows.Forms.Label label;
-        public static System.Windows.Forms.Label labelAddress;
     }
 }
 

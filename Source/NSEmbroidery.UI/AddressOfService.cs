@@ -22,8 +22,11 @@ namespace NSEmbroidery.UI
             InitializeComponent();
 
             string[] keys = ConfigurationManager.AppSettings.AllKeys;
-            
-            comboBoxAddress.Items.AddRange(keys);
+
+            if (keys.Length == 0)
+                comboBoxAddress.Items.AddRange(new string[] { Properties.Settings.Default.AddressOfService });
+            else
+                comboBoxAddress.Items.AddRange(keys);
 
             comboBoxAddress.Text = Properties.Settings.Default.AddressOfService;
         }
@@ -47,9 +50,6 @@ namespace NSEmbroidery.UI
                 Properties.Settings.Default.Save();
 
                 SaveAddress(currentUri);
-
-                MainForm.labelAddress.Text = currentUri;
-                MainForm.labelAddress.Refresh();
             }
             catch (UriFormatException ex)
             {

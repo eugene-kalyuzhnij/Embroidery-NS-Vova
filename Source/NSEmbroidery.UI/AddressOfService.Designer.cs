@@ -83,7 +83,7 @@
             this.Controls.Add(this.labelAddress);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddressOfService";
-            this.Text = "AddressOfService";
+            this.Text = "Address Of Service";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -133,7 +133,11 @@ namespace NSEmbroidery.UnitTests
 
             for (int y = 0; y < expectedCanvas.Height; y++)
                 for (int x = 0; x < expectedCanvas.Width; x++)
-                    Assert.IsTrue(actual.GetColor(x, y) == expectedCanvas.GetColor(x, y));
+                {
+                    Color actualColor = actual.GetColor(x, y);
+                    Color expectedColor = expectedCanvas.GetColor(x, y);
+                    Assert.IsTrue( actualColor == expectedColor);
+                }
 
         }
 

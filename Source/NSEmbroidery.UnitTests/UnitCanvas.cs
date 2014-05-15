@@ -549,6 +549,5 @@ namespace NSEmbroidery.UnitTests
             canvas.SetSymbol('#', -1, 0, 4, Color.Black);
         }
 
-
     }
 }

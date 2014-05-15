@@ -1,0 +1,25 @@
+﻿Level	Date and Time	Source	Event ID	Task Category
+Information	5/14/2014 4:57:37 PM	EmbroiderySource	0	None	GetEmbroidery was executed    Result image = System.Drawing.Bitmap
+Information	5/14/2014 4:57:37 PM	EmbroiderySource	0	None	---------End time spent-------
+Information	5/14/2014 4:57:37 PM	EmbroiderySource	0	None	"-----Convert Canvas To Bitmap: 825
+---------resol: 1200x1400"
+Information	5/14/2014 4:57:37 PM	EmbroiderySource	0	None	-------------------
+Information	5/14/2014 4:57:36 PM	EmbroiderySource	0	None	"-----NSEmbroidery.Core.Decorators.GridDecorator: 416
+---------resol: 1200x1400"
+Information	5/14/2014 4:57:36 PM	EmbroiderySource	0	None	-------------------
+Information	5/14/2014 4:57:35 PM	EmbroiderySource	0	None	"-----NSEmbroidery.Core.Decorators.SymbolsDecorator: 2775
+---------resol: 1200x1400"
+Information	5/14/2014 4:57:35 PM	EmbroiderySource	0	None	-------------------
+Information	5/14/2014 4:57:33 PM	EmbroiderySource	0	None	"-----NSEmbroidery.Core.Decorators.CellsDecorator: 19
+---------resol: 1200x1400"
+Information	5/14/2014 4:57:33 PM	EmbroiderySource	0	None	-------------------
+Information	5/14/2014 4:57:33 PM	EmbroiderySource	0	None	"-----Generate pattern: 248
+--------resol: 1400x1400
+--------cells: 300"
+Information	5/14/2014 4:57:33 PM	EmbroiderySource	0	None	-------------------
+Information	5/14/2014 4:57:32 PM	EmbroiderySource	0	None	"-----Convert Bitmap To Canvas: 760
+---------resol: 1400x1400"
+Information	5/14/2014 4:57:32 PM	EmbroiderySource	0	None	---------Time spent----------
+Information	5/14/2014 4:57:32 PM	EmbroiderySource	0	None	"Come in the GetEmbroidery(...)
+    cells count = 300
+    resolution coefficient = 4"

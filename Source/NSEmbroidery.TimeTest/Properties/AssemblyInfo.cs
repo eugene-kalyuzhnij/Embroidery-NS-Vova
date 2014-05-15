@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IISTest")]
+[assembly: AssemblyTitle("NSEmbroidery.TimeTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("______")]
-[assembly: AssemblyProduct("IISTest")]
+[assembly: AssemblyProduct("NSEmbroidery.TimeTest")]
 [assembly: AssemblyCopyright("Copyright © ______ 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c17993da-dbe6-4ae7-8b6c-c23303d11219")]
+[assembly: Guid("91589c28-ef4f-464e-93c9-b3cdaa0f2e85")]
 
 // Version information for an assembly consists of the following four values:
 //

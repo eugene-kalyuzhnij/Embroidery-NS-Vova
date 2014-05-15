@@ -33,21 +33,32 @@ namespace NSEmbroidery.Core.Decorators
             Color symbolColor;
             if(settings.SymbolColor == Color.Empty) symbolColor = Color.Black;
             else symbolColor = settings.SymbolColor;
-                
-            for(int squareY = 0, patternY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, patternY++)
+
+
+            Parallel.For(0, pattern.Height, patternY =>
+                {
+                    Parallel.For(0, pattern.Width, patternX =>
+                    /*for (int patternX = 0; patternX < pattern.Width; patternX++)*/
+                    {
+                        int startX = patternX * squareWidth;
+                        int startY = patternY * squareWidth;
+
+                        char symbol = GetSymbol(pattern.GetColor(patternX, patternY), settings);
+                        embroidery.SetSymbol(symbol, startX, startY, squareWidth, symbolColor);
+                    });
+                });
+
+
+
+            #region Obsolete
+            /*for(int squareY = 0, patternY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, patternY++)
                 for (int squareX = 0, patternX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth, patternX++)
                 {
                     char symbol = GetSymbol(pattern.GetColor(patternX, patternY), settings);
                     embroidery.SetSymbol(symbol, squareX, squareY, squareWidth, symbolColor);
-                }
-        }
+                }*/
+            #endregion
 
-
-        private void ChangeConvas(Canvas sourceCanvas, Canvas otheCanvas)
-        {
-            for(int y = 0; y < sourceCanvas.Height; y++)
-                for(int x = 0; x < sourceCanvas.Width; x++)
-                    sourceCanvas.SetColor(x, y, otheCanvas.GetColor(x, y));
         }
 
 

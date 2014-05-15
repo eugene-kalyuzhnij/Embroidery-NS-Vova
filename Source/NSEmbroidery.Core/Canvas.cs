@@ -14,6 +14,7 @@ namespace NSEmbroidery.Core
         public Color[,] Color;
         public int Width { get; private set; }
         public int Height { get; private set; }
+        private object LockObject = new object();
 
         public int Count { get{return Color.Length;} }
 
@@ -170,95 +171,97 @@ namespace NSEmbroidery.Core
 
         public void SetBorder(int x, int y, int width, int height, Color color, Aligns align, GridType type)
         {
-
-            Canvas inner = null;
-
-            if (type == GridType.Points)
+            lock (LockObject)
             {
-                #region PointsGridAlgorithm
-                switch (align)
-                {
-                    case Aligns.Left:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _y = 0; _y < height; _y++)
-                            {
-                                if (_y % 3 == 0)
-                                    inner.SetColor(0, _y, color);
-                            }
-                            break;
-                        }
-                    case Aligns.Right:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _y = 0; _y < height; _y++)
-                            {
-                                if (_y % 3 == 0)
-                                    inner.SetColor(width - 1, _y, color);
-                            }
-                            break;
-                        }
-                    case Aligns.Top:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _x = 0; _x < width; _x++)
-                            {
-                                if (_x % 3 == 0)
-                                    inner.SetColor(_x, 0, color);
-                            }
-                            break;
-                        }
-                    case Aligns.Buttom:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _x = 0; _x < width; _x++)
-                            {
-                                if (_x % 3 == 0)
-                                    inner.SetColor(_x, height - 1, color);
-                            }
-                            break;
-                        }
-                }
-                #endregion
-            }
-            else
-            {
-                #region LineGridAlgorithm
-                switch (align)
-                {
-                    case Aligns.Left:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _y = 0; _y < height; _y++)
-                                    inner.SetColor(0, _y, color);
-                            break;
-                        }
-                    case Aligns.Right:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _y = 0; _y < height; _y++)
-                                    inner.SetColor(width - 1, _y, color);
-                            break;
-                        }
-                    case Aligns.Top:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _x = 0; _x < width; _x++)
-                                    inner.SetColor(_x, 0, color);
-                            break;
-                        }
-                    case Aligns.Buttom:
-                        {
-                            inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
-                            for (int _x = 0; _x < width; _x++)
-                                    inner.SetColor(_x, height - 1, color);
-                            break;
-                        }
-                }
-                #endregion
-            }
+                Canvas inner = null;
 
-            this.SetCanvas(x, y, inner);
+                if (type == GridType.Points)
+                {
+                    #region PointsGridAlgorithm
+                    switch (align)
+                    {
+                        case Aligns.Left:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _y = 0; _y < height; _y++)
+                                {
+                                    if (_y % 3 == 0)
+                                        inner.SetColor(0, _y, color);
+                                }
+                                break;
+                            }
+                        case Aligns.Right:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _y = 0; _y < height; _y++)
+                                {
+                                    if (_y % 3 == 0)
+                                        inner.SetColor(width - 1, _y, color);
+                                }
+                                break;
+                            }
+                        case Aligns.Top:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _x = 0; _x < width; _x++)
+                                {
+                                    if (_x % 3 == 0)
+                                        inner.SetColor(_x, 0, color);
+                                }
+                                break;
+                            }
+                        case Aligns.Buttom:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _x = 0; _x < width; _x++)
+                                {
+                                    if (_x % 3 == 0)
+                                        inner.SetColor(_x, height - 1, color);
+                                }
+                                break;
+                            }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    #region LineGridAlgorithm
+                    switch (align)
+                    {
+                        case Aligns.Left:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _y = 0; _y < height; _y++)
+                                    inner.SetColor(0, _y, color);
+                                break;
+                            }
+                        case Aligns.Right:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _y = 0; _y < height; _y++)
+                                    inner.SetColor(width - 1, _y, color);
+                                break;
+                            }
+                        case Aligns.Top:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _x = 0; _x < width; _x++)
+                                    inner.SetColor(_x, 0, color);
+                                break;
+                            }
+                        case Aligns.Buttom:
+                            {
+                                inner = this.GetInnerCanvas(x, y, new Resolution(width, height));
+                                for (int _x = 0; _x < width; _x++)
+                                    inner.SetColor(_x, height - 1, color);
+                                break;
+                            }
+                    }
+                    #endregion
+                }
+
+                this.SetCanvas(x, y, inner);
+            }
         }
 
         public void SetCanvas(int x, int y, Canvas innerCanvas)

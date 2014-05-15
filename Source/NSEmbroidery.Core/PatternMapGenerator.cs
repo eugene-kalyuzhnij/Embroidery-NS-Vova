@@ -34,13 +34,25 @@ namespace NSEmbroidery.Core
 
             List<Color> colors = settings.Palette.GetAllColorsList();
 
-            for (int y = 0; y < tempCanvas.Height; y++)
+            /*for (int y = 0; y < tempCanvas.Height; y++)
                 for (int x = 0; x < tempCanvas.Width; x++)
                 {
                     Color oldColor = tempCanvas.GetColor(x, y);
                     Color colorAmoung = ChooseColorAmoung(oldColor, colors);
                     tempCanvas.SetColor(x, y, colorAmoung);
-                }
+                }*/
+
+
+            Parallel.For(0, tempCanvas.Height, y =>
+                {
+                    Parallel.For(0, tempCanvas.Width, x => 
+                        {
+                            Color oldColor = tempCanvas.GetColor(x, y);
+                            Color colorAmoung = ChooseColorAmoung(oldColor, colors);
+                            tempCanvas.SetColor(x, y, colorAmoung);
+                        });
+                    
+                });
 
             return tempCanvas;
         }

@@ -37,14 +37,43 @@ namespace NSEmbroidery.Core
             if (settings.Palette == null || settings.Palette.Count == 0)
                 throw new WrongInitializedException("palette has to be initialized");
 
-            Canvas pattern = PatternMapGenerator.Generate(CanvasConverter.ConvertBitmapToCanvas(image), settings);
+            Stopwatch watch1 = new System.Diagnostics.Stopwatch();
+            watch1.Start();
+            Canvas imageCanvas = CanvasConverter.ConvertBitmapToCanvas(image);
+            watch1.Stop();
+
+            log.WriteEntry("---------Time spent----------");
+            log.WriteEntry(@"-----Convert Bitmap To Canvas: " + watch1.ElapsedMilliseconds.ToString() + Environment.NewLine +
+                            "---------resol: " + image.Width.ToString() + "x" + image.Height.ToString());
+
+            Stopwatch watch2 = new System.Diagnostics.Stopwatch();
+            watch2.Start();
+            Canvas pattern = PatternMapGenerator.Generate(imageCanvas, settings);
+            watch2.Stop();
+            log.WriteEntry("-------------------");
+            log.WriteEntry(@"-----Generate pattern: " + watch2.ElapsedMilliseconds.ToString() + Environment.NewLine +
+                            "--------resol: " + imageCanvas.Width.ToString() + "x" + imageCanvas.Height.ToString() + Environment.NewLine +
+                            "--------cells: " + settings.CellsCount.ToString());
+
             Resolution resolution = new Resolution(pattern.Width * settings.Coefficient, pattern.Height * settings.Coefficient);
 
 
             Canvas result = new Canvas(resolution);
+
+
             settings.Decorate(result, pattern);
 
-            return CanvasConverter.ConvertCanvasToBitmap(result);
+            Stopwatch watch3 = new System.Diagnostics.Stopwatch();
+            watch3.Start();
+            Bitmap resultImage = CanvasConverter.ConvertCanvasToBitmap(result);
+            watch3.Stop();
+
+            log.WriteEntry("-------------------");
+            log.WriteEntry(@"-----Convert Canvas To Bitmap: " + watch3.ElapsedMilliseconds.ToString() + Environment.NewLine +
+                            "---------resol: " + result.Width.ToString() + "x" + result.Height.ToString());
+            log.WriteEntry("---------End time spent-------");
+
+            return resultImage;
         }
 
 
@@ -54,8 +83,8 @@ namespace NSEmbroidery.Core
         public Bitmap GetEmbroidery(Bitmap image, int resolutionCoefficient, int cellsCount, Color[] palette, char[] symbols, Color symbolColor, GridType type)
         {
             log.WriteEntry(@"Come in the GetEmbroidery(...)" + Environment.NewLine +
-                               "cells count = " + cellsCount + Environment.NewLine +
-                                "resolution coefficient = " + resolutionCoefficient);
+                             "    cells count = " + cellsCount + Environment.NewLine +
+                             "    resolution coefficient = " + resolutionCoefficient);
             Bitmap result = null;
             try
             {
@@ -68,64 +97,11 @@ namespace NSEmbroidery.Core
             }
 
 
-            log.WriteEntry(@"GetEmbroidery was executed
-                                Result image = " + result.ToString());
+            log.WriteEntry(@"GetEmbroidery was executed" +
+                            "    Result image = " + result.ToString());
 
             return result;
         }
-
-        /*Old interface implementation
-          
-        public Result GetEmbroidery(InputData contract)
-        {
-            log.WriteEntry(@"Come in GetEmbroidery().
-                                cells count = " + contract.CellsCount + Environment.NewLine +
-                                "resolution coefficient = " + contract.ResolutionCoefficient);
-
-
-            Bitmap inputImage = null;
-            Bitmap resultImage = null;
-
-            try
-            {
-                inputImage = new Bitmap(contract.InputImageStream);
-            }
-            catch (Exception ex)
-            {
-                log.WriteEntry(@"Exception was occured when input image was creating from the stream
-                                    Message: " + ex.Message);
-            }
-
-            try
-            {
-                resultImage = CreateEmbroidery(inputImage, contract.ResolutionCoefficient, contract.CellsCount, contract.Palette, contract.Symbols, contract.SymbolColor, contract.GridType);
-            }
-            catch (Exception ex)
-            {
-                log.WriteEntry(@"Exception was occurred in CreateEmbroidery method.
-                                    Message: " + ex.Message);
-            }
-
-           MemoryStream stream = new MemoryStream();
-
-           try
-           {
-               resultImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-               stream.Position = 0;
-           }
-           catch (Exception ex)
-           {
-               log.WriteEntry(@"Exception was occurred when image was saving.
-                                    Message: " + ex.Message);
-           }
-
-           Result result = new Result();
-           result.ImageStream = stream;
-
-           log.WriteEntry("GetEmbroidery has valid stream and will return it");
-
-           return result;
-        }*/
 
 
 

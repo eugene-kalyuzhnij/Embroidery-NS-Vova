@@ -11,6 +11,7 @@ using System.IO;
 using System.ServiceModel;
 using NSEmbroidery.UI.Embroidery;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace NSEmbroidery.UI
 {
@@ -33,11 +34,13 @@ namespace NSEmbroidery.UI
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
 
+            /*
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings.Clear();
             config.Save(ConfigurationSaveMode.Modified, true);
 
             ConfigurationManager.RefreshSection("appSettings");
+            */
         }
 
         
@@ -280,8 +283,16 @@ namespace NSEmbroidery.UI
             try
             {
                 Bitmap image = new Bitmap(CurrentImage);
+
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
                 IAsyncResult asuncResult = embroideryDelegate.BeginInvoke(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
                 Bitmap resultImage = embroideryDelegate.EndInvoke(asuncResult);
+                watch.Stop();
+
+                labelResolutionImage.Text = "Time spent: ";
+                labelResolutionImage.Text += watch.ElapsedMilliseconds.ToString();
+                labelResolutionImage.Refresh();
 
                 embroideryService.Close();
                 ResultImage imageForm = new ResultImage();
@@ -607,7 +618,10 @@ namespace NSEmbroidery.UI
         private void buttonRemoveSymbols_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < panelSymbols.Controls.Count; )
+            {
                 panelSymbols.Controls.RemoveAt(0);
+                textBoxes.RemoveAt(0);
+            }
 
             buttonRemoveSymbols.Visible = false;
         }

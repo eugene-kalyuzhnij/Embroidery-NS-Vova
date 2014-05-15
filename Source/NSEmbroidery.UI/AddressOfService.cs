@@ -24,11 +24,17 @@ namespace NSEmbroidery.UI
             string[] keys = ConfigurationManager.AppSettings.AllKeys;
 
             if (keys.Length == 0)
-                comboBoxAddress.Items.AddRange(new string[] { Properties.Settings.Default.AddressOfService });
+            {
+                string currentUri = Properties.Settings.Default.AddressOfService;
+                comboBoxAddress.Items.AddRange(new string[] { currentUri });
+                SaveAddress(currentUri);
+            }
             else
                 comboBoxAddress.Items.AddRange(keys);
 
-            comboBoxAddress.Text = Properties.Settings.Default.AddressOfService;
+
+            string Uri = Properties.Settings.Default.AddressOfService;
+            comboBoxAddress.Text = Uri;
         }
 
         private void button2_Click(object sender, EventArgs e)

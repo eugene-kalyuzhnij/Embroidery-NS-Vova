@@ -459,7 +459,7 @@
             // labelResolutionImage
             // 
             this.labelResolutionImage.AutoSize = true;
-            this.labelResolutionImage.Location = new System.Drawing.Point(23, 381);
+            this.labelResolutionImage.Location = new System.Drawing.Point(244, 384);
             this.labelResolutionImage.Name = "labelResolutionImage";
             this.labelResolutionImage.Size = new System.Drawing.Size(0, 13);
             this.labelResolutionImage.TabIndex = 32;

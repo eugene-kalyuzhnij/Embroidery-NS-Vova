@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="PCfLCAtONagO/n+G3Phi7aYjji0=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="ZWcQIFqG0o57H0pBecT0IO92EPg=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IEmbroideryCreatorService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IEmbroideryCreatorService" contract="Embroidery.IEmbroideryCreatorService" bindingType="basicHttpBinding" address="http://localhost:8030/EmbroideryCreator" bindingConfiguration="BasicHttpBinding_IEmbroideryCreatorService">
+    <endpoint name="BasicHttpBinding_IEmbroideryCreatorService" contract="Embroidery.IEmbroideryCreatorService" bindingType="basicHttpBinding" address="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc" bindingConfiguration="BasicHttpBinding_IEmbroideryCreatorService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:8030/EmbroideryCreator</serializedValue>
+          <serializedValue>http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

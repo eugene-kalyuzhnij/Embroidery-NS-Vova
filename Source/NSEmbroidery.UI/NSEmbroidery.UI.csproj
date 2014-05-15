@@ -115,20 +115,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Embroidery\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\Embroidery\EmbroideryCreator.wsdl" />
     <None Include="Service References\Embroidery\EmbroideryCreator.xsd">
       <SubType>Designer</SubType>
@@ -145,13 +131,27 @@
     <None Include="Service References\Embroidery\EmbroideryCreator4.xsd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Embroidery\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Embroidery\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Service References\Embroidery\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Embroidery\EmbroideryCreator.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

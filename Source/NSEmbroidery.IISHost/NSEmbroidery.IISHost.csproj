@@ -48,7 +48,6 @@
   <ItemGroup>
     <None Include="Web.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\NSEmbroidery.Core\NSEmbroidery.Core.csproj">
       <Project>{b57d7d46-b223-482c-adfa-b6dae373f99c}</Project>

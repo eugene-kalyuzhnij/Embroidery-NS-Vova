@@ -361,8 +361,9 @@ namespace NSEmbroidery.UI
                                 }
                                 catch (Exception ex)
                                 {
-                                    MessageBox.Show("Occurred some exception. Try set less cells count" + Environment.NewLine
-                                                        + "Exception Message: " + ex.Message);
+                                    MessageBox.Show("Occurred some exception. Try set less or more count of cells");
+                                    labelWaitResolution.Text = "";
+                                    return;
                                 }
 
                                 foreach (var item in resolutions)

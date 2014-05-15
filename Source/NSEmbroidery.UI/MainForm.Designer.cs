@@ -270,7 +270,7 @@
             this.panelSymbols.BackColor = System.Drawing.SystemColors.MenuBar;
             this.panelSymbols.Location = new System.Drawing.Point(468, 286);
             this.panelSymbols.Name = "panelSymbols";
-            this.panelSymbols.Size = new System.Drawing.Size(209, 31);
+            this.panelSymbols.Size = new System.Drawing.Size(209, 45);
             this.panelSymbols.TabIndex = 23;
             // 
             // pictureBoxSymbolColor
@@ -447,7 +447,7 @@
             // 
             // buttonRemoveSymbols
             // 
-            this.buttonRemoveSymbols.Location = new System.Drawing.Point(474, 323);
+            this.buttonRemoveSymbols.Location = new System.Drawing.Point(603, 337);
             this.buttonRemoveSymbols.Name = "buttonRemoveSymbols";
             this.buttonRemoveSymbols.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveSymbols.TabIndex = 31;

@@ -25,7 +25,7 @@ namespace NSEmbroidery.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/Embroidery/EmbroideryCreator.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc")]
         public string AddressOfService {
             get {
                 return ((string)(this["AddressOfService"]));

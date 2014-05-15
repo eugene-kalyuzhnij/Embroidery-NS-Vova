@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="AddressOfService" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/Embroidery/EmbroideryCreator.svc</Value>
+      <Value Profile="(Default)">http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

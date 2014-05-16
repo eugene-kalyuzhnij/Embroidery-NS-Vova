@@ -45,7 +45,7 @@ namespace NSEmbroidery.Core
 
             Parallel.For(0, tempCanvas.Height, y =>
                 {
-                    Parallel.For(0, tempCanvas.Width, x => 
+                    Parallel.For(0, tempCanvas.Width, x =>
                         {
                             Color oldColor = tempCanvas.GetColor(x, y);
                             Color colorAmoung = ChooseColorAmoung(oldColor, colors);

@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.Host", "NSEmbr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.IISHost", "NSEmbroidery.IISHost\NSEmbroidery.IISHost.csproj", "{03176D12-7F3D-4E0D-BB68-79120F0ED133}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.TimeTest", "NSEmbroidery.TimeTest\NSEmbroidery.TimeTest.csproj", "{822BD0B7-1838-4B38-8C38-86F11CE0E377}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{03176D12-7F3D-4E0D-BB68-79120F0ED133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03176D12-7F3D-4E0D-BB68-79120F0ED133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03176D12-7F3D-4E0D-BB68-79120F0ED133}.Release|Any CPU.Build.0 = Release|Any CPU
-		{822BD0B7-1838-4B38-8C38-86F11CE0E377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{822BD0B7-1838-4B38-8C38-86F11CE0E377}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{822BD0B7-1838-4B38-8C38-86F11CE0E377}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{822BD0B7-1838-4B38-8C38-86F11CE0E377}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

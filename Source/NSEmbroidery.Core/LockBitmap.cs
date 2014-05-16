@@ -84,7 +84,7 @@ public class LockBitmap
 
     /// <summary>
     /// Get the color of the specified pixel
-    /// </summary>
+    ///</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>

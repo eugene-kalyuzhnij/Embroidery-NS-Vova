@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using NSEmbroidery.Core.Interfaces;
+using System.Collections.Concurrent;
 
 namespace NSEmbroidery.Core
 {
@@ -33,16 +34,24 @@ namespace NSEmbroidery.Core
             Canvas tempCanvas = canvas.ReduceResolution(newWidth, newHeight, cellWidth);
 
             List<Color> colors = settings.Palette.GetAllColorsList();
-
-            /*for (int y = 0; y < tempCanvas.Height; y++)
-                for (int x = 0; x < tempCanvas.Width; x++)
+  
+            //Parallel.For with Partition
+            Parallel.ForEach(Partitioner.Create(0, tempCanvas.Height), rangeHeight =>
                 {
-                    Color oldColor = tempCanvas.GetColor(x, y);
-                    Color colorAmoung = ChooseColorAmoung(oldColor, colors);
-                    tempCanvas.SetColor(x, y, colorAmoung);
-                }*/
+                    for (int y = rangeHeight.Item1; y < rangeHeight.Item2; y++)
+                        Parallel.ForEach(Partitioner.Create(0, tempCanvas.Width), rangeWidth =>
+                            {
+                                for (int x = rangeWidth.Item1; x < rangeWidth.Item2; x++)
+                                {
+                                    Color oldColor = tempCanvas.GetColor(x, y);
+                                    Color colorAmoung = ChooseColorAmoung(oldColor, colors);
+                                    tempCanvas.SetColor(x, y, colorAmoung);
+                                }
+                            });
+                });
 
-
+            #region Just Parallel.For
+            /*
             Parallel.For(0, tempCanvas.Height, y =>
                 {
                     Parallel.For(0, tempCanvas.Width, x =>
@@ -53,7 +62,20 @@ namespace NSEmbroidery.Core
                         });
                     
                 });
+            */
+            #endregion
 
+            #region Obsolete realization
+            /*for (int y = 0; y < tempCanvas.Height; y++)
+                for (int x = 0; x < tempCanvas.Width; x++)
+                {
+                    Color oldColor = tempCanvas.GetColor(x, y);
+                    Color colorAmoung = ChooseColorAmoung(oldColor, colors);
+                    tempCanvas.SetColor(x, y, colorAmoung);
+                }
+            */
+#endregion
+            
             return tempCanvas;
         }
 

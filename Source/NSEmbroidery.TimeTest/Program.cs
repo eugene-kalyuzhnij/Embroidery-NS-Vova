@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Threading;
 using NSEmbroidery.Core.Decorators;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+
 
 namespace NSEmbroidery.TimeTest
 {
@@ -15,27 +17,74 @@ namespace NSEmbroidery.TimeTest
     {
         static void Main(string[] args)
         {
+            
+            //Test_ConvertBitmapToCanvas();
 
-            Test_ConvertBitmapToCanvas();
+            //Test_ConvertCanvasToBitmap();
 
-            Test_ConvertCanvasToBitmap();
+            //Test_Generate();
 
-            Test_Generate();
+            //Test_GridDecorator();
 
-            Test_GridDecorator();
+            //Test_CellsDecorator();
 
-            Test_CellsDecorator();
+            //Test_SymbolsDecorator();
+            
 
-            Test_SymbolsDecorator();
-
+            //PartitionerExample();
         }
 
+
+
+
+        static void PartitionerExample()
+        {
+            Stopwatch sw = null;
+
+            long sum = 0;
+            long SUMTOP = 10000000;
+
+            // Try sequential for
+            sw = Stopwatch.StartNew();
+            for (long i = 0; i < SUMTOP; i++) sum += i;
+            sw.Stop();
+            Console.WriteLine("sequential for result = {0}, time = {1} ms", sum, sw.ElapsedMilliseconds);
+
+            // Try parallel for -- this is slow! 
+            sum = 0; 
+            sw = Stopwatch.StartNew();
+            Parallel.For(0L, SUMTOP, (item) => Interlocked.Add(ref sum, item)); 
+            sw.Stop(); 
+            Console.WriteLine("parallel for  result = {0}, time = {1} ms", sum, sw.ElapsedMilliseconds);
+
+            // Try parallel for with locals
+            sum = 0;
+            sw = Stopwatch.StartNew();
+            Parallel.For(0L, SUMTOP, () => 0L, (item, state, prevLocal) => prevLocal + item, local => Interlocked.Add(ref sum, local));
+            sw.Stop();
+            Console.WriteLine("parallel for w/locals result = {0}, time = {1} ms", sum, sw.ElapsedMilliseconds);
+
+            // Try range partitioner
+            sum = 0;
+            sw = Stopwatch.StartNew();
+            Parallel.ForEach(Partitioner.Create(0L, SUMTOP), (range) =>
+            {
+                long local = 0;
+                for (long j = range.Item1; j < range.Item2; j++) local += j;
+                Interlocked.Add(ref sum, local);
+            });
+            sw.Stop();
+            Console.WriteLine("range partitioner result = {0}, time = {1} ms", sum, sw.ElapsedMilliseconds);
+        }
+
+
+        #region Time spent
 
         static void Test_ConvertBitmapToCanvas()
         {
             CanvasConverter converter = new CanvasConverter();
 
-            Bitmap image = new Bitmap(1400, 1400);
+            Bitmap image = new Bitmap(1900, 1200);
 
             for (int y = 0; y < image.Height; y++)
                 for (int x = 0; x < image.Width; x++)
@@ -103,12 +152,17 @@ namespace NSEmbroidery.TimeTest
 
             PatternMapGenerator mapGenerator = new PatternMapGenerator();
 
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            Canvas actual = mapGenerator.Generate(inputCanvas, settings);
-            watch.Stop();
+            long total = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+                Canvas actual = mapGenerator.Generate(inputCanvas, settings);
+                watch.Stop();
 
-            Console.WriteLine("Generate. Time spent: " + watch.ElapsedMilliseconds);
+                total += watch.ElapsedMilliseconds;
+            }
+            Console.WriteLine("Generate. Average time (10 calls): " + (total / 10L).ToString());
 
         }
 
@@ -133,14 +187,21 @@ namespace NSEmbroidery.TimeTest
             Canvas pattern = generator.Generate(actual, settings);
 
             GridDecorator decoratorGrid = new GridDecorator();
-            Stopwatch watch = new Stopwatch();
 
-            watch.Start();
-            decoratorGrid.Decorate(actual, pattern, settings);
-            watch.Stop();
+            long total = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                Stopwatch watch = new Stopwatch();
+
+                watch.Start();
+                decoratorGrid.Decorate(actual, pattern, settings);
+                watch.Stop();
+
+                total += watch.ElapsedMilliseconds;
+            }
 
 
-            Console.WriteLine("GridDecorator. Time spent: " + watch.ElapsedMilliseconds);
+            Console.WriteLine("GridDecorator. Average time (10 calls): " + (total / 10L).ToString());
 
         }
 
@@ -153,7 +214,7 @@ namespace NSEmbroidery.TimeTest
             settings.GridType = GridType.SolidLine;
 
 
-            Canvas actual = new Canvas(new Resolution(1400, 1400));
+            Canvas actual = new Canvas(new Resolution(1900, 2000));
 
             #region Filling actual
             for (int y = 0; y < 1400; y++)
@@ -232,6 +293,7 @@ namespace NSEmbroidery.TimeTest
 
         }
 
+        #endregion
 
     }
 }

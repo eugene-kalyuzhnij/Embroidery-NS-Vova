@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Drawing;
 using NSEmbroidery.Core.Interfaces;
+using System.Collections.Concurrent;
 
 namespace NSEmbroidery.Core
 {
@@ -24,14 +25,14 @@ namespace NSEmbroidery.Core
             LockBitmap lockBitmap = new LockBitmap(image);
             lockBitmap.LockBits();
 
-
+            
             if (height * width > 6000)
             {
-                Parallel.For(0, height, y =>
+                Parallel.ForEach(Partitioner.Create(0, height), rangeHeight =>
                     {
-
-                        for (int x = 0; x < width; x++)
-                            canvas.SetColor(x, y, lockBitmap.GetPixel(x, y));
+                        for (int y = rangeHeight.Item1; y < rangeHeight.Item2; y++)
+                            for (int x = 0; x < width; x++)
+                                canvas.SetColor(x, y, lockBitmap.GetPixel(x, y));
                     });
             }
             else
@@ -40,7 +41,19 @@ namespace NSEmbroidery.Core
                     for (int x = 0; x < width; x++)
                         canvas.SetColor(x, y, lockBitmap.GetPixel(x, y));
             }
-
+            
+            
+            /*
+            Parallel.ForEach(Partitioner.Create(0, height), rangeHeight =>
+                {
+                    for (int y = rangeHeight.Item1; y < rangeHeight.Item2; y++)
+                        Parallel.ForEach(Partitioner.Create(0, width), rangeWidth =>
+                            {
+                                for (int x = 0; x < width; x++)
+                                    canvas.SetColor(x, y, lockBitmap.GetPixel(x, y));
+                            }
+                });
+            */
             lockBitmap.UnlockBits();
              
             #region Obsolete
@@ -67,11 +80,12 @@ namespace NSEmbroidery.Core
             LockBitmap lockBitmap = new LockBitmap(image);
             lockBitmap.LockBits();
 
-            Parallel.For(0, height, y =>
-                 {
-                     for (int x = 0; x < width; x++)
-                         lockBitmap.SetPixel(x, y, canvas.GetColor(x, y));
-                 });
+            Parallel.ForEach(Partitioner.Create(0, height), rangeHeight =>
+                {
+                    for(int y = rangeHeight.Item1; y < rangeHeight.Item2; y++)
+                         for (int x = 0; x < width; x++)
+                             lockBitmap.SetPixel(x, y, canvas.GetColor(x, y));
+                });
 
             lockBitmap.UnlockBits();
             

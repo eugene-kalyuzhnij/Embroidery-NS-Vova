@@ -1,0 +1,31 @@
+﻿body {
+}
+
+.right {
+    margin-left:80%;
+    margin-right:10%;
+}
+
+#startLogIn {
+
+    margin-left:33%;
+    margin-right:33%;
+}
+
+
+fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset ol {
+    padding: 0;
+    list-style: none;
+}
+
+fieldset ol li {
+    padding-bottom: 5px;
+}
+
+
+

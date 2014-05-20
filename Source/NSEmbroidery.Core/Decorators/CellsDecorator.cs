@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace NSEmbroidery.Core.Decorators
 {
@@ -17,9 +18,32 @@ namespace NSEmbroidery.Core.Decorators
             int squareWidth = embroidery.Width / settings.CellsCount;
 
             if (embroidery.Height < pattern.Height * squareWidth)
-                throw new WrongResolutionException("Resolution.Height has to be higher");         
+                throw new WrongResolutionException("Resolution.Height has to be higher");
 
+            /*Parallel.For with Partitioner*/
+           Parallel.ForEach(Partitioner.Create(0, pattern.Height), (rangeHeight) =>
+            {
+                for (int i = rangeHeight.Item1; i < rangeHeight.Item2; i++)
+                    Parallel.ForEach(Partitioner.Create(0, pattern.Width), (rangeWidth) =>
+                        {
+                            for (int j = rangeWidth.Item1; j < rangeWidth.Item2; j++)
+                            {
+                                int startX = j * squareWidth;
+                                int endX = startX + squareWidth;
 
+                                int startY = i * squareWidth;
+                                int endY = startY + squareWidth;
+
+                                for (int y = startY; y < endY; y++)
+                                    for (int x = startX; x < endX; x++)
+                                        embroidery.SetColor(x, y, pattern.GetColor(j, i));
+                            }
+                        });
+            });
+            
+
+            #region Just parallel.For
+            /*
             Parallel.For(0, pattern.Height, i =>
                 {
 
@@ -36,7 +60,8 @@ namespace NSEmbroidery.Core.Decorators
                                 embroidery.SetColor(x, y, pattern.GetColor(j, i));
                     });
                 });
-
+            */
+            #endregion
 
             #region Obsolete
             /*

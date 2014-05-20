@@ -20,7 +20,7 @@ namespace NSEmbroidery.Core.Decorators
 
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
-
+            
             for (int squareY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth)
                 for (int squareX = 0; squareX <= embroidery.Width - squareWidth; squareX += squareWidth)
                 {
@@ -28,7 +28,9 @@ namespace NSEmbroidery.Core.Decorators
                     embroidery.SetBorder(squareX, squareY, squareWidth, squareWidth, Color.Black, Aligns.Buttom, settings.GridType);
                 }
 
-            /*  LONGER THAN SIMPLE FOR
+
+            /*
+             * LONGER THAN SIMPLE FOR
              
              var loopsHeight = Enumerable.Range(0, embroidery.Height - squareWidth + 1).Where(i => i % squareWidth == 0);
              var loopsWidth = Enumerable.Range(0, embroidery.Width - squareWidth + 1).Where(i => i % squareWidth == 0);
@@ -43,7 +45,7 @@ namespace NSEmbroidery.Core.Decorators
                      });
 
                  });
-             * */
+             */
              
 
         }

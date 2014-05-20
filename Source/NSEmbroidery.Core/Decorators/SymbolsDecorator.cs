@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Collections.Concurrent;
 
 namespace NSEmbroidery.Core.Decorators
 {
@@ -35,10 +36,32 @@ namespace NSEmbroidery.Core.Decorators
             else symbolColor = settings.SymbolColor;
 
 
+
+            Parallel.ForEach(Partitioner.Create(0, pattern.Height), rangeHeight =>
+                {
+                    for (int patternY = rangeHeight.Item1; patternY < rangeHeight.Item2; patternY++)
+                    {
+                        Parallel.ForEach(Partitioner.Create(0, pattern.Width), rangeWidth =>
+                            {
+                                for (int patternX = rangeWidth.Item1; patternX < rangeWidth.Item2; patternX++)
+                                {
+                                    int startX = patternX * squareWidth;
+                                    int startY = patternY * squareWidth;
+
+                                    char symbol = GetSymbol(pattern.GetColor(patternX, patternY), settings);
+                                    embroidery.SetSymbol(symbol, startX, startY, squareWidth, symbolColor);
+                                }
+                            });
+                    }
+                });
+
+
+            #region Just Parallel.For
+            /*
             Parallel.For(0, pattern.Height, patternY =>
                 {
                     Parallel.For(0, pattern.Width, patternX =>
-                    /*for (int patternX = 0; patternX < pattern.Width; patternX++)*/
+
                     {
                         int startX = patternX * squareWidth;
                         int startY = patternY * squareWidth;
@@ -47,8 +70,8 @@ namespace NSEmbroidery.Core.Decorators
                         embroidery.SetSymbol(symbol, startX, startY, squareWidth, symbolColor);
                     });
                 });
-
-
+            */
+            #endregion
 
             #region Obsolete
             /*for(int squareY = 0, patternY = 0; squareY <= embroidery.Height - squareWidth; squareY += squareWidth, patternY++)

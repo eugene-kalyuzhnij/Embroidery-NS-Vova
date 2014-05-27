@@ -2,16 +2,19 @@
 
 @{
     ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<section class="login-register-border-form">
 @using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+    
+    <div class="wrong-field">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+    </div>
  
-    <fieldset>
-        <legend>Форма регистрации</legend>
-        <ol>
+    <div class="login-register-form">
+       <ul class="account-view">
             <li>
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email)
@@ -35,8 +38,12 @@
             <li>
                 @Html.LabelFor(m => m.Year)
                 @Html.TextBoxFor(m => m.Year)
+
             </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+            <li>
+                <input class="submit-button" type="submit" value="Register" />
+            </li>
+        </ul>      
+    </div>
 }
+</section>

@@ -166,7 +166,10 @@ namespace NSEmbroidery.Core
             int newWidth = cellsCount;
 
             for (int i = 2; i < countResolutions + 2; i++)
-                result.Add(new Resolution(newWidth * i, newHeight * i).ToString(), i);
+                result.Add(
+                    new Resolution(newWidth * i, newHeight * i).ToString(),
+                    i
+                );
 
             return result;
         }
@@ -197,7 +200,10 @@ namespace NSEmbroidery.Core
 
 
             for (int i = minCoefficient; i <= maxCoefficient; i++)
-                result.Add(new Resolution(newWidth * i, newHeight * i).ToString(), i);
+                result.Add(
+                    new Resolution(newWidth * i, newHeight * i).ToString(),
+                    i
+                );
 
             return result;
         }

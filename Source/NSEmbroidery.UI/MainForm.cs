@@ -33,7 +33,7 @@ namespace NSEmbroidery.UI
             textBoxes = new List<TextBox>();
             this.FillPanelPalette();
             this.pictureBoxCurrentImage.Select();
-
+            
             /*
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings.Clear();

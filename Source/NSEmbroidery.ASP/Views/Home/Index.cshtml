@@ -1,51 +1,7 @@
-﻿@model NSEmbroidery.Data.Models.LoginModel
-@using WebMatrix.WebData;
-
-@{
-    ViewBag.Title = "Home Page";
+﻿@{
+    Response.Redirect(Url.Action("Index", "Profile"));
 }
 
-<hgroup class="title">
-     <h1>@ViewBag.Title.</h1>
-</hgroup>
-@if(!Request.IsAuthenticated)
-{
-    using(Html.BeginForm("Login", "Account", FormMethod.Post))
-    {
-            @Html.AntiForgeryToken()
-             @Html.ValidationSummary(true)
-
-        <fieldset id="startLogIn">
-            <ol>
-                <li>
-                    @Html.LabelFor(m => m.Email)
-                    <br />
-                    @Html.TextBoxFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Password)
-                    <br />
-                    @Html.PasswordFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password)
-                </li>
-                <li>
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-                </li>
-            </ol>
-            <input type="submit" value="Log in" />
-        </fieldset>
-        <p>
-            @Html.ActionLink("Registration", "Register", "Account")
-        </p>
-    }
-}
-else
-{
-    int Id = WebSecurity.CurrentUserId;
-    Response.Redirect(Url.Action("Gallery", new { userId = Id }));
-}
 
 
 

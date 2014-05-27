@@ -33,7 +33,7 @@ namespace NSEmbroidery.Data.EF
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Users.Remove(user);
+                context.Entry(user).State = System.Data.Entity.EntityState.Deleted;
                 context.SaveChanges();
             }
         }

@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<div id="palette-all">
+    @for (int i = 0; i < 10; i++)
+    {
+        <div class="palette-box" id="@i.ToString()"></div>
+        if(i == 4)
+        {
+            <br />
+            <br />
+        }
+    }
+</div>
+

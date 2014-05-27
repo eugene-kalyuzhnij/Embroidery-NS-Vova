@@ -1,14 +1,31 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }
+    <ul class="login-register">
+        <li class="log-reg-link">
+            Hello, @NSEmbroidery.ASP.Helper.UserIdentity.FirstName
+
+        </li>
+        <li>
+        
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post)) {
+                @Html.AntiForgeryToken()
+                <input id="log-off" class="log-reg-link" type="submit" value="Log off" />
+            }
+       
+        </li>
+    </ul>
     </text>
 } else {
-    <ul>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    <ul class ="login-register">
+       <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "log-reg-link" })</li>
+       <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "log-reg-link" })</li>
     </ul>
 }
+
+
+<script>
+    $("log-off").click(function () {
+        $.post("Account/LogOff", null, null, null);
+    });
+    
+</script>

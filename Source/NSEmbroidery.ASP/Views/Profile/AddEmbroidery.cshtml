@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "AddEmbroidery";
+    Layout = null;
+    @Scripts.Render("~/Scripts/myScript.js")
+}
+
+
+  <h1>Does not work</h1>
+
+    <form id="form1" runat="server">
+        <input type='file' id="browse" />
+        
+    </form>
+
+<div id="preview">
+    
+</div>
+
+
+
+
+@Html.CheckBox("grid", new { id = "grid" })
+@Html.Label("Grid")
+<br />
+
+@Html.TextBox("cellsCount", "Input count of cells", new { id = "cells-count" })
+
+<br />
+
+@Html.DropDownList("Items", null, new { id = "resolutions" })
+
+<br />
+
+@Html.Partial("Palette")
+
+    
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+﻿
+
+ <div class="buttom"
+            <div class="buttom-left">
+                <div>
+                @if (Request.IsAuthenticated)
+                {
+                    <nav id="menu">
+                      @{
+                          @Ajax.ActionLink("My gallery", "Gallery", "Profile", null, new AjaxOptions { UpdateTargetId = "content", InsertionMode = InsertionMode.Replace }, new { @class = "item" });
+                          @Ajax.ActionLink("Users", "Users", "Profile", null, new AjaxOptions { UpdateTargetId = "content" }, new { @class = "item" });
+                          @Ajax.ActionLink("Add Embroidery", "AddEmbroidery", "Profile", null,  new AjaxOptions { UpdateTargetId = "content" }, new { @class = "item" }); 
+                      }
+                    </nav>
+                }
+                </div>
+
+                <div id="content">
+                    @Html.Action("Gallery", "Profile")
+                </div>
+
+            </div>
+
+
+ </div>

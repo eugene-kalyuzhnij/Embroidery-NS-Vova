@@ -1,0 +1,327 @@
+﻿html{ 
+    background-image: linear-gradient(#cccccc, #ffffff); 
+    box-shadow: inset 0 0 100px hsla(0,0%,0%,.3);
+    min-height:100%;
+}
+
+
+/*LAYOUT*************************************/
+
+
+/*
+.buttom-left {
+    display:flexbox;
+    border:solid;
+}
+*/
+
+/*menu layout*********/
+
+ul.layout-menu {
+    list-style:none;
+    display:inline-block;
+}
+
+    ul.layout-menu li {
+        margin:5px;
+        float:left;
+    }
+
+.layout-menu-a{
+    font-size:20px;
+    font-family:sans-serif;
+    text-shadow:2px 2px 5px #333333;
+    text-decoration:none;
+    color:#fff;
+}
+
+/*********************/
+
+/*login register layout***/
+ul.login-register{
+    list-style:none;
+    display:inline-block;
+    float:right;
+}
+
+    ul.login-register li{
+        margin:5px;
+        float:left;
+        margin-right:10px;
+    }
+
+.log-reg-link{
+    font-size:18px;
+    font-family:sans-serif;
+    text-shadow:2px 2px 5px #333333;
+    text-decoration:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+/*************************/
+
+/********************************************/
+
+
+
+
+/*Login and register*************************/
+
+.login-register-border-form {
+    width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    border: 2px solid #999;
+    background: #A2ADBC;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px #333333;
+
+}
+
+.login-register-form {
+    width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+}
+
+ul.account-view {
+    list-style:none;
+    display:block;
+}
+
+    ul.account-view li {
+        margin:8px;
+        font-size:18px;
+        font-family:sans-serif;
+        text-shadow:2px 2px 5px #333333;
+        text-decoration:none;
+        color:#fff;
+    }
+
+.login-register-form input[type="password"],
+.login-register-form input[type="text"] {
+    border-radius:5px;
+    width:400px;
+    height:30px;
+    margin-left:auto;
+    margin-right:auto;
+    color:#777;
+    font-size:18px;
+    padding:5px;
+}
+
+
+.submit-button {
+    display:block;
+    width:100px;
+    height:40px;
+    margin-left:auto;
+    margin-right:auto;
+    position:inherit;
+    border-radius:10px;
+}
+
+#log-off {
+    border:none;
+    background:none;
+    padding-bottom:5px;
+    padding-top:0px;
+}
+
+.checkbox {
+    width:18px;
+    height:18px;
+}
+
+.wrong-field * {
+    color:red;
+    list-style:none;
+    font-size:12px;
+    font-family:sans-serif;
+    text-decoration:none;
+    text-shadow:none;
+}
+
+
+
+/********************************************/
+
+
+/*Menu****************************************/
+
+
+nav {
+  margin-top: 10px;
+  margin-bottom:10px;
+  padding: 24px;
+  font-family: sans-serif;
+  box-shadow: 2px 2px 8px -1px #000000;
+}
+#menu {
+  background: #242424;
+  border-radius:10px;
+}  
+
+.item {
+  color: #ffffff;
+  font-size: 20px;
+  text-decoration: none;
+  border-top: 4px solid #242424;
+  border-bottom: 4px solid #242424;
+  padding: 20px 0;
+  margin: 0 20px;
+  transition: 0.3s ease;
+}
+
+.item:hover {
+  border-top: 4px solid #ffffff;
+  border-bottom: 4px solid #ffffff;
+  padding: 6px 0;
+}
+
+
+/*********************************************/
+
+/*Gallery*************************************/
+#gallery *{
+    list-style:none;
+    display:inline-block;
+}
+
+
+.gallery-border{
+    margin:10px;
+    border:solid;
+    border-color:#fff;
+    border-width:5px;
+    box-shadow:8px 8px 10px #333;
+    height:150px;
+    width:150px;
+    transition: all 0.2s ease;
+    float:left;
+    text-align:center;
+    position:relative;
+}
+
+    .gallery-border img {
+        max-height:150px;
+        width: 150px;
+    }
+
+
+.gallery-border:hover {
+    transform: scale(1.1);
+    -ms-transform:scale(1.1); /* IE 9 */
+    -webkit-transform:scale(1.1); /* Chrome, Safari, Opera */
+}
+
+
+.delete-image {
+    text-decoration:none;
+    cursor:pointer;
+    left:-12px;
+    top:-12px;
+    position:absolute;
+
+    width:15px;
+    height:15px;
+    color:#700;
+}
+
+    .delete-image:hover {
+        color:#f00;
+    }
+
+
+
+/*Open image*******/
+
+#open-image-border {
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background: rgba(0,0,0,0.7);
+}
+
+
+#open-image img{
+    width:40%;
+    height:40%;
+    margin-left:30%;
+    margin-right:30%;
+    margin-top:50px;
+}
+/******************/
+
+
+/*********************************************/
+
+/*Add embroidery******************************/
+#browse {
+    margin:10px;
+    width:300px;
+    height:30px;
+}
+
+#preview {
+    display:none;
+    float:right;
+    max-height:50%;
+    max-width:500px;
+    border:solid;
+    border-color:white;
+    border-width:5px;
+    margin-right:10px;
+    overflow:hidden;
+}
+
+
+    #preview img {
+         width:100%;
+    }
+
+
+.palette-box {
+    border:solid;
+    border-width:1px;
+    border-color:gray;
+    width:20px;
+    height:20px;
+    float:left;
+    margin:3px;
+    
+}
+
+
+#palette-all {
+    border:solid;
+    border-width:1px;
+    border-color:gray;
+    margin:10px;
+    width:140px;
+    height:65px;
+}
+
+/*********************************************/
+
+
+/*Users***************************************/
+
+.users-list *{
+   list-style:none;
+   font-family:sans-serif;
+   font-size:20px;
+   margin:5px;
+   color:white;
+   text-shadow:2px 2px 5px #333333;
+   text-decoration:none;
+}
+
+/*********************************************/

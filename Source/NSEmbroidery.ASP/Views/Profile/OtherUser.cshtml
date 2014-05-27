@@ -1,0 +1,15 @@
+﻿@model IEnumerable<NSEmbroidery.Data.Models.Embroidery>
+
+@{
+    ViewBag.Title = "OtherUser";
+    Layout = null;
+}
+
+<ul id="gallery">
+@foreach (var emb in Model)
+{
+    <li class="gallery-border">
+        <img src=@Url.Action("ShowImage","Profile",new { id = emb.Id  }) />
+    </li>
+}
+</ul>

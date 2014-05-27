@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+    @Scripts.Render("~/Scripts/myScript.js")
+}
+
+@model IEnumerable<NSEmbroidery.Data.Models.Embroidery>
+
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<ul id="gallery">
+    @foreach (var item in Model)
+    {
+        <li class="gallery-border">
+
+                <img src=@Url.Action("ShowImage", "Profile", new { id = item.Id }) />
+            
+                @Ajax.ActionLink("x", "DeleteEmbroidery",
+                                    new { embroideryId = item.Id },
+                                    new AjaxOptions() { UpdateTargetId = "gallery", HttpMethod = "GET", InsertionMode = InsertionMode.InsertAfter },
+                                    new { @class = "delete-image" })
+                
+        </li>
+        
+    }
+</ul>
+
+<div id="open-image-border">
+    <div id="open-image">
+    </div>
+</div>

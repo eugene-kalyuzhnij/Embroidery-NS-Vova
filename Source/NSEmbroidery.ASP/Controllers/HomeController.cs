@@ -19,6 +19,8 @@ namespace NSEmbroidery.ASP.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+
+
             return View();
         }
 
@@ -29,7 +31,6 @@ namespace NSEmbroidery.ASP.Controllers
             return View();
         }
 
-        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -37,16 +38,5 @@ namespace NSEmbroidery.ASP.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Gallery(int userId)
-        {
-            ViewBag.Title = "Gallery";
-
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-
-            IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == userId);
-
-            return View(embroideries);
-        }
     }
 }

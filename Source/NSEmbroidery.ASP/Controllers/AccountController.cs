@@ -31,7 +31,7 @@ namespace NSEmbroidery.ASP.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Profile");
             }
 
             ModelState.AddModelError("", "Wrong password or login");
@@ -60,7 +60,8 @@ namespace NSEmbroidery.ASP.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    throw new NotImplementedException();
+                    ModelState.AddModelError("", "The same user has already created");
+                    return View(model);
                 }
             }
             return View(model);

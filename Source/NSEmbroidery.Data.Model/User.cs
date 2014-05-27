@@ -15,6 +15,8 @@ namespace NSEmbroidery.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [EmailAddress]
+        [Display(Name="E-mail")]
         public string Email { get; set; }
 
         [Required]

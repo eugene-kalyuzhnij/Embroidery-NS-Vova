@@ -85,8 +85,6 @@ $('#resolutions').click(function () {
         url: 'Profile/GetResolutions',
         data: { cells: cellsCount, img: image }
 
-    }).done(function () {
-        alert("done");
     });
 
 });

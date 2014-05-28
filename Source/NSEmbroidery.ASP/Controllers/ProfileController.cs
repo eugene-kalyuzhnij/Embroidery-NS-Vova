@@ -131,8 +131,12 @@ namespace NSEmbroidery.ASP.Controllers
         [HttpPost]
         public ActionResult GetResolutions(int cells, string img)
         {
-            
-            return null;
+            string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
+            byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
+
+            string contentType = "image/jpeg";
+
+            return File(imageBytes, contentType);
         }
 
     }

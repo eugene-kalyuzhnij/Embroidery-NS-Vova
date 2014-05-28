@@ -419,6 +419,8 @@
     <Content Include="Views\Profile\Gallery.cshtml" />
     <Content Include="Views\Profile\AddEmbroidery.cshtml" />
     <Content Include="Views\Profile\Palette.cshtml" />
+    <Content Include="Views\Profile\Test.cshtml" />
+    <Content Include="Views\Profile\ShowImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

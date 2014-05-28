@@ -309,6 +309,21 @@ nav {
     height:65px;
 }
 
+
+.choosed {
+    width:20px;
+    height:20px;
+
+    border:solid;
+    border-width:1px;
+    border-color:gray;
+}
+
+#choosed-palette-border {
+    float:left;
+    display:inline-block;
+}
+
 /*********************************************/
 
 

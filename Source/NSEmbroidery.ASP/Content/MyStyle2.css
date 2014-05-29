@@ -1,6 +1,6 @@
 ﻿html{ 
-    background-image: linear-gradient(#cccccc, #ffffff); 
-    box-shadow: inset 0 0 100px hsla(0,0%,0%,.3);
+      background: linear-gradient(0deg, #444444 5%,#cccccc 75%) no-repeat center center fixed; 
+  background-size: cover;
     min-height:100%;
 }
 
@@ -20,6 +20,7 @@
 ul.layout-menu {
     list-style:none;
     display:inline-block;
+    
 }
 
     ul.layout-menu li {
@@ -264,6 +265,25 @@ nav {
 /*********************************************/
 
 /*Add embroidery******************************/
+
+#add-embroidery {
+    float:left;
+}
+
+
+#add-embroidery-left {
+    float:left;
+    width:600px;
+    height:100%;
+    margin:10px;
+}
+
+#add-embroidery-right {
+    float:right;
+    margin:10px;
+    
+}
+
 #browse {
     margin:10px;
     width:300px;
@@ -271,10 +291,11 @@ nav {
 }
 
 #preview {
-    display:none;
     float:right;
-    max-height:50%;
-    max-width:500px;
+    min-width:200px;
+    min-height:200px;
+    max-width:800px;
+    max-height:800px;
     border:solid;
     border-color:white;
     border-width:5px;
@@ -310,19 +331,122 @@ nav {
 }
 
 
-.choosed {
+
+
+
+/*Settings********/
+
+#settings {
+    border:solid;
+    border-color:white;
+    border-radius:5px;
+    margin:5px;
+    width:500px;
+    float:left;
+}
+
+
+
+
+
+#symbols-color {
     width:20px;
     height:20px;
-
+    margin:5px;
     border:solid;
-    border-width:1px;
     border-color:gray;
+    border-width:1px;
 }
+
+
+/*****************/
+
+
+#add-embroidery-button {
+   
+}
+
+
+/*Palette*********/
+
+.clear {
+  clear: both;
+}
+
+.color-palette {
+  background-color: #e8e8e8;
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 180px;
+}
+
+.color-swatch {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin: 2px 2px 0 0;
+}
+
+.color-swatch.selected {
+  border: 2px solid black;
+}
+
+.color-palette .break {
+  margin: 5px;
+}
+
+.result {
+  margin: 20px;
+  height: 30px;
+  border: 1px solid #333;
+}
+
+
+.palette-window {
+    float:left;
+    margin:5px;
+}
+
+#palette {
+    display:inline-block;
+    border:solid;
+    border-radius:5px;
+    margin:5px;
+    border-color:white;
+    float:left;
+    width:35%;
+    max-height:200px;
+    overflow:hidden;
+    height:200px;
+    width:500px;
+    overflow-y:scroll;
+}
+
+
+
+.choosed {
+    width: 20px;
+    height: 20px;
+    border: solid;
+    float: left;
+    border-width: 1px;
+    border-color: gray;
+    margin:1px;
+}
+
+
 
 #choosed-palette-border {
     float:left;
-    display:inline-block;
+    max-width: 50%;
+    margin-left:10px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
+
+
+/*****************/
 
 /*********************************************/
 

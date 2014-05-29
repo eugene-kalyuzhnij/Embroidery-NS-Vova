@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NSEmbroidery.ASP.EmbroideryService {
+namespace NSEmbroidery.ASP.EmbroideryCreatorService {
     using System.Runtime.Serialization;
     
     
@@ -27,14 +27,14 @@ namespace NSEmbroidery.ASP.EmbroideryService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="EmbroideryService.IEmbroideryCreatorService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="EmbroideryCreatorService.IEmbroideryCreatorService")]
     public interface IEmbroideryCreatorService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse")]
-        System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryService.GridType type);
+        System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryCreatorService.GridType type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/GetEmbroidery", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/GetEmbroideryResponse")]
-        System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryService.GridType type);
+        System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryCreatorService.GridType type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCount", ReplyAction="http://tempuri.org/IEmbroideryCreatorService/PossibleResolutionsCountResponse")]
         System.Collections.Generic.Dictionary<string, int> PossibleResolutionsCount(System.Drawing.Bitmap image, int cellsCount, int countResolutions);
@@ -50,12 +50,12 @@ namespace NSEmbroidery.ASP.EmbroideryService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IEmbroideryCreatorServiceChannel : NSEmbroidery.ASP.EmbroideryService.IEmbroideryCreatorService, System.ServiceModel.IClientChannel {
+    public interface IEmbroideryCreatorServiceChannel : NSEmbroidery.ASP.EmbroideryCreatorService.IEmbroideryCreatorService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class EmbroideryCreatorServiceClient : System.ServiceModel.ClientBase<NSEmbroidery.ASP.EmbroideryService.IEmbroideryCreatorService>, NSEmbroidery.ASP.EmbroideryService.IEmbroideryCreatorService {
+    public partial class EmbroideryCreatorServiceClient : System.ServiceModel.ClientBase<NSEmbroidery.ASP.EmbroideryCreatorService.IEmbroideryCreatorService>, NSEmbroidery.ASP.EmbroideryCreatorService.IEmbroideryCreatorService {
         
         public EmbroideryCreatorServiceClient() {
         }
@@ -76,11 +76,11 @@ namespace NSEmbroidery.ASP.EmbroideryService {
                 base(binding, remoteAddress) {
         }
         
-        public System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryService.GridType type) {
+        public System.Drawing.Bitmap GetEmbroidery(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryCreatorService.GridType type) {
             return base.Channel.GetEmbroidery(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
         }
         
-        public System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryService.GridType type) {
+        public System.Threading.Tasks.Task<System.Drawing.Bitmap> GetEmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, System.Drawing.Color[] palette, char[] symbols, System.Drawing.Color symbolColor, NSEmbroidery.ASP.EmbroideryCreatorService.GridType type) {
             return base.Channel.GetEmbroideryAsync(image, resolutionCoefficient, cellsCount, palette, symbols, symbolColor, type);
         }
         

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1bd6b853-64d5-47b6-924b-59bf4f1617de" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies>
+      <ReferencedAssembly AssemblyName="System.Drawing" />
+    </ReferencedAssemblies>
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/Embroidery/EmbroideryCreator.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EmbroideryCreator.xsd" MetadataType="Schema" ID="f3ef8bff-2d52-4413-aab7-3515135e4289" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?xsd=xsd3" />
+    <MetadataFile FileName="EmbroideryCreator1.xsd" MetadataType="Schema" ID="8fc7ceec-055e-4368-a40e-ea2793aea56a" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?xsd=xsd0" />
+    <MetadataFile FileName="EmbroideryCreator.disco" MetadataType="Disco" ID="4abb821e-35be-46a1-8f77-a3cd9413a931" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?disco" />
+    <MetadataFile FileName="EmbroideryCreator2.xsd" MetadataType="Schema" ID="522bc2cd-880b-4ce2-a377-957519866327" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?xsd=xsd2" />
+    <MetadataFile FileName="EmbroideryCreator3.xsd" MetadataType="Schema" ID="e215f2f3-d496-4330-9927-df27fd0b2ba1" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?xsd=xsd4" />
+    <MetadataFile FileName="EmbroideryCreator4.xsd" MetadataType="Schema" ID="b4e8e9f1-9b1f-4a8e-84a7-9fc3d8fdd510" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?xsd=xsd1" />
+    <MetadataFile FileName="EmbroideryCreator.wsdl" MetadataType="Wsdl" ID="c55b08f5-17e0-42df-a1c4-3a26f36e3700" SourceId="1" SourceUrl="http://lwo1-dhp-f54997.synapse.com/Embroidery/EmbroideryCreator.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

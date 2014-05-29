@@ -209,7 +209,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Service References\EmbroideryService\Reference.cs">
+    <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -360,30 +360,14 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <None Include="Service References\EmbroideryService\EmbroideryCreator.disco" />
-    <None Include="Service References\EmbroideryService\configuration91.svcinfo" />
-    <None Include="Service References\EmbroideryService\configuration.svcinfo" />
-    <None Include="Service References\EmbroideryService\Reference.svcmap">
+    <Content Include="Scripts\myScript.js" />
+    <Content Include="Service References\EmbroideryCreatorService\EmbroideryCreator.disco" />
+    <Content Include="Service References\EmbroideryCreatorService\configuration91.svcinfo" />
+    <Content Include="Service References\EmbroideryCreatorService\configuration.svcinfo" />
+    <Content Include="Service References\EmbroideryCreatorService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\EmbroideryService\EmbroideryCreator.wsdl" />
-    <None Include="Service References\EmbroideryService\EmbroideryCreator.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryService\EmbroideryCreator1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryService\EmbroideryCreator2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryService\EmbroideryCreator3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmbroideryService\EmbroideryCreator4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Scripts\myScript.js" />
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -418,9 +402,23 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\Gallery.cshtml" />
     <Content Include="Views\Profile\AddEmbroidery.cshtml" />
-    <Content Include="Views\Profile\Palette.cshtml" />
     <Content Include="Views\Profile\Test.cshtml" />
-    <Content Include="Views\Profile\ShowImage.cshtml" />
+    <Content Include="Service References\EmbroideryCreatorService\EmbroideryCreator.wsdl" />
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -447,7 +445,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\EmbroideryService\" />
+    <WCFMetadataStorage Include="Service References\EmbroideryCreatorService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

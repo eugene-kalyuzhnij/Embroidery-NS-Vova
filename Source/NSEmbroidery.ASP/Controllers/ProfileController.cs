@@ -12,7 +12,7 @@ using NSEmbroidery.Data.DI.EF;
 using WebMatrix.WebData;
 using NSEmbroidery.ASP.Filters;
 using NSEmbroidery.ASP;
-using NSEmbroidery.ASP.EmbroideryService;
+using NSEmbroidery.ASP.EmbroideryCreatorService;
 
 
 namespace NSEmbroidery.ASP.Controllers
@@ -42,7 +42,7 @@ namespace NSEmbroidery.ASP.Controllers
 
                 return View(embroideries);
         }
-        /*
+        
         public FileContentResult ShowImage(int id)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
@@ -62,7 +62,7 @@ namespace NSEmbroidery.ASP.Controllers
                 return File(array, contentType);
         }
 
-        */
+        
 
         
 
@@ -77,23 +77,31 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        public ActionResult AddEmbroidery(HttpPostedFileBase file)
+        public ActionResult AddEmbroidery(string img)
         {
-            Bitmap imageFromFile = new Bitmap(file.InputStream);
+            string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
+            byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
 
-            byte[] array = null;
+            Bitmap image = null;
 
-            using (MemoryStream stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream(imageBytes))
             {
-                Bitmap image = imageFromFile;
-                image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                array = stream.ToArray();
+                Bitmap _img = new Bitmap(stream);
+
+                image = new Bitmap(_img.Width, _img.Height);
+
+                for (int y = 0; y < _img.Height; y++)
+                    for (int x = 0; x < _img.Width; x++)
+                        image.SetPixel(x, y, _img.GetPixel(x, y));
             }
 
-            string contentType = "image/jpeg";
+            IKernel kernel = new StandardKernel(new DataModelCreator());
 
-            return File(array, contentType);
+            var embroideries = kernel.Get<IRepository<Embroidery>>();
 
+            embroideries.Add(new Embroidery(image) { Name = "new Image", UserId = WebSecurity.CurrentUserId });
+
+            return RedirectToAction("Gallery", "Profile");
         }
 
         [HttpGet]
@@ -158,103 +166,46 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        public JsonResult CreateEmbroidery(string img, int coefficient, int cellsCount, Color[] colors)
+        public JsonResult CreateEmbroidery(string img, int coefficient, int cellsCount, Color[] colors, char[] symbols, Color symbolColor, bool grid)
         {
             string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
             byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
 
-
             Bitmap image = null;
+
             using (MemoryStream stream = new MemoryStream(imageBytes))
             {
-                image = (Bitmap)Image.FromStream(stream);
 
+                Bitmap _img = new Bitmap(stream);
 
-                EmbroideryCreatorServiceClient proxy = new EmbroideryCreatorServiceClient();
+                image = new Bitmap(_img.Width, _img.Height);
 
-                Bitmap result = proxy.GetEmbroidery(image, coefficient, cellsCount, colors, null, Color.Black, GridType.SolidLine);
+                for (int y = 0; y < _img.Height; y++)
+                    for (int x = 0; x < _img.Width; x++)
+                        image.SetPixel(x, y, _img.GetPixel(x, y));
 
-                using(MemoryStream resultStream = new MemoryStream())
-                {
-                    result.Save(resultStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    imageBytes = resultStream.ToArray();
-                }
-
-                /*
-                Color[,] c = new Color[result.Width, result.Height];
-
-                for (int y = 0; y < result.Height; y++)
-                    for (int x = 0; x < result.Width; x++)
-                        c[x, y] = result.GetPixel(x, y);
-                */
-                string base64 = Convert.ToBase64String(imageBytes);
-
-                return Json(new { imageString = base64 });
             }
-
-            return null;
-        }
-
-
-
-
-        public ActionResult ShowImage()
-        {
-            /*
-
-            byte[] array = null;
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Bitmap image = embroidery.Image;
-                image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                array = stream.ToArray();
-            }
-
-            string contentType = "image/jpeg";
-
-            return File(array, contentType);
-             * */
-            return View();
-        }
-
-
-
-        [HttpPost]
-        public FileContentResult ShowImage(HttpPostedFileBase file)
-        {
-
-            Bitmap image = new Bitmap(file.InputStream);
 
             EmbroideryCreatorServiceClient proxy = new EmbroideryCreatorServiceClient();
-            Bitmap result = proxy.GetEmbroidery(image, 2, 10, new Color[] { Color.Yellow, Color.Black }, null, Color.Black, GridType.None);
 
-            byte[] array = null;
+            Bitmap result = proxy.GetEmbroidery(image, coefficient, cellsCount, colors, null, Color.Black, GridType.SolidLine);
 
-            using (MemoryStream stream = new MemoryStream())
+            using (MemoryStream resultStream = new MemoryStream())
             {
-                result.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                array = stream.ToArray();
+                result.Save(resultStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                imageBytes = resultStream.ToArray();
             }
 
-            string contentType = "image/jpeg";
+            string base64 = Convert.ToBase64String(imageBytes);
 
-            return File(array, contentType);
-
-            /*
-
-            byte[] array = null;
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Bitmap image = embroidery.Image;
-                image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                array = stream.ToArray();
-            }
-
-            
-             */
+            return Json(new { imageString = base64 });
         }
+
+
+
+
+
     }
 
 }
+

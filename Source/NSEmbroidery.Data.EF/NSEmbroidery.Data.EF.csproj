@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsRepository.cs" />
     <Compile Include="EmbroideriesRepository.cs" />
+    <Compile Include="LikesRepository.cs" />
     <Compile Include="ModelContext.cs" />
     <Compile Include="UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

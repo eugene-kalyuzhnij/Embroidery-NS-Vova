@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WebMatrix.WebData;
+using Ninject;
+using NSEmbroidery.Data.Interfaces;
+using NSEmbroidery.Data.Models;
+using NSEmbroidery.Data.DI.EF;
 
 namespace NSEmbroidery.ASP
 {
@@ -17,6 +21,20 @@ namespace NSEmbroidery.ASP
     {
         protected void Application_Start()
         {
+         /*   
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var users = kernel.Get<IRepository<User>>();
+
+            users.Add(new User()
+            {
+                Email = "new@mail.com",
+                FirstName = "first_name",
+                LastName = "last_name",
+                Year = DateTime.Now
+            });
+            
+            */
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

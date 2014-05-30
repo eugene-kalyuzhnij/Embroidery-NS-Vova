@@ -209,6 +209,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Scripts\myScript.js" />
     <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -360,7 +361,6 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\myScript.js" />
     <Content Include="Service References\EmbroideryCreatorService\EmbroideryCreator.disco" />
     <Content Include="Service References\EmbroideryCreatorService\configuration91.svcinfo" />
     <Content Include="Service References\EmbroideryCreatorService\configuration.svcinfo" />

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/MyStyle2.css")
@@ -17,7 +17,7 @@
                     @Html.Partial("_LoginPartial")
 
                     <ul class="layout-menu">
-                       <li class="layout-menu-li">@Html.ActionLink("Home", "Index", "Profile", null,  new { @class = "layout-menu-a" })</li>
+                       <li class="layout-menu-li">@Html.ActionLink("Home", "Index", "Home", null,  new { @class = "layout-menu-a" })</li>
                     </ul>
         </div>
 

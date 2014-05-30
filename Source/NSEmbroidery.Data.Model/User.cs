@@ -28,5 +28,9 @@ namespace NSEmbroidery.Data.Models
         public string LastName { get; set; }
 
         public DateTime Year { get; set; }
+
+        public virtual ICollection<Comment> Comments {get; set;}
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<Embroidery> Embroideries { get; set; }
     }
 }

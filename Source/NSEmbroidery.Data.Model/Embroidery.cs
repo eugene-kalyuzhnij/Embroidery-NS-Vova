@@ -23,9 +23,11 @@ namespace NSEmbroidery.Data.Models
         [Display(Name = "Image")]
         public byte[] Data { get; set; }
 
-        
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
 
 
         public Embroidery() { }

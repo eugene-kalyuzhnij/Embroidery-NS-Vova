@@ -13,6 +13,17 @@ namespace NSEmbroidery.Data.EF
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Embroidery> Embroideries { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasMany(c => c.Comments).WithRequired().HasForeignKey(c => c.UserId).WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>().HasMany(l => l.Likes).WithRequired().HasForeignKey(l => l.UserId).WillCascadeOnDelete(false);
+
+        }
     }
 }

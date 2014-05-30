@@ -17,6 +17,8 @@ namespace NSEmbroidery.Data.DI.EF
         {
             this.Bind<IRepository<User>>().To<UsersRepository>();
             this.Bind<IRepository<Embroidery>>().To<EmbroideriesRepository>();
+            this.Bind<IRepository<Comment>>().To<CommentsRepository>();
+            this.Bind<IRepository<Like>>().To<LikesRepository>();
         }
     }
 }

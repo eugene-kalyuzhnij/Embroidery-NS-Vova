@@ -23,25 +23,22 @@ namespace NSEmbroidery.ASP.Controllers
         //
         // GET: /Profile/
 
-
-
         public ActionResult Index()
         {
             return View();
         }
 
-
-        [HttpGet]
+        
         public ActionResult Gallery()
         {
                 ViewBag.Title = "Gallery";
 
                 IKernel kernel = new StandardKernel(new DataModelCreator());
-
                 IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == WebSecurity.CurrentUserId);
 
                 return View(embroideries);
         }
+
         
         public FileContentResult ShowImage(int id)
         {
@@ -79,6 +76,7 @@ namespace NSEmbroidery.ASP.Controllers
         [HttpPost]
         public ActionResult AddEmbroidery(string img)
         {
+            
             string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
             byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
 
@@ -101,10 +99,12 @@ namespace NSEmbroidery.ASP.Controllers
 
             embroideries.Add(new Embroidery(image) { Name = "new Image", UserId = WebSecurity.CurrentUserId });
 
-            return RedirectToAction("Gallery", "Profile");
+
+            return RedirectToAction("Gallery");
         }
 
-        [HttpGet]
+
+        [HttpPost]
         public ActionResult DeleteEmbroidery(int embroideryId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
@@ -113,10 +113,9 @@ namespace NSEmbroidery.ASP.Controllers
 
             if(current.UserId == WebSecurity.CurrentUserId)
                 embroideries.Remove(current);
-            
+
             return RedirectToAction("Gallery");
         }
-
 
         public ActionResult Users()
         {
@@ -199,6 +198,17 @@ namespace NSEmbroidery.ASP.Controllers
             string base64 = Convert.ToBase64String(imageBytes);
 
             return Json(new { imageString = base64 });
+        }
+
+
+        [HttpPost]
+        public JsonResult GetComments(int EmbroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(comment => comment.EmbroideryId == EmbroideryId);
+
+
+            return Json(new { comments = comments });
         }
 
 

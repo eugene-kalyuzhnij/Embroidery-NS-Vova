@@ -20,7 +20,6 @@ namespace NSEmbroidery.ASP.Controllers
         public ActionResult Index()
         {
 
-
             return View();
         }
 

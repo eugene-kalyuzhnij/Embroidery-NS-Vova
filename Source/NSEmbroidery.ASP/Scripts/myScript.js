@@ -10,23 +10,32 @@ $('.gallery-border img').click(function () {
     $('#open-image img').prop('src', clickedSrc);
     $('#open-image-border').fadeIn('slow');
 
-    
 
-    /*Comments*/
+    /*Show all comments********/
+    
+    UpdateComments(id);
+
+    /**************************/
+
+    /*Add Comment*/
     $('#send-comment').click(function () {
         var comment = $('#input-comment');
         if (comment.val() != "") {
             $.ajax({
                 type: "post",
-                url: "Profile/GetComments",
-                data: { EmbroideryId: id },
-                success: function (result) {
-                    /*TODO:Implemet this function*/
+                url: "Profile/AddComment",
+                data: { EmbroideryId: id , comment: comment.val()},
+                success: function () {
+                    UpdateComments(id);
+                    comment.val("");
                 }
             });
         }
     });
     /**********/
+
+
+
 });
 
 
@@ -34,6 +43,59 @@ $('#open-image').click(function () {
     $('#open-image-border').fadeOut('slow');
 });
 
+
+
+function UpdateComments(embroideryId) {
+    $.ajax({
+        url: 'Profile/GetComments',
+        dataType: 'json',
+        type: 'post',
+        data: { EmbroideryId: embroideryId },
+        success: function (result) {
+            var all_comments = $('.comments');
+
+            $('.comments div').remove();
+
+            for (var i in result) {
+
+                all_comments.prepend('<div class="comment-border">' + 
+                                     '<div class="who-commented" id="' + result[i].UserId.toString() + '">' + result[i].UserId.toString() + '</div>' +
+                                     '<div class="comment">' + result[i].Comment + '</div></div>');
+
+                $('.who-commented').click(function () {
+                    var id = $(this).attr('id');
+                    OtherUser(id);
+                });
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("Error was occured");
+        }
+    });
+
+
+}
+
+
+
+
+
+function OtherUser(userId) {
+
+    $.ajax({
+        url: 'Profile/OtherUser',
+        data: { userId: userId },
+        type: 'get',
+        success: function (result) {
+
+            var content = $('#content');
+            content.empty();
+
+            content.html(result);
+        }
+    });
+}
 
 
 /**********************************************************************/

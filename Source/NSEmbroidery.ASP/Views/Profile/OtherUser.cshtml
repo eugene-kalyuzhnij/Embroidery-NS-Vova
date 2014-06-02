@@ -3,13 +3,31 @@
 @{
     ViewBag.Title = "OtherUser";
     Layout = null;
+    @Scripts.Render("~/Scripts/myScript.js")
 }
+
+<h3 class="name-text">@(ViewBag.UserName + "'s gallery")</h3>
 
 <ul id="gallery">
 @foreach (var emb in Model)
 {
     <li class="gallery-border">
-        <img src=@Url.Action("ShowImage","Profile",new { id = emb.Id  }) />
+        <img src=@Url.Action("ShowImage","Profile",new { id = emb.Id  }) id="@emb.Id" />
     </li>
 }
 </ul>
+
+<div id="open-image-border">
+    <div id="open-image">
+    </div>
+    
+    <textarea id="input-comment" />
+
+    <div class="all-comments-border">
+        
+        <input type="button" value="Send" id="send-comment"/>
+        <div class="comments">
+        </div>
+    </div>
+    
+</div>

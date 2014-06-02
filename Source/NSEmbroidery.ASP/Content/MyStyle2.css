@@ -264,7 +264,7 @@ nav {
 }
 
 
-#open-image img{
+#open-image img {
     width:60%;
     height:60%;
     margin-left:20%;
@@ -275,7 +275,11 @@ nav {
 /*Comments*********/
 
 .all-comments-border {
-    width:inherit;
+    width:60%;
+    margin-left:20%;
+    margin-right:20%;
+    display:inline-block;
+
 }
 
 #input-comment {
@@ -285,6 +289,7 @@ nav {
     margin-left:20%;
     margin-right:20%;
     height:50px;
+    max-width:60%;
 }
 
 #send-comment {
@@ -293,6 +298,23 @@ nav {
     width:20%;
     margin-bottom:10px;
     margin-top:5px;
+}
+
+.comment-border {
+      background-color:white;
+      width:100%;
+      margin-top: 10px;
+      margin-bottom:10px;
+      
+}
+
+.who-commented {
+    float:left;
+    margin-right:5px;
+}
+
+.comment {
+
 }
 
 /******************/

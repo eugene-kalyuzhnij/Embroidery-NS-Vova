@@ -133,6 +133,13 @@ namespace NSEmbroidery.ASP.Controllers
 
             var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId);
 
+            if (userId == WebSecurity.CurrentUserId)
+            {
+                return View("Gallery", embroideries);
+            }
+
+            ViewBag.UserName = kernel.Get<IRepository<User>>().GetById(userId).FirstName;
+
             return View(embroideries);
         }
 
@@ -202,18 +209,40 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        public JsonResult GetComments(int EmbroideryId)
+        public ActionResult GetComments(int EmbroideryId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-            var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(comment => comment.EmbroideryId == EmbroideryId);
+            List<Comment> comments = kernel.Get<IRepository<Comment>>().GetAll().Where(comment => comment.EmbroideryId == EmbroideryId).ToList();
+
+            List<Object> result = new List<Object>();
+
+            foreach (var item in comments)
+            {
+                result.Add(new { UserId = item.UserId, Comment = item.Comment_msg});
+            }
 
 
-            return Json(new { comments = comments });
+            return Json(result);
         }
 
 
+        [HttpPost]
+        public void AddComment(int EmbroideryId, string comment)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var comments = kernel.Get<IRepository<Comment>>();
 
+            comments.Add(new Comment() { Comment_msg = comment, EmbroideryId = EmbroideryId, UserId = WebSecurity.CurrentUserId });
+        }
 
+        public string GetUserName(int userId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var user = kernel.Get<IRepository<User>>().GetById(userId);
+
+            return user.FirstName + " " + user.LastName;
+        }
 
     }
 

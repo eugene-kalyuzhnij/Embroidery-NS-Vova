@@ -60,6 +60,8 @@ ul.login-register{
     cursor:pointer;
 }
 
+
+
 /*************************/
 
 /********************************************/
@@ -276,10 +278,11 @@ nav {
 
 .all-comments-border {
     width:60%;
+    max-width:60%;
     margin-left:20%;
     margin-right:20%;
-    display:inline-block;
-
+    display:block;
+    margin-bottom:20px;
 }
 
 #input-comment {
@@ -298,23 +301,69 @@ nav {
     width:20%;
     margin-bottom:10px;
     margin-top:5px;
+    border-radius:5px;
+    height:30px;
 }
 
 .comment-border {
-      background-color:white;
-      width:100%;
       margin-top: 10px;
       margin-bottom:10px;
-      
+      overflow:auto;
+      box-shadow:0px 0px 10px #ddd;
+      height:100%;
 }
 
 .who-commented {
     float:left;
-    margin-right:5px;
+    width:10%;
+    text-shadow:3px 3px 5px #ddd;
+    color:white;
+    margin:5px;
+    border-right:solid;
+    border-color:white;
+    border-width:1px;
+    overflow:visible;
 }
 
 .comment {
+    margin-bottom:5px;
+    float:right;
+    width:85%;
+    word-wrap:break-word;
+    text-align:left;
+    height:100%;
+    color:white;
+    text-shadow:3px 3px 5px #ddd;
 
+}
+
+/******************/
+
+/**Likes***********/
+
+#like-border{
+    float:left;
+    color:white;
+    box-shadow:0px 0px 5px #ddd;
+    width:50%;
+    text-align:center;
+}
+
+#like-border:hover{
+    cursor:default;
+}
+
+#add-like-border {
+    float:left;
+    width:50%;
+    box-shadow:0px 0px 5px #ddd;
+    color:white;
+    text-align:center;
+}
+
+#add-like-border:hover {
+    cursor:pointer;
+    background-color:#aaa;
 }
 
 /******************/
@@ -375,7 +424,6 @@ nav {
     height:20px;
     float:left;
     margin:3px;
-    
 }
 
 

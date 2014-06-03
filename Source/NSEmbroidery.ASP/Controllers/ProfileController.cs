@@ -111,8 +111,10 @@ namespace NSEmbroidery.ASP.Controllers
             var embroideries = kernel.Get<IRepository<Embroidery>>();
             Embroidery current = embroideries.GetById(embroideryId);
 
-            if(current.UserId == WebSecurity.CurrentUserId)
+            if (current.UserId == WebSecurity.CurrentUserId)
                 embroideries.Remove(current);
+            else throw new Exception("You can't delete this embroidery :(");
+
 
             return RedirectToAction("Gallery");
         }
@@ -218,9 +220,10 @@ namespace NSEmbroidery.ASP.Controllers
 
             foreach (var item in comments)
             {
-                result.Add(new { UserId = item.UserId, Comment = item.Comment_msg});
+                User currentUser = kernel.Get<IRepository<User>>().GetById(item.UserId);
+                string userName = currentUser.FirstName + " " + currentUser.LastName;
+                result.Add(new { UserId = item.UserId, Comment = item.Comment_msg, UserName = userName});
             }
-
 
             return Json(result);
         }
@@ -235,13 +238,47 @@ namespace NSEmbroidery.ASP.Controllers
             comments.Add(new Comment() { Comment_msg = comment, EmbroideryId = EmbroideryId, UserId = WebSecurity.CurrentUserId });
         }
 
-        public string GetUserName(int userId)
+
+        [HttpPost]
+        public int GetLikesCount(int embroideryId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
+            var likes = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId);
 
-            var user = kernel.Get<IRepository<User>>().GetById(userId);
+            int likesCount = likes.Count();
 
-            return user.FirstName + " " + user.LastName;
+            return likesCount;
+        }
+
+        [HttpPost]
+        public bool CanAddLike(int embroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var likes = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId);
+
+            bool canAddLike = true;
+
+            if (likes.Where(l => l.UserId == WebSecurity.CurrentUserId).Count() > 0) canAddLike = false;
+
+            return canAddLike;
+        }
+
+
+        [HttpPost]
+        public void AddLike(int embroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            kernel.Get<IRepository<Like>>().Add(new Like() { UserId = WebSecurity.CurrentUserId, EmbroideryId = embroideryId });
+        }
+
+
+        [HttpPost]
+        public void RemoveLike(int embroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var like = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId && l.UserId == WebSecurity.CurrentUserId).First();
+
+            kernel.Get<IRepository<Like>>().Remove(like);
         }
 
     }

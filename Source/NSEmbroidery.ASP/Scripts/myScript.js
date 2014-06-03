@@ -17,6 +17,13 @@ $('.gallery-border img').click(function () {
 
     /**************************/
 
+    /*Likes*******************/
+
+    UpdateLikesCount(id);
+    AddRemoveClick(id)
+
+    /*************************/
+
     /*Add Comment*/
     $('#send-comment').click(function () {
         var comment = $('#input-comment');
@@ -32,7 +39,7 @@ $('.gallery-border img').click(function () {
             });
         }
     });
-    /**********/
+    /***********/
 
 
 
@@ -44,6 +51,68 @@ $('#open-image').click(function () {
 });
 
 
+function AddRemoveClick(embroideryId) {
+    var add_remove_Like = $('#add-like-border');
+
+    $.ajax({
+        url: 'Profile/CanAddLike',
+        type: 'post',
+        data: { embroideryId: embroideryId },
+        success: function (canAdd) {
+
+            if (canAdd == 'True') {
+                add_remove_Like.unbind('click');
+                add_remove_Like.empty();
+                add_remove_Like.prepend('Add like');
+                var handler = function () {
+                    $.ajax({
+                        url: 'Profile/AddLike',
+                        data: { embroideryId: embroideryId },
+                        type: 'post',
+                        success: function () {
+                            UpdateLikesCount(embroideryId);
+                            AddRemoveClick(embroideryId);
+                        }
+                    });
+                }
+
+                    add_remove_Like.bind('click', handler);
+            }
+            else {
+                add_remove_Like.unbind('click');
+                add_remove_Like.empty();
+                add_remove_Like.prepend('Remove like');
+
+                var handler = function () {
+                    $.ajax({
+                        url: 'Profile/RemoveLike',
+                        data: { embroideryId: embroideryId },
+                        type: 'post',
+                        success: function () {
+                            UpdateLikesCount(embroideryId);
+                            AddRemoveClick(embroideryId);
+                        }
+                    });
+                }
+                add_remove_Like.bind('click', handler);
+            }
+        }
+    });
+}
+
+function UpdateLikesCount(embroideryId) {
+    $.ajax({
+        url: 'Profile/GetLikesCount',
+        type: 'post',
+        dataType: 'json',
+        data: { embroideryId: embroideryId },
+        success: function (result) {
+            var likes = $('#like-border');
+            likes.empty();
+            likes.prepend(result.toString());
+        }
+    })
+}
 
 function UpdateComments(embroideryId) {
     $.ajax({
@@ -57,10 +126,13 @@ function UpdateComments(embroideryId) {
             $('.comments div').remove();
 
             for (var i in result) {
+                
+                var comment = result[i].Comment;
+                var str = comment.replace(/\n/g, '<br>');
 
                 all_comments.prepend('<div class="comment-border">' + 
-                                     '<div class="who-commented" id="' + result[i].UserId.toString() + '">' + result[i].UserId.toString() + '</div>' +
-                                     '<div class="comment">' + result[i].Comment + '</div></div>');
+                                     '<div class="who-commented" id="' + result[i].UserId.toString() + '">' + result[i].UserName + '</div>' +
+                                     '<div class="comment">' + str + '</div></div>');
 
                 $('.who-commented').click(function () {
                     var id = $(this).attr('id');

@@ -1,5 +1,6 @@
 ﻿/*Open image in Gallery************************************************/
 
+
 $('.gallery-border img').click(function () {
 
     var clickedSrc = $(this).attr('src');
@@ -20,18 +21,57 @@ $('.gallery-border img').click(function () {
     /*Likes*******************/
 
     UpdateLikesCount(id);
-    AddRemoveClick(id)
+    AddRemoveClick(id);
+
+
+    $('#like-border').click(function (event) {
+
+        var x = event.clientX;
+        var y = event.clientY;
+
+        var likes_users = $('#likes-users');
+        likes_users.empty();
+        likes_users.css('display', 'inherit');
+        likes_users.css('left', x.toString() + 'px');
+        likes_users.css('top', y.toString() + 'px');
+
+        $.ajax({
+            url: 'Profile/GetLikesUsers',
+            data: { embroideryId: id },
+            dataType: 'json',
+            type: 'post',
+            success: function (result) {
+
+                for (var i in result) {
+                    var userList = likes_users.prepend('<div class="' + result[i].UserId + '"> '
+                                           + result[i].UserName + '</div>');
+
+                }
+
+                $('#likes-users div').click(function () {
+                    var userId = $(this).attr('class');
+                    OtherUser(userId);
+                });
+
+                $('#open-image-border').click(function () {
+                    DeleteLikesUserView();
+                });
+            }
+        });
+
+    });
 
     /*************************/
 
     /*Add Comment*/
+    
     $('#send-comment').click(function () {
         var comment = $('#input-comment');
         if (comment.val() != "") {
             $.ajax({
                 type: "post",
                 url: "Profile/AddComment",
-                data: { EmbroideryId: id , comment: comment.val()},
+                data: { EmbroideryId: id, comment: comment.val() },
                 success: function () {
                     UpdateComments(id);
                     comment.val("");
@@ -39,16 +79,19 @@ $('.gallery-border img').click(function () {
             });
         }
     });
+
     /***********/
 
-
-
 });
-
 
 $('#open-image').click(function () {
     $('#open-image-border').fadeOut('slow');
+    $('#send-comment').unbind('click');
+    $('#like-border').unbind('click');
 });
+
+
+
 
 
 function AddRemoveClick(embroideryId) {
@@ -101,6 +144,7 @@ function AddRemoveClick(embroideryId) {
 }
 
 function UpdateLikesCount(embroideryId) {
+
     $.ajax({
         url: 'Profile/GetLikesCount',
         type: 'post',
@@ -112,6 +156,7 @@ function UpdateLikesCount(embroideryId) {
             likes.prepend(result.toString());
         }
     })
+
 }
 
 function UpdateComments(embroideryId) {
@@ -149,6 +194,25 @@ function UpdateComments(embroideryId) {
 
 }
 
+function AddCommentClick(embroideryId) {
+    var comment = $('#input-comment');
+    if (comment.val() != "") {
+        $.ajax({
+            type: "post",
+            url: "Profile/AddComment",
+            data: { EmbroideryId: embroideryId, comment: comment.val() },
+            success: function () {
+                UpdateComments(id);
+                comment.val("");
+            }
+        });
+    }
+}
+
+function DeleteLikesUserView() {
+    $('#likes-users').css('display', 'none');
+    $('#open-image-border').unbind('click');
+}
 
 
 
@@ -266,7 +330,6 @@ $.cssHooks.backgroundColor = {
 
 
 function CreateEmbroidery() {
-
     var cellsCount = $('#cells-count').val();
     var coefficient = $('#resolutions').val();
     var colors = getColors();
@@ -299,12 +362,16 @@ function CreateEmbroidery() {
     $.ajax({
         contentType: "application/json",
         type: "POST",
+        timeout:30000,
         url: "Profile/CreateEmbroidery",
         data: JSON.stringify({ img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors, symbols: symbols, symbolColor: symColor, grid: grid }),
         success: function (result) {
             $('#preview img').remove();
             $('#preview').prepend('<img src="">');
-            $('#preview img').attr('src', "data:image/png;base64," + result.imageString);
+            $('#preview img').attr('src', "data:image/jpeg;base64," + result.imageString);
+        },
+        error: function () {
+            alert('Error was occured when embroidery has been created');
         }
     });
 

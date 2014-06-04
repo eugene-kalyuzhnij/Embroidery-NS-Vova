@@ -174,7 +174,7 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        public JsonResult CreateEmbroidery(string img, int coefficient, int cellsCount, Color[] colors, char[] symbols, Color symbolColor, bool grid)
+        public ActionResult CreateEmbroidery(string img, int coefficient, int cellsCount, Color[] colors, char[] symbols, Color symbolColor, bool grid)
         {
             string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
             byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
@@ -206,7 +206,11 @@ namespace NSEmbroidery.ASP.Controllers
 
             string base64 = Convert.ToBase64String(imageBytes);
 
-            return Json(new { imageString = base64 });
+            var jsonResult = Json(new { imageString = base64 }, JsonRequestBehavior.AllowGet);
+
+            jsonResult.MaxJsonLength = Int32.MaxValue;
+
+            return jsonResult;
         }
 
 
@@ -279,6 +283,24 @@ namespace NSEmbroidery.ASP.Controllers
             var like = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId && l.UserId == WebSecurity.CurrentUserId).First();
 
             kernel.Get<IRepository<Like>>().Remove(like);
+        }
+
+        [HttpPost]
+        public ActionResult GetLikesUsers(int embroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var likes = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId);
+
+            List<Object> result = new List<object>();
+
+            foreach(var item in likes)
+            {
+                User user = kernel.TryGet<IRepository<User>>().GetById(item.UserId);
+                result.Add(new { UserName = user.FirstName + " " + user.LastName, UserId = item.UserId });
+            }
+
+            return Json(result);
         }
 
     }

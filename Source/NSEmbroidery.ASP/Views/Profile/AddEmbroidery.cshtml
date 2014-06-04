@@ -9,62 +9,54 @@
 
 <div id="add-embroidery">
 
-    <div id ="add-embroidery-left">
-
-        <form id="form1" runat="server">
-            <input type='file' id="browse" />
+                        <form id="form1" runat="server">
+                        <input type='file' id="browse" />
         
-        </form>
+                    </form>
 
-    <div id="palette">
-        <div class='palette-window'></div>
-        <div class="border-choosed-colors">
-            <div id="choosed-palette-border"></div>
-        </div>
-    </div>
+
+    <div id ="add-embroidery-top">
+           <div id ="add-ebroidery-top-left">
+
+                <div id="palette">
+                    <div class='palette-window'></div>
+                    <div class="border-choosed-colors">
+                        <div id="choosed-palette-border"></div>
+                    </div>
+                </div>
     
 
 
-    <div id="settings">
+                <div id="settings">
+                        @Html.CheckBox("grid", new { id = "grid" })
+                        @Html.Label("Grid")
 
+                        <br />
 
-            @Html.CheckBox("grid", new { id = "grid" })
-            @Html.Label("Grid")
-            <br />
+                        @Html.TextBox("cellsCount", "Input count of cells", new { id = "cells-count" })
 
-            @Html.TextBox("cellsCount", "Input count of cells", new { id = "cells-count" })
+                        <br />
 
-            <br />
+                        @Html.DropDownList("Items", null, new { id = "resolutions" })
 
-            @Html.DropDownList("Items", null, new { id = "resolutions" })
+                       <div id="symbols-color"></div>
 
-           <div id="symbols-color"></div>
-
-            <div id="symbols-border">
-                <input type="button" id="add-symbols" value="Add symbols" />
-                <div id="symbols"></div>
-            </div>
-
-    </div>
+                        <div id="symbols-border">
+                            <input type="button" id="add-symbols" value="Add symbols" />
+                            <div id="symbols"></div>
+                        </div>
+                </div>
 
    
-    <div>
-        <input id="create-embroidery-button" type="button" value="CreateEmbroidery" />
-    </div>
+                <div>
+                    <input id="add-embroidery-button" type="button" value="Add embroidery" />
+                    <input id="create-embroidery-button" type="button" value="CreateEmbroidery" />
+                </div>
 
+        </div>
 
-    </div>
-
-    <div id="add-embroidery-right">
         <div id="preview"></div>
     </div>
-
-    
-    <div>
-
-     <input id="add-embroidery-button" type="button" value="Add embroidery" />
-    </div>
-
 </div>
 
 

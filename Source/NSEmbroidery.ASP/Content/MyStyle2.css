@@ -221,9 +221,9 @@ nav {
 
  .name-text {
     font-family:sans-serif;
-    color:#ccc;
+    color:#ddd;
     cursor:default;
-    text-shadow:2px 2px 5px #333333;
+    text-shadow:0px 0px 10px #111;
 }
 
 
@@ -311,21 +311,26 @@ nav {
       overflow:auto;
       box-shadow:0px 0px 10px #ddd;
       height:100%;
+      min-width:300px;
 }
 
 .who-commented {
     float:left;
     width:10%;
-    text-shadow:3px 3px 5px #ddd;
+    text-shadow:0px 0px 10px #ccc;
     color:white;
     margin:5px;
     border-right:solid;
     border-color:white;
     border-width:1px;
     overflow:visible;
+    cursor:pointer;
+    word-wrap:break-word;
+    padding:5px;
 }
 
 .comment {
+    margin-top:5px;
     margin-bottom:5px;
     float:right;
     width:85%;
@@ -333,7 +338,8 @@ nav {
     text-align:left;
     height:100%;
     color:white;
-    text-shadow:3px 3px 5px #ddd;
+    text-shadow:0px 0px 5px #ccc;
+    cursor:default;
 
 }
 
@@ -350,7 +356,8 @@ nav {
 }
 
 #like-border:hover{
-    cursor:default;
+    cursor:pointer;
+    background-color:#aaa;
 }
 
 #add-like-border {
@@ -366,6 +373,30 @@ nav {
     background-color:#aaa;
 }
 
+
+#likes-users {
+    display:none;
+    overflow:auto;
+    position:fixed;
+    text-align:left;
+    background-color:#ddd;
+    box-shadow:0px 0px 10px #aaa;
+    float:right;
+    max-height:200px;
+    overflow-y:auto;
+    max-width:200px;
+    border-radius:5px;
+}
+
+    #likes-users div {
+        font-family:sans-serif;
+        cursor:pointer;
+        margin:5px;
+    }
+        #likes-users div:hover {
+            text-shadow:0px 0px 10px #111;        
+        }
+
 /******************/
 
 
@@ -374,22 +405,23 @@ nav {
 /*Add embroidery******************************/
 
 #add-embroidery {
-    float:left;
-}
-
-
-#add-embroidery-left {
-    float:left;
-    width:600px;
+    width:100%;
     height:100%;
-    margin:10px;
+    overflow:auto;
+    margin:auto;
+    display:inline-block;
 }
 
-#add-embroidery-right {
-    float:right;
-    margin:10px;
-    
+
+#add-embroidery-top {
+
 }
+
+#add-ebroidery-top-left {
+    float:left;
+    max-width:550px;
+}
+
 
 #browse {
     margin:10px;
@@ -398,16 +430,13 @@ nav {
 }
 
 #preview {
-    float:right;
-    min-width:200px;
-    min-height:200px;
-    max-width:800px;
-    max-height:800px;
+    width:500px;
+    height:500px;
     border:solid;
     border-color:white;
     border-width:5px;
     margin-right:10px;
-    overflow:hidden;
+    overflow:auto
 }
 
 
@@ -469,7 +498,7 @@ nav {
 
 
 #add-embroidery-button {
-   
+   float:left;
 }
 
 

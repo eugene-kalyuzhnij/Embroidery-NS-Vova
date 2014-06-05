@@ -84,7 +84,7 @@ $('.gallery-border img').click(function () {
 
 });
 
-$('#open-image').click(function () {
+$('#image-border').click(function () {
     $('#open-image-border').fadeOut('slow');
     $('#send-comment').unbind('click');
     $('#like-border').unbind('click');
@@ -366,15 +366,18 @@ function CreateEmbroidery() {
         timeout:30000,
         url: "Profile/CreateEmbroidery",
         data: { img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors.join(), symbols: symbols.join(), symbolColor: symColor, grid: grid },
+        beforeSend: function () {
+            $('#preview').empty();
+            $('#preview').prepend('<text>Wait a little bit...</text>');
+        },
         success: function (result) {
-            alert('SUCCESS');
-            $('#preview img').remove();
+            $('#preview').empty();
             $('#preview').prepend('<img src="">');
             $('#preview img').attr('src', "data:image/jpeg;base64," + result.imageString);
                 
         },
         error: function () {
-            alert('Error was occured when embroidery has been created');
+            alert('Error was occured. result imagr might be too large. Try choose lower resolution or put lower cells count. :(');
         }
     });
   

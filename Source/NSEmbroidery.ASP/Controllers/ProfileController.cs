@@ -23,6 +23,8 @@ namespace NSEmbroidery.ASP.Controllers
         //
         // GET: /Profile/
 
+        Bitmap _uploadedImage;
+
         public ActionResult Index()
         {
             return View();
@@ -172,15 +174,17 @@ namespace NSEmbroidery.ASP.Controllers
             return Json(new SelectList(objects, "Value", "Text"));
         }
 
-
         [HttpPost]
-        public ActionResult CreateEmbroidery(string img, int coefficient, int cellsCount, Color[] colors, char[] symbols, Color symbolColor, bool grid)
+        public ActionResult CreateEmbroidery(string img, int coefficient, int cellsCount, string colors, string symbols, string symbolColor, bool grid)
         {
+            var inputColors = ParseFromString(colors);
+            //var inputSymbolColor = Color.FromArgb(Convert.ToInt32(symbolColor));
+
             string imageDataParsed = img.Substring(img.IndexOf(',') + 1);
             byte[] imageBytes = Convert.FromBase64String(imageDataParsed);
-
+            
             Bitmap image = null;
-
+            
             using (MemoryStream stream = new MemoryStream(imageBytes))
             {
 
@@ -196,7 +200,10 @@ namespace NSEmbroidery.ASP.Controllers
 
             EmbroideryCreatorServiceClient proxy = new EmbroideryCreatorServiceClient();
 
-            Bitmap result = proxy.GetEmbroidery(image, coefficient, cellsCount, colors, null, Color.Black, GridType.SolidLine);
+            GridType type = GridType.None;
+            if (grid) type = GridType.SolidLine;
+
+            Bitmap result = proxy.GetEmbroidery(image, coefficient, cellsCount, inputColors, null, Color.Black, type);
 
             using (MemoryStream resultStream = new MemoryStream())
             {
@@ -211,6 +218,26 @@ namespace NSEmbroidery.ASP.Controllers
             jsonResult.MaxJsonLength = Int32.MaxValue;
 
             return jsonResult;
+        }
+
+
+        private Color[] ParseFromString(string colors)
+        {
+            colors = colors.Replace("#", "");
+            string[] splitColors = colors.Split(',');
+
+
+            Color[] resultColors = new Color[splitColors.Length];
+
+            int i = 0;
+            foreach (var color in splitColors)
+            {
+                int colorInt = int.Parse(color, System.Globalization.NumberStyles.HexNumber);
+                resultColors[i++] = Color.FromArgb(colorInt);
+
+            }
+
+            return resultColors;
         }
 
 
@@ -301,6 +328,31 @@ namespace NSEmbroidery.ASP.Controllers
             }
 
             return Json(result);
+        }
+
+
+        [HttpPost]
+        public FileContentResult UploadImage(HttpPostedFileBase file)
+        {
+            Bitmap image = null;
+
+            using (file.InputStream)
+            {
+                image = (Bitmap)Image.FromStream(file.InputStream);
+            }
+
+            _uploadedImage = image;
+
+            byte[] imageBytes = null;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                _uploadedImage.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                imageBytes = stream.ToArray();
+            }
+
+            return File(imageBytes, "image/jpeg");
+            
         }
 
     }

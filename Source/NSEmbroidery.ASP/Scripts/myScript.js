@@ -330,19 +330,22 @@ $.cssHooks.backgroundColor = {
 
 
 function CreateEmbroidery() {
+    
     var cellsCount = $('#cells-count').val();
     var coefficient = $('#resolutions').val();
     var colors = getColors();
     var symbols = getSymbols();
-    var symColor = "0x000000";
+    var symColor = "0xffffff";
     var grid = $('#grid').prop("checked");
 
 
+
+    
     if (image == null) {
         alert("Open image first");
         return;
     }
-
+    
     if (!is_int(cellsCount)) {
         alert("Wrong count of cells parametr");
         return;
@@ -358,24 +361,25 @@ function CreateEmbroidery() {
         return;
     }
 
-
     $.ajax({
-        contentType: "application/json",
         type: "POST",
         timeout:30000,
         url: "Profile/CreateEmbroidery",
-        data: JSON.stringify({ img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors, symbols: symbols, symbolColor: symColor, grid: grid }),
+        data: { img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors.join(), symbols: symbols.join(), symbolColor: symColor, grid: grid },
         success: function (result) {
+            alert('SUCCESS');
             $('#preview img').remove();
             $('#preview').prepend('<img src="">');
             $('#preview img').attr('src', "data:image/jpeg;base64," + result.imageString);
+                
         },
         error: function () {
             alert('Error was occured when embroidery has been created');
         }
     });
-
+  
 }
+
 
 
 $('#create-embroidery-button').click(function () {

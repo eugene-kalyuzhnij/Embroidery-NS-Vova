@@ -20,12 +20,14 @@ namespace NSEmbroidery.Data.EF
         }
 
 
-        public void Add(User user)
+        public User Add(User user)
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Users.Add(user);
+                var u = context.Users.Add(user);
                 context.SaveChanges();
+
+                return u;
             }
         }
 

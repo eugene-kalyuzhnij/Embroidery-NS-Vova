@@ -5,15 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace NSEmbroidery.Core.Decorators
 {
 
     public class SymbolsDecorator : IDecorator
     {
+        EventLog log = new EventLog("EmbroideryServiceLog");
 
         public void Decorate(Canvas embroidery, Canvas pattern, Settings settings)
         {
+            log.Source = "EmbroiderySource";
+
             int squareWidth = embroidery.Width / settings.CellsCount;
             if (embroidery.Height < pattern.Height * squareWidth)
                 throw new WrongResolutionException("Resolution.Height has to be higher");
@@ -34,7 +38,6 @@ namespace NSEmbroidery.Core.Decorators
             Color symbolColor;
             if(settings.SymbolColor == Color.Empty) symbolColor = Color.Black;
             else symbolColor = settings.SymbolColor;
-
 
 
             Parallel.ForEach(Partitioner.Create(0, pattern.Height), rangeHeight =>

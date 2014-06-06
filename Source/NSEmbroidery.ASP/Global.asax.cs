@@ -21,7 +21,8 @@ namespace NSEmbroidery.ASP
     {
         protected void Application_Start()
         {
-         /*   
+         
+            /*
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
             var users = kernel.Get<IRepository<User>>();
@@ -30,11 +31,10 @@ namespace NSEmbroidery.ASP
             {
                 Email = "new@mail.com",
                 FirstName = "first_name",
-                LastName = "last_name",
-                Year = DateTime.Now
+                LastName = "last_name"
             });
-            
             */
+            
             AreaRegistration.RegisterAllAreas();
 
             
@@ -43,9 +43,9 @@ namespace NSEmbroidery.ASP
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-
-           
+            
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "Email", autoCreateTables: true);
+
         }
     }
 }

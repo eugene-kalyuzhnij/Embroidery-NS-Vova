@@ -54,7 +54,7 @@ namespace NSEmbroidery.ASP.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.Email, model.Password,
-                        new { FirstName = model.FirstName, LastName = model.LastName, Year = model.Year });
+                        new { FirstName = model.FirstName, LastName = model.LastName });
                     WebSecurity.Login(model.Email, model.Password);
                     return RedirectToAction("Index", "Home");
                 }

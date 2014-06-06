@@ -1,0 +1,13 @@
+﻿@model IEnumerable<NSEmbroidery.Data.Models.User>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = null;
+}
+
+<ul class="users-list">
+@foreach (var user in Model)
+{
+    <li>@Ajax.ActionLink(user.FirstName, "OtherUser", "Users", new { userId = user.Id }, new AjaxOptions() { UpdateTargetId = "content", HttpMethod="post" })</li>
+}
+</ul>

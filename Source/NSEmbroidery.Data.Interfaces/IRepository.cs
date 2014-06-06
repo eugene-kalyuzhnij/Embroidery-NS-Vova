@@ -10,7 +10,7 @@ namespace NSEmbroidery.Data.Interfaces
     {
         T GetById(int id);
         IList<T> GetAll();
-        void Add(T item);
+        T Add(T item);
         void Remove(T item);
         T GetLast();
     }

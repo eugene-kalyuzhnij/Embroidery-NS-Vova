@@ -33,15 +33,6 @@ namespace NSEmbroidery.ASP.Helper
             }
         }
 
-        public static DateTime Year
-        {
-            get
-            {
-                IKernel kernel = new StandardKernel(new DataModelCreator());
-
-                return kernel.Get<IRepository<User>>().GetById(WebSecurity.CurrentUserId).Year;
-            }
-        }
 
         public static int EmbroideriesCount(int userId)
         {

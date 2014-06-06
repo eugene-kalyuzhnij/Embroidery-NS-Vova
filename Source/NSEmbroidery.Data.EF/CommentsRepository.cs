@@ -26,12 +26,14 @@ namespace NSEmbroidery.Data.EF
             }
         }
 
-        public void Add(Comment item)
+        public Comment Add(Comment item)
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Comments.Add(item);
+                var comment = context.Comments.Add(item);
                 context.SaveChanges();
+
+                return comment;
             }
         }
 
@@ -51,5 +53,6 @@ namespace NSEmbroidery.Data.EF
                 return context.Comments.Last();
             }
         }
+
     }
 }

@@ -26,12 +26,14 @@ namespace NSEmbroidery.Data.EF
             }
         }
 
-        public void Add(Like item)
+        public Like Add(Like item)
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Likes.Add(item);
+                var like = context.Likes.Add(item);
                 context.SaveChanges();
+
+                return like;
             }
         }
 

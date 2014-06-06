@@ -195,10 +195,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddEmbroideryController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="HtmlHelpers\UserIdentity.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -361,13 +364,13 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Service References\EmbroideryCreatorService\EmbroideryCreator.disco" />
-    <Content Include="Service References\EmbroideryCreatorService\configuration91.svcinfo" />
-    <Content Include="Service References\EmbroideryCreatorService\configuration.svcinfo" />
-    <Content Include="Service References\EmbroideryCreatorService\Reference.svcmap">
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator.disco" />
+    <None Include="Service References\EmbroideryCreatorService\configuration91.svcinfo" />
+    <None Include="Service References\EmbroideryCreatorService\configuration.svcinfo" />
+    <None Include="Service References\EmbroideryCreatorService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -397,13 +400,12 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Profile\Users.cshtml" />
-    <Content Include="Views\Profile\OtherUser.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\OtherUser.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
-    <Content Include="Views\Profile\Gallery.cshtml" />
-    <Content Include="Views\Profile\AddEmbroidery.cshtml" />
-    <Content Include="Views\Profile\Test.cshtml" />
-    <Content Include="Service References\EmbroideryCreatorService\EmbroideryCreator.wsdl" />
+    <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\AddEmbroidery\Index.cshtml" />
+    <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator.wsdl" />
     <None Include="Service References\EmbroideryCreatorService\EmbroideryCreator.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -420,6 +422,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Profile\OpenImage.cshtml" />
+    <Content Include="Views\AddEmbroidery\SymbolPalette.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

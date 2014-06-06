@@ -10,6 +10,7 @@ namespace NSEmbroidery.Data.Models
     [Table("Users")]
     public class User
     {
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -27,10 +28,11 @@ namespace NSEmbroidery.Data.Models
         [Display(Name="Last Name")]
         public string LastName { get; set; }
 
-        public DateTime Year { get; set; }
+        //public DateTime Year { get; set; }
 
         public virtual ICollection<Comment> Comments {get; set;}
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Embroidery> Embroideries { get; set; }
+
     }
 }

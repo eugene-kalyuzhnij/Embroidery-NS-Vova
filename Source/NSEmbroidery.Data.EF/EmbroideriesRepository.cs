@@ -18,12 +18,14 @@ namespace NSEmbroidery.Data.EF
             }
         }
 
-        public void Add(Embroidery item)
+        public Embroidery Add(Embroidery item)
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Embroideries.Add(item);
+                var embroidery = context.Embroideries.Add(item);
                 context.SaveChanges();
+
+                return embroidery;
             }
         }
 

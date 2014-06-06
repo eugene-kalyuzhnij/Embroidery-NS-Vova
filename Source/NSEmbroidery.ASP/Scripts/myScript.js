@@ -3,14 +3,23 @@
 
 $('.gallery-border img').click(function () {
 
-    var clickedSrc = $(this).attr('src');
+    //var clickedSrc = $(this).attr('src');
     var id = $(this).attr('id');
-
-    $('#open-image img').remove();
-    $('#open-image').prepend('<img class="opened" src="" />');
-    $('#open-image img').prop('src', clickedSrc);
-    $('#open-image-border').fadeIn('slow');
-
+    $.ajax({
+        url: 'Gallery/GetEmbroidery',
+        data: { embroideryId: id },
+        type: 'POST',
+        success: function (result) {
+            $('#open-image img').remove();
+            $('#open-image').prepend('<img class="opened" src="" />');
+            $('#open-image img').prop('src', result.imageString);
+            $('#open-image-border').fadeIn('slow');
+        },
+        error: function (a, b, c) {
+            alert('Could not upload embroidery from database');
+        }
+  
+    });
 
     /*Show all comments********/
     
@@ -36,7 +45,7 @@ $('.gallery-border img').click(function () {
         likes_users.css('top', y.toString() + 'px');
 
         $.ajax({
-            url: 'Profile/GetLikesUsers',
+            url: 'Gallery/GetLikesUsers',
             data: { embroideryId: id },
             dataType: 'json',
             type: 'post',
@@ -70,7 +79,7 @@ $('.gallery-border img').click(function () {
         if (comment.val() != "") {
             $.ajax({
                 type: "post",
-                url: "Profile/AddComment",
+                url: "Gallery/AddComment",
                 data: { EmbroideryId: id, comment: comment.val() },
                 success: function () {
                     UpdateComments(id);
@@ -98,7 +107,7 @@ function AddRemoveClick(embroideryId) {
     var add_remove_Like = $('#add-like-border');
 
     $.ajax({
-        url: 'Profile/CanAddLike',
+        url: 'Gallery/CanAddLike',
         type: 'post',
         data: { embroideryId: embroideryId },
         success: function (canAdd) {
@@ -109,7 +118,7 @@ function AddRemoveClick(embroideryId) {
                 add_remove_Like.prepend('Add like');
                 var handler = function () {
                     $.ajax({
-                        url: 'Profile/AddLike',
+                        url: 'Gallery/AddLike',
                         data: { embroideryId: embroideryId },
                         type: 'post',
                         success: function () {
@@ -128,7 +137,7 @@ function AddRemoveClick(embroideryId) {
 
                 var handler = function () {
                     $.ajax({
-                        url: 'Profile/RemoveLike',
+                        url: 'Gallery/RemoveLike',
                         data: { embroideryId: embroideryId },
                         type: 'post',
                         success: function () {
@@ -146,7 +155,7 @@ function AddRemoveClick(embroideryId) {
 function UpdateLikesCount(embroideryId) {
 
     $.ajax({
-        url: 'Profile/GetLikesCount',
+        url: 'Gallery/GetLikesCount',
         type: 'post',
         dataType: 'json',
         data: { embroideryId: embroideryId },
@@ -161,7 +170,7 @@ function UpdateLikesCount(embroideryId) {
 
 function UpdateComments(embroideryId) {
     $.ajax({
-        url: 'Profile/GetComments',
+        url: 'Gallery/GetComments',
         dataType: 'json',
         type: 'post',
         data: { EmbroideryId: embroideryId },
@@ -199,7 +208,7 @@ function AddCommentClick(embroideryId) {
     if (comment.val() != "") {
         $.ajax({
             type: "post",
-            url: "Profile/AddComment",
+            url: "Gallery/AddComment",
             data: { EmbroideryId: embroideryId, comment: comment.val() },
             success: function () {
                 UpdateComments(id);
@@ -218,11 +227,11 @@ function DeleteLikesUserView() {
 
 
 function OtherUser(userId) {
-
+    debugger
     $.ajax({
-        url: 'Profile/OtherUser',
+        url: 'Users/OtherUser',
         data: { userId: userId },
-        type: 'get',
+        type: 'post',
         success: function (result) {
 
             var content = $('#content');
@@ -289,7 +298,7 @@ $('#cells-count').change(function () {
 
         $.ajax({
             type: "POST",
-            url: 'Profile/GetResolutions',
+            url: 'AddEmbroidery/GetResolutions',
             data: { cells: cellsCount, img: image },
             success: function (result) {
                 var items = [];
@@ -335,7 +344,7 @@ function CreateEmbroidery() {
     var coefficient = $('#resolutions').val();
     var colors = getColors();
     var symbols = getSymbols();
-    var symColor = "0xffffff";
+    var symColor = getSymbolColor();
     var grid = $('#grid').prop("checked");
 
 
@@ -364,7 +373,7 @@ function CreateEmbroidery() {
     $.ajax({
         type: "POST",
         timeout:30000,
-        url: "Profile/CreateEmbroidery",
+        url: "AddEmbroidery/CreateEmbroidery",
         data: { img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors.join(), symbols: symbols.join(), symbolColor: symColor, grid: grid },
         beforeSend: function () {
             $('#preview').empty();
@@ -397,7 +406,7 @@ $('#add-embroidery-button').click(function () {
 
     $.ajax({
         type: "POST",
-        url: "Profile/AddEmbroidery",
+        url: "AddEmbroidery/AddEmbroidery",
         data: { img: src },
         success: function (result) {
             $('#content').html(result);
@@ -431,9 +440,33 @@ function getSymbols() {
 }
 
 
+function getSymbolColor() {
+    return $('#symbols-color').css('background-color');
+}
+
+
+$('#symbols-color').click(function (event) {
+    var symbol_color_border = $('#symbol-color-palette');
+
+    var primes = ["#000000", "#ffffff", "#ff0000", "#00ff00", "#0000ff"];
+    $('.symbol-color-box').each(function (i, elem) {
+        $(this).css('background-color', primes[i]);
+        $(this).click(function () {
+            $(this).unbind('click');
+            $('#symbols-color').css('background-color', $(this).css('background-color'));
+            symbol_color_border.css('display', 'none');
+        });
+    });
+
+    symbol_color_border.css('left', event.clientX.toString() + 'px');
+    symbol_color_border.css('top', event.clientY.toString() + 'px');
+    symbol_color_border.css('display', 'inherit');
+});
+
+
 /******************************************************/
 
-/*Palette(NEW)********************************************************/
+/*Palette********************************************************/
 
 $.fn.colorPalette = function (options) {
     this.addClass("color-palette");
@@ -522,7 +555,7 @@ var colorPalette = $(".palette-window").colorPalette({
     colorChange: function (color) {
         $(".result").css("background", color);
     },
-    bgColor: "#181818"
+    bgColor: "#000"
 });
 
 colorPalette.changeSelected("#ff9900");

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NSEmbroidery.Data.Models.Embroidery>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Gallery";
+    @Scripts.Render("~/Scripts/myScript.js")
+}
+
+
+<h3 class="name-text">Your gallery</h3>
+
+<ul id="gallery">
+   
+
+    @foreach (var item in Model)
+    {
+        <li class="gallery-border">
+                <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) id="@item.Id" />
+            
+                @Ajax.ActionLink("x", "DeleteEmbroidery", "Gallery",
+                                    new { embroideryId = item.Id },
+                                    new AjaxOptions() { UpdateTargetId = "content", HttpMethod = "POST", InsertionMode = InsertionMode.Replace },
+                                    new { @class = "delete-image" })
+                    
+                @if ((DateTime.Now - item.DateCreated).TotalDays < 1)
+                {
+                    <div id="new-embroidery">NEW!</div>
+                }
+        </li>
+        
+    }
+</ul>
+
+
+@Html.Partial("~/Views/Profile/OpenImage.cshtml")

@@ -218,7 +218,17 @@ nav {
         max-height:150px;
         width: 150px;
         cursor:pointer;
+        margin-bottom:auto;
+        display:block;
+        vertical-align:central;
     }
+
+
+.gallerry-border-content {
+    width:150px;
+    height:150px;
+    margin-bottom:10px;
+}
 
  .name-text {
     font-family:sans-serif;
@@ -252,7 +262,7 @@ nav {
     }
 
 
-#new-embroidery {
+.new-embroidery {
     text-shadow:0px 0px 8px #000;
     color:#0f0;
     font-family:sans-serif;
@@ -263,9 +273,43 @@ nav {
     margin-right:30px;
 }
 
+#allowe-other{
+    margin:5px;
+    display:block;
+    margin-left:20%;
+    margin-bottom:10px;
+}
+
+.shared{
+    position:absolute;
+    font-family:sans-serif;
+    text-shadow: 0px 0px 5px #111;
+    color:#ddd;
+    cursor:default;
+}
+
+.embroideries-name {
+    font-family:sans-serif;
+    text-shadow: 0px 0px 5px #111;
+    color:#ddd;
+    cursor:default;
+}
 
 
 /*Open image*******/
+
+
+#allowe-other input{
+    width:15px;
+    height:15px;
+}
+
+
+#allowe-other label{
+   color:white;
+   font-family:sans-serif;
+}
+
 
 #open-image-border {
     display:none;
@@ -510,6 +554,25 @@ nav {
     float:left;
 }
 
+    #settings label {
+        color:white;
+        font-family:sans-serif;
+        text-shadow:0px 0px 5px #000;
+        margin-left:5px;
+    }
+
+#allowed {
+    margin:5px;
+    margin-bottom:10px;
+    width:20px;
+    height:20px;
+}
+
+#grid {
+    margin:5px;
+    width:20px;
+    height:20px;
+}
 
 #symbol-color-palette {
     display:none;
@@ -540,7 +603,6 @@ nav {
     border:solid;
     border-color:gray;
     border-width:1px;
-    background-color:#000;
 }
 
 
@@ -549,7 +611,7 @@ nav {
 }
 
 
-#cells-count {
+#cells-count, #input-name {
     margin:5px;
 }
 
@@ -557,8 +619,17 @@ nav {
     margin:5px;
 }
 
-/*****************/
 
+#symbols-border {
+    margin:5px;
+}
+
+.symbol {
+    margin:3px;
+    width:50px;
+}
+
+/*****************/
 
 #add-embroidery-button {
    float:left;
@@ -662,3 +733,24 @@ nav {
 }
 
 /*********************************************/
+
+
+/*Home*****************************************/
+
+#home-info-border {
+    width:100%;
+    display:block;
+    margin:auto auto;
+}
+
+
+#last-comments {
+
+}
+
+
+#last-likes {
+
+}
+
+/**********************************************/

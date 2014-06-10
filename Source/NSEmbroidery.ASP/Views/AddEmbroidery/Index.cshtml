@@ -33,14 +33,28 @@
 
                         <br />
 
-                        @Html.TextBox("cellsCount", "Input count of cells", new { id = "cells-count" })
+                        @Html.CheckBox("allowed", new { id = "allowed" })
+                        @Html.Label("Allowed for other users")
 
                         <br />
+                        @Html.Label("Name:")
+                        <br />
+                        @Html.TextBox("name", "", new {id = "input-name"})
 
+                        <br />
+                        
+                        @Html.Label("Count of cells:")
+                        <br />
+                        @Html.TextBox("cellsCount", "", new { id = "cells-count" })
+
+                        <br />
+                        
+                        @Html.Label("Resolution:")
+                        <br />
                         @Html.DropDownList("Items", null, new { id = "resolutions" })
 
-                       <div id="symbols-color">
-                       </div>
+                           <div id="symbols-color">
+                           </div>
 
                         @Html.Partial("SymbolPalette")
 

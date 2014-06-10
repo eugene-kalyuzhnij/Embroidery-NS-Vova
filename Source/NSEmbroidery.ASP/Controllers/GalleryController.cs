@@ -56,7 +56,9 @@ namespace NSEmbroidery.ASP.Controllers
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
-            var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId).Image;
+            var embroideryFromData = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
+
+            var embroidery = embroideryFromData.Image;
 
             byte[] imageBytes = null;
 
@@ -68,7 +70,7 @@ namespace NSEmbroidery.ASP.Controllers
 
             string base64 = Convert.ToBase64String(imageBytes);
 
-            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64 }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64, allowePublic = embroideryFromData.PublicEmbroidery  }, JsonRequestBehavior.AllowGet);
 
             jsonResult.MaxJsonLength = Int32.MaxValue;
 
@@ -179,6 +181,25 @@ namespace NSEmbroidery.ASP.Controllers
 
 
             return RedirectToAction("Index", "Gallery");
+        }
+
+
+        [HttpPost]
+        public ActionResult ChangeEmbroideryAllow(int embroideryId, bool newAllow)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var embroideryContext = kernel.Get<IRepository<Embroidery>>();
+            var embroidery = embroideryContext.GetById(embroideryId);
+
+            if (embroidery.UserId == WebSecurity.CurrentUserId)
+            {
+                embroidery.PublicEmbroidery = newAllow;
+                embroideryContext.SaveChanges(embroidery);
+                return Json(new { result = true });
+            }
+
+            return Json(new { result = false });
         }
 
 

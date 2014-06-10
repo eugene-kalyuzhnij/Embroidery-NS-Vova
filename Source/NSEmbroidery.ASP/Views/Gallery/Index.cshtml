@@ -15,19 +15,32 @@
     @foreach (var item in Model)
     {
         <li class="gallery-border">
+            <div class="gallerry-border-content">
+
+                @if(item.PublicEmbroidery)
+                {
+                    <div class="shared">SHARED</div>
+                }
+
                 <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) id="@item.Id" />
             
                 @Ajax.ActionLink("x", "DeleteEmbroidery", "Gallery",
                                     new { embroideryId = item.Id },
                                     new AjaxOptions() { UpdateTargetId = "content", HttpMethod = "POST", InsertionMode = InsertionMode.Replace },
                                     new { @class = "delete-image" })
+       
                     
                 @if ((DateTime.Now - item.DateCreated).TotalDays < 1)
                 {
-                    <div id="new-embroidery">NEW!</div>
+                    <div class="new-embroidery">NEW!</div>
                 }
+            </div>
+
+            <div class="embroideries-name">
+                @item.Name
+            </div>
+                
         </li>
-        
     }
 </ul>
 

@@ -21,7 +21,6 @@ namespace NSEmbroidery.ASP.Controllers
         //
         // GET: /Users/
 
-
         public ActionResult Index()
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
@@ -36,7 +35,7 @@ namespace NSEmbroidery.ASP.Controllers
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
-            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId);
+            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId && e.PublicEmbroidery == true);
 
             if (userId == WebSecurity.CurrentUserId)
             {

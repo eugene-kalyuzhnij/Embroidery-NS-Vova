@@ -1,10 +1,11 @@
 ﻿/*Open image in Gallery************************************************/
 
-
 $('.gallery-border img').click(function () {
 
     //var clickedSrc = $(this).attr('src');
     var id = $(this).attr('id');
+
+
     $.ajax({
         url: 'Gallery/GetEmbroidery',
         data: { embroideryId: id },
@@ -13,6 +14,10 @@ $('.gallery-border img').click(function () {
             $('#open-image img').remove();
             $('#open-image').prepend('<img class="opened" src="" />');
             $('#open-image img').prop('src', result.imageString);
+            if (result.allowePublic) {
+                $('#allowe-other input').prop('checked', true);
+            }
+            else $('#allowe-other input').prop('checked', false);
             $('#open-image-border').fadeIn('slow');
         },
         error: function (a, b, c) {
@@ -28,6 +33,17 @@ $('.gallery-border img').click(function () {
     /**************************/
 
     /*Likes*******************/
+
+    $('#allowe-other-check').click(function () {
+        $.ajax({
+            url: 'Gallery/ChangeEmbroideryAllow',
+            type: 'post',
+            data: { embroideryId: id, newAllow: $(this).prop('checked') },
+            success: function (r) {
+                if (!r.result) alert('You can not do this operation');
+            }
+        });
+    });
 
     UpdateLikesCount(id);
     AddRemoveClick(id);
@@ -68,6 +84,8 @@ $('.gallery-border img').click(function () {
             }
         });
 
+       
+
     });
 
     /*************************/
@@ -97,6 +115,8 @@ $('#image-border').click(function () {
     $('#open-image-border').fadeOut('slow');
     $('#send-comment').unbind('click');
     $('#like-border').unbind('click');
+    $('#allowe-other-check').unbind('click');
+    
 });
 
 
@@ -346,9 +366,6 @@ function CreateEmbroidery() {
     var symbols = getSymbols();
     var symColor = getSymbolColor();
     var grid = $('#grid').prop("checked");
-
-
-
     
     if (image == null) {
         alert("Open image first");
@@ -364,28 +381,32 @@ function CreateEmbroidery() {
         alert("Choose resolution");
         return;
     }
-
-    if (colors == undefined) {
+    if (colors.length == 0) {
         alert("Create palette first");
         return;
     }
+    if (symbols.length > 0)
+        if (symbols.length < colors.length) {
+            alert('Not enought symbols');
+            return;
+        }
 
     $.ajax({
         type: "POST",
-        timeout:30000,
+        timeout: 30000,
         url: "AddEmbroidery/CreateEmbroidery",
         data: { img: image, coefficient: coefficient, cellsCount: cellsCount, colors: colors.join(), symbols: symbols.join(), symbolColor: symColor, grid: grid },
         beforeSend: function () {
-            $('#preview').empty();
-            $('#preview').prepend('<text>Wait a little bit...</text>');
+            $('#preview').prepend('<label class="wait-text">Please wait...</label>');
         },
         success: function (result) {
             $('#preview').empty();
             $('#preview').prepend('<img src="">');
             $('#preview img').attr('src', "data:image/jpeg;base64," + result.imageString);
-                
+
         },
         error: function () {
+            $('.wait-text').remove();
             alert('Error was occured. result imagr might be too large. Try choose lower resolution or put lower cells count. :(');
         }
     });
@@ -402,14 +423,17 @@ $('#create-embroidery-button').click(function () {
 $('#add-embroidery-button').click(function () {
 
     var src = $('#preview img').attr('src');
-
-
+    var allowePublic = $('#allowed').prop('checked');
+    var name = $('#input-name').val();
     $.ajax({
         type: "POST",
         url: "AddEmbroidery/AddEmbroidery",
-        data: { img: src },
+        data: { img: src, allowePublic: allowePublic, name: name },
         success: function (result) {
             $('#content').html(result);
+        },
+        error: function () {
+            alert('error was occured');
         }
     });
 });
@@ -421,11 +445,19 @@ $('#add-embroidery-button').click(function () {
 
 $('#add-symbols').click(function () {
     var colors = getColors();
+    var symbols = $('#symbols');
+    symbols.empty();
 
     for (var i = 0; i < colors.length; i++) {
         var str_i = (i + 1).toString();
-        $('#symbols').append('<input class="symbol" type="text" value="' + str_i + '"  id="text' + str_i + '" />');
+        symbols.append('<input class="symbol" type="text" value="' + str_i + '"  id="text' + str_i + '" />');
     }
+    symbols.append('<input id="remove-symbols-button" type="button" value="Remove symbols" />');
+    $('#remove-symbols-button').click(function () {
+        symbols.empty();
+        $(this).unbind('click');
+    });
+
 });
 
 
@@ -433,7 +465,10 @@ function getSymbols() {
     var symbols = [];
 
     $('.symbol').each(function () {
-        symbols.push($(this).val());
+        var currentVal = $(this).val();
+
+        if(currentVal != "")
+            symbols.push(currentVal);
     });
 
     return symbols;
@@ -443,6 +478,9 @@ function getSymbols() {
 function getSymbolColor() {
     return $('#symbols-color').css('background-color');
 }
+
+
+$('#symbols-color').css('background-color', '#000000');
 
 
 $('#symbols-color').click(function (event) {
@@ -593,3 +631,13 @@ function getColors() {
 
 /*********************************************************************/
 
+
+/*Home***********************************************************/
+
+function GetLastComments() {
+    var last_comments = $('#last-comments');
+
+    
+}
+
+/****************************************************************/

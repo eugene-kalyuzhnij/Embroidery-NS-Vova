@@ -20,6 +20,8 @@ namespace NSEmbroidery.Data.Models
         [Required]
         public string Name { get; set; }
 
+        public bool PublicEmbroidery { get; set; }
+
         [Required]
         public byte[] Data { get; set; }
 

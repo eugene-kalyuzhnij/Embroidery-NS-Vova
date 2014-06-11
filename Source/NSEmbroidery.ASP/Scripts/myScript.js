@@ -1,11 +1,48 @@
-﻿/*Open image in Gallery************************************************/
+﻿
+
+
+/*Home***********************************************************/
+
+$("div").on('click', 'div.image-commented', function () {
+    var id = $(this).attr('data-embroideryId');
+    OpenImage(id);
+});
+
+$("div").on('click', 'div.last-who-commented', function () {
+    var userId = $(this).attr('data-userId');
+    OtherUser(userId);
+});
+
+
+$("div").on('click', 'div.image-like', function () {
+    var id = $(this).attr('data-embroideryId');
+    OpenImage(id);
+});
+
+$("div").on('click', 'div.last-who-liked', function () {
+    var userId = $(this).attr('data-userId');
+    OtherUser(userId);
+});
+
+
+/****************************************************************/
+
+
+/*Open image in Gallery************************************************/
 
 $('.gallery-border img').click(function () {
-
-    //var clickedSrc = $(this).attr('src');
     var id = $(this).attr('id');
+    OpenImage(id);
+});
+
+$('#image-border').click(function () {
+    DisposeOpenImage();
+});
 
 
+
+
+function OpenImage(id) {
     $.ajax({
         url: 'Gallery/GetEmbroidery',
         data: { embroideryId: id },
@@ -14,26 +51,33 @@ $('.gallery-border img').click(function () {
             $('#open-image img').remove();
             $('#open-image').prepend('<img class="opened" src="" />');
             $('#open-image img').prop('src', result.imageString);
-            if (result.allowePublic) {
-                $('#allowe-other input').prop('checked', true);
+            if (result.alloweChangePublic) {
+
+                var allowOther = $('#allowe-other');
+                allowOther.empty();
+                allowOther.prepend('<input type="checkbox" id="allowe-other-check"/><label>Allowed for other users</label>');
+
+                if (result.allowePublic) {
+                    $('#allowe-other input').prop('checked', true);
+                }
+                else $('#allowe-other input').prop('checked', false);
             }
-            else $('#allowe-other input').prop('checked', false);
+            
             $('#open-image-border').fadeIn('slow');
         },
         error: function (a, b, c) {
             alert('Could not upload embroidery from database');
         }
-  
+
     });
 
     /*Show all comments********/
-    
     UpdateComments(id);
 
     /**************************/
 
     /*Likes*******************/
-
+    /*
     $('#allowe-other-check').click(function () {
         $.ajax({
             url: 'Gallery/ChangeEmbroideryAllow',
@@ -44,7 +88,19 @@ $('.gallery-border img').click(function () {
             }
         });
     });
-
+    */
+    
+    $("div").on('click', '#allowe-other-check', function () {
+        $.ajax({
+            url: 'Gallery/ChangeEmbroideryAllow',
+            type: 'post',
+            data: { embroideryId: id, newAllow: $(this).prop('checked') },
+            success: function (r) {
+                if (!r.result) alert('You can not do this operation');
+            }
+        });
+    });
+    
     UpdateLikesCount(id);
     AddRemoveClick(id);
 
@@ -84,14 +140,14 @@ $('.gallery-border img').click(function () {
             }
         });
 
-       
+
 
     });
 
     /*************************/
 
     /*Add Comment*/
-    
+
     $('#send-comment').click(function () {
         var comment = $('#input-comment');
         if (comment.val() != "") {
@@ -109,18 +165,19 @@ $('.gallery-border img').click(function () {
 
     /***********/
 
-});
 
-$('#image-border').click(function () {
+    $('#image-border').click(function () {
+        DisposeOpenImage();
+    });
+}
+
+
+function DisposeOpenImage() {
     $('#open-image-border').fadeOut('slow');
     $('#send-comment').unbind('click');
     $('#like-border').unbind('click');
     $('#allowe-other-check').unbind('click');
-    
-});
-
-
-
+}
 
 
 function AddRemoveClick(embroideryId) {
@@ -202,13 +259,14 @@ function UpdateComments(embroideryId) {
             for (var i in result) {
                 
                 var comment = result[i].Comment;
-                var str = comment.replace(/\n/g, '<br>');
+                var str = comment.replace(/\n/g, '<br />');
 
                 all_comments.prepend('<div class="comment-border">' + 
                                      '<div class="who-commented" id="' + result[i].UserId.toString() + '">' + result[i].UserName + '</div>' +
                                      '<div class="comment">' + str + '</div></div>');
 
                 $('.who-commented').click(function () {
+                    DisposeOpenImage();
                     var id = $(this).attr('id');
                     OtherUser(id);
                 });
@@ -247,7 +305,6 @@ function DeleteLikesUserView() {
 
 
 function OtherUser(userId) {
-    debugger
     $.ajax({
         url: 'Users/OtherUser',
         data: { userId: userId },
@@ -425,6 +482,11 @@ $('#add-embroidery-button').click(function () {
     var src = $('#preview img').attr('src');
     var allowePublic = $('#allowed').prop('checked');
     var name = $('#input-name').val();
+    if (name == "") {
+        alert("Input name first");
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "AddEmbroidery/AddEmbroidery",
@@ -632,12 +694,3 @@ function getColors() {
 /*********************************************************************/
 
 
-/*Home***********************************************************/
-
-function GetLastComments() {
-    var last_comments = $('#last-comments');
-
-    
-}
-
-/****************************************************************/

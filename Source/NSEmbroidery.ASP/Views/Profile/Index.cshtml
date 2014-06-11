@@ -1,5 +1,9 @@
-﻿
-<div class="buttom"
+﻿@{
+    @Scripts.Render("~/Scripts/myScript.js");
+}
+
+
+<div class="buttom">
             <div class="buttom-left">
                 <div>
                 @if (Request.IsAuthenticated)
@@ -16,12 +20,35 @@
                 
                 <div id="content">
                     <div id="home-info-border">
-                        <div id="last-comments"></div>
-                        <div id="last-likes"></div>
+                        <div id="last-comments">
+                            Last comments
+                            @foreach (var item in ViewBag.LastComments)
+                            {
+                                <div class="last-comment-border">
+                                <div class="last-who-commented" data-userId="@item.UserId.ToString()" > @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
+                                <div class="image-commented" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
+                                <div class="last-comments-comment">@item.Comment_msg </div>
+                                </div>
+                            }
+                        </div>
+                        <div id="last-likes">
+                            Last likes
+                            @foreach (var item in ViewBag.LastLikes)
+                            {
+                                <div class="last-like-border">
+                                <div class="last-who-liked" data-userId="@item.UserId.ToString()"> @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
+                                    <label class="last-like-text">&nbsp;added like for&nbsp;</label>
+                                <div class="image-like" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-
  </div>
+
+
+
+@Html.Partial("~/Views/Profile/OpenImage.cshtml")

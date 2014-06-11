@@ -53,5 +53,12 @@ namespace NSEmbroidery.Data.EF
                 return context.Likes.Last();
             }
         }
+
+
+
+        public void SaveChanges(Like item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -19,23 +19,47 @@ namespace NSEmbroidery.ASP.Controllers
 
         public ActionResult Index()
         {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var lastComments = GetLastComments();
+            var lastLikes = GetLastLikes();
 
-            var comments = kernel.Get<IRepository<Comment>>().GetAll();
-            var lastComments = comments.Where(com => com.UserId == WebSecurity.CurrentUserId).Skip((int)Math.Max(0, comments.Count - 5));
-
+            ViewBag.LastLikes = lastLikes;
             ViewBag.LastComments = lastComments;
 
             return View();
         }
 
-
-        [HttpPost]
-        public ActionResult GetLastComments()
+        public IEnumerable<Comment> GetLastComments()
         {
-           
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == WebSecurity.CurrentUserId);
+  
+            var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(c => {
+                bool result = false;
+                foreach(var item in embroideries)
+                    if(item.Id == c.EmbroideryId) result = true;
 
-            
+                return result;
+            });
+
+            return comments.Skip((int)Math.Max(0, comments.Count() - 5));
+        }
+
+
+        public IEnumerable<Like> GetLastLikes()
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == WebSecurity.CurrentUserId);
+
+            var likes = kernel.Get<IRepository<Like>>().GetAll().Where(l =>
+            {
+                bool result = false;
+                foreach (var item in embroideries)
+                    if (item.Id == l.EmbroideryId) result = true;
+
+                return result;
+            });
+
+            return likes.Skip((int)Math.Max(0, likes.Count() - 5));
         }
 
     }

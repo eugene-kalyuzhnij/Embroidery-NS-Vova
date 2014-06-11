@@ -199,6 +199,7 @@
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="HtmlHelpers\EmbroideryIdentity.cs" />
     <Compile Include="HtmlHelpers\UserIdentity.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -212,6 +213,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Scripts\home.js" />
     <Content Include="Scripts\myScript.js" />
     <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -294,6 +296,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
     <Content Include="Properties\DataSources\System.Drawing.Bitmap.datasource" />
+    <None Include="Properties\PublishProfiles\ns_vova.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />

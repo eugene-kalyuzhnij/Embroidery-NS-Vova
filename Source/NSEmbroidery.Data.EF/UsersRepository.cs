@@ -57,5 +57,12 @@ namespace NSEmbroidery.Data.EF
                 return context.Users.ToList();
             }
         }
+
+
+
+        public void SaveChanges(User item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

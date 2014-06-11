@@ -54,5 +54,10 @@ namespace NSEmbroidery.Data.EF
             }
         }
 
+
+        public void SaveChanges(Comment item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -54,5 +54,16 @@ namespace NSEmbroidery.Data.EF
                 return context.Embroideries.ToList();
             }
         }
+
+        public void SaveChanges(Embroidery item)
+        {
+            using (ModelContext context = new ModelContext())
+            {
+                var embroidery = context.Embroideries.Find(item.Id);
+                embroidery.PublicEmbroidery = item.PublicEmbroidery;
+
+                context.SaveChanges();
+            }
+        }
     }
 }

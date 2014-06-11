@@ -67,10 +67,13 @@ namespace NSEmbroidery.ASP.Controllers
                 embroidery.Save(resultStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 imageBytes = resultStream.ToArray();
             }
-
             string base64 = Convert.ToBase64String(imageBytes);
 
-            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64, allowePublic = embroideryFromData.PublicEmbroidery  }, JsonRequestBehavior.AllowGet);
+            bool alloweChangePublic = false;
+            if (embroideryFromData.UserId == WebSecurity.CurrentUserId)
+                alloweChangePublic = true;
+
+            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64, allowePublic = embroideryFromData.PublicEmbroidery, alloweChangePublic = alloweChangePublic}, JsonRequestBehavior.AllowGet);
 
             jsonResult.MaxJsonLength = Int32.MaxValue;
 

@@ -13,5 +13,6 @@ namespace NSEmbroidery.Data.Interfaces
         T Add(T item);
         void Remove(T item);
         T GetLast();
+        void SaveChanges(T item);
     }
 }

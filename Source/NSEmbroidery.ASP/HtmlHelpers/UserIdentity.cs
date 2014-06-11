@@ -42,5 +42,15 @@ namespace NSEmbroidery.ASP.Helper
 
             return embroideries.Count();
         }
+
+
+        public static string GetOthersUserName(int userId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var user = kernel.Get<IRepository<User>>().GetById(userId);
+
+            return user.FirstName + " " + user.LastName;
+        }
     }
 }

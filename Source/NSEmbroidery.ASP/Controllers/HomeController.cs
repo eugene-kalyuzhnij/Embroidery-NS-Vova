@@ -8,7 +8,6 @@ using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.Models;
 using Ninject;
 using System.Drawing;
-using Ninject;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 

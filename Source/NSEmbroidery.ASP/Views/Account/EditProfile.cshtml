@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="change-password-border">
+    @Html.TextBox("currentPassword", "", new { @class = "input", id="current-password" })
+    @Html.TextBox("newPassword", "", new { @class = "input", id="new-password" })
+
+    <input id="change-password-button" type="button" value="Change pass" />
+</div>

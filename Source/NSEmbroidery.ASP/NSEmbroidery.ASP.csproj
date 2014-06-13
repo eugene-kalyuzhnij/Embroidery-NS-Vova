@@ -213,6 +213,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Scripts\editProfile.js" />
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\myScript.js" />
     <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
@@ -432,6 +433,9 @@
     </None>
     <Content Include="Views\Profile\OpenImage.cshtml" />
     <Content Include="Views\AddEmbroidery\SymbolPalette.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

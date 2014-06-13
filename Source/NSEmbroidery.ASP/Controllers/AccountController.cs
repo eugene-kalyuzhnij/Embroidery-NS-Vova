@@ -14,7 +14,6 @@ using NSEmbroidery.Data.Models;
 namespace NSEmbroidery.ASP.Controllers
 {
     [Authorize]
-    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
         [AllowAnonymous]
@@ -74,5 +73,24 @@ namespace NSEmbroidery.ASP.Controllers
             WebSecurity.Logout();
             return RedirectToAction("Index", "Home");
         }
+
+
+        [HttpPost]
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string currentPassword, string newPassword)
+        {
+            string userName = WebSecurity.CurrentUserName;
+            bool operationResult = WebSecurity.ChangePassword(userName, currentPassword, newPassword);
+
+            
+            return View(operationResult);
+        }
+
+
     }
 }

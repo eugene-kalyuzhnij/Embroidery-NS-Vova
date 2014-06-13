@@ -28,6 +28,7 @@ namespace NSEmbroidery.ASP.Filters
             {
                try
                 {
+                   
                    // WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "FirstName", autoCreateTables: true);
 
                 }

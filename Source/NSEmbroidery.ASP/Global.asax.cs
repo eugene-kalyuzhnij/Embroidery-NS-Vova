@@ -15,7 +15,7 @@ using Antlr.Runtime;
 
 namespace NSEmbroidery.ASP
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
 
     public class MvcApplication : System.Web.HttpApplication
@@ -44,8 +44,15 @@ namespace NSEmbroidery.ASP
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            
-            WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "Email", autoCreateTables: true);
+
+            try
+            {
+                WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "Email", autoCreateTables: true);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not connect to data base");
+            }
 
         }
     }

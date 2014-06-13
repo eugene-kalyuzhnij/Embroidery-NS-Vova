@@ -1,7 +1,8 @@
 ﻿@if (Request.IsAuthenticated) {
+
     <text>
     <ul class="login-register">
-        <li class="log-reg-link">
+        <li id="current-user" class="log-reg-link" data-userId="@WebSecurity.CurrentUserId">
             Hello, @NSEmbroidery.ASP.Helper.UserIdentity.FirstName
 
         </li>
@@ -27,5 +28,8 @@
     $("log-off").click(function () {
         $.post("Account/LogOff", null, null, null);
     });
+
+
+
     
 </script>

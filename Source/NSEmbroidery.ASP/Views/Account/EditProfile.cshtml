@@ -1,10 +1,75 @@
 ﻿@{
     Layout = null;
+    @Styles.Render("~/Content/edit-profile.css");
+    @Scripts.Render("~/Scripts/edit-profile.js");
 }
 
-<div id="change-password-border">
-    @Html.TextBox("currentPassword", "", new { @class = "input", id="current-password" })
-    @Html.TextBox("newPassword", "", new { @class = "input", id="new-password" })
 
-    <input id="change-password-button" type="button" value="Change pass" />
+<div id="edit-profile">
+    <div class="change-border" id="change-password-border" >
+        <div class="border-name">
+            Change Password
+        </div>
+        <div>
+         <div class = "label">
+             @Html.Label("Old Password")
+         </div>
+             @Html.TextBox("currentPassword", "", new { @class = "input", id="current-password" })
+        </div>
+        <div>
+        <div class = "label">
+            @Html.Label("New Password")
+        </div>
+            @Html.TextBox("newPassword", "", new { @class = "input", id="new-password" })
+        </div>
+        <div>
+            <input id="change-password-button" type="button" value="Change Password" class="change-button" />
+        </div>
+    </div>
+
+    <div class="change-border" id="change-email-border">
+        <div class="border-name">
+            Change Email
+        </div>
+        <div class = "label">
+            @{string curEmail =  ViewBag.CurrentEmail;}
+            @Html.Label("Current Email: " + curEmail.ToString().Replace(".", "/."))
+        </div>
+        <div class = "label">
+            @Html.Label("New Email")
+        </div>
+        <div>
+            @Html.TextBox("newEmail", "", new { @class = "input", id = "new-email" })
+        </div>
+        <div>
+            <input type="button" value="Change Email" id="change-email-button" class="change-button" />
+        </div>
+    </div>
+
+
+    <div class="change-border" id="change-name-border">
+        <div class="border-name">
+            Change Name
+        </div>
+        <div class="label">
+            @{string name = ViewBag.CurrentName;}
+            @Html.Label("Current name: " + name)
+        </div>
+        <div class="label">
+            @Html.Label("New first name")
+        </div>
+        <div>
+            @Html.TextBox("newFirstName", "", new { @class = "input", id="first-name" })
+        </div>
+        <div class="label">
+            @Html.Label("New last name")
+        </div>
+        <div>
+            @Html.TextBox("newLastName", "", new { @class = "input", id="last-name" })
+        </div>
+        <div>
+            <input type="button" value="Change Name" class="change-button" id="change-name-button" />
+        </div>
+    </div>
+
 </div>

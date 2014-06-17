@@ -197,6 +197,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddEmbroideryController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
+    <Compile Include="Controllers\ManagementController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="HtmlHelpers\EmbroideryIdentity.cs" />
@@ -213,9 +214,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Content Include="Scripts\editProfile.js" />
+    <Content Include="Content\edit-profile.css" />
+    <Content Include="Content\user-content.css" />
+    <Content Include="Scripts\add-embroidery.js" />
+    <Content Include="Scripts\edit-profile.js" />
+    <Content Include="Scripts\gallery.js" />
+    <Content Include="Scripts\global.js" />
     <Content Include="Scripts\home.js" />
-    <Content Include="Scripts\myScript.js" />
+    <Content Include="Scripts\managment.js" />
     <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -381,7 +387,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -407,7 +415,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
@@ -436,6 +446,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Management\Index.cshtml" />
+    <Content Include="Views\Management\UserContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -480,7 +492,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>65203</DevelopmentServerPort>
+          <DevelopmentServerPort>64978</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

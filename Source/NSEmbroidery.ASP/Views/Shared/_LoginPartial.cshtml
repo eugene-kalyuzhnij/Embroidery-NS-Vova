@@ -29,7 +29,23 @@
         $.post("Account/LogOff", null, null, null);
     });
 
+    $('#current-user').on('click', function () {
+        $.ajax({
+            url: 'Account/EditProfile',
+            type: 'post',
+            success: function (result) {
+                var content = $('#content');
+                content.empty();
+                content.html(result);
 
+            },
+            error: function () {
+                alert('error was occured');
+            }
+
+        });
+
+    });
 
     
 </script>

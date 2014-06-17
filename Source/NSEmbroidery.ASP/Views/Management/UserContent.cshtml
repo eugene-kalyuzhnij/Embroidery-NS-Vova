@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "UserContent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Styles.Render("~/Content/user-content.css");
+}
+
+<div class="user-content-list" id="user-content-embroideries">
+    @foreach (var item in ViewBag.Embroideries)
+    {
+        <div class="user-content-item-border">
+            <div class="user-content-item"></div>
+            <div class="user-content-delete" data-embroidery-id="@item.Id">DELETE</div>
+        </div>
+    }
+</div>
+
+<div class="user-content-list" id="user-content-comments">
+    @foreach (var item in ViewBag.Embroideries)
+    {
+        <div class="user-content-item-border">
+            <div class="user-content-item"></div>
+            <div class="user-content-delete">DELETE</div>
+        </div>
+    }
+</div>

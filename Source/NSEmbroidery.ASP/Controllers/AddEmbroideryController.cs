@@ -151,7 +151,8 @@ namespace NSEmbroidery.ASP.Controllers
                 char[] chArray = new char[strArray.Length];
                 for (int i = 0; i < chArray.Length; i++)
                 {
-                    chArray[i] = strArray[i].Single<char>();
+                    if (strArray[i].Length == 1)
+                        chArray[i] = strArray[i].Single<char>();
                 }
                 return chArray;
             }

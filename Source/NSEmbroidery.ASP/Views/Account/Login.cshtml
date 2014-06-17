@@ -5,37 +5,38 @@
    // Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="login-register-border-form">
-    @using(Html.BeginForm("Login", "Account", FormMethod.Post))
-    {
-        <div class="wrong-field">
-             @Html.AntiForgeryToken()
-             @Html.ValidationSummary(true)
-        </div>
 
-        <div class="login-register-form">
-            <ul class="account-view">
-                <li>
-                    @Html.LabelFor(m => m.Email)
-                    <br />
-                    @Html.TextBoxFor(m => m.Email)
-                    <div class="wrong-field">@Html.ValidationMessageFor(m => m.Email)</div>
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Password)
-                    <br />
-                    @Html.PasswordFor(m => m.Password)
-                    <div class="wrong-field">@Html.ValidationMessageFor(m => m.Password)</div>
-                </li>
-                <li>
-                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "checkbox" })
-                    @Html.LabelFor(m => m.RememberMe)
-                </li>
-                <li>
-                    <input class="submit-button" type="submit" value="Log in" />
-                </li>
-              </ul>
-         </div>
+    <section class="login-register-border-form">
+        @using(Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="wrong-field">
+                 @Html.AntiForgeryToken()
+                 @Html.ValidationSummary(true)
+            </div>
+
+            <div class="login-register-form">
+                <ul class="account-view">
+                    <li>
+                        @Html.LabelFor(m => m.Email)
+                        <br />
+                        @Html.TextBoxFor(m => m.Email)
+                        <div class="wrong-field">@Html.ValidationMessageFor(m => m.Email)</div>
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Password)
+                        <br />
+                        @Html.PasswordFor(m => m.Password)
+                        <div class="wrong-field">@Html.ValidationMessageFor(m => m.Password)</div>
+                    </li>
+                    <li>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "checkbox" })
+                        @Html.LabelFor(m => m.RememberMe)
+                    </li>
+                    <li>
+                        <input class="submit-button" type="submit" value="Log in" />
+                    </li>
+                  </ul>
+             </div>
     
-    }
-</section>
+        }
+    </section>

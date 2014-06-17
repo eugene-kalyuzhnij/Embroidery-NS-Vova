@@ -40,14 +40,10 @@
                         Gallery.Embroidery.UpdateComments(id);
                         Gallery.Embroidery.UpdateLikesCount(id);
                         Gallery.Embroidery.AddRemoveClick(id);
-                        Gallery.Embroidery.UsersLikes();
+                        Gallery.Embroidery.UsersLikes(id);
                         Gallery.Embroidery.BindSendComment(id);
 
                         $('#open-image-border').fadeIn('slow');
-
-                        $('#image-border').click(function () {
-                            Gallery.Embroidery.DisposeOpenImage();
-                        });
                     },
                     error: function (a, b, c) {
                         alert('Could not upload embroidery from database');
@@ -148,9 +144,9 @@
                                                  '<div class="comment">' + str + '</div></div>');
 
                             $('.who-commented').click(function () {
-                                DisposeOpenImage();
+                                Gallery.Embroidery.DisposeOpenImage();
                                 var id = $(this).attr('id');
-                                OtherUser(id);
+                                Gallery.Embroidery.OtherUser(id);
                             });
                         }
 
@@ -161,7 +157,7 @@
                 });
 
             },
-
+    
             AddComment: function (embroideryId) {
                 var comment = $('#input-comment');
                 if (comment.val() != "") {
@@ -197,7 +193,7 @@
                 });
             },
 
-            UsersLikes: function () {
+            UsersLikes: function (embroideryId) {
                 $('#like-border').click(function (event) {
 
                     var x = event.clientX;
@@ -211,7 +207,7 @@
 
                     $.ajax({
                         url: 'Gallery/GetLikesUsers',
-                        data: { embroideryId: id },
+                        data: { embroideryId: embroideryId },
                         dataType: 'json',
                         type: 'post',
                         success: function (result) {
@@ -224,11 +220,11 @@
 
                             $('#likes-users div').click(function () {
                                 var userId = $(this).attr('class');
-                                OtherUser(userId);
+                                Gallery.Embroidery.OtherUser(userId);
                             });
 
                             $('#open-image-border').click(function () {
-                                DeleteLikesUserView();
+                                Gallery.Embroidery.DeleteLikesUserView();
                             });
                         }
                     });
@@ -259,26 +255,11 @@
 }
 
 
-
-
-$("div").on('click', 'div.image-commented', function () {
-    var id = $(this).attr('data-embroideryId');
+$('.gallery-border img').click(function () {
+    var id = $(this).attr('id');
     Gallery.Embroidery.OpenImage(id);
 });
 
-$("div").on('click', 'div.last-who-commented', function () {
-    var userId = $(this).attr('data-userId');
-    Gallery.Embroidery.OtherUser(userId);
+$('#image-border').click(function () {
+    Gallery.Embroidery.DisposeOpenImage();
 });
-
-
-$("div").on('click', 'div.image-like', function () {
-    var id = $(this).attr('data-embroideryId');
-    Gallery.Embroidery.OpenImage(id);
-});
-
-$("div").on('click', 'div.last-who-liked', function () {
-    var userId = $(this).attr('data-userId');
-    Gallery.Embroidery.OtherUser(userId);
-});
-

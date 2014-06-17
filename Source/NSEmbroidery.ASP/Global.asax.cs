@@ -12,6 +12,7 @@ using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.Models;
 using NSEmbroidery.Data.DI.EF;
 using Antlr.Runtime;
+using System.Data.SqlClient;
 
 namespace NSEmbroidery.ASP
 {
@@ -22,7 +23,6 @@ namespace NSEmbroidery.ASP
     {
         protected void Application_Start()
         {
-         
             /*
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
@@ -51,7 +51,7 @@ namespace NSEmbroidery.ASP
             }
             catch (Exception ex)
             {
-                throw new Exception("Could not connect to data base");
+                throw new Exception("Could not connect to database");
             }
 
         }

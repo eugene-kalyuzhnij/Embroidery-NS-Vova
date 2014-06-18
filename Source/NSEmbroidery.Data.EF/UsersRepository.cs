@@ -62,7 +62,15 @@ namespace NSEmbroidery.Data.EF
 
         public void SaveChanges(User item)
         {
-            throw new NotImplementedException();
+            using (ModelContext context = new ModelContext())
+            {
+                var user = context.Users.Find(item.Id);
+                user.Email = item.Email;
+                user.FirstName = item.FirstName;
+                user.LastName = item.LastName;
+
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -23,9 +23,10 @@ namespace NSEmbroidery.ASP
     {
         protected void Application_Start()
         {
-            /*
+            
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
+            /*
             var users = kernel.Get<IRepository<User>>();
 
             users.Add(new User()

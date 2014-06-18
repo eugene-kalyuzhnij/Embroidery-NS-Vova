@@ -21,5 +21,8 @@ namespace NSEmbroidery.Data.Models
 
         public virtual Embroidery Embroidery { get; set; }
         public int EmbroideryId { get; set; }
+
+        [Required]
+        public DateTime DateCreated { get; set; }
     }
 }

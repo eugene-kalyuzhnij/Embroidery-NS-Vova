@@ -83,7 +83,7 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public ActionResult EditProfile()
         {
             ViewBag.CurrentEmail = WebSecurity.CurrentUserName;
@@ -93,31 +93,37 @@ namespace NSEmbroidery.ASP.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public ActionResult ChangePassword(string currentPassword, string newPassword)
         {
             string userName = WebSecurity.CurrentUserName;
             bool operationResult = WebSecurity.ChangePassword(userName, currentPassword, newPassword);
 
-            return View(operationResult);
+            return Json(new { Result = operationResult });
         }
 
-
+        /*
         [HttpPost]
         [Authorize]
         public ActionResult ChangeEmail(string newEmail)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
+            try{
 
             var users = kernel.Get<IRepository<User>>();
             User user = users.GetById(WebSecurity.CurrentUserId);
             user.Email = newEmail;
 
             users.SaveChanges(user);
+            }
+            catch(Exception ex)
+            {
+                return Json(new { Result = false });
+            }
 
-            return View();
+            return Json(new { Result = true });
         }
-
+        */
 
         [HttpPost]
         [Authorize]
@@ -125,14 +131,24 @@ namespace NSEmbroidery.ASP.Controllers
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
-            var users = kernel.Get<IRepository<User>>();
-            User user = users.GetById(WebSecurity.CurrentUserId);
-            user.FirstName = newFirstName;
-            user.LastName = newLastName;
+            try
+            {
+                var users = kernel.Get<IRepository<User>>();
+                User user = users.GetById(WebSecurity.CurrentUserId);
+                if(newFirstName != "")
+                    user.FirstName = newFirstName;
 
-            users.SaveChanges(user);
+                if(newLastName != "")
+                    user.LastName = newLastName;
 
-            return View();
+                users.SaveChanges(user);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = false });
+            }
+
+            return Json(new { Result = true });
         }
 
     }

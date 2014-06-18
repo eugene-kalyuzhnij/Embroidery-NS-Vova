@@ -17,6 +17,8 @@ namespace NSEmbroidery.Data.EF
         public DbSet<Comment> Comments { get; set; }
 
 
+        public ModelContext() : base("DefaultConnection") { }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -106,7 +106,7 @@ namespace NSEmbroidery.ASP.Controllers
             IKernel kernel = new StandardKernel(new DataModelCreator());
             var comments = kernel.Get<IRepository<Comment>>();
 
-            comments.Add(new Comment() { Comment_msg = comment, EmbroideryId = EmbroideryId, UserId = WebSecurity.CurrentUserId });
+            comments.Add(new Comment() { Comment_msg = comment, EmbroideryId = EmbroideryId, UserId = WebSecurity.CurrentUserId, DateCreated = DateTime.Now });
         }
 
 

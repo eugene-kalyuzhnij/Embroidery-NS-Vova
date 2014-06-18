@@ -18,7 +18,9 @@ namespace NSEmbroidery.ASP.Helper
             {
                 IKernel kernel = new StandardKernel(new DataModelCreator());
 
-                return kernel.Get<IRepository<User>>().GetById(WebSecurity.CurrentUserId).FirstName;
+                var user = kernel.Get<IRepository<User>>().GetById(WebSecurity.CurrentUserId);
+
+                return user.FirstName;
             }
 
         }

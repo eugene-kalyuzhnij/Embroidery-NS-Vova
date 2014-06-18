@@ -17,15 +17,12 @@ namespace NSEmbroidery.Data.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name="E-mail")]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name="First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name="Last Name")]
         public string LastName { get; set; }
 
         //public DateTime Year { get; set; }

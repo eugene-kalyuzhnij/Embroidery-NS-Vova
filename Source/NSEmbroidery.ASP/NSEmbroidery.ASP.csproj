@@ -217,6 +217,7 @@
     <Content Include="Content\edit-profile.css" />
     <Content Include="Content\user-content.css" />
     <Content Include="Scripts\add-embroidery.js" />
+    <Content Include="Scripts\open-image-functionality.js" />
     <Content Include="Scripts\edit-profile.js" />
     <Content Include="Scripts\gallery.js" />
     <Content Include="Scripts\global.js" />

@@ -40,8 +40,6 @@ $('#change-email-button').on('click', function () {
     });
 });
 
-
-
 $('#change-name-button').on('click', function () {
     var firstName = $('#first-name').val();
     var lastName = $('#last-name').val();

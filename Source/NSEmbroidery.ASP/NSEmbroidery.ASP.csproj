@@ -214,15 +214,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Content\add-embroidery.css" />
     <Content Include="Content\edit-profile.css" />
-    <Content Include="Content\user-content.css" />
+    <Content Include="Content\gallery.css" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\layout.css" />
+    <Content Include="Content\login-register.css" />
+    <Content Include="Content\management.css" />
+    <Content Include="Content\menu.css" />
+    <Content Include="Content\open-image.css" />
+    <Content Include="Content\users.css" />
     <Content Include="Scripts\add-embroidery.js" />
+    <Content Include="Scripts\management-users.js" />
     <Content Include="Scripts\open-image-functionality.js" />
     <Content Include="Scripts\edit-profile.js" />
     <Content Include="Scripts\gallery.js" />
     <Content Include="Scripts\global.js" />
     <Content Include="Scripts\home.js" />
-    <Content Include="Scripts\managment.js" />
+    <Content Include="Scripts\management-content.js" />
     <Compile Include="Service References\EmbroideryCreatorService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -236,7 +245,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\MyStyle2.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -388,6 +396,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\users.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

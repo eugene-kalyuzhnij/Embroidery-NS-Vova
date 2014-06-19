@@ -1,0 +1,174 @@
+﻿/*Open image*******/
+
+
+#allowe-other input{
+    width:15px;
+    height:15px;
+}
+
+
+#allowe-other label{
+   color:white;
+   font-family:sans-serif;
+}
+
+
+#open-image-border {
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background: rgba(0,0,0,0.7);
+    overflow-y:auto;
+}
+
+
+#image-border {
+    width:60%;
+    max-width:60%;
+    margin-left:20%;
+    margin-right:20%;
+    margin-top:20px;
+    margin-bottom:20px;
+    box-shadow:0px 0px 10px #fff;
+    min-width:300px;
+    
+}
+
+#image-border img {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:100%;
+}
+
+/*Comments*********/
+
+.all-comments-border {
+    width:60%;
+    max-width:60%;
+    margin-left:20%;
+    margin-right:20%;
+    display:block;
+    margin-bottom:20px;
+        min-width:300px;
+}
+
+#input-comment {
+    margin-top:10px;
+    margin-bottom:10px;
+    width:60%;
+    margin-left:20%;
+    margin-right:20%;
+    height:50px;
+    max-width:60%;
+    min-width:300px;
+}
+
+#send-comment {
+    margin-left:40%;
+    margin-right:40%;
+    width:20%;
+    margin-bottom:10px;
+    margin-top:5px;
+    border-radius:5px;
+    height:30px;
+    min-width:30px;
+}
+
+.comment-border {
+      margin-top: 10px;
+      margin-bottom:10px;
+      overflow:auto;
+      box-shadow:0px 0px 10px #ddd;
+      height:100%;
+      min-width:300px;
+}
+
+.who-commented {
+    float:left;
+    width:10%;
+    text-shadow:0px 0px 10px #ccc;
+    color:white;
+    margin:5px;
+    border-right:solid;
+    border-color:white;
+    border-width:1px;
+    overflow:visible;
+    cursor:pointer;
+    word-wrap:break-word;
+    padding:5px;
+}
+
+.comment {
+    margin-top:5px;
+    margin-bottom:5px;
+    float:right;
+    width:85%;
+    word-wrap:break-word;
+    text-align:left;
+    height:100%;
+    color:white;
+    text-shadow:0px 0px 5px #ccc;
+    cursor:default;
+
+}
+
+/******************/
+
+/**Likes***********/
+
+#like-border{
+    float:left;
+    color:white;
+    box-shadow:0px 0px 5px #ddd;
+    width:50%;
+    text-align:center;
+}
+
+#like-border:hover{
+    cursor:pointer;
+    background-color:#aaa;
+}
+
+#add-like-border {
+    float:left;
+    width:50%;
+    box-shadow:0px 0px 5px #ddd;
+    color:white;
+    text-align:center;
+}
+
+#add-like-border:hover {
+    cursor:pointer;
+    background-color:#aaa;
+}
+
+
+#likes-users {
+    display:none;
+    overflow:auto;
+    position:fixed;
+    text-align:left;
+    background-color:#ddd;
+    box-shadow:0px 0px 10px #aaa;
+    float:right;
+    max-height:200px;
+    overflow-y:auto;
+    max-width:200px;
+    border-radius:5px;
+}
+
+    #likes-users div {
+        font-family:sans-serif;
+        cursor:pointer;
+        margin:5px;
+    }
+        #likes-users div:hover {
+            text-shadow:0px 0px 10px #111;        
+        }
+
+/******************/
+

@@ -35,6 +35,15 @@ namespace NSEmbroidery.Data.EF
         {
             using (ModelContext context = new ModelContext())
             {
+
+                var comments = context.Comments.Where(c => c.UserId == user.Id);
+                foreach (var comment in comments)
+                        context.Entry(comment).State = EntityState.Deleted;
+
+                var likes = context.Likes.Where(l => l.UserId == user.Id);
+                foreach(var like in likes)
+                    context.Entry(like).State = EntityState.Deleted;
+
                 context.Entry(user).State = System.Data.Entity.EntityState.Deleted;
                 context.SaveChanges();
             }
@@ -48,7 +57,7 @@ namespace NSEmbroidery.Data.EF
             }
         }
 
-
+        
 
         public IList<User> GetAll()
         {

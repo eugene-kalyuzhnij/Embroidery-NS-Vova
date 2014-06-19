@@ -24,7 +24,8 @@ namespace NSEmbroidery.Data.EF
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().HasMany(c => c.Comments).WithRequired().HasForeignKey(c => c.UserId).WillCascadeOnDelete(false);
-            modelBuilder.Entity<User>().HasMany(l => l.Likes).WithRequired().HasForeignKey(l => l.UserId).WillCascadeOnDelete(false);   
+            modelBuilder.Entity<User>().HasMany(l => l.Likes).WithRequired().HasForeignKey(l => l.UserId).WillCascadeOnDelete(false);
+
 
         }
     }

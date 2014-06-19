@@ -1,0 +1,85 @@
+﻿
+/*Login and register*************************/
+
+.login-register-border-form {
+    width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    border: 2px solid #222;
+    background: #222;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px #333333;
+    box-shadow:0px 0px 10px #fff;
+
+}
+
+.login-register-form {
+    width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+}
+
+ul.account-view {
+    list-style:none;
+    display:block;
+}
+
+    ul.account-view li {
+        margin:8px;
+        font-size:18px;
+        font-family:sans-serif;
+        text-shadow:2px 2px 5px #333333;
+        text-decoration:none;
+        color:#fff;
+    }
+
+.login-register-form input[type="password"],
+.login-register-form input[type="text"] {
+    border-radius:5px;
+    width:400px;
+    height:30px;
+    margin-left:auto;
+    margin-right:auto;
+    color:#555;
+    font-size:18px;
+    padding:5px;
+}
+
+
+.submit-button {
+    display:block;
+    width:100px;
+    height:40px;
+    margin-left:auto;
+    margin-right:auto;
+    position:inherit;
+    border-radius:10px;
+}
+
+#log-off {
+    border:none;
+    background:none;
+    padding-bottom:5px;
+    padding-top:0px;
+}
+
+.checkbox {
+    width:18px;
+    height:18px;
+}
+
+.wrong-field * {
+    color:red;
+    list-style:none;
+    font-size:12px;
+    font-family:sans-serif;
+    text-decoration:none;
+    text-shadow:none;
+}
+
+
+
+/********************************************/

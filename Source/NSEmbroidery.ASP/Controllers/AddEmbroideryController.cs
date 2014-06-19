@@ -24,6 +24,9 @@ namespace NSEmbroidery.ASP.Controllers
             [HttpPost]
             public ActionResult AddEmbroidery(string img, bool allowePublic, string name)
             {
+                if (User.IsInRole("Admin"))
+                    return null;
+
                 byte[] buffer = Convert.FromBase64String(img.Substring(img.IndexOf(',') + 1));
                 Bitmap image = null;
                 using (MemoryStream stream = new MemoryStream(buffer))
@@ -76,22 +79,24 @@ namespace NSEmbroidery.ASP.Controllers
                         }
                     }
                 }
+               
                 EmbroideryCreatorServiceClient client = new EmbroideryCreatorServiceClient();
                 GridType none = GridType.None;
                 if (grid)
                 {
                     none = GridType.SolidLine;
                 }
-                Bitmap bitmap3 = client.GetEmbroidery(image, coefficient, cellsCount, palette, chArray, color, none);
-                using (MemoryStream stream2 = new MemoryStream())
-                {
-                    bitmap3.Save(stream2, ImageFormat.Jpeg);
-                    buffer = stream2.ToArray();
-                }
-                string str2 = Convert.ToBase64String(buffer);
-                JsonResult result = base.Json(new { imageString = str2 }, JsonRequestBehavior.AllowGet);
-                result.MaxJsonLength = 0x7fffffff;
-                return result;
+
+                    Bitmap bitmap3 = client.GetEmbroidery(image, coefficient, cellsCount, palette, chArray, color, none);
+                    using (MemoryStream stream2 = new MemoryStream())
+                    {
+                        bitmap3.Save(stream2, ImageFormat.Jpeg);
+                        buffer = stream2.ToArray();
+                    }
+                    string str2 = Convert.ToBase64String(buffer);
+                    JsonResult result = base.Json(new { imageString = str2 }, JsonRequestBehavior.AllowGet);
+                    result.MaxJsonLength = 0x7fffffff;
+                    return result;
             }
 
             private Size GetNewSize(Image image, int width)

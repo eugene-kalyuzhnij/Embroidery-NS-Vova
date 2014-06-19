@@ -49,7 +49,7 @@ $('#change-name-button').on('click', function () {
 });
 
 
-/*
+
 $('#change-email-button').on('click', function () {
     debugger
     var newEmail = $('#new-email').val();
@@ -59,19 +59,17 @@ $('#change-email-button').on('click', function () {
         data: { newEmail: newEmail },
         type: 'post',
         success: function (result) {
-            debugger
             if (result.Result) {
                 var name_border = $('#change-email-border');
                 name_border.empty();
                 name_border.prepend('<div class="label"> Email has been changed</div>');
             }
-            else alert('Operation was failed');
+            else alert('Operation was failed.' + result.Msg);
         },
         error: function (error) {
-            debugger
             alert('Could not change your email. Try again later');
         }
     });
 });
-*/
+
 

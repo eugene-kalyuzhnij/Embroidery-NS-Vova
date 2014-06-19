@@ -1,25 +1,32 @@
 ﻿@{
     ViewBag.Title = "UserContent";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    @Styles.Render("~/Content/user-content.css");
+    Layout = null;
+    @Styles.Render("~/Content/management.css");
+
 }
 
-<div class="user-content-list" id="user-content-embroideries">
+<ul class="user-content-list" id="user-content-embroideries">
     @foreach (var item in ViewBag.Embroideries)
     {
-        <div class="user-content-item-border">
-            <div class="user-content-item"></div>
+        <li class="user-content-item-border">
+            <div class="user-content-item">
+                <img src=@Url.Action("ShowImage","Gallery",new { id = item.Id  }) />
+            </div>
             <div class="user-content-delete" data-embroidery-id="@item.Id">DELETE</div>
-        </div>
+        </li>
     }
-</div>
+</ul>
 
-<div class="user-content-list" id="user-content-comments">
-    @foreach (var item in ViewBag.Embroideries)
+<ul class="user-content-list" id="user-content-comments">
+    @foreach (var item in ViewBag.Comments)
     {
         <div class="user-content-item-border">
-            <div class="user-content-item"></div>
-            <div class="user-content-delete">DELETE</div>
+            <div class="user-content-item">
+                @item.Comment_msg
+            </div>
+            <div class="user-content-delete" data-comment-id="@item.Id" >DELETE</div>
         </div>
     }
-</div>
+</ul>
+
+    @Scripts.Render("~/Scripts/management-content.js")

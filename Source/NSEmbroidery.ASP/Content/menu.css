@@ -1,0 +1,40 @@
+﻿/*Menu****************************************/
+
+
+nav {
+  margin-top: 10px;
+  margin-bottom:10px;
+  padding: 24px;
+  font-family: sans-serif;
+  box-shadow: 2px 2px 8px -1px #000000;
+  overflow:auto;
+  overflow-wrap:normal;
+  display:inline-block;
+}
+#menu {
+  background: #242424;
+  border-radius:10px;
+  width:96%;
+}  
+
+.item {
+  color: #ffffff;
+  font-size: 20px;
+  border-top: 4px solid #242424;
+  border-bottom: 4px solid #242424;
+  padding: 5px 0;
+  margin: 0 5px;
+  transition: 0.5s ease;
+  cursor:pointer;
+  float:left;
+  margin-left:20px;
+}
+
+.item:hover {
+  border-top: 4px solid #ffffff;
+  border-bottom: 4px solid #ffffff;
+  cursor:pointer;
+}
+
+
+/*********************************************/

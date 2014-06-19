@@ -1,0 +1,103 @@
+﻿/*Gallery*************************************/
+#gallery *{
+    list-style:none;
+    display:inline-block;
+}
+
+
+.gallery-border{
+    width: 150px;
+    margin: 20px;
+    margin: 20px;
+    border: solid;
+    border-color: #fff;
+    border-width: 5px;
+    height: 150px;
+    width: 150px;
+    float: left;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 8px 8px 10px #333;
+    text-align: center;
+}
+
+    .gallery-border img {
+        max-height:150px;
+        width: 150px;
+        cursor:pointer;
+        margin-bottom:auto;
+        display:block;
+        vertical-align:central;
+    }
+
+
+.gallerry-border-content {
+    width:150px;
+    height:150px;
+    margin-bottom:10px;
+}
+
+ .name-text {
+    font-family:sans-serif;
+    color:#ddd;
+    cursor:default;
+    text-shadow:0px 0px 10px #111;
+}
+
+
+.gallery-border:hover {
+     transform: scale(1.1);
+    -ms-transform:scale(1.1); /* IE 9 */
+    -webkit-transform:scale(1.1); /* Chrome, Safari, Opera */
+}
+
+
+.delete-image {
+    text-decoration:none;
+    cursor:pointer;
+    left:-12px;
+    top:-14px;
+    position:absolute;
+    width:15px;
+    height:15px;
+    color:#700;
+    font-family:sans-serif;
+}
+
+    .delete-image:hover {
+        color:#f00;
+    }
+
+
+.new-embroidery {
+    text-shadow:0px 0px 8px #000;
+    color:#0f0;
+    font-family:sans-serif;
+    right:-30px;
+    vertical-align:text-top;
+    position:absolute;
+    cursor:default;
+    margin-right:30px;
+}
+
+#allowe-other{
+    margin:5px;
+    display:block;
+    margin-left:20%;
+    margin-bottom:10px;
+}
+
+.shared{
+    position:absolute;
+    font-family:sans-serif;
+    text-shadow: 0px 0px 5px #111;
+    color:#ddd;
+    cursor:default;
+}
+
+.embroideries-name {
+    font-family:sans-serif;
+    text-shadow: 0px 0px 5px #111;
+    color:#ddd;
+    cursor:default;
+}

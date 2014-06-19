@@ -11,7 +11,7 @@ using WebMatrix.WebData;
 
 namespace NSEmbroidery.ASP.Controllers
 {
-    [Authorize(Users="admin@mail.com")]
+    [Authorize(Roles="Admin")]
     public class ManagementController : Controller
     {
         //
@@ -20,14 +20,13 @@ namespace NSEmbroidery.ASP.Controllers
         public ActionResult Index()
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-
             var users = kernel.Get<IRepository<User>>().GetAll().Where(u => u.Id != WebSecurity.CurrentUserId);
 
             return View(users);
         }
 
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult UserContent(int userId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
@@ -43,15 +42,62 @@ namespace NSEmbroidery.ASP.Controllers
 
 
         [HttpPost]
-        public void DeleteEmbroidery(int embroideryId)
-        {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
+        public ActionResult DeleteEmbroidery(int embroideryId)
+        {        
+            try
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
 
-            var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
-
-            kernel.Get<IRepository<Embroidery>>().Remove(embroidery);
-
+                kernel.Get<IRepository<Embroidery>>().Remove(embroidery);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = false });
+            }
+            
+            return Json(new { Result = true });
         }
+
+
+
+        [HttpPost]
+        public ActionResult DeleteComment(int commentId)
+        {
+            try
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var comment = kernel.Get<IRepository<Comment>>().GetById(commentId);
+
+                kernel.Get<IRepository<Comment>>().Remove(comment);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = false });
+            }
+
+            return Json(new { Result = true });
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteUser(int userId)
+        {
+            try
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var user = kernel.Get<IRepository<User>>().GetById(userId);
+
+                kernel.Get<IRepository<User>>().Remove(user);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = false });
+            }
+
+            return Json(new { Result = true });
+        }
+
 
     }
 }

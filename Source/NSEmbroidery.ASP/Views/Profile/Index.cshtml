@@ -1,6 +1,8 @@
 ﻿@{
     @Scripts.Render("~/Scripts/open-image-functionality.js");
     @Scripts.Render("~/Scripts/home.js");
+    @Styles.Render("~/Content/home.css");
+    @Styles.Render("~/Content/menu.css");
 }
 
 
@@ -11,10 +13,19 @@
                 {
                     <nav id="menu">
                       @{
-                          @Ajax.ActionLink("My Gallery", "Index", "Gallery", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
-                          @Ajax.ActionLink("Users", "Index", "Users", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
-                          @Ajax.ActionLink("Add Embroidery", "Index", "AddEmbroidery", null, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
-                      }
+                          
+                              <div id="home-my-gallery" class="item">My Gallery</div>
+                              //@Ajax.ActionLink("Users", "Index", "Users", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
+                              <div id="home-users" class="item">Users</div>
+                              //@Ajax.ActionLink("Add Embroidery", "Index", "AddEmbroidery", null, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
+                              <div id="home-add-embroidery" class="item">Add Embroidery</div>
+                              if (User.IsInRole("Admin"))
+                              {
+                                  //@Ajax.ActionLink("Management", "Index", "Management", null, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
+                                  <div id="home-management" class="item">Management</div>
+                              }
+
+                        }
                     </nav>
                 }
                 </div>

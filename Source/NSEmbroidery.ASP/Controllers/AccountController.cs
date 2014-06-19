@@ -63,6 +63,7 @@ namespace NSEmbroidery.ASP.Controllers
                         new { FirstName = model.FirstName, LastName = model.LastName });
                     WebSecurity.Login(model.Email, model.Password);
                     return RedirectToAction("Index", "Home");
+
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -102,28 +103,38 @@ namespace NSEmbroidery.ASP.Controllers
             return Json(new { Result = operationResult });
         }
 
-        /*
+        
         [HttpPost]
         [Authorize]
         public ActionResult ChangeEmail(string newEmail)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-            try{
-
-            var users = kernel.Get<IRepository<User>>();
-            User user = users.GetById(WebSecurity.CurrentUserId);
-            user.Email = newEmail;
-
-            users.SaveChanges(user);
-            }
-            catch(Exception ex)
+            try
             {
-                return Json(new { Result = false });
+                if (!WebSecurity.UserExists(newEmail))
+                {
+                    var users = kernel.Get<IRepository<User>>();
+                    User user = users.GetById(WebSecurity.CurrentUserId);
+                    user.Email = newEmail;
+
+                    users.SaveChanges(user);
+
+                    FormsAuthentication.SetAuthCookie(newEmail, ((FormsIdentity)User.Identity).Ticket.IsPersistent);
+                }
+                else return Json(new { Result = false, Msg = "The same email's already existed in database" });
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                return Json(new { Result = false, Msg = "The email is incorrect" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = false, Msg = ex.Message });
             }
 
-            return Json(new { Result = true });
+            return Json(new { Result = true, Msg = "Operation complited" });
         }
-        */
+        
 
         [HttpPost]
         [Authorize]

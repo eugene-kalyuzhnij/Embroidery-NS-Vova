@@ -1,6 +1,14 @@
 ﻿@{
     Layout = null;
-    Response.Redirect(Url.Action("Index", "Profile"));
+    /*
+    if(User.IsInRole("Admin"))
+    {
+        Response.Redirect(Url.Action("Index", "Management"));
+    }
+    else
+    {*/
+        Response.Redirect(Url.Action("Index", "Profile"));
+    //}
 
 }
 

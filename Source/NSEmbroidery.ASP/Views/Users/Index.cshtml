@@ -3,11 +3,15 @@
 @{
     ViewBag.Title = "Users";
     Layout = null;
+    @Styles.Render("~/Content/users.css");
+    @Scripts.Render("~/Scripts/users.js");
 }
 
 <ul class="users-list">
 @foreach (var user in Model)
 {
-    <li>@Ajax.ActionLink(user.FirstName, "OtherUser", "Users", new { userId = user.Id }, new AjaxOptions() { UpdateTargetId = "content", HttpMethod="post" })</li>
+    if(user.Email != "admin@mail.com"){
+        <li class="users-list-user" data-user-id="@user.Id">@NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(user.Id)</li>
+    }
 }
 </ul>

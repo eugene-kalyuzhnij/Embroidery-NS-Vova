@@ -2,14 +2,21 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    /*Layout = "~/Views/Shared/_Layout.cshtml";*/
+    Layout = null;
+    @Styles.Render("~/Content/management.css");
+    @Scripts.Render("~/Scripts/management-users.js");
 }
 
-<h2>Management</h2>
 
-<ul class="users-list">
+<ul class="management-users-list">
 @foreach (var user in Model)
 {
-    <li>@Ajax.ActionLink(user.FirstName, "UserContent", "Managment", new { userId = user.Id }, new AjaxOptions() { UpdateTargetId = "content", HttpMethod="post" })</li>
+    <li class="management-users-list-border">
+        <div class="management-users-list-user" data-user-id="@user.Id">@user.Email</div>
+        <div class="management-users-list-user-name">@NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(user.Id)</div>
+        <div class="management-users-list-delete" data-user-id="@user.Id" >DELETE</div>
+    </li>
 }
 </ul>
+

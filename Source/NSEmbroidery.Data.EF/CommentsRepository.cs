@@ -41,7 +41,7 @@ namespace NSEmbroidery.Data.EF
         {
             using (ModelContext context = new ModelContext())
             {
-                context.Comments.Add(item);
+                context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
                 context.SaveChanges();
             }
         }

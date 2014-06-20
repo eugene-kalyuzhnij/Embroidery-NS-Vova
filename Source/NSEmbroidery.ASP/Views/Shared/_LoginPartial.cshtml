@@ -6,13 +6,8 @@
             Hello, @NSEmbroidery.ASP.Helper.UserIdentity.FirstName
 
         </li>
-        <li>
-        
-            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post)) {
-                @Html.AntiForgeryToken()
-                <input id="log-off" class="log-reg-link" type="submit" value="Log off" />
-            }
-       
+        <li id="log-off" class="log-reg-link">
+            Log off
         </li>
     </ul>
     </text>
@@ -22,30 +17,3 @@
        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "log-reg-link" })</li>
     </ul>
 }
-
-
-<script>
-    $("log-off").click(function () {
-        $.post("Account/LogOff", null, null, null);
-    });
-
-    $('#current-user').on('click', function () {
-        $.ajax({
-            url: 'Account/EditProfile',
-            type: 'post',
-            success: function (result) {
-                var content = $('#content');
-                content.empty();
-                content.html(result);
-
-            },
-            error: function () {
-                alert('error was occured');
-            }
-
-        });
-
-    });
-
-    
-</script>

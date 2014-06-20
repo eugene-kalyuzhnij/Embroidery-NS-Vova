@@ -62,5 +62,17 @@ namespace NSEmbroidery.ASP.Controllers
             return likes.Skip((int)Math.Max(0, likes.Count() - 5));
         }
 
+        [HttpPost]
+        public FileResult DownloadImage(int embroideryId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            Embroidery embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
+
+            string contentType = "image/jpeg";
+
+            return File(embroidery.Data, contentType);
+        }
+
     }
 }

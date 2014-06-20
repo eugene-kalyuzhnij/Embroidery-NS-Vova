@@ -13,15 +13,23 @@ using NSEmbroidery.Data.Models;
 using Ninject;
 using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.DI.EF;
+using NSEmbroidery.ASP.Attributes;
 
 namespace NSEmbroidery.ASP.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {
+        [NoCache]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -31,7 +39,6 @@ namespace NSEmbroidery.ASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (WebSecurity.IsAuthenticated) RedirectToAction("Index", "Home", null);
 
             if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, persistCookie: model.RememberMe))
             {
@@ -39,12 +46,18 @@ namespace NSEmbroidery.ASP.Controllers
             }
 
             ModelState.AddModelError("", "Wrong password or login");
+
             return View(model);
         }
 
+        [NoCache]
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (WebSecurity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 

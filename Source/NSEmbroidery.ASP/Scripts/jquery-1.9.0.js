@@ -3806,7 +3806,12 @@ var i,
 				String.fromCharCode( high >> 10 | 0xD800, high & 0x3FF | 0xDC00 );
 	};
 
-// Use a stripped-down slice if we can't use a native one
+    // Use a stripped-down slice if we can't use a native one
+    
+
+
+
+/*
 try {
 	slice.call( docElem.childNodes, 0 )[0].nodeType;
 } catch ( e ) {
@@ -3819,6 +3824,10 @@ try {
 		return results;
 	};
 }
+*/
+
+
+
 
 /**
  * For feature detection

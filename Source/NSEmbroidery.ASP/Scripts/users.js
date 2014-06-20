@@ -1,6 +1,6 @@
 ﻿
 
-$('.users-list-user').on('click', function () {
+$('.users-list-user').click(function () {
     var userId = $(this).attr('data-user-id');
 
     $.ajax({

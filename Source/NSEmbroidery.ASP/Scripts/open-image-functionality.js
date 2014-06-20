@@ -8,8 +8,14 @@
                     url: 'Gallery/GetEmbroidery',
                     data: { embroideryId: id },
                     type: 'POST',
+                    beforeSend: function () {
+                        $('#loading').css('display', 'block');
+                    },
                     success: function (result) {
-                        $('#open-image img').remove();
+                        $('#loading').css('display', 'none');
+
+
+                        $('#open-image').empty();
                         $('#open-image').prepend('<img class="opened" src="" />');
                         $('#open-image img').prop('src', result.imageString);
 
@@ -43,9 +49,10 @@
                         Gallery.Embroidery.AddRemoveClick(id);
                         Gallery.Embroidery.UsersLikes(id);
                         Gallery.Embroidery.BindSendComment(id);
+                        /*Gallery.Embroidery.BindDownloadEmbroidery(id);*/
 
+                        
                         $('#open-image-border').fadeIn('slow');
-
 
                         $('#image-border').on('click', function () {
                             Gallery.Embroidery.DisposeOpenImage();
@@ -257,7 +264,29 @@
                         });
                     }
                 });
+            },
+
+            BindDownloadEmbroidery: function (id) {
+                $('#download-image').click(function () {
+                    $.ajax({
+                        url: 'Profile/DownloadImage',
+                        data: { embroideryId: id },
+                        type: 'post',
+                        success: function (result) {
+                            alert('file was downloaded');
+                            $.fileDownload(result, {
+                                preparingMessageHtml: "We are preparing your report, please wait...",
+                                failMessageHtml: "There was a problem generating your report, please try again."
+                            });
+                            
+                        },
+                        error: function () {
+                            alert('Was not able to download file');
+                        }
+                    });
+                });
             }
+
         }
 
 }

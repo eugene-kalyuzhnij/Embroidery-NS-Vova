@@ -13,6 +13,13 @@
 }
 
 
+#allowe-other{
+    margin:5px;
+    display:block;
+    margin-left:20%;
+    margin-bottom:10px;
+}
+
 #open-image-border {
     display:none;
     position:fixed;
@@ -76,6 +83,13 @@
     border-radius:5px;
     height:30px;
     min-width:30px;
+}
+
+
+#download-image {
+    float:right;
+    margin-right:20%;
+    border-radius:5px;
 }
 
 .comment-border {
@@ -171,4 +185,18 @@
         }
 
 /******************/
+
+
+#loading {
+    position:absolute;
+    margin-left:45%;
+    margin-right:auto;
+    vertical-align:central;
+
+    font-family:sans-serif;
+    font-size:30px;
+    color:white;
+    text-shadow:0px 0px 10px #000;
+    display:none;
+}
 

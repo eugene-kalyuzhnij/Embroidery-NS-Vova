@@ -33,6 +33,9 @@ namespace NSEmbroidery.ASP.Controllers
         [HttpPost]
         public ActionResult OtherUser(int userId)
         {
+            if (userId == WebSecurity.CurrentUserId)
+                return RedirectToAction("Index", "Gallery");
+
             IKernel kernel = new StandardKernel(new DataModelCreator());
 
             var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId && e.PublicEmbroidery == true);

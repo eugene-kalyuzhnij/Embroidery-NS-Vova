@@ -1,49 +1,23 @@
 ﻿
 $('div').on('click', 'div#home-my-gallery', function () {
-    $.ajax({
-        url: 'Gallery/Index',
-        type: 'post',
-        data: {},
-        success: function (result) {
-            var content = $('#content');
-            content.empty();
-            content.html(result);
-        },
-        error: function () {
-            alert('Sorry. Some error was occurred');
-        }
-    });
+    Home.loadPage(0);
+   // window.location.hash = 'Gallery';
+    window.history.pushState({ page: 0 }, $(this).text(), window.location);
+
 });
 
 
 $('div').on('click', 'div#home-users', function () {
-    $.ajax({
-        url: 'Users/Index',
-        type: 'post',
-        data: {},
-        success: function (result) {
-            var content = $('#content');
-            content.empty();
-            content.html(result);
-        }
-    });
+    Home.loadPage(1);
+  //  window.location.hash = "Users";
+    window.history.pushState({ page: 1 }, $(this).text(), window.location);
 });
 
 
 $('div').on('click', 'div#home-add-embroidery', function () {
-    $.ajax({
-        url: 'AddEmbroidery/Index',
-        type: 'get',
-        data: {},
-        success: function (result) {
-            var content = $('#content');
-            content.empty();
-            content.html(result);
-        },
-        error: function () {
-            alert('Sorry. Some error was occurred');
-        }
-    });
+    Home.loadPage(2);
+   // window.location.hash = 'AddEmbroidery';
+    window.history.pushState({ page: 2 }, $(this).text(), window.location);
 });
 
 
@@ -76,7 +50,6 @@ $("div").on('click', 'div.last-who-commented', function () {
     Gallery.Embroidery.OtherUser(userId);
 });
 
-
 $("div").on('click', 'div.image-like', function () {
     var id = $(this).attr('data-embroideryId');
     Gallery.Embroidery.OpenImage(id);
@@ -86,3 +59,14 @@ $("div").on('click', 'div.last-who-liked', function () {
     var userId = $(this).attr('data-userId');
     Gallery.Embroidery.OtherUser(userId);
 });
+
+
+window.addEventListener('popstate', function (event) {
+    if (event.state != null && event.state.hasOwnProperty('page'))
+        if(event.state.page != null && event.state.page != undefined)
+            Home.loadPage(event.state.page);
+});
+
+
+
+

@@ -131,9 +131,13 @@ namespace NSEmbroidery.ASP.Controllers
             [HttpGet]
             public ActionResult Index()
             {
-                List<SelectListItem> list = new List<SelectListItem>();
-                ((dynamic)base.ViewBag).Items = list;
-                return base.View();
+                if (!User.IsInRole("Admin"))
+                {
+                    List<SelectListItem> list = new List<SelectListItem>();
+                    ((dynamic)base.ViewBag).Items = list;
+                    return base.View();
+                }
+                return View("~/Views/Profile/AccessDenied.cshtml");
             }
 
             private Color[] ParseFromStringColors(string colors)

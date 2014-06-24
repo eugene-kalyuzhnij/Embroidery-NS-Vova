@@ -9,7 +9,7 @@
                 var type = 'post';
                 var hashName = "Gallery";
 
-                Home.updateContent(url, hashName, type, null, pageNumber);
+                Home.updateContent(url, hashName, type, null);
                 break;
             }
             case 1: {
@@ -17,7 +17,7 @@
                 var type = 'post';
                 var hashName = "Users";
 
-                Home.updateContent(url, hashName, type, null, pageNumber);
+                Home.updateContent(url, hashName, type, null);
                 break;
             }
             case 2: {
@@ -25,7 +25,7 @@
                 var type = 'get';
                 var hashName = "AddEmbroidery";
 
-                Home.updateContent(url, hashName, type, null, pageNumber);
+                Home.updateContent(url, hashName, type, null);
                 break;
             }
         }
@@ -33,7 +33,7 @@
     },
 
 
-    updateContent: function (url, hashName, type, data, pageNumber) {
+    updateContent: function (url, hashName, type, data) {
         if (data == null) data = {};
 
         $.ajax({

@@ -6,11 +6,12 @@
 }
 
 <ul class="user-content-list" id="user-content-embroideries">
+    <div class="user-content-list-name">Embroideries</div>
     @foreach (var item in ViewBag.Embroideries)
     {
         <li class="user-content-item-border">
             <div class="user-content-item">
-                <img src=@Url.Action("ShowImage","Gallery",new { id = item.Id  }) />
+                <img data-embroidery-id="@item.Id" src=@Url.Action("ShowImage","Gallery",new { id = item.Id  }) />
             </div>
             <div class="user-content-delete" data-embroidery-id="@item.Id">DELETE</div>
         </li>
@@ -18,6 +19,7 @@
 </ul>
 
 <ul class="user-content-list" id="user-content-comments">
+    <div class="user-content-list-name">Comments</div>
     @foreach (var item in ViewBag.Comments)
     {
         <div class="user-content-item-border">
@@ -28,5 +30,8 @@
         </div>
     }
 </ul>
+
+
+@Html.Partial("~/Views/Profile/OpenImage.cshtml")
 
 @Scripts.Render("~/Scripts/management-content.js")

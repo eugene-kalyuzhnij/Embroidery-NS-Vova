@@ -63,15 +63,25 @@ namespace NSEmbroidery.ASP.Controllers
         }
 
         [HttpPost]
-        public FileResult DownloadImage(int embroideryId)
+        public void DownloadImage(int embroideryId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-
             Embroidery embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
 
-            string contentType = "image/jpeg";
 
-            return File(embroidery.Data, contentType);
+            //TODO: Save image on local disk
+
+            /*
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = "image/jpeg";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + embroidery.Name);
+            Response.BinaryWrite(embroidery.Data);
+            Response.Flush();
+            Response.End();
+             * */
         }
 
     }

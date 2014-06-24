@@ -15,15 +15,17 @@
                 {
                     <nav id="menu">
                       @{
-                          
+                            if(!User.IsInRole("Admin"))  
+                            {                       
                               <div id="home-my-gallery" class="item">My Gallery</div>
-                              //@Ajax.ActionLink("Users", "Index", "Users", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
+                            }  
                               <div id="home-users" class="item">Users</div>
-                              //@Ajax.ActionLink("Add Embroidery", "Index", "AddEmbroidery", null, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
+                            if (!User.IsInRole("Admin"))
+                            { 
                               <div id="home-add-embroidery" class="item">Add Embroidery</div>
+                            }
                               if (User.IsInRole("Admin"))
                               {
-                                  //@Ajax.ActionLink("Management", "Index", "Management", null, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "content" }, new { @class = "item" })
                                   <div id="home-management" class="item">Management</div>
                               }
 
@@ -33,30 +35,37 @@
                 </div>
                 
                 <div id="content">
-                    <div id="home-info-border">
-                        <div id="last-comments">
-                            Last comments
-                            @foreach (var item in ViewBag.LastComments)
-                            {
-                                <div class="last-comment-border">
-                                <div class="last-who-commented" data-userId="@item.UserId.ToString()" > @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
-                                <div class="image-commented" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
-                                <div class="last-comments-comment">@item.Comment_msg </div>
-                                </div>
-                            }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div id="administrator-text">Administrator</div>
+                    }
+                    else
+                    {
+                        <div id="home-info-border">
+                            <div id="last-comments">
+                                Last comments
+                                @foreach (var item in ViewBag.LastComments)
+                                {
+                                    <div class="last-comment-border">
+                                    <div class="last-who-commented" data-userId="@item.UserId.ToString()" > @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
+                                    <div class="image-commented" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
+                                    <div class="last-comments-comment">@item.Comment_msg </div>
+                                    </div>
+                                }
+                            </div>
+                            <div id="last-likes">
+                                Last likes
+                                @foreach (var item in ViewBag.LastLikes)
+                                {
+                                    <div class="last-like-border">
+                                    <div class="last-who-liked" data-userId="@item.UserId.ToString()"> @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
+                                        <label class="last-like-text">&nbsp;added like for&nbsp;</label>
+                                    <div class="image-like" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
-                        <div id="last-likes">
-                            Last likes
-                            @foreach (var item in ViewBag.LastLikes)
-                            {
-                                <div class="last-like-border">
-                                <div class="last-who-liked" data-userId="@item.UserId.ToString()"> @NSEmbroidery.ASP.Helper.UserIdentity.GetOthersUserName(item.UserId) </div>
-                                    <label class="last-like-text">&nbsp;added like for&nbsp;</label>
-                                <div class="image-like" data-embroideryId="@item.EmbroideryId.ToString()"> @NSEmbroidery.ASP.Helper.EmbroideryIdentity.EmbroideryName(item.EmbroideryId) </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
+                    }
                 </div>
 
             </div>

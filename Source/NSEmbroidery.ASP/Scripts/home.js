@@ -62,9 +62,15 @@ $("div").on('click', 'div.last-who-liked', function () {
 
 
 window.addEventListener('popstate', function (event) {
-    if (event.state != null && event.state.hasOwnProperty('page'))
-        if(event.state.page != null && event.state.page != undefined)
+    if (event.state != null && event.state.hasOwnProperty('page')) {
+        if (event.state.page != null && event.state.page != undefined) {
             Home.loadPage(event.state.page);
+        }
+    }
+    else {
+        this.location.reload();
+    }
+    
 });
 
 

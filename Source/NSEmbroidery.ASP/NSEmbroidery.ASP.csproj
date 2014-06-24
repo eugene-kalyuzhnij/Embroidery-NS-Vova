@@ -215,6 +215,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Images\accessDenied.jpeg" />
     <Content Include="Content\add-embroidery.css" />
     <Content Include="Content\edit-profile.css" />
     <Content Include="Content\gallery.css" />
@@ -403,6 +404,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\Support\jquery.gritter.min.js" />
+    <Content Include="Scripts\Support\shBrushJScript.js" />
+    <Content Include="Scripts\Support\shBrushXml.js" />
+    <Content Include="Scripts\Support\shCore.js" />
     <Content Include="Scripts\users.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -451,10 +456,11 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\Management\UserContent.cshtml" />
+    <Content Include="Views\Profile\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

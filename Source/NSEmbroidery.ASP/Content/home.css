@@ -1,5 +1,19 @@
 ﻿/*Home*****************************************/
 
+
+#administrator-text {
+    position:fixed;
+    margin-top:10%;
+    margin-left:35%;
+    margin-right:auto;
+    font-family:sans-serif;
+    font-size:48px;
+    text-shadow:0px 0px 10px #111;
+    color:white;
+    cursor:default;
+    opacity:0.5;
+}
+
 #home-info-border {
     width:100%;
     display:inline-block;

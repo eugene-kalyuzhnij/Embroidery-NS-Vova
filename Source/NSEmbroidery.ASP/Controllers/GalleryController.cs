@@ -22,31 +22,50 @@ namespace NSEmbroidery.ASP.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Title = "Gallery";
+            if (!User.IsInRole("Admin"))
+            {
+                ViewBag.Title = "Gallery";
 
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == WebSecurity.CurrentUserId);
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == WebSecurity.CurrentUserId);
 
-            return View(embroideries);
+                return View(embroideries);
+            }
+            return View("~/Views/Profile/AccessDenied.cshtml");
         }
 
         public FileContentResult ShowImage(int id)
         {
+            
             IKernel kernel = new StandardKernel(new DataModelCreator());
             var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(id);
-
-            byte[] array = null;
-
-            using (MemoryStream stream = new MemoryStream())
+            bool accessAllow = true;
+            if (!(embroidery.UserId == WebSecurity.CurrentUserId) && !User.IsInRole("Admin"))
             {
-                Bitmap image = embroidery.SmallImage;
-                image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                array = stream.ToArray();
+                if (!embroidery.PublicEmbroidery) accessAllow = false;
             }
 
-            string contentType = "image/jpeg";
+            if (accessAllow)
+            {
 
-            return File(array, contentType);
+                byte[] array = null;
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    Bitmap image = embroidery.SmallImage;
+                    image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    array = stream.ToArray();
+                }
+
+                return File(array, "image/jpeg");
+            }
+
+            Stream accessDeniedStream = System.IO.File.Open(Server.MapPath("~/Images/accessDenied.jpeg"), FileMode.Open, FileAccess.Read);
+            
+            byte[] accessDeniedBytes = new byte[accessDeniedStream.Length];
+            accessDeniedStream.Read(accessDeniedBytes, 0, accessDeniedBytes.Length);
+
+            return File(accessDeniedBytes, "image/jpeg");
         }
 
 
@@ -139,18 +158,24 @@ namespace NSEmbroidery.ASP.Controllers
         [HttpPost]
         public void AddLike(int embroideryId)
         {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            kernel.Get<IRepository<Like>>().Add(new Like() { UserId = WebSecurity.CurrentUserId, EmbroideryId = embroideryId });
+            if (!User.IsInRole("Admin"))
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                kernel.Get<IRepository<Like>>().Add(new Like() { UserId = WebSecurity.CurrentUserId, EmbroideryId = embroideryId });
+            }
         }
 
 
         [HttpPost]
         public void RemoveLike(int embroideryId)
         {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            var like = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId && l.UserId == WebSecurity.CurrentUserId).First();
+            if (!User.IsInRole("Admin"))
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var like = kernel.Get<IRepository<Like>>().GetAll().Where(l => l.EmbroideryId == embroideryId && l.UserId == WebSecurity.CurrentUserId).First();
 
-            kernel.Get<IRepository<Like>>().Remove(like);
+                kernel.Get<IRepository<Like>>().Remove(like);
+            }
         }
 
         [HttpPost]

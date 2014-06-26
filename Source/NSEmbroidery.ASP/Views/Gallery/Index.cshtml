@@ -23,7 +23,7 @@
                     <div class="shared">SHARED</div>
                 }
 
-                <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) id="@item.Id" />
+                <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) data-embroidery-id="@item.Id" />
             
                 @Ajax.ActionLink("x", "DeleteEmbroidery", "Gallery",
                                     new { embroideryId = item.Id },

@@ -49,7 +49,7 @@
                         Gallery.Embroidery.AddRemoveClick(id);
                         Gallery.Embroidery.UsersLikes(id);
                         Gallery.Embroidery.BindSendComment(id);
-                        Gallery.Embroidery.BindDownloadEmbroidery(id);
+                        //Gallery.Embroidery.BindDownloadEmbroidery(id);
 
                         
                         $('#open-image-border').fadeIn('slow');
@@ -269,23 +269,7 @@
             BindDownloadEmbroidery: function (id) {
                 $('#download-image').click(function () {
                     
-                    $.fileDownload
-                    $.fileDownload()
-                        .done(function () { alert('File download a success!'); })
-                        .fail(function () { alert('File download failed!'); });
 
-
-                    $.ajax({
-                        url: 'Profile/DownloadImage',
-                        data: { embroideryId: id },
-                        type: 'post',
-                        success: function (result) {
-                            alert("Embroidery downloaded success");
-                        },
-                        error: function () {
-                            alert('Was not able to download file');
-                        }
-                    });
                 });
             }
 

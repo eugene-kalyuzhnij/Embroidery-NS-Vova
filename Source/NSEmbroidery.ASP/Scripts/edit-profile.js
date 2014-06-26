@@ -9,7 +9,6 @@ $('#change-password-button').on('click', function () {
         type: 'post',
         data: { currentPassword: currentPass, newPassword: newPass },
         success: function (result) {
-            debugger
             if (result.Result) {
                 var name_border = $('#change-password-border');
                 name_border.empty();
@@ -37,7 +36,8 @@ $('#change-name-button').on('click', function () {
                 var name_border = $('#change-name-border');
                 name_border.empty();
                 name_border.prepend('<div class="label"> Name has been changed </div>');
-                $('#current-user').html('Hello, ' + firstName);
+                if(firstName != "")
+                    $('#current-user').html('Hello, ' + firstName);
             }
             else alert('Operation was failed');
         },
@@ -51,9 +51,7 @@ $('#change-name-button').on('click', function () {
 
 
 $('#change-email-button').on('click', function () {
-    debugger
     var newEmail = $('#new-email').val();
-    debugger
     $.ajax({
         url: 'Account/ChangeEmail',
         data: { newEmail: newEmail },

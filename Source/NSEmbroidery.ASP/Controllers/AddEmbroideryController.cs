@@ -108,11 +108,14 @@ namespace NSEmbroidery.ASP.Controllers
             [HttpPost]
             public ActionResult GetResolutions(int cells, string img)
             {
+              
                 byte[] buffer = Convert.FromBase64String(img.Substring(img.IndexOf(',') + 1));
                 Dictionary<string, int> dictionary = new Dictionary<string, int>();
                 using (MemoryStream stream = new MemoryStream(buffer))
                 {
                     Bitmap image = new Bitmap(stream);
+
+                    if (cells > image.Width) return Json(new { IsValidCells = false });
                     dictionary = new EmbroideryCreatorServiceClient().PossibleResolutions(image, cells, 3, 12);
                 }
                 List<SelectListItem> items = new List<SelectListItem>();
@@ -125,7 +128,7 @@ namespace NSEmbroidery.ASP.Controllers
                     };
                     items.Add(item);
                 }
-                return base.Json(new SelectList(items, "Value", "Text"));
+                return base.Json(new { Resolutions = new SelectList(items, "Value", "Text"), IsValidCells = true });
             }
 
             [HttpGet]
@@ -134,6 +137,7 @@ namespace NSEmbroidery.ASP.Controllers
                 if (!User.IsInRole("Admin"))
                 {
                     List<SelectListItem> list = new List<SelectListItem>();
+                    list.Add(new SelectListItem() { Value = "none", Text = "--Choose resolution--" });
                     ((dynamic)base.ViewBag).Items = list;
                     return base.View();
                 }

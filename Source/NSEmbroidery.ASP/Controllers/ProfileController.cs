@@ -8,6 +8,8 @@ using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.Models;
 using NSEmbroidery.Data.DI.EF;
 using WebMatrix.WebData;
+using System.IO;
+using System.Drawing;
 
 namespace NSEmbroidery.ASP.Controllers
 {
@@ -32,11 +34,12 @@ namespace NSEmbroidery.ASP.Controllers
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
             var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == WebSecurity.CurrentUserId);
-  
-            var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(c => {
+
+            var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(c =>
+            {
                 bool result = false;
-                foreach(var item in embroideries)
-                    if(item.Id == c.EmbroideryId) result = true;
+                foreach (var item in embroideries)
+                    if (item.Id == c.EmbroideryId) result = true;
 
                 return result;
             });
@@ -62,27 +65,6 @@ namespace NSEmbroidery.ASP.Controllers
             return likes.Skip((int)Math.Max(0, likes.Count() - 5));
         }
 
-        [HttpPost]
-        public void DownloadImage(int embroideryId)
-        {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            Embroidery embroidery = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
-
-
-            //TODO: Save image on local disk
-
-            /*
-            Response.Clear();
-            Response.Buffer = true;
-            Response.Charset = "";
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.ContentType = "image/jpeg";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + embroidery.Name);
-            Response.BinaryWrite(embroidery.Data);
-            Response.Flush();
-            Response.End();
-             * */
-        }
-
     }
+
 }

@@ -1,22 +1,24 @@
 ﻿/*Add embroidery******************************/
 
 #add-embroidery {
-
+    width:100%;
     overflow:auto;
-   
+    margin-bottom:10px;
 }
 
 
 #add-embroidery-top {
+    width:1030px;
     margin-left:auto;
     margin-right:auto;
-    min-width:1100px;
+    min-width:1030px;
     margin-bottom:10px;
     margin-top:5px;
+    overflow:auto;
 }
 
 #add-ebroidery-top-left {
-    float:left;
+
     max-width:550px;
 }
 

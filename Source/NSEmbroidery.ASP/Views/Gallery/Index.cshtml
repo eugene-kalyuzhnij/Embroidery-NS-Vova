@@ -16,7 +16,7 @@
     @foreach (var item in Model)
     {
         <li class="gallery-border">
-            <div class="gallerry-border-content">
+            <div class="gallery-border-content" data-embroidery-id="@item.Id">
 
                 @if(item.PublicEmbroidery)
                 {
@@ -35,6 +35,7 @@
                 {
                     <div class="new-embroidery">NEW!</div>
                 }
+
             </div>
 
             <div class="embroideries-name">

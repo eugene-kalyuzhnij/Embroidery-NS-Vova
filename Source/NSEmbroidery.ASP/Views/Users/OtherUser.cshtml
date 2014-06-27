@@ -14,9 +14,9 @@
 @foreach (var emb in Model)
 {
     <li class="gallery-border">
-        <div class="gallerry-border-content">
+        <div class="gallery-border-content" data-embroidery-id="@emb.Id">
          
-            <img src=@Url.Action("ShowImage","Gallery",new { id = emb.Id  }) id="@emb.Id" />
+            <img src=@Url.Action("ShowImage","Gallery",new { id = emb.Id  }) data-embroidery-id="@emb.Id" />
 
        </div>
        

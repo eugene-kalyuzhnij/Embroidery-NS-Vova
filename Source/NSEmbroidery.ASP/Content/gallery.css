@@ -8,7 +8,6 @@
 .gallery-border{
     width: 150px;
     margin: 20px;
-    margin: 20px;
     border: solid;
     border-color: #fff;
     border-width: 5px;
@@ -21,21 +20,37 @@
     text-align: center;
 }
 
-    .gallery-border img {
+    .gallery-border-content > img {
+        /*
         max-height:150px;
         width: 150px;
-        cursor:pointer;
         margin-bottom:auto;
         display:block;
-        vertical-align:central;
+        vertical-align:middle;
+        */
+        max-height:150px;
+        max-width:150px;
     }
 
 
-.gallerry-border-content {
+
+.gallery-border-content {
+    overflow:hidden;
     width:150px;
     height:150px;
-    margin-bottom:10px;
+    max-height:150px;
+    cursor:pointer;
+    height: 100%;
 }
+
+/*
+    .gallery-border-content:after {
+            content: "";
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+    }
+*/
 
  .name-text {
     font-family:sans-serif;
@@ -90,6 +105,7 @@
 }
 
 .embroideries-name {
+    padding-top:10px;
     font-family:sans-serif;
     text-shadow: 0px 0px 5px #111;
     color:#ddd;

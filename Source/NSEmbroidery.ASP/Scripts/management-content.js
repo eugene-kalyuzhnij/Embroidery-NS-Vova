@@ -47,7 +47,7 @@ $('#user-content-comments div.user-content-delete').on('click', function (event)
 $('.user-content-item img').each(function (event) {
     $(this).on('click', function () {
         var imageId = $(this).attr('data-embroidery-id');
-        Gallery.Embroidery.OpenImage(imageId);
+        Embroidery.OpenImage(imageId);
     });
 });
 

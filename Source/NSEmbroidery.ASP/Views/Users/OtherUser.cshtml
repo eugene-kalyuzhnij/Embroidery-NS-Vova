@@ -10,18 +10,18 @@
 
 <h3 class="name-text">@(ViewBag.UserName + "'s gallery")</h3>
 
-<ul id="gallery">
-@foreach (var emb in Model)
+<ul id="gallery" data-user-id="@ViewBag.UserId">
+@foreach (var item in Model)
 {
     <li class="gallery-border">
-        <div class="gallery-border-content" data-embroidery-id="@emb.Id">
+        <div class="gallery-border-content" data-embroidery-id="@item.Id">
          
-            <img src=@Url.Action("ShowImage","Gallery",new { id = emb.Id  }) data-embroidery-id="@emb.Id" />
+            <img src=@Url.Action("ShowImage","Gallery",new { id = item.Id  }) data-embroidery-id="@item.Id" data-width="@item.SmallImage.Width" data-height="@item.SmallImage.Height" />
 
        </div>
        
         <div class ="embroideries-name">
-           @emb.Name
+           @item.Name
         </div>
     </li>
 }

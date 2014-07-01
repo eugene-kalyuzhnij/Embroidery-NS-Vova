@@ -28,6 +28,7 @@ namespace NSEmbroidery.ASP.Controllers
 
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == WebSecurity.CurrentUserId);
+                ViewBag.UserId = WebSecurity.CurrentUserId;
 
                 return View(embroideries);
             }
@@ -228,6 +229,62 @@ namespace NSEmbroidery.ASP.Controllers
             }
 
             return Json(new { result = false });
+        }
+
+
+
+        [HttpPost]
+        public ActionResult GetNextEmbroidery(int currentEmbroideryId, int userId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => (e.UserId == userId &&
+                                                                                   ((userId != WebSecurity.CurrentUserId)?
+                                                                                    e.PublicEmbroidery : true)));
+
+            IEnumerator<Embroidery> iterator = embroideries.GetEnumerator();
+
+            while (iterator.MoveNext())
+            {
+                if (iterator.Current.Id == currentEmbroideryId)
+                {
+                    iterator.MoveNext();
+                    if (iterator.Current != null)
+                        return Json(new { nextId = iterator.Current.Id });
+                    else return Json(new { nextId = -1 });
+                }
+            }
+
+            return Json(new { nextId = -1 });
+        }
+
+
+        [HttpPost]
+        public ActionResult GetPrevEmbroidery(int currentEmbroideryId, int userId)
+        {
+            IKernel kernel = new StandardKernel(new DataModelCreator());
+
+            var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => (e.UserId == userId &&
+                                                                                   ((userId != WebSecurity.CurrentUserId) ?
+                                                                                    e.PublicEmbroidery : true)));
+
+            IEnumerator<Embroidery> iterator = embroideries.GetEnumerator();
+
+
+            Embroidery result = null;
+            while (iterator.MoveNext())
+            {
+                if (iterator.Current.Id == currentEmbroideryId)
+                {
+                    if (result != null)
+                        return Json(new { prevId = result.Id });
+                    else return Json(new { prevId = -1 });
+                }
+
+                result = iterator.Current;
+            }
+
+            return Json(new { prevId = -1 });
         }
 
 

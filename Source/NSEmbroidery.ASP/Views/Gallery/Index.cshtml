@@ -10,7 +10,7 @@
 
 
 <h3 class="name-text">Your gallery</h3>
-<ul id="gallery">
+<ul id="gallery" data-user-id="@ViewBag.UserId">
    
 
     @foreach (var item in Model)
@@ -23,7 +23,7 @@
                     <div class="shared">SHARED</div>
                 }
 
-                <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) data-embroidery-id="@item.Id" />
+                <img src=@Url.Action("ShowImage", "Gallery", new { id = item.Id }) data-embroidery-id="@item.Id"  data-width="@item.SmallImage.Width" data-height="@item.SmallImage.Height"/>
             
                 @Ajax.ActionLink("x", "DeleteEmbroidery", "Gallery",
                                     new { embroideryId = item.Id },

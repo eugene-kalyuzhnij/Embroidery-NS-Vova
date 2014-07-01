@@ -1,6 +1,4 @@
-﻿var Gallery = {
-
-    Embroidery:
+﻿var Embroidery =
         {
 
             OpenImage: function (id) {
@@ -31,31 +29,39 @@
                             else $('#allowe-other input').prop('checked', false);
 
 
-                            $('#allowe-other-check').on('click', function () {
-                                $.ajax({
-                                    url: 'Gallery/ChangeEmbroideryAllow',
-                                    type: 'post',
-                                    data: { embroideryId: id, newAllow: $(this).prop('checked') },
-                                    success: function (r) {
-                                        if (!r.result) alert('You can not do this operation');
-                                    }
-                                });
-                            });
+                            Embroidery.ChangeEmbroideryAllow(id);
                         }
 
 
-                        Gallery.Embroidery.UpdateComments(id);
-                        Gallery.Embroidery.UpdateLikesCount(id);
-                        Gallery.Embroidery.AddRemoveClick(id);
-                        Gallery.Embroidery.UsersLikes(id);
-                        Gallery.Embroidery.BindSendComment(id);
-                        //Gallery.Embroidery.BindDownloadEmbroidery(id);
+                        Embroidery.UpdateComments(id);
+                        Embroidery.UpdateLikesCount(id);
+                        Embroidery.AddRemoveClick(id);
+                        Embroidery.UsersLikes(id);
+                        Embroidery.BindSendComment(id);
+
+                        var userId = $('#gallery').attr('data-user-id');
+
+                        if (userId != undefined) {
+
+                            var next = $('#open-image-next');
+                            next.on('click', function () {
+                                next.unbind('click');
+                                Embroidery.NextEmbroidery(id, userId);
+                            });
+
+                            var prev = $('#open-image-prev');
+                            prev.on('click', function () {
+                                prev.unbind('click');
+                                Embroidery.PrevEmbroidery(id, userId);
+                            });
+
+                        }
 
                         
                         $('#open-image-border').fadeIn('slow');
 
                         $('#image-border').on('click', function () {
-                            Gallery.Embroidery.DisposeOpenImage();
+                            Embroidery.DisposeOpenImage();
                         });
 
                     },
@@ -63,6 +69,31 @@
                         alert('Could not upload embroidery from database');
                     }
 
+                });
+            },
+
+
+            ChangeEmbroideryAllow: function (id) {
+                $('#allowe-other-check').on('click', function () {
+                    var checked = $(this).prop('checked');
+                    $.ajax({
+                        url: 'Gallery/ChangeEmbroideryAllow',
+                        type: 'post',
+                        data: { embroideryId: id, newAllow: checked },
+                        success: function (r) {
+                            if (!r.result) {
+                                alert('You can not do this operation');
+                                return;
+                            }
+                            if (checked)
+                                $('div[data-embroidery-id="' + id.toString() + '"]').prepend('<div class="shared">SHARED</div>');
+                            else
+                                $('div[data-embroidery-id="' + id.toString() + '"] > div.shared').remove();
+                        },
+                        error: function () {
+                            alert('Was not able to change allow');
+                        }
+                    });
                 });
             },
 
@@ -85,8 +116,8 @@
                                     data: { embroideryId: embroideryId },
                                     type: 'post',
                                     success: function () {
-                                        Gallery.Embroidery.UpdateLikesCount(embroideryId);
-                                        Gallery.Embroidery.AddRemoveClick(embroideryId);
+                                        Embroidery.UpdateLikesCount(embroideryId);
+                                        Embroidery.AddRemoveClick(embroideryId);
                                     }
                                 });
                             }
@@ -104,8 +135,8 @@
                                     data: { embroideryId: embroideryId },
                                     type: 'post',
                                     success: function () {
-                                        Gallery.Embroidery.UpdateLikesCount(embroideryId);
-                                        Gallery.Embroidery.AddRemoveClick(embroideryId);
+                                        Embroidery.UpdateLikesCount(embroideryId);
+                                        Embroidery.AddRemoveClick(embroideryId);
                                     }
                                 });
                             }
@@ -115,12 +146,17 @@
                 });
             },
 
-            DisposeOpenImage: function () {
-                $('#open-image-border').fadeOut('slow');
+            DisposeOpenImage: function (fadeOut) {
+
+                if (fadeOut == undefined) fadeOut = true;
+
+                if (fadeOut) { $('#open-image-border').fadeOut('slow'); }
                 $('#send-comment').unbind('click');
                 $('#like-border').unbind('click');
                 $('#allowe-other-check').unbind('click');
                 $('#image-border').unbind('click');
+                $('#open-image-next').unbind('click');
+                $('#open-image-prev').unbind('click');
             },
 
             UpdateLikesCount: function (embroideryId) {
@@ -159,9 +195,9 @@
                                                  '<div class="comment">' + str + '</div></div>');
 
                             $('.who-commented').click(function () {
-                                Gallery.Embroidery.DisposeOpenImage();
+                                Embroidery.DisposeOpenImage();
                                 var id = $(this).attr('id');
-                                Gallery.Embroidery.OtherUser(id);
+                                Embroidery.OtherUser(id);
                             });
                         }
 
@@ -181,7 +217,7 @@
                         url: "Gallery/AddComment",
                         data: { EmbroideryId: embroideryId, comment: comment.val() },
                         success: function () {
-                            Gallery.Embroidery.UpdateComments(id);
+                            Embroidery.UpdateComments(id);
                             comment.val("");
                         }
                     });
@@ -199,7 +235,7 @@
                     data: { userId: userId },
                     type: 'post',
                     success: function (result) {
-                        Gallery.Embroidery.DisposeOpenImage();
+                        Embroidery.DisposeOpenImage();
                         var content = $('#content');
                         content.empty();
 
@@ -235,11 +271,11 @@
 
                             $('#likes-users div').click(function () {
                                 var userId = $(this).attr('class');
-                                Gallery.Embroidery.OtherUser(userId);
+                                Embroidery.OtherUser(userId);
                             });
 
                             $('#open-image-border').click(function () {
-                                Gallery.Embroidery.DeleteLikesUserView();
+                                Embroidery.DeleteLikesUserView();
                             });
                         }
                     });
@@ -258,7 +294,7 @@
                             url: "Gallery/AddComment",
                             data: { EmbroideryId: id, comment: comment.val() },
                             success: function () {
-                                Gallery.Embroidery.UpdateComments(id);
+                                Embroidery.UpdateComments(id);
                                 comment.val("");
                             }
                         });
@@ -266,13 +302,44 @@
                 });
             },
 
-            BindDownloadEmbroidery: function (id) {
-                $('#download-image').click(function () {
-                    
+            NextEmbroidery: function (id, userId) {
+                $.ajax({
+                    url: 'Gallery/GetNextEmbroidery',
+                    type: 'post',
+                    data: { currentEmbroideryId: id, userId: userId},
+                    success: function (result) {
 
+                        if (result.nextId != -1) {
+                            Embroidery.DisposeOpenImage(false);
+                            Embroidery.OpenImage(result.nextId);
+                        }
+
+                    },
+                    error: function () {
+                        alert('Could not take next embroidery :(');
+                    }
+                });
+            },
+
+            PrevEmbroidery: function (id, userId) {
+                
+                $.ajax({
+                    url: 'Gallery/GetPrevEmbroidery',
+                    type: 'post',
+                    data: { currentEmbroideryId: id, userId: userId },
+                    success: function (result) {
+
+                        if (result.prevId != -1) {
+                            Embroidery.DisposeOpenImage(false);
+                            Embroidery.OpenImage(result.prevId);
+                        }
+
+                    },
+                    error: function () {
+                        alert('Could not take prev embroidery :(');
+                    }
                 });
             }
 
         }
 
-}

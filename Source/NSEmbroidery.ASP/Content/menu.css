@@ -1,7 +1,12 @@
 ﻿/*Menu****************************************/
 
 
-nav {
+#div-menu {
+    width:100%;
+
+}
+
+#menu {
   margin-top: 10px;
   margin-bottom:10px;
   padding: 24px;
@@ -10,10 +15,9 @@ nav {
   overflow:auto;
   overflow-wrap:normal;
   display:inline-block;
-}
-#menu {
   background: #242424;
   border-radius:10px;
+  margin-left:1%;
   width:96%;
 }  
 

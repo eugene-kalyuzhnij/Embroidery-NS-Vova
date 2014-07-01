@@ -161,7 +161,7 @@
             // 
             // buttonCreateScheme
             // 
-            this.buttonCreateScheme.Location = new System.Drawing.Point(475, 371);
+            this.buttonCreateScheme.Location = new System.Drawing.Point(475, 380);
             this.buttonCreateScheme.Name = "buttonCreateScheme";
             this.buttonCreateScheme.Size = new System.Drawing.Size(105, 23);
             this.buttonCreateScheme.TabIndex = 6;
@@ -270,7 +270,7 @@
             this.panelSymbols.BackColor = System.Drawing.SystemColors.MenuBar;
             this.panelSymbols.Location = new System.Drawing.Point(468, 286);
             this.panelSymbols.Name = "panelSymbols";
-            this.panelSymbols.Size = new System.Drawing.Size(209, 45);
+            this.panelSymbols.Size = new System.Drawing.Size(209, 60);
             this.panelSymbols.TabIndex = 23;
             // 
             // pictureBoxSymbolColor
@@ -447,7 +447,7 @@
             // 
             // buttonRemoveSymbols
             // 
-            this.buttonRemoveSymbols.Location = new System.Drawing.Point(603, 337);
+            this.buttonRemoveSymbols.Location = new System.Drawing.Point(603, 352);
             this.buttonRemoveSymbols.Name = "buttonRemoveSymbols";
             this.buttonRemoveSymbols.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveSymbols.TabIndex = 31;
@@ -469,7 +469,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Menu;
-            this.ClientSize = new System.Drawing.Size(708, 406);
+            this.ClientSize = new System.Drawing.Size(708, 415);
             this.Controls.Add(this.labelResolutionImage);
             this.Controls.Add(this.buttonRemoveSymbols);
             this.Controls.Add(this.panelCreateColor);
@@ -494,10 +494,12 @@
             this.Controls.Add(this.panelColors);
             this.Controls.Add(this.pictureBoxCurrentImage);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximumSize = this.Size;
-            this.MinimumSize = this.Size;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Embroidery Creator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);

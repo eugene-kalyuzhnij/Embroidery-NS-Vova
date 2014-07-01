@@ -40,12 +40,9 @@ namespace NSEmbroidery.ASP.Controllers
 
             var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId && e.PublicEmbroidery == true);
 
-            if (userId == WebSecurity.CurrentUserId)
-            {
-                return View("~/Views/Gallery/Index.cshtml", embroideries);
-            }
-
             ViewBag.UserName = kernel.Get<IRepository<User>>().GetById(userId).FirstName;
+
+            ViewBag.UserId = userId;
 
             return View(embroideries);
         }

@@ -15,6 +15,7 @@ $('.users-list-user').click(function () {
         error: function () {
             alert('error was occcurred');
         }
-    });
-});
 
+    });
+
+});

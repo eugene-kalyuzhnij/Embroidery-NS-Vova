@@ -1,19 +1,19 @@
 ﻿/*Open image*******/
 
 
-#allowe-other input{
+#allowe-other input {
     width:15px;
     height:15px;
 }
 
 
-#allowe-other label{
+#allowe-other label {
    color:white;
    font-family:sans-serif;
 }
 
 
-#allowe-other{
+#allowe-other {
     margin:5px;
     display:block;
     margin-left:20%;
@@ -29,6 +29,7 @@
     left:0;
     background: rgba(0,0,0,0.7);
     overflow-y:auto;
+    overflow-x:hidden;
 }
 
 
@@ -41,7 +42,6 @@
     margin-bottom:20px;
     box-shadow:0px 0px 10px #fff;
     min-width:300px;
-    
 }
 
 #image-border img {
@@ -49,6 +49,37 @@
     margin-left:auto;
     margin-right:auto;
     max-width:100%;
+}
+
+.move-to-image-button {
+    position:fixed;
+    width:16%;
+    height:100%;
+    padding-top:20%;
+    background: rgba(200, 200, 200, 0);
+    text-align:center;
+    color: rgba(0, 0, 0, 0);
+    font-family:sans-serif;
+    font-size:30px;
+    text-shadow:0px 0px 10px #000;
+}
+
+
+    .move-to-image-button:hover {
+        background: rgba(200, 200, 200, 0.5);
+        color: rgba(0, 0, 0, 0.7);
+        cursor:pointer;
+    }
+
+#open-image-prev {  
+    float:left;
+    margin-left:2%;
+}
+
+
+#open-image-next {
+    float:right;
+    margin-left:82%;
 }
 
 /*Comments*********/

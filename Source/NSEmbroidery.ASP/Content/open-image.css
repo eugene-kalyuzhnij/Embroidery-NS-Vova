@@ -71,6 +71,7 @@
         cursor:pointer;
     }
 
+
 #open-image-prev {  
     float:left;
     margin-left:2%;
@@ -159,7 +160,11 @@
     color:white;
     text-shadow:0px 0px 5px #ccc;
     cursor:default;
+}
 
+
+.comment-date {
+    float:right;
 }
 
 /******************/

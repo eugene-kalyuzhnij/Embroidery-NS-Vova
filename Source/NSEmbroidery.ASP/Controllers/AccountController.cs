@@ -31,9 +31,11 @@ namespace NSEmbroidery.ASP.Controllers
             }
 
             ViewBag.ReturnUrl = returnUrl;
+
             return View();
         }
 
+        [NoCache]
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

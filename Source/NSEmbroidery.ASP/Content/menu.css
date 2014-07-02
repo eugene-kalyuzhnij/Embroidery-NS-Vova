@@ -3,7 +3,6 @@
 
 #div-menu {
     width:100%;
-
 }
 
 #menu {
@@ -17,7 +16,8 @@
   display:inline-block;
   background: #242424;
   border-radius:10px;
-  margin-left:1%;
+  margin-left:auto;
+  margin-right:auto;
   width:96%;
 }  
 

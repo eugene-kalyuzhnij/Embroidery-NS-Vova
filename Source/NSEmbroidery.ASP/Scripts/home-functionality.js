@@ -35,18 +35,26 @@
 
     updateContent: function (url, hashName, type, data) {
         if (data == null) data = {};
-
+        var switchLoader = $('#switch-loader');
+        var content = $('#content');
         $.ajax({
             url: url,
             type: type,
             data: data,
-            success: function (result) {              
-                var content = $('#content');
+            beforeSend: function () {
+                content.css('opacity', '0.5');
+                switchLoader.empty();
+                switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
+            },
+            success: function (result) {
+                content.css('opacity', '1');
+                switchLoader.empty();
                 content.empty();
                 content.html(result);
-
             },
             error: function () {
+                content.css('opacity', '1');
+                switchLoader.empty();
                 alert('Sorry. Some error was occurred');
             }
         });

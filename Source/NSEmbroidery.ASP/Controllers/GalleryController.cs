@@ -113,7 +113,7 @@ namespace NSEmbroidery.ASP.Controllers
             {
                 User currentUser = kernel.Get<IRepository<User>>().GetById(item.UserId);
                 string userName = currentUser.FirstName + " " + currentUser.LastName;
-                result.Add(new { UserId = item.UserId, Comment = item.Comment_msg, UserName = userName });
+                result.Add(new { UserId = item.UserId, Comment = item.Comment_msg, UserName = userName, DateCreated = item.DateCreated.ToString() });
             }
 
             return Json(result);
@@ -125,7 +125,6 @@ namespace NSEmbroidery.ASP.Controllers
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
             var comments = kernel.Get<IRepository<Comment>>();
-
             comments.Add(new Comment() { Comment_msg = comment, EmbroideryId = EmbroideryId, UserId = WebSecurity.CurrentUserId, DateCreated = DateTime.Now });
         }
 

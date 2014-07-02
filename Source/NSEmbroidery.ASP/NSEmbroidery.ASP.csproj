@@ -226,6 +226,7 @@
     <Content Include="Content\menu.css" />
     <Content Include="Content\open-image.css" />
     <Content Include="Content\users.css" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Scripts\add-embroidery.js" />
     <Content Include="Scripts\home-functionality.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.js" />

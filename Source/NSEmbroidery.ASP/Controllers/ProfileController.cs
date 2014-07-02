@@ -37,14 +37,16 @@ namespace NSEmbroidery.ASP.Controllers
 
             var comments = kernel.Get<IRepository<Comment>>().GetAll().Where(c =>
             {
-                bool result = false;
-                foreach (var item in embroideries)
-                    if (item.Id == c.EmbroideryId) result = true;
+                if (WebSecurity.CurrentUserId != c.UserId)
+                {
+                    foreach (var item in embroideries)
+                        if (item.Id == c.EmbroideryId) return true;
+                }
+                return false;
+            }).OrderBy(c => c.DateCreated).Reverse();
 
-                return result;
-            });
 
-            return comments.Skip((int)Math.Max(0, comments.Count() - 5));
+            return comments.Take(5);
         }
 
 
@@ -55,11 +57,12 @@ namespace NSEmbroidery.ASP.Controllers
 
             var likes = kernel.Get<IRepository<Like>>().GetAll().Where(l =>
             {
-                bool result = false;
-                foreach (var item in embroideries)
-                    if (item.Id == l.EmbroideryId) result = true;
-
-                return result;
+                if (WebSecurity.CurrentUserId != l.UserId)
+                {
+                    foreach (var item in embroideries)
+                        if (item.Id == l.EmbroideryId) return true;
+                }
+                return false;
             });
 
             return likes.Skip((int)Math.Max(0, likes.Count() - 5));

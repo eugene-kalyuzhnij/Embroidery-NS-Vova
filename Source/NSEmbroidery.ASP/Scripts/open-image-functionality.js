@@ -191,12 +191,13 @@
                             var str = comment.replace(/\n/g, '<br />');
 
                             all_comments.prepend('<div class="comment-border">' +
-                                                 '<div class="who-commented" id="' + result[i].UserId.toString() + '">' + result[i].UserName + '</div>' +
-                                                 '<div class="comment">' + str + '</div></div>');
+                                                 '<div class="who-commented" data-user-id="' + result[i].UserId.toString() + '">' + result[i].UserName + '</div>' +
+                                                 '<div class="comment"><div class="comment-text">' + str + '</div>' +
+                                                 '<div class="comment-date">' + result[i].DateCreated.toString() + '</div></div></div>');
 
                             $('.who-commented').click(function () {
                                 Embroidery.DisposeOpenImage();
-                                var id = $(this).attr('id');
+                                var id = $(this).attr('data-user-id');
                                 Embroidery.OtherUser(id);
                             });
                         }

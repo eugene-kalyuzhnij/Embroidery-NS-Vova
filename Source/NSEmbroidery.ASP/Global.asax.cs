@@ -13,6 +13,7 @@ using NSEmbroidery.Data.Models;
 using NSEmbroidery.Data.DI.EF;
 using Antlr.Runtime;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace NSEmbroidery.ASP
 {
@@ -23,6 +24,9 @@ namespace NSEmbroidery.ASP
     {
         protected void Application_Start()
         {
+
+            EventLog log = new EventLog("EmbroideryServiceLog");
+            log.Source = "EmbroiderySource";
             /*
             IKernel kernel = new StandardKernel(new DataModelCreator());
             
@@ -51,6 +55,10 @@ namespace NSEmbroidery.ASP
             }
             catch (Exception ex)
             {
+                log.WriteEntry(@"Could not connect to database
+                                    Message:" + ex.Message +
+                                              @"/nInner Exception:" + ((ex.InnerException != null) ? ex.InnerException.Message : "null"));
+
                 throw new Exception("Could not connect to database");
             }
 

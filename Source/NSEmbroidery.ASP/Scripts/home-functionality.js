@@ -42,6 +42,7 @@
             type: type,
             data: data,
             beforeSend: function () {
+                Embroidery.CancelImageLoading();
                 content.css('opacity', '0.5');
                 switchLoader.empty();
                 switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');

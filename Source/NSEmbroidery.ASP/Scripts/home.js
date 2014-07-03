@@ -1,7 +1,8 @@
 ﻿
 $('div').on('click', 'div#home-my-gallery', function () {
     Home.loadPage(0);
-   // window.location.hash = 'Gallery';
+    // window.location.hash = 'Gallery';
+    Embroidery.DisposeOpenImage();
     window.history.pushState({ page: 0 }, $(this).text(), window.location);
 
 });
@@ -9,30 +10,46 @@ $('div').on('click', 'div#home-my-gallery', function () {
 
 $('div').on('click', 'div#home-users', function () {
     Home.loadPage(1);
-  //  window.location.hash = "Users";
+    //  window.location.hash = "Users";
+    Embroidery.DisposeOpenImage();
     window.history.pushState({ page: 1 }, $(this).text(), window.location);
 });
 
 
 $('div').on('click', 'div#home-add-embroidery', function () {
     Home.loadPage(2);
-   // window.location.hash = 'AddEmbroidery';
+    // window.location.hash = 'AddEmbroidery';
+    Embroidery.DisposeOpenImage();
     window.history.pushState({ page: 2 }, $(this).text(), window.location);
 });
 
 
 $('div').on('click', 'div#home-management', function () {
+
+    var content = $('#content');
+    var switchLoader = $('#switch-loader');
+
     $.ajax({
         url: 'Management/Index',
         type: 'get',
         data: {},
         cache: false,
+        beforeSend: function () {
+            Embroidery.CancelImageLoading();
+            content.css('opacity', '0.5');
+            switchLoader.empty();
+            switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
+        },
         success: function (result) {
-            var content = $('#content');
+
+            content.css('opacity', '1');
+            switchLoader.empty();
             content.empty();
             content.html(result);
         },
         error: function () {
+            content.css('opacity', '1');
+            switchLoader.empty();
             alert('Sorry. Some error was occurred');
         }
     });
@@ -42,7 +59,11 @@ $('div').on('click', 'div#home-management', function () {
 
 $("div").on('click', 'div.image-commented', function () {
     var id = $(this).attr('data-embroideryId');
+    var plot = $('#gray-plot');
+
+    plot.css('display', 'inherit');
     Embroidery.OpenImage(id);
+   
 });
 
 $("div").on('click', 'div.last-who-commented', function () {

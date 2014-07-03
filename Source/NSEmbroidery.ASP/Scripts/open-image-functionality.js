@@ -2,15 +2,23 @@
         {
 
             OpenImage: function (id) {
-                $.ajax({
+                    $.ajax({
                     url: 'Gallery/GetEmbroidery',
                     data: { embroideryId: id },
                     type: 'POST',
                     beforeSend: function () {
+                        Embroidery.SetImageLoading();
+                        Embroidery.openImageEvent = event;
                         $('#loading').css('display', 'block');
                     },
                     success: function (result) {
+
                         $('#loading').css('display', 'none');
+
+                        var isLoading = Embroidery.IsLoadingImage();
+                        if (isLoading == 'false') {
+                            return;
+                        }
 
 
                         $('#open-image').empty();
@@ -63,15 +71,22 @@
                         $('#image-border').on('click', function () {
                             Embroidery.DisposeOpenImage();
                         });
+                        var plot = $('#gray-plot');
+                        plot.css('display', 'none');
 
                     },
                     error: function (a, b, c) {
+                        if (Embroidery.IsLoadingImage() == 'false')
+                            return;
+                        var plot = $('#gray-plot');
+                        plot.css('display', 'none');
+                        $('#loading').css('display', 'none');
                         alert('Could not upload embroidery from database');
+
                     }
 
                 });
             },
-
 
             ChangeEmbroideryAllow: function (id) {
                 $('#allowe-other-check').on('click', function () {
@@ -80,7 +95,8 @@
                         url: 'Gallery/ChangeEmbroideryAllow',
                         type: 'post',
                         data: { embroideryId: id, newAllow: checked },
-                        success: function (r) {
+                        success: function (r, event) {
+                            
                             if (!r.result) {
                                 alert('You can not do this operation');
                                 return;
@@ -150,13 +166,45 @@
 
                 if (fadeOut == undefined) fadeOut = true;
 
-                if (fadeOut) { $('#open-image-border').fadeOut('slow'); }
+                if (fadeOut) {
+                    $('#open-image-border').fadeOut('slow');
+                }
                 $('#send-comment').unbind('click');
                 $('#like-border').unbind('click');
                 $('#allowe-other-check').unbind('click');
                 $('#image-border').unbind('click');
                 $('#open-image-next').unbind('click');
-                $('#open-image-prev').unbind('click');
+                $('#open-image-prev').unbind('click');     
+            },
+
+            /*TODO: change location of the function*/
+            AddLoading: function(){
+                $('#open-image').ajaxSend(function (e) {
+                    content.css('opacity', '0.5');
+                    switchLoader.empty();
+                    switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
+                }).ajaxComplete(function (e) {
+                    content.css('opacity', '1');
+                    switchLoader.empty();
+                    content.empty();
+                }).ajaxError(function (e) {
+                    content.css('opacity', '1');
+                    switchLoader.empty();
+                    content.empty();
+                });
+            },
+
+            CancelImageLoading: function () {
+                $('#open-image-border').attr('data-loading', 'false');
+            },
+
+            SetImageLoading: function () {
+                $('#open-image-border').attr('data-loading', 'true');
+            },
+
+            IsLoadingImage: function () {
+                var result = $('#open-image-border').attr('data-loading');
+                return result;
             },
 
             UpdateLikesCount: function (embroideryId) {

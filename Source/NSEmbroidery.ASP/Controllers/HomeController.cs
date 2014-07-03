@@ -11,6 +11,8 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Data.SqlClient;
+using WebMatrix.WebData;
+using System.Diagnostics;
 
 namespace NSEmbroidery.ASP.Controllers
 {
@@ -20,6 +22,24 @@ namespace NSEmbroidery.ASP.Controllers
         public ActionResult Index()
         {
 
+            EventLog log = new EventLog("EmbroideryServiceLog");
+            log.Source = "EmbroiderySource";
+
+            if (!WebSecurity.Initialized)
+            {
+                try
+                {
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Users", "Id", "Email", autoCreateTables: true);
+                }
+                catch (Exception ex)
+                {
+                    log.WriteEntry(@"Could not connect to database
+                                    Message:" + ex.Message +
+                                                  @"/nInner Exception:" + ((ex.InnerException != null) ? ex.InnerException.Message : "null"));
+
+                    throw new Exception(ex.Message);
+                }
+            }
             return View();
         }
 

@@ -56,9 +56,20 @@
 
 
     ShowLoading: function () {
+
         var loading = $('#loading-area');
+
+        var loading_image = $('#loading-area > img');
+        var width = loading_image.attr('width');
+        var height = loading_image.attr('height');
+
+        loading_image.css('margin-top', '-' + (width / 2).toString() + 'px');
+        loading_image.css('margin-left', '-' + (height / 2).toString() + 'px');
+
         loading.css('display', 'inherit');
+
        
+        
     },
 
     HideLoading: function () {

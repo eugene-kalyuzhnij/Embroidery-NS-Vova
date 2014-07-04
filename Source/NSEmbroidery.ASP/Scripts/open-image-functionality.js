@@ -8,12 +8,8 @@
                     type: 'POST',
                     beforeSend: function () {
                         Embroidery.SetImageLoading();
-                        Embroidery.openImageEvent = event;
-                        $('#loading').css('display', 'block');
                     },
                     success: function (result) {
-
-                        $('#loading').css('display', 'none');
 
                         var isLoading = Embroidery.IsLoadingImage();
                         if (isLoading == 'false') {
@@ -71,16 +67,12 @@
                         $('#image-border').on('click', function () {
                             Embroidery.DisposeOpenImage();
                         });
-                        var plot = $('#gray-plot');
-                        plot.css('display', 'none');
 
                     },
                     error: function (a, b, c) {
                         if (Embroidery.IsLoadingImage() == 'false')
                             return;
-                        var plot = $('#gray-plot');
-                        plot.css('display', 'none');
-                        $('#loading').css('display', 'none');
+
                         alert('Could not upload embroidery from database');
 
                     }
@@ -119,6 +111,7 @@
                 $.ajax({
                     url: 'Gallery/CanAddLike',
                     type: 'post',
+                    global:false,
                     data: { embroideryId: embroideryId },
                     success: function (canAdd) {
 
@@ -177,23 +170,6 @@
                 $('#open-image-prev').unbind('click');     
             },
 
-            /*TODO: change location of the function*/
-            AddLoading: function(){
-                $('#open-image').ajaxSend(function (e) {
-                    content.css('opacity', '0.5');
-                    switchLoader.empty();
-                    switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
-                }).ajaxComplete(function (e) {
-                    content.css('opacity', '1');
-                    switchLoader.empty();
-                    content.empty();
-                }).ajaxError(function (e) {
-                    content.css('opacity', '1');
-                    switchLoader.empty();
-                    content.empty();
-                });
-            },
-
             CancelImageLoading: function () {
                 $('#open-image-border').attr('data-loading', 'false');
             },
@@ -213,6 +189,7 @@
                     url: 'Gallery/GetLikesCount',
                     type: 'post',
                     dataType: 'json',
+                    global:false,
                     data: { embroideryId: embroideryId },
                     success: function (result) {
                         var likes = $('#like-border');
@@ -227,6 +204,7 @@
                     url: 'Gallery/GetComments',
                     dataType: 'json',
                     type: 'post',
+                    global:false,
                     data: { EmbroideryId: embroideryId },
                     success: function (result) {
                         var all_comments = $('.comments');
@@ -263,6 +241,7 @@
                 if (comment.val() != "") {
                     $.ajax({
                         type: "post",
+                        global:false,
                         url: "Gallery/AddComment",
                         data: { EmbroideryId: embroideryId, comment: comment.val() },
                         success: function () {
@@ -310,6 +289,7 @@
                         data: { embroideryId: embroideryId },
                         dataType: 'json',
                         type: 'post',
+                        global:false,
                         success: function (result) {
 
                             for (var i in result) {
@@ -341,6 +321,7 @@
                         $.ajax({
                             type: "post",
                             url: "Gallery/AddComment",
+                            global:false,
                             data: { EmbroideryId: id, comment: comment.val() },
                             success: function () {
                                 Embroidery.UpdateComments(id);
@@ -355,6 +336,7 @@
                 $.ajax({
                     url: 'Gallery/GetNextEmbroidery',
                     type: 'post',
+                    global:false,
                     data: { currentEmbroideryId: id, userId: userId},
                     success: function (result) {
 
@@ -375,6 +357,7 @@
                 $.ajax({
                     url: 'Gallery/GetPrevEmbroidery',
                     type: 'post',
+                    global:false,
                     data: { currentEmbroideryId: id, userId: userId },
                     success: function (result) {
 

@@ -222,18 +222,3 @@
         }
 
 /******************/
-
-
-
-
-#loading {
-    position:absolute;
-    margin-left:45%;
-    margin-right:auto;
-
-    font-family:sans-serif;
-    font-size:30px;
-    color:white;
-    text-shadow:0px 0px 10px #000;
-    display:none;
-}

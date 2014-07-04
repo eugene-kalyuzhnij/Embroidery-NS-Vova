@@ -34,7 +34,7 @@
 
 
     updateContent: function (url, hashName, type, data) {
-        if (data == null) data = {};
+        if (data == null) data = { };
         var switchLoader = $('#switch-loader');
         var content = $('#content');
         $.ajax({
@@ -43,23 +43,27 @@
             data: data,
             beforeSend: function () {
                 Embroidery.CancelImageLoading();
-                content.css('opacity', '0.5');
-                switchLoader.empty();
-                switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
             },
             success: function (result) {
-                content.css('opacity', '1');
-                switchLoader.empty();
                 content.empty();
                 content.html(result);
             },
             error: function () {
-                content.css('opacity', '1');
-                switchLoader.empty();
                 alert('Sorry. Some error was occurred');
             }
         });
-    }
+    },
 
+
+    ShowLoading: function () {
+        var loading = $('#loading-area');
+        loading.css('display', 'inherit');
+       
+    },
+
+    HideLoading: function () {
+        var loading = $('#loading-area');
+        loading.css('display', 'none');
+    }
 
 }

@@ -36,9 +36,6 @@ $('div').on('click', 'div#home-management', function () {
         cache: false,
         beforeSend: function () {
             Embroidery.CancelImageLoading();
-            content.css('opacity', '0.5');
-            switchLoader.empty();
-            switchLoader.prepend('<img src="Images/ajax-loader.gif"></img>');
         },
         success: function (result) {
 
@@ -48,8 +45,7 @@ $('div').on('click', 'div#home-management', function () {
             content.html(result);
         },
         error: function () {
-            content.css('opacity', '1');
-            switchLoader.empty();
+
             alert('Sorry. Some error was occurred');
         }
     });
@@ -59,9 +55,7 @@ $('div').on('click', 'div#home-management', function () {
 
 $("div").on('click', 'div.image-commented', function () {
     var id = $(this).attr('data-embroideryId');
-    var plot = $('#gray-plot');
 
-    plot.css('display', 'inherit');
     Embroidery.OpenImage(id);
    
 });
@@ -96,4 +90,10 @@ window.addEventListener('popstate', function (event) {
 
 
 
+
+$(document).bind("ajaxSend", function () {
+    Home.ShowLoading();
+}).bind("ajaxComplete", function () {
+    Home.HideLoading();
+});
 

@@ -27,7 +27,7 @@ namespace NSEmbroidery.ASP.Controllers
                 ViewBag.Title = "Gallery";
 
                 IKernel kernel = new StandardKernel(new DataModelCreator());
-                IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId == WebSecurity.CurrentUserId);
+                IEnumerable<Embroidery> embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(embr => embr.UserId ==                                                                                                                          WebSecurity.CurrentUserId);
                 ViewBag.UserId = WebSecurity.CurrentUserId;
 
                 return View(embroideries);

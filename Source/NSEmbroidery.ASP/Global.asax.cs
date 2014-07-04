@@ -59,7 +59,7 @@ namespace NSEmbroidery.ASP
                                     Message:" + ex.Message +
                                               @"/nInner Exception:" + ((ex.InnerException != null) ? ex.InnerException.Message : "null"));
 
-                throw new Exception("Could not connect to database");
+                throw new Exception(ex.Message);
             }
 
         }

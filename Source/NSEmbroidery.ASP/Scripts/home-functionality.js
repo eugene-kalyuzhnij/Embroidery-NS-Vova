@@ -63,8 +63,8 @@
         var width = loading_image.attr('width');
         var height = loading_image.attr('height');
 
-        loading_image.css('margin-top', '-' + (width / 2).toString() + 'px');
-        loading_image.css('margin-left', '-' + (height / 2).toString() + 'px');
+        loading_image.css('margin-top', '-' + (height / 2).toString() + 'px');
+        loading_image.css('margin-left', '-' + (width / 2).toString() + 'px');
 
         loading.css('display', 'inherit');
 

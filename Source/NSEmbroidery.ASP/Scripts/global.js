@@ -25,4 +25,9 @@ $(document).ready(function () {
     });
 
 
+    $('#home-button').on('click', function () {
+        location.reload();
+    });
+
+
 });

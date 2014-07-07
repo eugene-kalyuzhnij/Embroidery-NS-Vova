@@ -86,6 +86,7 @@
                     $.ajax({
                         url: 'Gallery/ChangeEmbroideryAllow',
                         type: 'post',
+                        global:false,
                         data: { embroideryId: id, newAllow: checked },
                         success: function (r, event) {
                             
@@ -124,6 +125,7 @@
                                     url: 'Gallery/AddLike',
                                     data: { embroideryId: embroideryId },
                                     type: 'post',
+                                    global:false,
                                     success: function () {
                                         Embroidery.UpdateLikesCount(embroideryId);
                                         Embroidery.AddRemoveClick(embroideryId);
@@ -143,6 +145,7 @@
                                     url: 'Gallery/RemoveLike',
                                     data: { embroideryId: embroideryId },
                                     type: 'post',
+                                    global:false,
                                     success: function () {
                                         Embroidery.UpdateLikesCount(embroideryId);
                                         Embroidery.AddRemoveClick(embroideryId);
@@ -252,9 +255,10 @@
                 }
             },
 
-            DeleteLikesUserView: function () {
+            HideUsersLikes: function (embroideryId) {
                 $('#likes-users').css('display', 'none');
                 $('#open-image-border').unbind('click');
+                
             },
 
             OtherUser: function (userId) {
@@ -272,13 +276,11 @@
                 });
             },
 
-            UsersLikes: function (embroideryId) {
-                $('#like-border').click(function (event) {
+            ShowUsersLikes: function (embroideryId, x, y) {
+                var likes_users = $('#likes-users');
 
-                    var x = event.clientX;
-                    var y = event.clientY;
+                if (likes_users.css('display') == 'none') {
 
-                    var likes_users = $('#likes-users');
                     likes_users.empty();
                     likes_users.css('display', 'inherit');
                     likes_users.css('left', x.toString() + 'px');
@@ -289,28 +291,31 @@
                         data: { embroideryId: embroideryId },
                         dataType: 'json',
                         type: 'post',
-                        global:false,
+                        global: false,
                         success: function (result) {
-
                             for (var i in result) {
-                                var userList = likes_users.prepend('<div class="' + result[i].UserId + '"> '
+                                var userList = likes_users.prepend('<div data-user-id="' + result[i].UserId + '"> '
                                                        + result[i].UserName + '</div>');
-
                             }
 
                             $('#likes-users div').click(function () {
-                                var userId = $(this).attr('class');
+                                var userId = $(this).attr('data-user-id');
                                 Embroidery.OtherUser(userId);
                             });
 
+
                             $('#open-image-border').click(function () {
-                                Embroidery.DeleteLikesUserView();
+                                Embroidery.HideUsersLikes(embroideryId);
                             });
                         }
                     });
+                }
+            },
 
+            UsersLikes: function (embroideryId) {
 
-
+                $('#like-border').click(function (event) {
+                    Embroidery.ShowUsersLikes(embroideryId, event.clientX, event.clientY);
                 });
             },
 

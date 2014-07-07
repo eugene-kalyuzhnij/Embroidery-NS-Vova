@@ -20,17 +20,18 @@
         <div class="top">
 
                     @Html.Partial("_LoginPartial")
-
+                    
+                    <div id="home-button">Home</div>
+                    <!--
                     <ul class="layout-menu">
-                       <li class="layout-menu-li">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "layout-menu-a" })</li>
+                       <li class="layout-menu-li">/*Html.ActionLink("Home", "Index", "Home", null, new { class = "layout-menu-a" }*/)</li>
                     </ul>
+                    -->
         </div>
 
         <div id="render-body">
             @RenderBody()
         </div>
-
-        <div id="gray-plot"></div>
 
     </body>
 </html>

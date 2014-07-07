@@ -18,7 +18,7 @@ var Gallery = {
                 //alert('top = ' + margin.toString() + '; top+bottom = ' + (100.0 - image_percent).toString());
             }
             else {
-                //do nothing. Default csses values will center image
+                image.css('height', '100%');
             }
 
 

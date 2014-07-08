@@ -6,16 +6,8 @@
                     url: 'Gallery/GetEmbroidery',
                     data: { embroideryId: id },
                     type: 'POST',
-                    beforeSend: function () {
-                        Embroidery.SetImageLoading();
-                    },
                     success: function (result) {
-
-                        var isLoading = Embroidery.IsLoadingImage();
-                        if (isLoading == 'false') {
-                            return;
-                        }
-
+                        $('body').css('overflow', 'hidden');
 
                         $('#open-image').empty();
                         $('#open-image').prepend('<img class="opened" src="" />');
@@ -43,35 +35,51 @@
                         Embroidery.UsersLikes(id);
                         Embroidery.BindSendComment(id);
 
-                        var userId = $('#gallery').attr('data-user-id');
 
-                        if (userId != undefined) {
+                        if (Embroidery.IsThereNextEmbroidery(id)) {
 
-                            var next = $('#open-image-next');
-                            next.on('click', function () {
-                                next.unbind('click');
-                                Embroidery.NextEmbroidery(id, userId);
-                            });
+                            $('#open-image-border').prepend('<div id="open-image-next" class="move-to-image-button">NEXT</div>');
 
-                            var prev = $('#open-image-prev');
-                            prev.on('click', function () {
-                                prev.unbind('click');
-                                Embroidery.PrevEmbroidery(id, userId);
-                            });
+                            var userId = $('#gallery').attr('data-user-id');
 
+                            if (userId != undefined) {
+
+                                var next = $('#open-image-next');
+                                next.on('click', function () {
+                                    next.unbind('click');
+                                    Embroidery.NextEmbroidery(id, userId);
+                                });
+
+
+
+                            }
                         }
 
-                        
-                        $('#open-image-border').fadeIn('slow');
+                        if (Embroidery.IsTherePrevEmbroidery(id)) {
+                            $('#open-image-border').prepend('<div id="open-image-prev" class="move-to-image-button">PREV</div>');
 
-                        $('#image-border').on('click', function () {
-                            Embroidery.DisposeOpenImage();
-                        });
+                            var userId = $('#gallery').attr('data-user-id');
+
+                            if (userId != undefined) {
+
+                                var prev = $('#open-image-prev');
+                                prev.on('click', function () {
+                                    prev.unbind('click');
+                                    Embroidery.PrevEmbroidery(id, userId);
+                                });
+                            }
+                        }
+
+
+                            $('#open-image-border').fadeIn('slow');
+
+                            $('#image-border').on('click', function () {
+                                Embroidery.DisposeOpenImage();
+                            });
+                        
 
                     },
                     error: function (a, b, c) {
-                        if (Embroidery.IsLoadingImage() == 'false')
-                            return;
 
                         alert('Could not upload embroidery from database');
 
@@ -164,13 +172,16 @@
 
                 if (fadeOut) {
                     $('#open-image-border').fadeOut('slow');
+                    $('body').css('overflow', 'auto');
                 }
                 $('#send-comment').unbind('click');
                 $('#like-border').unbind('click');
                 $('#allowe-other-check').unbind('click');
                 $('#image-border').unbind('click');
                 $('#open-image-next').unbind('click');
-                $('#open-image-prev').unbind('click');     
+                $('#open-image-prev').unbind('click');
+                $('#open-image-prev').remove();
+                $('#open-image-next').remove();
             },
 
             CancelImageLoading: function () {
@@ -338,44 +349,48 @@
             },
 
             NextEmbroidery: function (id, userId) {
-                $.ajax({
-                    url: 'Gallery/GetNextEmbroidery',
-                    type: 'post',
-                    global:false,
-                    data: { currentEmbroideryId: id, userId: userId},
-                    success: function (result) {
 
-                        if (result.nextId != -1) {
-                            Embroidery.DisposeOpenImage(false);
-                            Embroidery.OpenImage(result.nextId);
-                        }
+                var currentEmbroidery = $('.gallery-border > [data-embroidery-id=' + id.toString() + ']').attr('data-embroidery-current');
+                var nextEmbroidery = parseInt(currentEmbroidery) + 1;
+                var idNextEmbroidery = $('.gallery-border > [data-embroidery-current=' + nextEmbroidery.toString() + ']').attr('data-embroidery-id');
+                if (idNextEmbroidery != undefined) {
 
-                    },
-                    error: function () {
-                        alert('Could not take next embroidery :(');
-                    }
-                });
+                    Embroidery.DisposeOpenImage(false);
+                    Embroidery.OpenImage(idNextEmbroidery);
+                }
             },
 
             PrevEmbroidery: function (id, userId) {
-                
-                $.ajax({
-                    url: 'Gallery/GetPrevEmbroidery',
-                    type: 'post',
-                    global:false,
-                    data: { currentEmbroideryId: id, userId: userId },
-                    success: function (result) {
 
-                        if (result.prevId != -1) {
-                            Embroidery.DisposeOpenImage(false);
-                            Embroidery.OpenImage(result.prevId);
-                        }
+                var currentEmbroidery = $('.gallery-border > [data-embroidery-id=' + id.toString() + ']').attr('data-embroidery-current');
+                var prevEmbroidery = parseInt(currentEmbroidery) - 1;
+                var idPrevEmbroidery = $('.gallery-border > [data-embroidery-current=' + prevEmbroidery.toString() + ']').attr('data-embroidery-id');
+                if (idPrevEmbroidery != undefined) {
 
-                    },
-                    error: function () {
-                        alert('Could not take prev embroidery :(');
-                    }
-                });
+                    Embroidery.DisposeOpenImage(false);
+                    Embroidery.OpenImage(idPrevEmbroidery);
+                }
+
+            },
+
+            IsTherePrevEmbroidery: function (embroideryId) {
+                var currentEmbroidery = $('.gallery-border > [data-embroidery-id=' + embroideryId.toString() + ']').attr('data-embroidery-current');
+                var prevEmbroidery = parseInt(currentEmbroidery) - 1;
+                var idPrevEmbroidery = $('.gallery-border > [data-embroidery-current=' + prevEmbroidery.toString() + ']').attr('data-embroidery-id');
+                if (idPrevEmbroidery != undefined) {
+                    return true;
+                }
+                return false;
+            },
+
+            IsThereNextEmbroidery: function (embroideryId) {
+                var currentEmbroidery = $('.gallery-border > [data-embroidery-id=' + embroideryId.toString() + ']').attr('data-embroidery-current');
+                var nextEmbroidery = parseInt(currentEmbroidery) + 1;
+                var idNextEmbroidery = $('.gallery-border > [data-embroidery-current=' + nextEmbroidery.toString() + ']').attr('data-embroidery-id');
+                if (idNextEmbroidery != undefined) {
+                    return true;
+                }
+                return false;
             }
 
         }

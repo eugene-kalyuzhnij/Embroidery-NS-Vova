@@ -30,6 +30,7 @@ var Gallery = {
 $('.gallery-border-content').click(function () {
 
     var id = $(this).attr('data-embroidery-id');
+
     Embroidery.OpenImage(id);
 });
 

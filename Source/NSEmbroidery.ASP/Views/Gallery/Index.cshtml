@@ -10,13 +10,13 @@
 
 
 <h3 class="name-text">Your gallery</h3>
-<ul id="gallery" data-user-id="@ViewBag.UserId">
+<ul id="gallery" data-user-id="@ViewBag.UserId" data-embroidery-count="@Model.Count()">
    
-
+    @{int i = 0; }
     @foreach (var item in Model)
     {
-        <li class="gallery-border">
-            <div class="gallery-border-content" data-embroidery-id="@item.Id">
+        <li class="gallery-border" >
+            <div class="gallery-border-content" data-embroidery-id="@item.Id" data-embroidery-current="@(i++)">
 
                 @if(item.PublicEmbroidery)
                 {

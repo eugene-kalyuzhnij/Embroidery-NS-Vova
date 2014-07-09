@@ -93,7 +93,7 @@ namespace NSEmbroidery.ASP.Controllers
             if (embroideryFromData.UserId == WebSecurity.CurrentUserId)
                 alloweChangePublic = true;
 
-            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64, allowePublic = embroideryFromData.PublicEmbroidery, alloweChangePublic = alloweChangePublic}, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { imageString = "data:image/jpeg;base64," + base64, allowePublic = embroideryFromData.PublicEmbroidery,                                           alloweChangePublic = alloweChangePublic}, JsonRequestBehavior.AllowGet);
 
             jsonResult.MaxJsonLength = Int32.MaxValue;
 

@@ -16,12 +16,12 @@ using System.Diagnostics;
 
 namespace NSEmbroidery.ASP.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         [HttpGet]
         public ActionResult Index()
         {
-
             EventLog log = new EventLog("EmbroideryServiceLog");
             log.Source = "EmbroiderySource";
 

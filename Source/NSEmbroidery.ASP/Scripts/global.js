@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $("#log-off").click(function () {
         $.post('Account/LogOff', null, function (result) {
-            location.reload();
+            $('*').html(result);
         });
     });
 

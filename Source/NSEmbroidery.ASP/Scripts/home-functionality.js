@@ -32,7 +32,6 @@
 
     },
 
-
     updateContent: function (url, hashName, type, data) {
         if (data == null) data = { };
         var switchLoader = $('#switch-loader');
@@ -53,7 +52,6 @@
             }
         });
     },
-
 
     ShowLoading: function () {
 

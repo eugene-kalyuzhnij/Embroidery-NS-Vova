@@ -29,5 +29,21 @@ $(document).ready(function () {
         location.reload();
     });
 
+    $('#register').on('click', function () {
+        $.get("Register", {}, function (result) {
+            $(document.body).html(result);
+        }).fail(function (a, b, c) {
+            alert('Sorry. Some error was occurred. Try again later');
+        });
+    });
+
+    $('#log-in').on('click', function () {
+        $.get("Login", {}, function (result) {
+            $(document.body).html(result);
+        }).fail(function () {
+            alert('Sorry. Some error was occurred. Try again later');
+        });
+        
+    });
 
 });

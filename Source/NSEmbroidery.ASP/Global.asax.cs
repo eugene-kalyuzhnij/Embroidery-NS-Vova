@@ -15,6 +15,7 @@ using Antlr.Runtime;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Web.SessionState;
+using System.Web.Helpers;
 
 namespace NSEmbroidery.ASP
 {
@@ -49,6 +50,7 @@ namespace NSEmbroidery.ASP
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
 
             try
             {

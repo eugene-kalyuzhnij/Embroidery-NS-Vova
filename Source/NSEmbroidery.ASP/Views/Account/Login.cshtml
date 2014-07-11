@@ -2,14 +2,15 @@
 
 @{
     ViewBag.Title = "Login";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
     @Styles.Render("~/Content/login-register.css");
 }
 
 
     <section class="login-register-border-form">
+
         @using(Html.BeginForm("Login", "Account", FormMethod.Post))
         {
+
             <div class="wrong-field">
                  @Html.AntiForgeryToken()
                  @Html.ValidationSummary(true)

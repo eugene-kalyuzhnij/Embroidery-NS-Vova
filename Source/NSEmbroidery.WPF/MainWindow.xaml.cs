@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using DColor = System.Drawing.Color;
 
 
 namespace NSEmbroidery.WPF
@@ -23,6 +24,7 @@ namespace NSEmbroidery.WPF
     public partial class MainWindow : Window
     {
         string imageName = null;
+        Dictionary<string, int> resolutions = null;
 
         public MainWindow()
         {
@@ -43,11 +45,15 @@ namespace NSEmbroidery.WPF
             colorItem.MouseUp += color_MouseUp;
 
             choosedColors.Children.Add(colorItem);
+
+            if ((bool)checkBoxSymbols.IsChecked)
+                AddSymbolTextBox("");
         }
 
         private void color_MouseUp(object sender, MouseEventArgs e)
         {
             choosedColors.Children.Remove((UIElement)e.Source);
+            dockPanelSymbols.Children.RemoveAt(dockPanelSymbols.Children.Count - 1);
         }
 
         private void OpenImage_Click(object sender, RoutedEventArgs e)
@@ -113,9 +119,10 @@ namespace NSEmbroidery.WPF
 
             Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
             
-            Dictionary<string, int> resolutions = wcf_service.PossibleResolutions(image, cellsCount, 2, 10);
+            resolutions = wcf_service.PossibleResolutions(image, cellsCount, 2, 10);
             
             comboBoxResolutions.ItemsSource = resolutions.Keys;
+
         }
 
         private void cellsCountTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -123,30 +130,121 @@ namespace NSEmbroidery.WPF
             comboBoxResolutions.ItemsSource = null;
         }
 
+        //Dont work
         private void createEmbroidery_Click(object sender, RoutedEventArgs e)
         {
-            System.Drawing.Color[] palette = GetPalette(choosedColors.Children);
-            
+            //TODO: end method implementation and process all exceptions
+
+            DColor[] palette;
+            char[] symbols;
+            Embroidery.GridType gridType = Embroidery.GridType.None;
+            int coefficient;
+
+            palette = GetPalette(choosedColors.Children);
+
+            if (palette == null){
+                informationText.Text = "";
+                informationText.Text = "Create palette before embroidery creating";
+                return;
+            }
+
+            if ((bool)checkBoxSymbols.IsChecked) symbols = GetSymbols();
+
+            resolutions.TryGetValue((string)comboBoxResolutions.SelectedItem, out coefficient);
+
+            if ((bool)checkBoxGrid.IsChecked)
+            {
+                if ((bool)radioButtonLine.IsChecked) gridType = Embroidery.GridType.SolidLine;
+                else gridType = Embroidery.GridType.Points;
+            }
+
+
+
+
             Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
 
         }
 
-        //Don't work
-        private System.Drawing.Color[] GetPalette(UIElementCollection elements)
+        private DColor[] GetPalette(UIElementCollection elements)
         {
-            System.Drawing.Color[] colors = new System.Drawing.Color[elements.Count];
+            DColor[] colors;
+            int count = elements.Count;
+
+            if (count == 0)
+                return null;
+
+            colors = new DColor[elements.Count];
 
             for (int i = 0; i < elements.Count; i++)
             {
-                Brush cololr = ((Rectangle)elements[i]).Fill;
-                //colors[i] = System.Drawing.Colo
+                Color colol = (((SolidColorBrush)((Rectangle)elements[i]).Fill)).Color;
+                colors[i] = DColor.FromArgb(colol.A, colol.R, colol.G, colol.B);
             }
 
             return colors;
 
         }
 
-        
+        private void symbolsCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            int count = GetPalette(choosedColors.Children).Count();
+
+            for (int i = 0; i < count; i++)
+            {
+                string currentSymbol = (i < 10) ? i.ToString() : "";
+                AddSymbolTextBox(currentSymbol);
+            }
+
+        }
+
+        private void AddSymbolTextBox(string symbol)
+        {
+                dockPanelSymbols.Children.Add(new TextBox() { Width = 30, Margin = new Thickness(2, 2, 2, 2),
+                                                              Text = ((symbol != null)? symbol : "") });
+        }
+
+        private void symbolsCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            dockPanelSymbols.Children.RemoveRange(0, dockPanelSymbols.Children.Count);
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private char[] GetSymbols()
+        {
+            char[] symbols = new char[dockPanelSymbols.Children.Count];
+            int i = 0;
+            foreach (var item in dockPanelSymbols.Children)
+            {
+                symbols[i++] = ((TextBox)item).Text.Single();
+            }
+
+            return symbols;
+        }
+
+        private void gridCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButtonLine.Visibility = System.Windows.Visibility.Visible;
+            radioButtonPoints.Visibility = System.Windows.Visibility.Visible;
+
+            if ((bool)!radioButtonPoints.IsChecked && (bool)!radioButtonLine.IsChecked)
+                radioButtonLine.IsChecked = true;
+        }
+
+        private void checkBoxGrid_Unchecked(object sender, RoutedEventArgs e)
+        {
+            radioButtonLine.Visibility = System.Windows.Visibility.Hidden;
+            radioButtonPoints.Visibility = System.Windows.Visibility.Hidden;
+
+        }
+
+        private void textBlockInformation(object sender, MouseButtonEventArgs e)
+        {
+            ((TextBlock)sender).Text = "";
+        }
 
     }
 }

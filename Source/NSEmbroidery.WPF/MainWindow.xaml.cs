@@ -27,7 +27,6 @@ namespace NSEmbroidery.WPF
     {
         string imageName = null;
         Dictionary<string, int> resolutions = null;
-        private delegate System.Drawing.Bitmap EmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, Embroidery.GridType type);
 
         public MainWindow()
         {
@@ -36,7 +35,8 @@ namespace NSEmbroidery.WPF
 
         private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            
+            if (informationText.Text != "") informationText.Text = "";
+
             Color choosedColor = colorPicker.SelectedColor;
             
             Rectangle colorItem = new Rectangle();
@@ -80,9 +80,22 @@ namespace NSEmbroidery.WPF
 
                 string filename = dlg.FileName;
                 imageName = filename;
-                BitmapImage image = new BitmapImage(new Uri(filename));
 
-                resolutionText.Text = image.Width + "x" + image.Height;
+                BitmapImage image;
+                try
+                {
+                    image = new BitmapImage(new Uri(filename));
+                }
+                catch
+                {
+                    informationText.Text = "Wrong image format";
+                    return;
+                }
+
+                int width = (int)image.Width;
+                int height = (int)image.Height;
+                
+                resolutionText.Text = width + "x" + height;
                 openedImage.Source = image;
 
             }
@@ -180,8 +193,10 @@ namespace NSEmbroidery.WPF
                 }
             }
 
+            
 
             DBitmap _imageFromFile = new DBitmap(imageName);
+
             DBitmap inputImage = new DBitmap(_imageFromFile.Width, _imageFromFile.Height);
 
             for(int y = 0; y < inputImage.Height; y++)
@@ -192,18 +207,17 @@ namespace NSEmbroidery.WPF
 
             Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
 
-            EmbroideryAsync asyncCall = new EmbroideryAsync(wcf_service.GetEmbroidery);
-
-            IAsyncResult resultAsyncCall = asyncCall.BeginInvoke(inputImage, coefficient, _cellsCount, palette, symbols, DColor.Black, gridType, null, null);
-
-            DBitmap resultImage = asyncCall.EndInvoke(resultAsyncCall);
-
             
+            DBitmap resultImage = await wcf_service.GetEmbroideryAsync(inputImage, coefficient, _cellsCount, palette, symbols, DColor.Black, gridType);
+
+   
             BitmapSource bitmapSource = await GetBitmapSource(resultImage);
+
+            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
             
             Preview preview = new Preview();
             preview.canvasPreview.Children.Add(new Image() { Source = bitmapSource });
-            preview.ShowDialog();
+            preview.Show();
         }
 
         private async Task<BitmapSource> GetBitmapSource(DBitmap image)
@@ -263,20 +277,23 @@ namespace NSEmbroidery.WPF
         {
             TextBox textBox = new TextBox(){ Width = 30, Margin = new Thickness(2, 2, 2, 2),         
                                              Text = ((symbol != null)? symbol : "") };
-            textBox.TextChanged += textBox_TextChanged;
+            textBox.GotFocus += textBox_GotFocus;
 
             dockPanelSymbols.Children.Add(textBox);
         }
 
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void textBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox current = (TextBox)sender;
             current.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+
+            if (informationText.Text != "") informationText.Text = "";
         }
 
         private void symbolsCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             dockPanelSymbols.Children.RemoveRange(0, dockPanelSymbols.Children.Count);
+            if (informationText.Text != "") informationText.Text = "";
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -329,6 +346,16 @@ namespace NSEmbroidery.WPF
         private void textBlockInformation(object sender, MouseButtonEventArgs e)
         {
             ((TextBlock)sender).Text = "";
+        }
+
+        private void cellsCountTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (informationText.Text != "") informationText.Text = "";
+        }
+
+        private void createEmbroidery_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            loadingCanvas.Visibility = System.Windows.Visibility.Visible;
         }
 
     }

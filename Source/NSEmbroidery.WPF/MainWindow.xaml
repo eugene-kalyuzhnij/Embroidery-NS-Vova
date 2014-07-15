@@ -44,7 +44,7 @@
             
             <DockPanel HorizontalAlignment="Stretch" Margin="10, 5, 10, 5">
                 <TextBlock Text="Cells Count:" Margin="0, 0, 10, 0"></TextBlock>
-                <TextBox Name="cellsCountTextBox" Margin="0, 0, 10, 0" TextChanged="cellsCountTextBox_TextChanged"></TextBox>
+                <TextBox Name="cellsCountTextBox" Margin="0, 0, 10, 0" TextChanged="cellsCountTextBox_TextChanged" GotFocus="cellsCountTextBox_GotFocus"></TextBox>
             </DockPanel>
             
             <Separator></Separator>
@@ -81,8 +81,11 @@
 
         </StackPanel>
          
-        <Button Grid.Column="1" Grid.Row="2" Content="Create Embroidery" Margin="20, 0, 20, 0" VerticalAlignment="Center" Click="createEmbroidery_Click"></Button>
-
+        <Button Grid.Column="1" Grid.Row="2" Content="Create Embroidery" Margin="20, 0, 20, 0" VerticalAlignment="Center" Click="createEmbroidery_Click" MouseDown="createEmbroidery_MouseDown"></Button>
+        
+        
+        <Canvas Name="loadingCanvas" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Background="Aquamarine" Opacity="0.3" Visibility="Collapsed"></Canvas>
+        
     </Grid>
     
 </Window>

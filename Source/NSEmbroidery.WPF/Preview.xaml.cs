@@ -22,7 +22,15 @@ namespace NSEmbroidery.WPF
 
         public Preview()
         {
+            double width = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double height = System.Windows.SystemParameters.PrimaryScreenHeight;
+
             InitializeComponent();
+
+
+            this.Width = width / 2;
+            this.Height = height / 2;
+            
         }
     }
 }

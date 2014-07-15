@@ -33,7 +33,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
             
-            <toolkit:ColorPicker SelectedColorChanged="colorPicker_SelectedColorChanged" Grid.Column="1" Grid.Row="1" Margin="10, 10, 50, 10" VerticalAlignment="Top" ShowAdvancedButton="False" ShowStandardColors="False" Name="colorPicker"></toolkit:ColorPicker>
+            <toolkit:ColorPicker SelectedColor="Black" SelectedColorChanged="colorPicker_SelectedColorChanged" Grid.Column="1" Grid.Row="1" Margin="10, 10, 50, 10" VerticalAlignment="Top" ShowAdvancedButton="False" ShowStandardColors="False" Name="colorPicker"></toolkit:ColorPicker>
             
             <ScrollViewer MaxHeight="60" Margin="10, 0, 10, 5" >
                 <WrapPanel Orientation="Horizontal"  Name="choosedColors" Background="Lavender" MinHeight="60">

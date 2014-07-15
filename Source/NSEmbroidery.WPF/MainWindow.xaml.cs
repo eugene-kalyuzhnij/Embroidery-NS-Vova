@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.IO;
 using DColor = System.Drawing.Color;
+using DBitmap = System.Drawing.Bitmap;
 
 
 namespace NSEmbroidery.WPF
@@ -25,6 +27,7 @@ namespace NSEmbroidery.WPF
     {
         string imageName = null;
         Dictionary<string, int> resolutions = null;
+        private delegate System.Drawing.Bitmap EmbroideryAsync(System.Drawing.Bitmap image, int resolutionCoefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, Embroidery.GridType type);
 
         public MainWindow()
         {
@@ -33,7 +36,8 @@ namespace NSEmbroidery.WPF
 
         private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
-            Color choosedColor = e.NewValue;
+            
+            Color choosedColor = colorPicker.SelectedColor;
             
             Rectangle colorItem = new Rectangle();
             colorItem.Width = 20;
@@ -53,7 +57,8 @@ namespace NSEmbroidery.WPF
         private void color_MouseUp(object sender, MouseEventArgs e)
         {
             choosedColors.Children.Remove((UIElement)e.Source);
-            dockPanelSymbols.Children.RemoveAt(dockPanelSymbols.Children.Count - 1);
+            if((bool)checkBoxSymbols.IsChecked)
+                dockPanelSymbols.Children.RemoveAt(dockPanelSymbols.Children.Count - 1);
         }
 
         private void OpenImage_Click(object sender, RoutedEventArgs e)
@@ -80,7 +85,6 @@ namespace NSEmbroidery.WPF
                 resolutionText.Text = image.Width + "x" + image.Height;
                 openedImage.Source = image;
 
-               
             }
         }
 
@@ -97,13 +101,13 @@ namespace NSEmbroidery.WPF
                 }
                 catch
                 {
-                    MessageBox.Show("Could not open image");
+                    informationText.Text = "Could not open image";
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("Open image first");
+                informationText.Text = "Open image first";
                 return;
             }
             
@@ -113,7 +117,7 @@ namespace NSEmbroidery.WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Count of cells is incorrect");
+                informationText.Text = "Count of cells is incorrect";
                 return;
             }
 
@@ -130,15 +134,14 @@ namespace NSEmbroidery.WPF
             comboBoxResolutions.ItemsSource = null;
         }
 
-        //Dont work
-        private void createEmbroidery_Click(object sender, RoutedEventArgs e)
+        private async void createEmbroidery_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: end method implementation and process all exceptions
 
             DColor[] palette;
-            char[] symbols;
+            char[] symbols = null;
             Embroidery.GridType gridType = Embroidery.GridType.None;
             int coefficient;
+            int _cellsCount;
 
             palette = GetPalette(choosedColors.Children);
 
@@ -150,7 +153,15 @@ namespace NSEmbroidery.WPF
 
             if ((bool)checkBoxSymbols.IsChecked) symbols = GetSymbols();
 
-            resolutions.TryGetValue((string)comboBoxResolutions.SelectedItem, out coefficient);
+            try
+            {
+                resolutions.TryGetValue((string)comboBoxResolutions.SelectedItem, out coefficient);
+            }
+            catch
+            {
+                informationText.Text = "Choose resolution first";
+                return;
+            }
 
             if ((bool)checkBoxGrid.IsChecked)
             {
@@ -159,10 +170,51 @@ namespace NSEmbroidery.WPF
             }
 
 
+            if ((bool)checkBoxSymbols.IsChecked)
+            {
+                symbols = GetSymbols();
+                if (symbols == null)
+                {
+                    informationText.Text = "Symbols initialization is incorrect";
+                    return;
+                }
+            }
 
+
+            DBitmap _imageFromFile = new DBitmap(imageName);
+            DBitmap inputImage = new DBitmap(_imageFromFile.Width, _imageFromFile.Height);
+
+            for(int y = 0; y < inputImage.Height; y++)
+                for(int x = 0; x < inputImage.Width; x++)
+                    inputImage.SetPixel(x, y, _imageFromFile.GetPixel(x, y));
+
+            _cellsCount = Convert.ToInt32(cellsCountTextBox.Text);
 
             Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
 
+            EmbroideryAsync asyncCall = new EmbroideryAsync(wcf_service.GetEmbroidery);
+
+            IAsyncResult resultAsyncCall = asyncCall.BeginInvoke(inputImage, coefficient, _cellsCount, palette, symbols, DColor.Black, gridType, null, null);
+
+            DBitmap resultImage = asyncCall.EndInvoke(resultAsyncCall);
+
+            
+            BitmapSource bitmapSource = await GetBitmapSource(resultImage);
+            
+            Preview preview = new Preview();
+            preview.canvasPreview.Children.Add(new Image() { Source = bitmapSource });
+            preview.ShowDialog();
+        }
+
+        private async Task<BitmapSource> GetBitmapSource(DBitmap image)
+        {
+            BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(image.GetHbitmap(),
+                                                      IntPtr.Zero,
+                                                      System.Windows.Int32Rect.Empty,
+                                                      BitmapSizeOptions.FromWidthAndHeight(image.Width, image.Height));
+
+
+            return bitmapSource;
         }
 
         private DColor[] GetPalette(UIElementCollection elements)
@@ -187,7 +239,17 @@ namespace NSEmbroidery.WPF
 
         private void symbolsCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            int count = GetPalette(choosedColors.Children).Count();
+            int count;
+
+            try
+            {
+                count = GetPalette(choosedColors.Children).Count();
+            }
+            catch
+            {
+                informationText.Text = "Create palette first";
+                return;
+            }
 
             for (int i = 0; i < count; i++)
             {
@@ -199,8 +261,17 @@ namespace NSEmbroidery.WPF
 
         private void AddSymbolTextBox(string symbol)
         {
-                dockPanelSymbols.Children.Add(new TextBox() { Width = 30, Margin = new Thickness(2, 2, 2, 2),
-                                                              Text = ((symbol != null)? symbol : "") });
+            TextBox textBox = new TextBox(){ Width = 30, Margin = new Thickness(2, 2, 2, 2),         
+                                             Text = ((symbol != null)? symbol : "") };
+            textBox.TextChanged += textBox_TextChanged;
+
+            dockPanelSymbols.Children.Add(textBox);
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox current = (TextBox)sender;
+            current.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         }
 
         private void symbolsCheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -215,12 +286,26 @@ namespace NSEmbroidery.WPF
 
         private char[] GetSymbols()
         {
+            bool wasException = false;
             char[] symbols = new char[dockPanelSymbols.Children.Count];
             int i = 0;
             foreach (var item in dockPanelSymbols.Children)
             {
-                symbols[i++] = ((TextBox)item).Text.Single();
+                char symbol = ' ';
+                try
+                {
+                    symbol = ((TextBox)item).Text.Single();
+                }
+                catch
+                {
+                    ((TextBox)item).Background = new SolidColorBrush(Color.FromArgb(100, 100, 10, 10));
+                    wasException = true;
+                }
+                if(!wasException)
+                    symbols[i++] = symbol;
             }
+
+            if (wasException) return null;
 
             return symbols;
         }

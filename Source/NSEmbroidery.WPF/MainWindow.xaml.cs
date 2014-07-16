@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +28,15 @@ namespace NSEmbroidery.WPF
     {
         string imageName = null;
         Dictionary<string, int> resolutions = null;
+        bool wasWrongCellsCount = false;
 
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             colorPicker.SelectedColor = Color.FromArgb(0, 255, 255, 255);
         }
 
@@ -117,6 +123,8 @@ namespace NSEmbroidery.WPF
 
                 int width = (int)image.Width;
                 int height = (int)image.Height;
+
+                cellsCountTextBox.Text = "1.." + width;
                 
                 resolutionText.Text = width + "x" + height;
                 openedImage.Source = image;
@@ -124,7 +132,7 @@ namespace NSEmbroidery.WPF
             }
         }
 
-        private void ComboBoxResolutions_DropDownOpened(object sender, EventArgs e)
+        private async void ComboBoxResolutions_DropDownOpened(object sender, EventArgs e)
         {
             System.Drawing.Bitmap image;
             int cellsCount;
@@ -133,7 +141,7 @@ namespace NSEmbroidery.WPF
             {
                 try
                 {
-                    image = new System.Drawing.Bitmap(imageName);
+                    image = new DBitmap(imageName);
                 }
                 catch
                 {
@@ -154,13 +162,37 @@ namespace NSEmbroidery.WPF
             catch (Exception ex)
             {
                 informationText.Text = "Count of cells is incorrect";
+                cellsCountTextBox.Background = new SolidColorBrush(Color.FromArgb(255, 200, 10, 10));
+                wasWrongCellsCount = true;
                 return;
             }
 
+            if (cellsCount <= 1) { informationText.Text = "count of cells has to be more than 1"; return; }
+            else if (cellsCount > image.Width) { informationText.Text = "count of cells has to be less than " + (image.Width + 1).ToString(); return; }
+
+
             Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
-            
-            resolutions = wcf_service.PossibleResolutions(image, cellsCount, 2, 10);
-            
+            List<string> waitEnumerable = new List<string>();
+            waitEnumerable.Add("Wait");
+
+            comboBoxResolutions.ItemsSource = waitEnumerable;
+            try
+            {
+                resolutions = await wcf_service.PossibleResolutionsAsync(image, cellsCount, 2, 10);
+            }
+            catch(Exception ex)
+            {
+                comboBoxResolutions.ItemsSource = null;
+                informationText.Text = ex.Message;
+                return;
+            }
+            if (resolutions == null)
+            {
+                informationText.Text = "Some error was occured while getting resolutions. See log for details.";
+                comboBoxResolutions.ItemsSource = null;
+                return;
+            }
+
             comboBoxResolutions.ItemsSource = resolutions.Keys;
 
         }
@@ -374,6 +406,13 @@ namespace NSEmbroidery.WPF
         private void cellsCountTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (informationText.Text != "") informationText.Text = "";
+            if (cellsCountTextBox.Text.Contains("1..")) cellsCountTextBox.Text = "";
+            SolidColorBrush solidColor = new SolidColorBrush(Color.FromArgb(255, 200, 10, 10));
+            if (wasWrongCellsCount)
+            {
+                wasWrongCellsCount = false;
+                cellsCountTextBox.Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            }
         }
 
         private void createEmbroidery_MouseDown(object sender, MouseButtonEventArgs e)

@@ -44,7 +44,6 @@ namespace NSEmbroidery.Core
                             "---------resol: " + image.Width.ToString() + "x" + image.Height.ToString());
 
             Canvas pattern = PatternMapGenerator.Generate(imageCanvas, settings);
-            log.WriteEntry("-------------------");
             log.WriteEntry(@"-----Generate pattern: "+ Environment.NewLine +
                             "--------resol: " + imageCanvas.Width.ToString() + "x" + imageCanvas.Height.ToString() + Environment.NewLine +
                             "--------cells: " + settings.CellsCount.ToString());
@@ -59,7 +58,6 @@ namespace NSEmbroidery.Core
 
             Bitmap resultImage = CanvasConverter.ConvertCanvasToBitmap(result);
 
-            log.WriteEntry("-------------------");
             log.WriteEntry(@"-----Convert Canvas To Bitmap: " + Environment.NewLine +
                             "---------resol: " + result.Width.ToString() + "x" + result.Height.ToString());
             log.WriteEntry("---------End time spent-------");
@@ -89,7 +87,7 @@ namespace NSEmbroidery.Core
             }
 
 
-            log.WriteEntry(@"GetEmbroidery was executed" +
+            log.WriteEntry(@"GetEmbroidery was executed" + Environment.NewLine +
                             "    Result image = " + result.ToString());
 
             return result;
@@ -138,21 +136,38 @@ namespace NSEmbroidery.Core
 
         public Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int countResolutions)
         {
+
+            log.WriteEntry("Come in PossibleResolutions" + Environment.NewLine +
+                           "     cellsCount: " + cellsCount + Environment.NewLine +
+                           "     countResolutions: " + countResolutions);
+
             Dictionary<string, int> result = new Dictionary<string, int>();
 
             if (cellsCount <= 0)
-                throw new WrongInitializedException("Square count has to be initialized and inherent");
+            {
+                log.WriteEntry("!Exception-----Square count has to be initialized and inherent");
+                return null;
+            }
 
             if (countResolutions < 0)
-                throw new WrongInitializedException("Count of resolution has to be more than zero");
+            {
+                log.WriteEntry("!Exception-----Count of resolution has to be more than zero");
+                return null;
+            }
 
             if (image.Width < cellsCount)
-                throw new WrongResolutionException("Image's width must be higher or input less cells");
+            {
+                log.WriteEntry("!Exception-----Image's width must be higher or input less cells");
+                return null;
+            }
 
             int cellWidth = image.Width / cellsCount;
 
             if (image.Height < cellWidth)
-                throw new WrongResolutionException("Image's height must be higher or input more cells");
+            {
+                log.WriteEntry("!Exception------Image's height must be higher or input more cells");
+                return null;
+            }
 
             int newHeight = image.Height / cellWidth;
             int newWidth = cellsCount;
@@ -170,21 +185,39 @@ namespace NSEmbroidery.Core
         public Dictionary<string, int> PossibleResolutions(Bitmap image, int cellsCount, int minCoefficient, int maxCoefficient)
         {
 
+            log.WriteEntry("Come in PossibleResolutions" + Environment.NewLine +
+                           "     cellsCount: " + cellsCount + Environment.NewLine +
+                           "     minCoefficient: " + minCoefficient + Environment.NewLine +
+                           "     maxCoefficient: " + maxCoefficient );
+
+
             Dictionary<string, int> result = new Dictionary<string, int>();
 
             if (cellsCount <= 0)
-                throw new WrongInitializedException("Square count has to be initialized and inherent");
+            {
+                log.WriteEntry("!Exception-----Square count has to be initialized and inherent");
+                return null;
+            }
 
             if (image.Width < cellsCount)
-                throw new WrongResolutionException("Image's width must be higher or input less cells");
+            {
+                log.WriteEntry("!Exception-----Image's width must be higher or input less cells");
+                return null;
+            }
 
             int cellWidth = image.Width / cellsCount;
 
             if (image.Height < cellWidth)
-                throw new WrongResolutionException("Image's height must be higher or input more cells");
+            {
+                log.WriteEntry("!Exception------Image's height must be higher or input more cells");
+                return null;
+            }
 
             if (minCoefficient < 2 || minCoefficient >= maxCoefficient)
-                throw new Exception("minCoefficient has to be less than maxCoefficient and more than 2");
+            {
+                log.WriteEntry("!Exception------minCoefficient has to be less than maxCoefficient and more than 2");
+                return null;
+            }
 
 
             int newHeight = image.Height / cellWidth;

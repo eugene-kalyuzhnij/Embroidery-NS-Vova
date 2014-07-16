@@ -287,7 +287,7 @@ namespace NSEmbroidery.UI
 
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
-                IAsyncResult asuncResult = embroideryDelegate.BeginInvoke(image, ratio, cellsCount, palette, masSymbols, SymbolColor, type, null, null);
+                IAsyncResult asuncResult = embroideryDelegate.BeginInvoke(image, ratio, cellsCount, new System.Drawing.Color[]{System.Drawing.Color.Black, System.Drawing.Color.White, System.Drawing.Color.Red}, masSymbols, SymbolColor, type, null, null);
                 Bitmap resultImage = embroideryDelegate.EndInvoke(asuncResult);
                 watch.Stop();
 

@@ -31,6 +31,7 @@ namespace NSEmbroidery.WPF
         public MainWindow()
         {
             InitializeComponent();
+            colorPicker.SelectedColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
@@ -38,20 +39,40 @@ namespace NSEmbroidery.WPF
             if (informationText.Text != "") informationText.Text = "";
 
             Color choosedColor = colorPicker.SelectedColor;
-            
-            Rectangle colorItem = new Rectangle();
-            colorItem.Width = 20;
-            colorItem.Height = 20;
-            colorItem.Fill = new SolidColorBrush(choosedColor);
-            colorItem.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            colorItem.Margin = new Thickness(5, 5, 0, 5);
-            colorItem.VerticalAlignment = System.Windows.VerticalAlignment.Top;
-            colorItem.MouseUp += color_MouseUp;
 
-            choosedColors.Children.Add(colorItem);
+            if (!HasThisColor(choosedColor) && choosedColor != Color.FromArgb(0, 255, 255, 255))
+            {
+                Rectangle colorItem = new Rectangle();
+                colorItem.Width = 20;
+                colorItem.Height = 20;
+                colorItem.Fill = new SolidColorBrush(choosedColor);
+                colorItem.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                colorItem.Margin = new Thickness(5, 5, 0, 5);
+                colorItem.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+                colorItem.MouseUp += color_MouseUp;
 
-            if ((bool)checkBoxSymbols.IsChecked)
-                AddSymbolTextBox("");
+                choosedColors.Children.Add(colorItem);
+
+                if ((bool)checkBoxSymbols.IsChecked)
+                    AddSymbolTextBox("");
+            }
+        }
+
+        private bool HasThisColor(Color color)
+        {
+            foreach (var item in choosedColors.Children)
+            {
+                Rectangle rectangle = item as Rectangle;
+                if (rectangle != null)
+                {
+                    SolidColorBrush colorBrush = rectangle.Fill as SolidColorBrush;
+                    if (colorBrush != null)
+                        if (colorBrush.Color == color) return true;
+                }
+            }
+
+
+            return false;
         }
 
         private void color_MouseUp(object sender, MouseEventArgs e)
@@ -75,6 +96,8 @@ namespace NSEmbroidery.WPF
             // Get the selected file name and display in a TextBox
             if (result == true)
             {
+
+                cellsCountTextBox.Text = "";
                 // Open document
                 openedImage.Source = null;
 
@@ -216,7 +239,7 @@ namespace NSEmbroidery.WPF
             loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
             
             Preview preview = new Preview();
-            preview.canvasPreview.Children.Add(new Image() { Source = bitmapSource });
+            preview.previewImage.Source = bitmapSource;
             preview.Show();
         }
 
@@ -357,6 +380,25 @@ namespace NSEmbroidery.WPF
         {
             loadingCanvas.Visibility = System.Windows.Visibility.Visible;
         }
+
+        private void removeColorsButton_Click(object sender, RoutedEventArgs e)
+        {
+            choosedColors.Children.RemoveRange(0, choosedColors.Children.Count);
+        }
+
+        private void RemoveSettings()
+        {
+            checkBoxSymbols.IsChecked = false;
+            checkBoxGrid.IsChecked = false;
+            choosedColors.Children.RemoveRange(0, choosedColors.Children.Count);
+            cellsCountTextBox.Text = "";
+        }
+
+        private void removeSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveSettings();
+        }
+
 
     }
 }

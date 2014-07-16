@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace NSEmbroidery.WPF
 {
@@ -28,9 +29,29 @@ namespace NSEmbroidery.WPF
             InitializeComponent();
 
 
-            this.Width = width / 2;
+            this.Width = width / 3;
             this.Height = height / 2;
             
         }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapSource image = previewImage.Source as BitmapSource;
+            using (var fileStream = new FileStream("D:\\new.jpeg", FileMode.Create))
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(image));
+                encoder.Save(fileStream);
+            }
+
+            this.Close();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
 }

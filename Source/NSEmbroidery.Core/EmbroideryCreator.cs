@@ -84,6 +84,7 @@ namespace NSEmbroidery.Core
             {
                 log.WriteEntry(@"Exception in GetEmbroidery(...) occurred
                                     Message: " + ex.Message);
+                return null;
             }
 
 

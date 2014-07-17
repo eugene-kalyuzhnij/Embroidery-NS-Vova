@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.IO;
+using System.Threading;
 using DColor = System.Drawing.Color;
 using DBitmap = System.Drawing.Bitmap;
 
@@ -29,6 +31,8 @@ namespace NSEmbroidery.WPF
         string imageName = null;
         Dictionary<string, int> resolutions = null;
         bool wasWrongCellsCount = false;
+
+        private delegate DBitmap GetEmbroideryDelegate(DBitmap inputImage, int coefficient, int cellsCount, DColor[] palette,char[] symbols, DColor symbolColor, Embroidery.GridType gridType);
 
         public MainWindow()
         {
@@ -143,9 +147,14 @@ namespace NSEmbroidery.WPF
                 {
                     image = new DBitmap(imageName);
                 }
+                catch (OutOfMemoryException ex)
+                {
+                    MessageBox.Show("Sorry, but image is too large :(");
+                    return;
+                }
                 catch
                 {
-                    informationText.Text = "Could not open image";
+                    informationText.Text = "Could not open image"; ;
                     return;
                 }
             }
@@ -202,8 +211,10 @@ namespace NSEmbroidery.WPF
             comboBoxResolutions.ItemsSource = null;
         }
 
-        private async void createEmbroidery_Click(object sender, RoutedEventArgs e)
+        private void createEmbroidery_Click(object sender, RoutedEventArgs e)
         {
+            //loadingCanvas.Visibility = System.Windows.Visibility.Visible;
+            //ShowLoading(loadingCanvas);
 
             DColor[] palette;
             char[] symbols = null;
@@ -216,6 +227,7 @@ namespace NSEmbroidery.WPF
             if (palette == null){
                 informationText.Text = "";
                 informationText.Text = "Create palette before embroidery creating";
+                //HideLoading();
                 return;
             }
 
@@ -228,6 +240,7 @@ namespace NSEmbroidery.WPF
             catch
             {
                 informationText.Text = "Choose resolution first";
+                //HideLoading();
                 return;
             }
 
@@ -244,38 +257,99 @@ namespace NSEmbroidery.WPF
                 if (symbols == null)
                 {
                     informationText.Text = "Symbols initialization is incorrect";
+                    //HideLoading();
                     return;
                 }
             }
 
+            try
+            {
+                _cellsCount = Convert.ToInt32(cellsCountTextBox.Text);
+            }
+            catch
+            {
+                informationText.Text = "cout of cells is wrong.";
+                //HideLoading();
+                return;
+            }
+
+            Thread creatingThread = new Thread(() => CreateEmbroidery(coefficient, _cellsCount, palette, symbols, DColor.Black, gridType));
+            creatingThread.SetApartmentState(ApartmentState.STA);
+            creatingThread.IsBackground = true;
+            creatingThread.Start();
             
-
-            DBitmap _imageFromFile = new DBitmap(imageName);
-
-            DBitmap inputImage = new DBitmap(_imageFromFile.Width, _imageFromFile.Height);
-
-            for(int y = 0; y < inputImage.Height; y++)
-                for(int x = 0; x < inputImage.Width; x++)
-                    inputImage.SetPixel(x, y, _imageFromFile.GetPixel(x, y));
-
-            _cellsCount = Convert.ToInt32(cellsCountTextBox.Text);
-
-            Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
-
-            
-            DBitmap resultImage = await wcf_service.GetEmbroideryAsync(inputImage, coefficient, _cellsCount, palette, symbols, DColor.Black, gridType);
-
-   
-            BitmapSource bitmapSource = await GetBitmapSource(resultImage);
-
-            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
-            
-            Preview preview = new Preview();
-            preview.previewImage.Source = bitmapSource;
-            preview.Show();
         }
 
-        private async Task<BitmapSource> GetBitmapSource(DBitmap image)
+        private void CreateEmbroidery(int coefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, Embroidery.GridType gridType)
+        {
+            Preview preview = new Preview();
+            preview.Show();
+
+            BitmapSource bitmapSource = null;
+
+            try
+            {
+                DBitmap _imageFromFile = new DBitmap(imageName);
+
+                DBitmap inputImage = new DBitmap(_imageFromFile.Width, _imageFromFile.Height);
+
+                for (int y = 0; y < inputImage.Height; y++)
+                    for (int x = 0; x < inputImage.Width; x++)
+                        inputImage.SetPixel(x, y, _imageFromFile.GetPixel(x, y));
+
+
+                Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
+
+                DBitmap resultImage = wcf_service.GetEmbroidery(inputImage, coefficient, cellsCount, palette, symbols, DColor.Black, gridType);
+
+                if (resultImage == null)
+                {
+                    MessageBox.Show("Some error occured on the server");
+                    //HideLoading();
+                    return;
+                }
+
+                bitmapSource = GetBitmapSource(resultImage);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                MessageBox.Show("Sorry, but image is too large :(");
+                //HideLoading();
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Some exception was occured. Message: " + ex.Message);
+                //HideLoading();
+                return;
+            }
+
+
+            //HideLoading();
+            try
+            {
+                preview.previewImage.Source = bitmapSource;
+                System.Windows.Threading.Dispatcher.Run();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception occured. Message: " + ex.Message);
+                return;
+            }
+
+        }
+
+        public void ShowLoading(DependencyObject obj)
+        {
+            obj.Dispatcher.Invoke(delegate { loadingCanvas.Visibility = System.Windows.Visibility.Visible; }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+        }
+
+        private void HideLoading()
+        {
+            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private BitmapSource GetBitmapSource(DBitmap image)
         {
             BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(image.GetHbitmap(),
                                                       IntPtr.Zero,
@@ -415,11 +489,6 @@ namespace NSEmbroidery.WPF
             }
         }
 
-        private void createEmbroidery_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            loadingCanvas.Visibility = System.Windows.Visibility.Visible;
-        }
-
         private void removeColorsButton_Click(object sender, RoutedEventArgs e)
         {
             choosedColors.Children.RemoveRange(0, choosedColors.Children.Count);
@@ -437,6 +506,7 @@ namespace NSEmbroidery.WPF
         {
             RemoveSettings();
         }
+
 
 
     }

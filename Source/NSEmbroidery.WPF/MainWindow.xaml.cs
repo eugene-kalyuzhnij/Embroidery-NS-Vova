@@ -32,7 +32,6 @@ namespace NSEmbroidery.WPF
         Dictionary<string, int> resolutions = null;
         bool wasWrongCellsCount = false;
 
-        private delegate DBitmap GetEmbroideryDelegate(DBitmap inputImage, int coefficient, int cellsCount, DColor[] palette,char[] symbols, DColor symbolColor, Embroidery.GridType gridType);
 
         public MainWindow()
         {
@@ -273,17 +272,40 @@ namespace NSEmbroidery.WPF
                 return;
             }
 
-            Thread creatingThread = new Thread(() => CreateEmbroidery(coefficient, _cellsCount, palette, symbols, DColor.Black, gridType));
-            creatingThread.SetApartmentState(ApartmentState.STA);
-            creatingThread.IsBackground = true;
-            creatingThread.Start();
-            
+
+
+            Thread openPreview = new Thread(() => {
+                Preview preview = new Preview();
+                preview.Show();
+
+                Thread creatingEmbroidery = new Thread(() =>
+                {
+                    CreateEmbroidery(preview, imageName, coefficient, _cellsCount, palette, symbols, DColor.Black, gridType);
+                });
+                creatingEmbroidery.Start();
+
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            openPreview.SetApartmentState(ApartmentState.STA);
+            openPreview.IsBackground = true;
+            openPreview.Start();
+
+           
+
         }
 
-        private void CreateEmbroidery(int coefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, Embroidery.GridType gridType)
+        public void ShowLoading(DependencyObject obj)
         {
-            Preview preview = new Preview();
-            preview.Show();
+            obj.Dispatcher.Invoke(delegate { loadingCanvas.Visibility = System.Windows.Visibility.Visible; }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+        }
+
+        private void HideLoading()
+        {
+            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        public void CreateEmbroidery(Preview preview, string imageName, int coefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, Embroidery.GridType gridType)
+        {
 
             BitmapSource bitmapSource = null;
 
@@ -291,16 +313,16 @@ namespace NSEmbroidery.WPF
             {
                 DBitmap _imageFromFile = new DBitmap(imageName);
 
-                DBitmap inputImage = new DBitmap(_imageFromFile.Width, _imageFromFile.Height);
-
-                for (int y = 0; y < inputImage.Height; y++)
-                    for (int x = 0; x < inputImage.Width; x++)
-                        inputImage.SetPixel(x, y, _imageFromFile.GetPixel(x, y));
-
+                Func<DBitmap, DBitmap> getCopyBitmap = new Func<DBitmap, DBitmap>(GetCopyOfBitmap);
+                IAsyncResult getCopyBitmapResult = getCopyBitmap.BeginInvoke(_imageFromFile, null, null);
+                DBitmap inputImage = getCopyBitmap.EndInvoke(getCopyBitmapResult);
 
                 Embroidery.EmbroideryCreatorServiceClient wcf_service = new Embroidery.EmbroideryCreatorServiceClient();
 
-                DBitmap resultImage = wcf_service.GetEmbroidery(inputImage, coefficient, cellsCount, palette, symbols, DColor.Black, gridType);
+                Func<DBitmap, int, int, DColor[], char[], DColor, Embroidery.GridType, DBitmap> getEmbroidery = new Func<DBitmap, int, int, DColor[], char[], DColor, Embroidery.GridType, DBitmap>(wcf_service.GetEmbroidery);
+                IAsyncResult getEmbroideryResult = getEmbroidery.BeginInvoke(inputImage, coefficient, cellsCount, palette, symbols, DColor.Black, gridType, null, null);
+                DBitmap resultImage = getEmbroidery.EndInvoke(getEmbroideryResult);
+
 
                 if (resultImage == null)
                 {
@@ -324,30 +346,18 @@ namespace NSEmbroidery.WPF
                 return;
             }
 
+            bitmapSource.Freeze();
 
-            //HideLoading();
-            try
-            {
-                preview.previewImage.Source = bitmapSource;
-                System.Windows.Threading.Dispatcher.Run();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception occured. Message: " + ex.Message);
-                return;
-            }
+            preview.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    preview.previewImage.Source = bitmapSource;
+                    preview.testText.Text = "Done";
+                }),
+                System.Windows.Threading.DispatcherPriority.Normal);
+           
 
         }
 
-        public void ShowLoading(DependencyObject obj)
-        {
-            obj.Dispatcher.Invoke(delegate { loadingCanvas.Visibility = System.Windows.Visibility.Visible; }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
-        }
-
-        private void HideLoading()
-        {
-            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
-        }
 
         private BitmapSource GetBitmapSource(DBitmap image)
         {
@@ -358,6 +368,19 @@ namespace NSEmbroidery.WPF
 
 
             return bitmapSource;
+        }
+
+
+        public DBitmap GetCopyOfBitmap(DBitmap image)
+        {
+            DBitmap inputImage = new DBitmap(image.Width, image.Height);
+
+            for (int y = 0; y < inputImage.Height; y++)
+                for (int x = 0; x < inputImage.Width; x++)
+                    inputImage.SetPixel(x, y, image.GetPixel(x, y));
+
+
+            return inputImage;
         }
 
         private DColor[] GetPalette(UIElementCollection elements)

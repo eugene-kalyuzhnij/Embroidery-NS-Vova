@@ -12,14 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using DBitmap = System.Drawing.Bitmap;
+using DColor = System.Drawing.Color;
 
 namespace NSEmbroidery.WPF
 {
+
     /// <summary>
     /// Interaction logic for Preview.xaml
     /// </summary>
     public partial class Preview : Window
     {
+
 
         public Preview()
         {

@@ -124,8 +124,8 @@ namespace NSEmbroidery.WPF
                     return;
                 }
 
-                int width = (int)image.Width;
-                int height = (int)image.Height;
+                int width = image.PixelWidth;
+                int height = image.PixelHeight;
 
                 cellsCountTextBox.Text = "1.." + width;
                 
@@ -175,7 +175,11 @@ namespace NSEmbroidery.WPF
                 return;
             }
 
-            if (cellsCount <= 1) { informationText.Text = "count of cells has to be more than 1"; return; }
+            if (cellsCount <= 1) 
+            { 
+                informationText.Text = "count of cells has to be more than 1";
+                return; 
+            }
             else if (cellsCount > image.Width) { informationText.Text = "count of cells has to be less than " + (image.Width + 1).ToString(); return; }
 
 
@@ -214,6 +218,7 @@ namespace NSEmbroidery.WPF
         {
             //loadingCanvas.Visibility = System.Windows.Visibility.Visible;
             //ShowLoading(loadingCanvas);
+            informationText.Text = "";
 
             DColor[] palette;
             char[] symbols = null;
@@ -350,8 +355,8 @@ namespace NSEmbroidery.WPF
 
             preview.Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    preview.loadingPanel.Visibility = System.Windows.Visibility.Collapsed;
                     preview.previewImage.Source = bitmapSource;
-                    preview.testText.Text = "Done";
                 }),
                 System.Windows.Threading.DispatcherPriority.Normal);
            
@@ -529,8 +534,6 @@ namespace NSEmbroidery.WPF
         {
             RemoveSettings();
         }
-
-
 
     }
 }

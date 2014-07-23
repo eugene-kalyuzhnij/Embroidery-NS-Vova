@@ -82,6 +82,7 @@
             </Setter>
 
         </Style>
+        
 
         <Style x:Key="TextBoxStyle" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
             <Setter Property="Template">
@@ -141,38 +142,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBoxItem">
-                        <Border
-                                  Name="Border"
-                                    Padding="0"
-                                    Margin="2"
-                                    BorderThickness="2"
-                                    CornerRadius="0"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent" >
-
-                            <TextBlock TextAlignment="Center">
-                                        <ContentPresenter />
-                            </TextBlock>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsHighlighted" Value="true">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkGray"/>
-                                <Setter TargetName="Border" Property="Background" Value="DarkGray"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+       
 
         <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
            

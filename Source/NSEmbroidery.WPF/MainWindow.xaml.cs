@@ -535,5 +535,10 @@ namespace NSEmbroidery.WPF
             RemoveSettings();
         }
 
+        private void comboBoxResolutions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
     }
 }

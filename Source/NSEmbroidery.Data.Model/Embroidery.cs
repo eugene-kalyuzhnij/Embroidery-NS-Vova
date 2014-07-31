@@ -9,31 +9,41 @@ using System.IO;
 using System.ComponentModel;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing.Drawing2D;
+using System.Runtime.Serialization;
 
 namespace NSEmbroidery.Data.Models
 {
+    [Serializable]
+    [DataContract]
     public class Embroidery
     {
         [Key]
+        [DataMember]
         public int Id { get; set; }
 
         [Required]
+        [DataMember]
         public string Name { get; set; }
 
         public bool PublicEmbroidery { get; set; }
 
         [Required]
+        [DataMember]
         public byte[] Data { get; set; }
 
+        [DataMember]
         public DateTime DateCreated { get; set; }
 
+        [DataMember]
         public byte[] SmallImageData { get; set; }
 
+        [DataMember]
         public int UserId { get; set; }
+        
         public virtual User User { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Like> Likes { get; set; }
+        protected virtual ICollection<Comment> Comments { get; set; }
+        protected virtual ICollection<Like> Likes { get; set; }
 
         public Embroidery() { }
 

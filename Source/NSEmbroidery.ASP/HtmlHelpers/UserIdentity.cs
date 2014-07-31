@@ -39,7 +39,6 @@ namespace NSEmbroidery.ASP.Helper
         public static int EmbroideriesCount(int userId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-
             var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll().Where(e => e.UserId == userId);
 
             return embroideries.Count();
@@ -49,7 +48,6 @@ namespace NSEmbroidery.ASP.Helper
         public static string GetOthersUserName(int userId)
         {
             IKernel kernel = new StandardKernel(new DataModelCreator());
-
             var user = kernel.Get<IRepository<User>>().GetById(userId);
 
             return user.FirstName + " " + user.LastName;

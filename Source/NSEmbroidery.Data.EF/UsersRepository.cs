@@ -11,11 +11,11 @@ namespace NSEmbroidery.Data.EF
 {
     public class UsersRepository : IRepository<User>
     {
-        public User GetById(int Id)
+        public User GetById(int id)
         {
             using (ModelContext context = new ModelContext())
-            {
-                return context.Users.Find(Id);
+            {        
+                return context.Users.Find(id);
             }
         }
 
@@ -48,6 +48,7 @@ namespace NSEmbroidery.Data.EF
                 context.SaveChanges();
             }
         }
+
 
         public User GetLast()
         {

@@ -17,6 +17,11 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.IO;
 using System.Threading;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using NSEmbroidery.Data.Models;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
 using DColor = System.Drawing.Color;
 using DBitmap = System.Drawing.Bitmap;
 
@@ -28,6 +33,8 @@ namespace NSEmbroidery.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        HttpClient client;
         string imageName = null;
         Dictionary<string, int> resolutions = null;
         bool wasWrongCellsCount = false;
@@ -38,10 +45,14 @@ namespace NSEmbroidery.WPF
             InitializeComponent();
         }
 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             colorPicker.SelectedColor = Color.FromArgb(0, 255, 255, 255);
         }
+
+
+
 
         private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {

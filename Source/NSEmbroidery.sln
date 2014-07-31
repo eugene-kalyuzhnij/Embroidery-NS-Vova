@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.Data.DI.EF", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.WPF", "NSEmbroidery.WPF\NSEmbroidery.WPF.csproj", "{A7280C99-630F-4FF3-833B-3A967BBB5F57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSEmbroidery.WPFClient", "NSEmbroidery.WPFClient\NSEmbroidery.WPFClient.csproj", "{44477488-8DCF-4168-9C71-85D4E411BA7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{A7280C99-630F-4FF3-833B-3A967BBB5F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7280C99-630F-4FF3-833B-3A967BBB5F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7280C99-630F-4FF3-833B-3A967BBB5F57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44477488-8DCF-4168-9C71-85D4E411BA7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44477488-8DCF-4168-9C71-85D4E411BA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44477488-8DCF-4168-9C71-85D4E411BA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44477488-8DCF-4168-9C71-85D4E411BA7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -253,6 +253,7 @@
                                        VerticalAlignment="Center"
                                        Foreground="#444"
                                        FontWeight="Bold"/>
+                            
                         </Grid>
                         
                         
@@ -320,7 +321,29 @@
             </Setter>
         </Style>
         
-        <Style TargetType="toolkit:ColorPicker" BasedOn="{StaticResource {x:Type toolkit:ColorPicker}}">
+        <Style x:Key="ColorPickerStyleTest" BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <ToggleButton Grid.Column="0">
+                                <Border>
+                                    
+                                </Border>
+                            </ToggleButton>
+                            
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="ColorPickerStyle" TargetType="toolkit:ColorPicker" BasedOn="{StaticResource {x:Type toolkit:ColorPicker}}">
             <Setter Property="ButtonStyle" Value="{StaticResource ToggleButtonStyle}"></Setter>
         </Style>
 
@@ -360,7 +383,7 @@
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
 
             <DockPanel HorizontalAlignment="Stretch">
-                <toolkit:ColorPicker SelectedColor="Black" SelectedColorChanged="colorPicker_SelectedColorChanged" Grid.Column="1" Grid.Row="1" Margin="10, 10, 10, 10" ShowAdvancedButton="False" ShowStandardColors="False" Name="colorPicker" Width="160"></toolkit:ColorPicker>
+                <toolkit:ColorPicker Style="{StaticResource ColorPickerStyle}" SelectedColor="Black" SelectedColorChanged="colorPicker_SelectedColorChanged" Grid.Column="1" Grid.Row="1" Margin="10, 10, 10, 10" ShowAdvancedButton="False" ShowStandardColors="False" Name="colorPicker" Width="160"></toolkit:ColorPicker>
                 <Button Style="{StaticResource ButtonStyle}" Width="20" Height="20" Content="X" HorizontalAlignment="Right" Margin="10, 0, 10, 0" Click="removeColorsButton_Click"></Button>
             </DockPanel>
 

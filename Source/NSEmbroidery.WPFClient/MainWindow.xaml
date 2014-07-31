@@ -1,0 +1,23 @@
+﻿<Window x:Class="NSEmbroidery.WPFClient.MainWindow"
+        Name="mainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Menu>
+                <MenuItem></MenuItem>
+            </Menu>
+
+            <Frame Grid.Row="1" Name="mainFrame"></Frame>
+
+        </Grid>
+        
+    </Grid>
+</Window>

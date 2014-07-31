@@ -27,8 +27,13 @@ namespace NSEmbroidery.ASP
         protected void Application_Start()
         {
 
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
+            
             EventLog log = new EventLog("EmbroideryServiceLog");
             log.Source = "EmbroiderySource";
+
+            log.WriteEntry("NSEmbroidery has just started");
             /*
             IKernel kernel = new StandardKernel(new DataModelCreator());
             
@@ -51,6 +56,7 @@ namespace NSEmbroidery.ASP
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
+
 
             try
             {

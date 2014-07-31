@@ -50,6 +50,8 @@ namespace NSEmbroidery.WPFClient
                 mainWindow.mainFrame.NavigationService.Navigate(new Menu());
             }
 
+            //Dont work GetUsers and other;
+
         }
     }
 }

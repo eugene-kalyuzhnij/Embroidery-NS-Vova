@@ -1,0 +1,75 @@
+﻿html{ 
+    background: linear-gradient(0deg, #444444 5%,#cccccc 75%) no-repeat center center fixed; 
+    background-size: cover;
+    min-height:100%;
+    min-width:500px;
+}
+
+
+/*LAYOUT*************************************/
+
+
+/*
+.buttom-left {
+    display:flexbox;
+    border:solid;
+}
+*/
+
+/*menu layout*********/
+
+
+.top {
+    width:100%;
+    overflow:auto;
+}
+
+#home-button {
+    list-style:none;
+    display:inline-block;
+    margin:18px;
+    float:left;
+    font-size:20px;
+    font-family:sans-serif;
+    text-shadow:2px 2px 5px #333333;
+    text-decoration:none;
+    color:#fff;
+    cursor:default;
+}
+
+
+#home-button:hover {
+    cursor:pointer;
+    color:#ccc;
+}
+
+/*********************/
+
+/*login register layout***/
+ul.login-register{
+    list-style:none;
+    display:inline-block;
+    float:right;
+}
+
+    ul.login-register li{
+        margin:5px;
+        float:left;
+        margin-right:10px;
+    }
+
+.log-reg-link{
+    font-size:18px;
+    font-family:sans-serif;
+    text-shadow:2px 2px 5px #333333;
+    text-decoration:none;
+    color:#fff;
+    cursor:pointer;
+}
+
+
+.log-reg-link:hover {
+    color:#ccc;
+}
+
+

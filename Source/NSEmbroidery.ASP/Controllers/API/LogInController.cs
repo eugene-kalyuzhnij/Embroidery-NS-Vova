@@ -6,6 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using NSEmbroidery.Data.Models;
 using WebMatrix.WebData;
+using NSEmbroidery.Data.DI.EF;
+using NSEmbroidery.Data.Models;
+using NSEmbroidery.Data.Interfaces;
+using Ninject;
+using System.Diagnostics;
 
 namespace NSEmbroidery.ASP.Controllers.API
 {
@@ -14,17 +19,34 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpPost]
         public HttpResponseMessage Login(LoginModel model)
         {
+
+                if(ModelState.IsValid)
+                    if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, persistCookie: model.RememberMe))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.OK);;
+                    }
+
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+        }
+
+        [HttpGet]
+        public User GetCurrentUser()
+        {
+            User user = null;
             try
             {
-                if (ModelState.IsValid && WebSecurity.Login(model.Email, model.Password, persistCookie: model.RememberMe))
-                    return new HttpResponseMessage(HttpStatusCode.OK);
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                user = kernel.Get<IRepository<User>>().GetById(WebSecurity.CurrentUserId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
+            if (user == null)
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
 
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+            return user;
         }
+
     }
 }

@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 namespace NSEmbroidery.WPFClient
 {
@@ -25,6 +26,10 @@ namespace NSEmbroidery.WPFClient
                 return _client;
             }
         }
+        public int CurrentUserId { get; private set; }
+        public string CurrentUserName { get; private set; }
+        public string CurrentUserLastName { get; set; }
+        public string CurrentEmail { get; private set; }
 
         private NSEmbroideryClient()
         {
@@ -60,7 +65,22 @@ namespace NSEmbroidery.WPFClient
             HttpResponseMessage responce = _client.PostAsync("api/login", content).Result;
 
             if (responce.IsSuccessStatusCode)
-                return true;
+            {
+
+                HttpResponseMessage userResponse = _client.GetAsync("api/login").Result;
+
+                if (userResponse.IsSuccessStatusCode)
+                {
+                    string json = userResponse.Content.ReadAsStringAsync().Result;
+                    User user = (User)JsonConvert.DeserializeObject<User>(json);
+                    this.CurrentUserId = user.Id;
+                    this.CurrentEmail = user.Email;
+                    this.CurrentUserName = user.FirstName;
+                    this.CurrentUserLastName = user.LastName;
+
+                    return true;
+                }
+            }
 
             throw new NotImplementedException();
         }
@@ -75,7 +95,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                bool result = (bool)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                bool result = (bool)JsonConvert.DeserializeObject<bool>(responce.Content.ReadAsStringAsync().Result);
                 return result;
             }
 
@@ -100,8 +120,13 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                bool result = (bool)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
-                return result;
+                User user = (User)JsonConvert.DeserializeObject<User>(responce.Content.ReadAsStringAsync().Result);
+                this.CurrentUserId = user.Id;
+                this.CurrentEmail = user.Email;
+                this.CurrentUserName = user.FirstName;
+                this.CurrentUserLastName = user.LastName;
+
+                return true;
             }
 
             throw new NotImplementedException();
@@ -116,7 +141,9 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                List<Like> likes = (List<Like>)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                string json = responce.Content.ReadAsStringAsync().Result;
+                List<Like> likes = (List<Like>)JsonConvert.DeserializeObject<List<Like>>(json);
+                
                 return likes;
             }
 
@@ -132,7 +159,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                List<Comment> comments = (List<Comment>)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                List<Comment> comments = (List<Comment>)JsonConvert.DeserializeObject<List<Comment>>(responce.Content.ReadAsStringAsync().Result);
                 return comments;
             }
 
@@ -148,7 +175,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                Comment comment = (Comment)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                Comment comment = (Comment)JsonConvert.DeserializeObject<Comment>(responce.Content.ReadAsStringAsync().Result);
                 return comment;
             }
 
@@ -165,7 +192,7 @@ namespace NSEmbroidery.WPFClient
             if (responce.IsSuccessStatusCode)
             {
                 string str = responce.Content.ReadAsStringAsync().Result;
-                List<User> users = (List<User>)JsonConvert.DeserializeObject(str);
+                List<User> users = (List<User>)JsonConvert.DeserializeObject<List<User>>(str);
                 return users;
             }
 
@@ -181,7 +208,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                User user = (User)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                User user = (User)JsonConvert.DeserializeObject<User>(responce.Content.ReadAsStringAsync().Result);
                 return user;
             }
 
@@ -197,7 +224,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject<List<Embroidery>>(responce.Content.ReadAsStringAsync().Result);
                 return embroideries;
             }
 
@@ -213,7 +240,7 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                Embroidery embroiderie = (Embroidery)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                Embroidery embroiderie = (Embroidery)JsonConvert.DeserializeObject<Embroidery>(responce.Content.ReadAsStringAsync().Result);
                 return embroiderie;
             }
 
@@ -225,15 +252,38 @@ namespace NSEmbroidery.WPFClient
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage responce = _client.GetAsync("api/embroideries/true").Result;
+            HttpResponseMessage responce = _client.GetAsync("api/embroideries/?small=true").Result;
 
             if (responce.IsSuccessStatusCode)
             {
-                List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject(responce.Content.ReadAsStringAsync().Result);
+                List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject<List<Embroidery>>(responce.Content.ReadAsStringAsync().Result);
 
                 List<BitmapSource> bitmaps = new List<BitmapSource>();
 
                 foreach (var item in embroideries)
+                    bitmaps.Add(GetBitmapSource(item.SmallImage));
+
+                return bitmaps;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public List<BitmapSource> GetSmallEmbroideries(int userId)
+        {
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage responce = _client.GetAsync("api/embroideries/?small=true").Result;
+
+            if (responce.IsSuccessStatusCode)
+            {
+                List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject<List<Embroidery>>(responce.Content.ReadAsStringAsync().Result);
+                var result = embroideries.Where(e => e.UserId == userId).ToList<Embroidery>();
+
+                List<BitmapSource> bitmaps = new List<BitmapSource>();
+
+                foreach (var item in result)
                     bitmaps.Add(GetBitmapSource(item.SmallImage));
 
                 return bitmaps;

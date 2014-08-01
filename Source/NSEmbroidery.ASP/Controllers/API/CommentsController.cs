@@ -8,6 +8,7 @@ using NSEmbroidery.Data.Models;
 using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.DI.EF;
 using Ninject;
+using System.Diagnostics;
 
 namespace NSEmbroidery.ASP.Controllers.API
 {
@@ -17,26 +18,57 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpGet]
         public List<Comment> GetAllComments()
         {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            var comments = kernel.Get<IRepository<Comment>>().GetAll();
+            EventLog log = null;
+            try
+            {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
 
-            return comments.ToList();
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var comments = kernel.Get<IRepository<Comment>>().GetAll();
+
+                return comments.ToList();
+            }
+            catch (Exception ex)
+            {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+            }
         }
 
         [HttpGet]
         public Comment GetComment(int id)
         {
-            IKernel kernel = new StandardKernel(new DataModelCreator());
-            var comment = kernel.Get<IRepository<Comment>>().GetById(id);
+            EventLog log = null;
+            try
+            {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
 
-            return comment;
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                var comment = kernel.Get<IRepository<Comment>>().GetById(id);
+
+                if (comment == null)
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+
+                return comment;
+            }
+            catch (Exception ex)
+            {
+                if(log != null) log.WriteEntry("Exception: " + ex.Message);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+            }
         }
 
         [HttpPost]
         public HttpResponseMessage AddComment(string msg, int userId, int embroideryId)
         {
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 kernel.Get<IRepository<Comment>>().Add(new Comment()
                 {
@@ -45,10 +77,11 @@ namespace NSEmbroidery.ASP.Controllers.API
                     EmbroideryId = embroideryId,
                     UserId = userId
                 });
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.Created);
             }
-            catch
+            catch(Exception ex)
             {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }
@@ -57,16 +90,21 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpDelete]
         public HttpResponseMessage DeleteComment(int id)
         {
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 var comment = kernel.Get<IRepository<Comment>>().GetById(id);
                 kernel.Get<IRepository<Comment>>().Remove(comment);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }

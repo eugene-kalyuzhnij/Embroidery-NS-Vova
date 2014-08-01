@@ -8,6 +8,8 @@ using NSEmbroidery.Data.Models;
 using NSEmbroidery.Data.Interfaces;
 using NSEmbroidery.Data.DI.EF;
 using Ninject;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace NSEmbroidery.ASP.Controllers.API
 {
@@ -17,15 +19,20 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpGet]
         public List<Embroidery> GetAllEmbroideries()
         {
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll();
 
                 return embroideries.ToList();
             }
-            catch
+            catch(Exception ex)
             {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }
@@ -33,10 +40,13 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpGet]
         public List<Embroidery> GetAllEmbroidery(bool small)
         {
-           
-            if (small)
+            EventLog log = null;
+            try
             {
-                try
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
+                if (small)
                 {
                     IKernel kernel = new StandardKernel(new DataModelCreator());
                     var embroideries = kernel.Get<IRepository<Embroidery>>().GetAll();
@@ -45,33 +55,43 @@ namespace NSEmbroidery.ASP.Controllers.API
                     foreach (var item in embroideries)
                         result.Add(new Embroidery()
                         {
-                            SmallImageData = item.SmallImageData
+                            SmallImageData = item.SmallImageData,
+                            UserId = item.UserId
                         });
 
                     return result;
                 }
-                catch
-                {
-                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
-                }
             }
+            catch(Exception ex)
+            {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+            }
+            
 
             return null;
         }
 
-
         [HttpGet]
         public Embroidery GetEmbroidery(int id)
         {
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(id);
 
+                if (embroidery == null)
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+
                 return embroidery;
             }
-            catch
+            catch(Exception ex)
             {
+                if(log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }
@@ -79,34 +99,60 @@ namespace NSEmbroidery.ASP.Controllers.API
         [HttpPost]
         public HttpResponseMessage AddEmbroidery([FromBody]Embroidery embroidery)
         {
+
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
+              
+                    #region Creating Small Image
+                    Bitmap image = embroidery.Image;
+                    if (image != null)
+                    {
+                        int smallImageWidht = 150;
+
+                        int num = (smallImageWidht * 100) / image.Width;
+                        Size size = new Size(smallImageWidht, (num * image.Height) / 100);
+
+                        if(!embroidery.CreateSmallImage(size))
+                            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotModified));
+                    }
+                    else
+                        throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
+                    #endregion
+
                 kernel.Get<IRepository<Embroidery>>().Add(embroidery);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }
-        
-
 
         [HttpDelete]
         public HttpResponseMessage DeleteEmbroidery(int id)
         {
+            EventLog log = null;
             try
             {
+                log = new EventLog("NS.Server");
+                log.Source = "NS.Server.Source";
+
                 IKernel kernel = new StandardKernel(new DataModelCreator());
                 var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(id);
                 kernel.Get<IRepository<Embroidery>>().Remove(embroidery);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
-            catch
+            catch(Exception ex)
             {
+                if (log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }

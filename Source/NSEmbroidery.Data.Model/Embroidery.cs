@@ -94,19 +94,77 @@ namespace NSEmbroidery.Data.Models
             }
         }
 
+        public bool CreateSmallImage(Size newSize)
+        {
+            Bitmap image = Image;
+            if (image != null)
+            {
+                try
+                {
+                    int sourceWidth = image.Width;
+                    int sourceHeight = image.Height;
+
+                    float nPercent = 0;
+                    float nPercentW = 0;
+                    float nPercentH = 0;
+
+                    nPercentW = ((float)newSize.Width / (float)sourceWidth);
+                    nPercentH = ((float)newSize.Height / (float)sourceHeight);
+
+                    if (nPercentH < nPercentW)
+                        nPercent = nPercentH;
+                    else
+                        nPercent = nPercentW;
+
+                    int destWidth = (int)(sourceWidth * nPercent);
+                    int destHeight = (int)(sourceHeight * nPercent);
+
+                    Bitmap b = new Bitmap(destWidth, destHeight);
+                    Graphics g = Graphics.FromImage((Image)b);
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                    g.DrawImage(image, 0, 0, destWidth, destHeight);
+                    g.Dispose();
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    using (MemoryStream stream = new MemoryStream())
+                    {
+                        formatter.Serialize(stream, b);
+                        SmallImageData = stream.ToArray();
+                    }
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+
         public Bitmap Image
         {
             get
             {
                 Bitmap result = null;
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                using (MemoryStream stream = new MemoryStream(Data))
+                try
                 {
-                    result = (Bitmap)formatter.Deserialize(stream);
-                }
+                    BinaryFormatter formatter = new BinaryFormatter();
 
-                return result;
+                    using (MemoryStream stream = new MemoryStream(Data))
+                    {
+                        result = (Bitmap)formatter.Deserialize(stream);
+                    }
+
+                    return result;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 

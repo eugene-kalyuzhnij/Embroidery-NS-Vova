@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
 
 namespace NSEmbroidery.WPFClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddEmbroidery.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddEmbroidery : Page
     {
-        public MainWindow()
+        public AddEmbroidery()
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new Login() { MainWindow = this });
         }
     }
 }

@@ -22,9 +22,12 @@
         </StackPanel>
         
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Button Content="My Gallery"></Button>
-            <Button Content="Users"></Button>
-            <Button Content="Add Embroidery"></Button>
+            <Button Content="My Gallery"
+                    Click="MyGallery_Click"/>
+            <Button Content="Users"
+                    Click="Users_Click"/>
+            <Button Content="Add Embroidery"
+                    Click="AddEmbroidery_Click"/>
         </StackPanel>
         
         <Frame Name="content" Grid.Column="1" Grid.Row="1"></Frame>

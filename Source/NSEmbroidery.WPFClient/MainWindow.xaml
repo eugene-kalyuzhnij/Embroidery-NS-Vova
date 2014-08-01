@@ -10,12 +10,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-
             <Menu>
                 <MenuItem></MenuItem>
             </Menu>
 
-            <Frame Grid.Row="1" Name="mainFrame"></Frame>
+            <Frame Grid.Row="1" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
 
         </Grid>
         

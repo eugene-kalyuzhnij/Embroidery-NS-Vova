@@ -6,29 +6,45 @@ using System.Net.Http;
 using System.Web.Http;
 using NSEmbroidery.Data.Models;
 using WebMatrix.WebData;
+using System.Web.Security;
+using System.Diagnostics;
+using NSEmbroidery.Data.Models;
+using NSEmbroidery.Data.DI.EF;
+using NSEmbroidery.Data.Interfaces;
+using Ninject;
 
 namespace NSEmbroidery.ASP.Controllers.API
 {
     public class RegisterController : ApiController
     {
         [HttpPost]
-        public bool Register([FromBody] RegisterModel model)
+        public User Register([FromBody] RegisterModel model)
         {
-            //if (ModelState.IsValid)
-            //{
+            EventLog log = null;
                 try
                 {
+                    log = new EventLog("NS.Server");
+                    log.Source = "NS.Server.Source";
+
                     WebSecurity.CreateUserAndAccount(model.Email, model.Password,
                         new { FirstName = model.FirstName, LastName = model.LastName });
                     WebSecurity.Login(model.Email, model.Password);
-                    return true;
 
+                    IKernel kernel = new StandardKernel(new DataModelCreator());
+                    User user = kernel.Get<IRepository<User>>().GetById(WebSecurity.CurrentUserId);
+
+                    return user;
                 }
-                catch
+                catch (MembershipCreateUserException ex)
                 {
-                    return false;
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Conflict));
                 }
-            //}
+                catch(Exception ex)
+                {
+                    if(log != null) log.WriteEntry("Exception: " + ex.Message);
+                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+                }
+                
         }
     }
 }

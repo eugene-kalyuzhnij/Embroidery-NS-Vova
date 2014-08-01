@@ -38,5 +38,12 @@ namespace NSEmbroidery.Data.Models
         public virtual ICollection<Like> Likes { get; private set; }
         protected virtual ICollection<Embroidery> Embroideries { get; private set; }
 
+
+        public override string ToString()
+        {
+            if(FirstName != null && LastName != null)
+                return FirstName + " " + LastName;
+            return base.ToString();
+        }
     }
 }

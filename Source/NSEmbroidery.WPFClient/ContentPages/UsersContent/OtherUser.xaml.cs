@@ -12,19 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
+using NSEmbroidery.Data.Models;
 
 namespace NSEmbroidery.WPFClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OtherUser.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OtherUser : Page
     {
-        public MainWindow()
+        public User User { get; private set; }
+
+        public OtherUser(User user)
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new Login() { MainWindow = this });
+            User = user;
         }
+
+        private void OtherUser_Loaded(object sender, RoutedEventArgs e)
+        {
+            textBlockUserName.Text = User.ToString();
+        }
+
+
     }
 }

@@ -24,5 +24,20 @@ namespace NSEmbroidery.WPFClient
         {
             InitializeComponent();
         }
+
+        private void MyGallery_Click(object sender, RoutedEventArgs e)
+        {
+            content.NavigationService.Navigate(new Gallery());
+        }
+
+        private void Users_Click(object sender, RoutedEventArgs e)
+        {
+            content.NavigationService.Navigate(new UsersContent());
+        }
+
+        private void AddEmbroidery_Click(object sender, RoutedEventArgs e)
+        {
+            content.NavigationService.Navigate(new AddEmbroidery());
+        }
     }
 }

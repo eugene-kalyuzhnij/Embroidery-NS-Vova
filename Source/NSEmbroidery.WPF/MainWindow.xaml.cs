@@ -46,12 +46,13 @@ namespace NSEmbroidery.WPF
         }
 
 
+
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             colorPicker.SelectedColor = Color.FromArgb(0, 255, 255, 255);
         }
-
-
 
 
         private void colorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)

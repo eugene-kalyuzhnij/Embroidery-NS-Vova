@@ -24,7 +24,7 @@ namespace NSEmbroidery.WPFClient
     /// </summary>
     public partial class Login : Page
     {
-        public MainWindow mainWindow { get; set; }
+        public MainWindow MainWindow { get; set; }
 
         public Login()
         {
@@ -40,17 +40,15 @@ namespace NSEmbroidery.WPFClient
             
             LoginModel model = new LoginModel()
             {
-                Email = _email,
-                Password = _password
+                Email = "test@mail.com",
+                Password = "111111"
             };
             
             NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
             if (client.Login(model))
-            {  
-                mainWindow.mainFrame.NavigationService.Navigate(new Menu());
+            {
+                MainWindow.mainFrame.NavigationService.Navigate(new Menu());
             }
-
-            //Dont work GetUsers and other;
 
         }
     }

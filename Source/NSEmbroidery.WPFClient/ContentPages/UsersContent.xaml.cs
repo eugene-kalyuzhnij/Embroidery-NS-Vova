@@ -12,19 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
+using NSEmbroidery.Data.Models;
 
 namespace NSEmbroidery.WPFClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Users.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UsersContent : Page
     {
-        public MainWindow()
+        public UsersContent()
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new Login() { MainWindow = this });
         }
+
+        private void UsersContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            frameUsersContent.NavigationService.Navigate(new Users() { UsersContent = this.frameUsersContent });
+        }
+
     }
 }

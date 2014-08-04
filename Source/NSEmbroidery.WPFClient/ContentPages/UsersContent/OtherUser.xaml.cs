@@ -21,17 +21,36 @@ namespace NSEmbroidery.WPFClient
     /// </summary>
     public partial class OtherUser : Page
     {
+        public Frame UsersContent { get; private set; }
         public User User { get; private set; }
 
-        public OtherUser(User user)
+        public OtherUser(User user, Frame usersContent)
         {
             InitializeComponent();
             User = user;
+            UsersContent = usersContent;
         }
+
 
         private void OtherUser_Loaded(object sender, RoutedEventArgs e)
         {
-            textBlockUserName.Text = User.ToString();
+            TextBlock userName = new TextBlock()
+            {
+                Text = User.FirstName + " " + User.LastName,
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
+                Margin = new Thickness(2)
+                
+            };
+
+            toolBar.Children.Add(userName);
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsersContent != null)
+                UsersContent.NavigationService.Navigate(new Users(UsersContent));
+            else
+                throw new NotImplementedException("In Other User: UserContent is null");
         }
 
 

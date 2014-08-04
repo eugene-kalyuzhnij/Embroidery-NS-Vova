@@ -24,9 +24,10 @@ namespace NSEmbroidery.WPFClient
 
         public Frame UsersContent { get; set; }
 
-        public Users()
+        public Users(Frame usersContent)
         {
             InitializeComponent();
+            UsersContent = usersContent;
         }
 
         private void Users_Loaded(object sender, RoutedEventArgs e)
@@ -57,7 +58,7 @@ namespace NSEmbroidery.WPFClient
                 User user = otherUserButton.Content as User;
                 if (user != null)
                 {
-                    UsersContent.NavigationService.Navigate(new OtherUser(user));
+                    UsersContent.NavigationService.Navigate(new OtherUser(user, UsersContent));
                 }
             }
         }

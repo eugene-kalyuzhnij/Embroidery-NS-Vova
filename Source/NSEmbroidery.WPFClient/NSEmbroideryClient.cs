@@ -231,7 +231,7 @@ namespace NSEmbroidery.WPFClient
             throw new NotImplementedException();
         }
 
-        public Embroidery GetEmbroiderie(int id)
+        public Embroidery GetEmbroidery(int id)
         {
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -247,7 +247,7 @@ namespace NSEmbroidery.WPFClient
             throw new NotImplementedException();
         }
 
-        public List<BitmapSource> GetSmallEmbroideries()
+        public List<Embroidery> GetSmallEmbroideries()
         {
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -258,18 +258,13 @@ namespace NSEmbroidery.WPFClient
             {
                 List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject<List<Embroidery>>(responce.Content.ReadAsStringAsync().Result);
 
-                List<BitmapSource> bitmaps = new List<BitmapSource>();
-
-                foreach (var item in embroideries)
-                    bitmaps.Add(GetBitmapSource(item.SmallImage));
-
-                return bitmaps;
+                return embroideries;
             }
 
             throw new NotImplementedException();
         }
 
-        public List<BitmapSource> GetSmallEmbroideries(int userId)
+        public List<Embroidery> GetSmallEmbroideries(int userId)
         {
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -279,30 +274,16 @@ namespace NSEmbroidery.WPFClient
             if (responce.IsSuccessStatusCode)
             {
                 List<Embroidery> embroideries = (List<Embroidery>)JsonConvert.DeserializeObject<List<Embroidery>>(responce.Content.ReadAsStringAsync().Result);
-                var result = embroideries.Where(e => e.UserId == userId).ToList<Embroidery>();
+                List<Embroidery> currentUserEmbroideries = embroideries.Where(e => e.UserId == userId).ToList<Embroidery>();
 
-                List<BitmapSource> bitmaps = new List<BitmapSource>();
 
-                foreach (var item in result)
-                    bitmaps.Add(GetBitmapSource(item.SmallImage));
-
-                return bitmaps;
+                return currentUserEmbroideries;
             }
 
             throw new NotImplementedException();
         }
 
-        private BitmapSource GetBitmapSource(Bitmap image)
-        {
-            BitmapSource bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(image.GetHbitmap(),
-                                                      IntPtr.Zero,
-                                                      System.Windows.Int32Rect.Empty,
-                                                      BitmapSizeOptions.FromWidthAndHeight(image.Width, image.Height));
-
-
-            return bitmapSource;
-        }
-
+        
 
         public void Dispose()
         {

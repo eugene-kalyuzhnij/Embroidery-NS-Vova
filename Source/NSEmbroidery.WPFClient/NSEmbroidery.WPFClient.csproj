@@ -52,14 +52,36 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.2.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NextPrev\Prev.cs" />
     <Compile Include="ContentPages\AddEmbroidery.xaml.cs">
       <DependentUpon>AddEmbroidery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContentPages\ImageShowing.xaml.cs">
+      <DependentUpon>ImageShowing.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContentPages\UsersContent.xaml.cs">
       <DependentUpon>UsersContent.xaml</DependentUpon>
@@ -67,11 +89,16 @@
     <Compile Include="ContentPages\UsersContent\Users.xaml.cs">
       <DependentUpon>Users.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MethodExtentions.cs" />
     <Page Include="ContentPages\AddEmbroidery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ContentPages\Gallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentPages\ImageShowing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +145,7 @@
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NextPrev\Next.cs" />
     <Compile Include="NSEmbroideryClient.cs" />
     <Compile Include="ContentPages\UsersContent\OtherUser.xaml.cs">
       <DependentUpon>OtherUser.xaml</DependentUpon>

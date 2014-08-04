@@ -28,8 +28,8 @@ namespace NSEmbroidery.WPFClient
 
         private void UsersContent_Loaded(object sender, RoutedEventArgs e)
         {
-            frameUsersContent.NavigationService.Navigate(new Users() { UsersContent = this.frameUsersContent });
+            frameUsersContent.NavigationService.Navigate(new Users(this.frameUsersContent));
         }
-
     }
+
 }

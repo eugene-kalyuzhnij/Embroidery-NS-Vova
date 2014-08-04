@@ -56,7 +56,8 @@ namespace NSEmbroidery.ASP.Controllers.API
                         result.Add(new Embroidery()
                         {
                             SmallImageData = item.SmallImageData,
-                            UserId = item.UserId
+                            UserId = item.UserId,
+                            Id = item.Id
                         });
 
                     return result;
@@ -76,24 +77,34 @@ namespace NSEmbroidery.ASP.Controllers.API
         public Embroidery GetEmbroidery(int id)
         {
             EventLog log = null;
+            Embroidery embroidery = null;
+
             try
             {
                 log = new EventLog("NS.Server");
                 log.Source = "NS.Server.Source";
-
-                IKernel kernel = new StandardKernel(new DataModelCreator());
-                var embroidery = kernel.Get<IRepository<Embroidery>>().GetById(id);
-
-                if (embroidery == null)
-                    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-
-                return embroidery;
             }
-            catch(Exception ex)
+            catch
             {
-                if(log != null) log.WriteEntry("Exception: " + ex.Message);
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
+
+            try
+            {
+                IKernel kernel = new StandardKernel(new DataModelCreator());
+                embroidery = kernel.Get<IRepository<Embroidery>>().GetById(id);
+
+            }
+            catch (Exception ex)
+            {
+                log.WriteEntry("Exception: " + ex.Message);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
+            }
+
+            if (embroidery == null)
+              throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+
+            return embroidery;
         }
 
         [HttpPost]

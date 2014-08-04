@@ -9,8 +9,10 @@
 	Title="Gallery">
 
     <Grid>
-        <StackPanel Name="stackPanelImages" Orientation="Horizontal" VerticalAlignment="Top">
-            
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <WrapPanel Name="images" Orientation="Horizontal" VerticalAlignment="Top">
+
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

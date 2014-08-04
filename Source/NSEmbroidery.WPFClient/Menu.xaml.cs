@@ -27,7 +27,7 @@ namespace NSEmbroidery.WPFClient
 
         private void MyGallery_Click(object sender, RoutedEventArgs e)
         {
-            content.NavigationService.Navigate(new Gallery());
+            content.NavigationService.Navigate(new Gallery(content));
         }
 
         private void Users_Click(object sender, RoutedEventArgs e)

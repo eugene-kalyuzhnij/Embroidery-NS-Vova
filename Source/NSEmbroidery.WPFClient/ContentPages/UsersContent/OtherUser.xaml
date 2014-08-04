@@ -9,6 +9,20 @@
 	Title="OtherUser">
 
     <Grid>
-        <TextBlock Name="textBlockUserName"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Name="toolBar"
+                    Grid.Row="0"
+                    HorizontalAlignment="Stretch">
+            <Button Name="buttonBack" Width="40" Content="Back" Margin="2" Click="back_Click" HorizontalAlignment="Left"></Button>
+        </Grid>
+        
+       
+        <TextBlock
+            Grid.Row="1"
+            Name="textBlockUserName"></TextBlock>
     </Grid>
 </Page>

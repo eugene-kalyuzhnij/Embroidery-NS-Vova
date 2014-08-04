@@ -321,27 +321,6 @@
             </Setter>
         </Style>
         
-        <Style x:Key="ColorPickerStyleTest" BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <ToggleButton Grid.Column="0">
-                                <Border>
-                                    
-                                </Border>
-                            </ToggleButton>
-                            
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         
         <Style x:Key="ColorPickerStyle" TargetType="toolkit:ColorPicker" BasedOn="{StaticResource {x:Type toolkit:ColorPicker}}">
             <Setter Property="ButtonStyle" Value="{StaticResource ToggleButtonStyle}"></Setter>

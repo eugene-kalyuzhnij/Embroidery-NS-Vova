@@ -9,6 +9,9 @@
 	Title="Users">
 
     <Grid>
-        <Frame Name="frameUsersContent"></Frame>
+        <Frame
+            Name="frameUsersContent"
+            />
+        
     </Grid>
 </Page>

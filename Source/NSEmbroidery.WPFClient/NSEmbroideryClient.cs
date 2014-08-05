@@ -11,7 +11,6 @@ using System.Xml.Serialization;
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
 
 namespace NSEmbroidery.WPFClient
 {
@@ -95,8 +94,8 @@ namespace NSEmbroidery.WPFClient
 
             if (responce.IsSuccessStatusCode)
             {
-                bool result = (bool)JsonConvert.DeserializeObject<bool>(responce.Content.ReadAsStringAsync().Result);
-                return result;
+                Dispose();
+                return true;
             }
 
             throw new NotImplementedException();
@@ -247,6 +246,22 @@ namespace NSEmbroidery.WPFClient
             throw new NotImplementedException();
         }
 
+        public bool AddEmbroidery(Embroidery embroidery)
+        {
+
+            //TODO: implement adding embroidery
+            /*
+            HttpContent content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Data", embroidery.Data.ToString()),
+                new KeyValuePair<string, string>("Password", model.Password)
+            });
+            */
+
+            _client.PostAsync("api/embroideries", content);
+            return false;
+        }
+
         public List<Embroidery> GetSmallEmbroideries()
         {
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -283,11 +298,15 @@ namespace NSEmbroidery.WPFClient
             throw new NotImplementedException();
         }
 
-        
+        ~NSEmbroideryClient()
+        {
+            Dispose();
+        }
 
         public void Dispose()
         {
-            _client.Dispose();
+            if(_client != null)
+                _client.Dispose();
             _singleton = null;
         }
 

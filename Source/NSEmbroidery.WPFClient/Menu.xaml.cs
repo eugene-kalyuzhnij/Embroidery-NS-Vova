@@ -20,9 +20,12 @@ namespace NSEmbroidery.WPFClient
     /// </summary>
     public partial class Menu : Page
     {
-        public Menu()
+        public MainWindow MainWindow { get; private set; }
+
+        public Menu(MainWindow mainWindow)
         {
             InitializeComponent();
+            MainWindow = mainWindow;
         }
 
         private void MyGallery_Click(object sender, RoutedEventArgs e)
@@ -38,6 +41,20 @@ namespace NSEmbroidery.WPFClient
         private void AddEmbroidery_Click(object sender, RoutedEventArgs e)
         {
             content.NavigationService.Navigate(new AddEmbroidery());
+        }
+
+        private void Menu_Loaded(object sender, RoutedEventArgs e)
+        {
+            NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
+            userName.Text = client.CurrentUserName;
+        }
+
+        private void Logoff_Click(object sender, RoutedEventArgs e)
+        {
+            NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
+            client.Logoff();
+
+            this.NavigationService.Navigate(new Login(MainWindow));
         }
     }
 }

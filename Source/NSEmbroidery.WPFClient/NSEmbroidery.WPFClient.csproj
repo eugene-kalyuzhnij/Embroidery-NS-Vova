@@ -41,6 +41,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,7 +78,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NextPrev\Prev.cs" />
     <Compile Include="ContentPages\AddEmbroidery.xaml.cs">
       <DependentUpon>AddEmbroidery.xaml</DependentUpon>
     </Compile>
@@ -90,6 +91,11 @@
       <DependentUpon>Users.xaml</DependentUpon>
     </Compile>
     <Compile Include="MethodExtentions.cs" />
+    <Compile Include="Service References\EmbroideryService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Page Include="ContentPages\AddEmbroidery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,12 +146,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Gradients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MenuItemButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\NextButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\PrevButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NextPrev\Next.cs" />
     <Compile Include="NSEmbroideryClient.cs" />
     <Compile Include="ContentPages\UsersContent\OtherUser.xaml.cs">
       <DependentUpon>OtherUser.xaml</DependentUpon>
@@ -168,11 +189,28 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Drawing.Bitmap.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\EmbroideryService\EmbroideryCreator.wsdl" />
+    <None Include="Service References\EmbroideryService\EmbroideryCreator.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryService\EmbroideryCreator1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryService\EmbroideryCreator2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryService\EmbroideryCreator3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EmbroideryService\EmbroideryCreator4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -186,8 +224,24 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Styles\" />
+    <WCFMetadataStorage Include="Service References\EmbroideryService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryService\EmbroideryCreator.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EmbroideryService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -24,7 +24,7 @@ namespace NSEmbroidery.WPFClient
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.NavigationService.Navigate(new Login() { MainWindow = this });
+            mainFrame.NavigationService.Navigate(new Login(this));
         }
     }
 }

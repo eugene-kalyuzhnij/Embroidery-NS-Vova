@@ -11,35 +11,28 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.25*"></ColumnDefinition>
-            <ColumnDefinition Width="220"></ColumnDefinition>
+            <ColumnDefinition Width="180"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="8*" MinHeight="200"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu VerticalAlignment="Top" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Header="File" >
-                <MenuItem Header="Open Image" Click="OpenImage_Click"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Exit" Click="Exit_Click"></MenuItem>
-            </MenuItem>
-        </Menu>
+
+        <Image Name="openedImage" Grid.Column="0" Grid.Row="0" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
 
 
-        <Image Name="openedImage" Grid.Column="0" Grid.Row="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-
-
-        <DockPanel Grid.Column="0" Grid.Row="2"  Margin="10, 0, 10, 0"  HorizontalAlignment="Stretch">
+        <DockPanel Grid.Column="0" Grid.Row="1"  Margin="10, 0, 10, 0"  HorizontalAlignment="Stretch">
             <TextBlock Name="resolutionText" Width="100" VerticalAlignment="Center"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <TextBlock Name="informationText" Foreground="Red" VerticalAlignment="Center" MouseUp="textBlockInformation"></TextBlock>
             </ScrollViewer>
         </DockPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
 
+            <Button Content="Open image" Margin="10, 10, 10, 0" Click="OpenImage_Click"></Button>
+            
             <DockPanel HorizontalAlignment="Stretch">
                 <toolkit:ColorPicker SelectedColor="Black" SelectedColorChanged="colorPicker_SelectedColorChanged" Grid.Column="1" Grid.Row="1" Margin="10, 10, 10, 10" ShowAdvancedButton="False" ShowStandardColors="False" Name="colorPicker" Width="160"></toolkit:ColorPicker>
                 <Button Width="20" Height="20" Content="X" HorizontalAlignment="Right" Margin="10, 0, 10, 0" Click="removeColorsButton_Click"></Button>
@@ -94,7 +87,10 @@
 
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="2" Content="Create Embroidery" Margin="20, 0, 20, 0" VerticalAlignment="Center" Click="createEmbroidery_Click"></Button>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <Button Content="Create" Margin="5" VerticalAlignment="Center" Click="createEmbroidery_Click"></Button>
+            <Button Content="Add" Margin="5" VerticalAlignment="Center" Click="addEmbroidery_Click"></Button>
+        </StackPanel>
 
         <Canvas Name="loadingCanvas" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Background="Aquamarine" Opacity="0.3" Visibility="Collapsed"></Canvas>
 

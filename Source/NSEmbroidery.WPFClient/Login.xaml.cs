@@ -26,9 +26,10 @@ namespace NSEmbroidery.WPFClient
     {
         public MainWindow MainWindow { get; set; }
 
-        public Login()
+        public Login(MainWindow mainWindow)
         {
             InitializeComponent();
+            MainWindow = mainWindow;
         }
 
         private void logIn_Click(object sender, RoutedEventArgs e)
@@ -47,7 +48,9 @@ namespace NSEmbroidery.WPFClient
             NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
             if (client.Login(model))
             {
-                MainWindow.mainFrame.NavigationService.Navigate(new Menu());
+                if (MainWindow != null)
+                    MainWindow.mainFrame.NavigationService.Navigate(new Menu(MainWindow));
+                else throw new NotImplementedException();
             }
 
         }

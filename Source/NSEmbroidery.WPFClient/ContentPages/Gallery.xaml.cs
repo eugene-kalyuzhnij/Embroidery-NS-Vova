@@ -43,12 +43,21 @@ namespace NSEmbroidery.WPFClient
                     Source = item.SmallImage.GetBitmapSource(),
                     Width = 150,
                     Height = 150,
-                    Margin = new Thickness(5, 5, 5, 5),
-                    DataContext = item
+                    DataContext = item,
+                    Stretch = Stretch.None
                 };
 
+                var border = new Border()
+                {
+                    BorderBrush = new SolidColorBrush(Color.FromArgb(255, 10, 10, 10)),
+                    Margin = new Thickness(5, 5, 5, 5),
+                    BorderThickness = new Thickness(2)
+                };
+
+                border.Child = image;
+
                 image.MouseUp += image_MouseUp;
-                images.Children.Add(image);
+                images.Children.Add(border);
             }
              
         }

@@ -25,6 +25,7 @@ namespace NSEmbroidery.Data.Models
         [DataMember]
         public string Name { get; set; }
 
+        [DataMember]
         public bool PublicEmbroidery { get; set; }
 
         [Required]
@@ -45,6 +46,7 @@ namespace NSEmbroidery.Data.Models
         protected virtual ICollection<Comment> Comments { get; set; }
         protected virtual ICollection<Like> Likes { get; set; }
 
+
         public Embroidery() { }
 
         public Embroidery(Bitmap image)
@@ -58,7 +60,8 @@ namespace NSEmbroidery.Data.Models
             }
         }
 
-        public Embroidery(Bitmap image, Size newSize) : this(image)
+        public Embroidery(Bitmap image, Size newSize)
+            : this(image)
         {
             int sourceWidth = image.Width;
             int sourceHeight = image.Height;
@@ -96,7 +99,7 @@ namespace NSEmbroidery.Data.Models
 
         public bool CreateSmallImage(Size newSize)
         {
-            Bitmap image = Image;
+            Bitmap image = GetImage();
             if (image != null)
             {
                 try
@@ -145,10 +148,9 @@ namespace NSEmbroidery.Data.Models
                 return false;
         }
 
-        public Bitmap Image
+        public Bitmap GetImage()
         {
-            get
-            {
+
                 Bitmap result = null;
                 try
                 {
@@ -165,13 +167,12 @@ namespace NSEmbroidery.Data.Models
                 {
                     return null;
                 }
-            }
+
         }
 
-        public Bitmap SmallImage
+        public Bitmap GetSmallImage()
         {
-            get
-            {
+
                 Bitmap result = null;
                 BinaryFormatter formatter = new BinaryFormatter();
 
@@ -181,7 +182,6 @@ namespace NSEmbroidery.Data.Models
                 }
 
                 return result;
-            }
         }
 
     }

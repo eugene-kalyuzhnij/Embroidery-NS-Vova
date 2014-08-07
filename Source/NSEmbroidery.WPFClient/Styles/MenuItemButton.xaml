@@ -5,13 +5,28 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border BorderBrush="Black"
-                            BorderThickness="1"
+                    <Border Name="border"
+                            Margin="1"
                             Background="Gray">
-                        <ContentPresenter HorizontalAlignment="Center"
+                        <ContentPresenter Name="content"
+                                          HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          ></ContentPresenter>
+                                          Margin="2, 4, 2, 4"></ContentPresenter>
                     </Border>
+                         
+                    <ControlTemplate.Triggers>
+                        
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="LightGray"></Setter>
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="border" Property="BorderThickness" Value="3"></Setter>
+                            <Setter TargetName="content" Property="Margin" Value="-1, 1, -1, 1"></Setter>
+                            <!--<Setter TargetName="border" Property="Background" Value="Gray"></Setter>-->
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
                     
                 </ControlTemplate>
             </Setter.Value>

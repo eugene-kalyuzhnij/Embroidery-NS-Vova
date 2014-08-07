@@ -53,7 +53,7 @@ namespace NSEmbroidery.ASP.Controllers
 
                 using (MemoryStream stream = new MemoryStream())
                 {
-                    Bitmap image = embroidery.SmallImage;
+                    Bitmap image = embroidery.GetSmallImage();
                     image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
                     array = stream.ToArray();
                 }
@@ -78,7 +78,7 @@ namespace NSEmbroidery.ASP.Controllers
 
             var embroideryFromData = kernel.Get<IRepository<Embroidery>>().GetById(embroideryId);
 
-            var embroidery = embroideryFromData.Image;
+            var embroidery = embroideryFromData.GetImage();
 
             byte[] imageBytes = null;
 

@@ -5,10 +5,17 @@
       xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
+      Style="{DynamicResource PageContentStyle}"
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="AddEmbroidery">
-
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/PageContent.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.25*"></ColumnDefinition>
             <ColumnDefinition Width="180"></ColumnDefinition>

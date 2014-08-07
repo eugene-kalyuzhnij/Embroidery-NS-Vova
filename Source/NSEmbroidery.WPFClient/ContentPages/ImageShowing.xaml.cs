@@ -51,7 +51,7 @@ namespace NSEmbroidery.WPFClient
 
             var image = new Image()
             {
-                Source = embroidery.Image.GetBitmapSource()
+                Source = embroidery.GetImage().GetBitmapSource()
             };
 
             imageContent.Children.Add(image);

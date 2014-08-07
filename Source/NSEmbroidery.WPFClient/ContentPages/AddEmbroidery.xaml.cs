@@ -16,6 +16,7 @@ using DBitmap = System.Drawing.Bitmap;
 using DColor = System.Drawing.Color;
 using System.Threading;
 using System.IO;
+using NSEmbroidery.Data.Models;
 
 namespace NSEmbroidery.WPFClient
 {
@@ -24,15 +25,16 @@ namespace NSEmbroidery.WPFClient
     /// </summary>
     public partial class AddEmbroidery : Page
     {
-
+        public Frame Content { get; set; }
         string imageName = null;
         Dictionary<string, int> resolutions = null;
         bool wasWrongCellsCount = false;
 
 
-        public AddEmbroidery()
+        public AddEmbroidery(Frame content)
         {
             InitializeComponent();
+            Content = content;
         }
 
 
@@ -325,69 +327,7 @@ namespace NSEmbroidery.WPFClient
 
         }
 
-        public void ShowLoading(DependencyObject obj)
-        {
-            obj.Dispatcher.Invoke(delegate { loadingCanvas.Visibility = System.Windows.Visibility.Visible; }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
-        }
 
-        private void HideLoading()
-        {
-            loadingCanvas.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
-        public void CreateEmbroidery(string imageName, int coefficient, int cellsCount, DColor[] palette, char[] symbols, DColor symbolColor, EmbroideryService.GridType gridType)
-        {
-        /*
-            BitmapSource bitmapSource = null;
-
-            try
-            {
-                DBitmap _imageFromFile = new DBitmap(imageName);
-
-                Func<DBitmap, DBitmap> getCopyBitmap = new Func<DBitmap, DBitmap>(GetCopyOfBitmap);
-                IAsyncResult getCopyBitmapResult = getCopyBitmap.BeginInvoke(_imageFromFile, null, null);
-                DBitmap inputImage = getCopyBitmap.EndInvoke(getCopyBitmapResult);
-
-                EmbroideryService.EmbroideryCreatorServiceClient wcf_service = new EmbroideryService.EmbroideryCreatorServiceClient();
-
-                Func<DBitmap, int, int, DColor[], char[], DColor, EmbroideryService.GridType, DBitmap> getEmbroidery = new Func<DBitmap, int, int, DColor[], char[], DColor, Embroidery.GridType, DBitmap>(wcf_service.GetEmbroidery);
-                IAsyncResult getEmbroideryResult = getEmbroidery.BeginInvoke(inputImage, coefficient, cellsCount, palette, symbols, DColor.Black, gridType, null, null);
-                DBitmap resultImage = getEmbroidery.EndInvoke(getEmbroideryResult);
-
-
-                if (resultImage == null)
-                {
-                    MessageBox.Show("Some error occured on the server");
-                    //HideLoading();
-                    return;
-                }
-
-                bitmapSource = GetBitmapSource(resultImage);
-            }
-            catch (OutOfMemoryException ex)
-            {
-                MessageBox.Show("Sorry, but image is too large :(");
-                //HideLoading();
-                return;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Some exception was occured. Message: " + ex.Message);
-                //HideLoading();
-                return;
-            }
-            /*
-            bitmapSource.Freeze();
-
-            preview.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    preview.loadingPanel.Visibility = System.Windows.Visibility.Collapsed;
-                    preview.previewImage.Source = bitmapSource;
-                }),
-                System.Windows.Threading.DispatcherPriority.Normal);
-           */
-
-        }
 
 
         private BitmapSource GetBitmapSource(DBitmap image)
@@ -564,11 +504,14 @@ namespace NSEmbroidery.WPFClient
 
         private void addEmbroidery_Click(object sender, RoutedEventArgs e)
         {
-            DBitmap embroidery = ImageWpfToGDI(openedImage.Source);
+            DBitmap bitmap = ImageWpfToGDI(openedImage.Source);
 
             NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
 
-            //TODO: add embroidery to database
+            Embroidery embroidery = new Embroidery(bitmap) { Name = "test", UserId = client.CurrentUserId, PublicEmbroidery = true };
+
+            if (client.AddEmbroidery(embroidery))
+                Content.NavigationService.Navigate(new Gallery(Content));
         }
 
 

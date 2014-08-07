@@ -22,12 +22,16 @@ namespace NSEmbroidery.WPFClient
     {
         public MainWindow MainWindow { get; private set; }
 
+        public static Frame Content { get; set; }
+
         public Menu(MainWindow mainWindow)
         {
             InitializeComponent();
             MainWindow = mainWindow;
-        }
 
+            Content = content;
+        }
+            
         private void MyGallery_Click(object sender, RoutedEventArgs e)
         {
             content.NavigationService.Navigate(new Gallery(content));
@@ -40,7 +44,7 @@ namespace NSEmbroidery.WPFClient
 
         private void AddEmbroidery_Click(object sender, RoutedEventArgs e)
         {
-            content.NavigationService.Navigate(new AddEmbroidery());
+            content.NavigationService.Navigate(new AddEmbroidery(content));
         }
 
         private void Menu_Loaded(object sender, RoutedEventArgs e)
@@ -52,9 +56,10 @@ namespace NSEmbroidery.WPFClient
         private void Logoff_Click(object sender, RoutedEventArgs e)
         {
             NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
-            client.Logoff();
-
-            this.NavigationService.Navigate(new Login(MainWindow));
+            if (client.Logoff())
+                this.NavigationService.Navigate(new Login(MainWindow));
+            else
+                MessageBox.Show("Some error was occured");
         }
     }
 }

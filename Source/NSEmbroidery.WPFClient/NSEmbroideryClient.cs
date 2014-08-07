@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using System.Net.Http;
 
 namespace NSEmbroidery.WPFClient
 {
@@ -248,18 +249,18 @@ namespace NSEmbroidery.WPFClient
 
         public bool AddEmbroidery(Embroidery embroidery)
         {
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //TODO: implement adding embroidery
-            /*
-            HttpContent content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+
+            HttpResponseMessage response = _client.PostAsJsonAsync<Embroidery>("api/embroideries", embroidery).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                new KeyValuePair<string, string>("Data", embroidery.Data.ToString()),
-                new KeyValuePair<string, string>("Password", model.Password)
-            });
-            */
+                return true;
+            }
 
-            _client.PostAsync("api/embroideries", content);
-            return false;
+            throw new NotImplementedException();
         }
 
         public List<Embroidery> GetSmallEmbroideries()
@@ -296,11 +297,6 @@ namespace NSEmbroidery.WPFClient
             }
 
             throw new NotImplementedException();
-        }
-
-        ~NSEmbroideryClient()
-        {
-            Dispose();
         }
 
         public void Dispose()

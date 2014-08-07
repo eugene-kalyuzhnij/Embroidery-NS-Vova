@@ -20,9 +20,7 @@
             <Button Name="buttonBack" Width="40" Content="Back" Margin="2" Click="back_Click" HorizontalAlignment="Left"></Button>
         </Grid>
         
-       
-        <TextBlock
-            Grid.Row="1"
-            Name="textBlockUserName"></TextBlock>
+        <Frame Grid.Row="1" Name="frameOtherUserContent"></Frame>
+        
     </Grid>
 </Page>

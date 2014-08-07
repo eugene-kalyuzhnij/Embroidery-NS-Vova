@@ -33,16 +33,9 @@ namespace NSEmbroidery.WPFClient
 
 
         private void OtherUser_Loaded(object sender, RoutedEventArgs e)
-        {
-            TextBlock userName = new TextBlock()
-            {
-                Text = User.FirstName + " " + User.LastName,
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Right,
-                Margin = new Thickness(2)
-                
-            };
-
-            toolBar.Children.Add(userName);
+        {          
+            //frameOtherUserContent
+            frameOtherUserContent.NavigationService.Navigate(new Gallery(User.Id));
         }
 
         private void back_Click(object sender, RoutedEventArgs e)

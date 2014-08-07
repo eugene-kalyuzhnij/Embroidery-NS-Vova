@@ -39,10 +39,13 @@ namespace NSEmbroidery.WPFClient
             string _password = password.Text;
 
             
-            LoginModel model = new LoginModel()
+
+            LoginModel model = null;
+
+            model = new LoginModel()
             {
-                Email = "test@mail.com",
-                Password = "111111"
+                Email = (_email != "")? _email : "test@mail.com",
+                Password = (_password != "")? _password : "111111"
             };
             
             NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();

@@ -25,22 +25,45 @@ namespace NSEmbroidery.WPFClient
         public Frame Content { get; set; }
         public List<Embroidery> SmallImages { get; set; }
 
+        private int _otherUserId;
+        private bool _isOtherUser = false;
+
         public Gallery(Frame content)
         {
             InitializeComponent();
             Content = content;
         }
 
+        public Gallery(int otherUserId)
+        {
+            InitializeComponent();
+
+            _isOtherUser = true;
+            _otherUserId = otherUserId;
+            this.Style = null;
+
+            Content = Menu.Content;
+        }
+
+
         private void Gallery_Loaded(object sender, RoutedEventArgs e)
         {
-            NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
-            SmallImages = client.GetSmallEmbroideries(client.CurrentUserId);
+            if (!_isOtherUser)
+            {
+                NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
+                SmallImages = client.GetSmallEmbroideries(client.CurrentUserId);
+            }
+            else
+            {
+                NSEmbroideryClient client = NSEmbroideryClient.GetNSEmbroideryClient();
+                SmallImages = client.GetSmallEmbroideries(_otherUserId);
+            }
 
             foreach (var item in SmallImages)
             {
                 var image = new Image()
                 {
-                    Source = item.SmallImage.GetBitmapSource(),
+                    Source = item.GetSmallImage().GetBitmapSource(),
                     Width = 150,
                     Height = 150,
                     DataContext = item,

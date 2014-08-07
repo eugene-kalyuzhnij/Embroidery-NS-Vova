@@ -10,6 +10,7 @@ using NSEmbroidery.Data.DI.EF;
 using Ninject;
 using System.Diagnostics;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace NSEmbroidery.ASP.Controllers.API
 {
@@ -108,7 +109,7 @@ namespace NSEmbroidery.ASP.Controllers.API
         }
 
         [HttpPost]
-        public HttpResponseMessage AddEmbroidery([FromBody]Embroidery embroidery)
+        public HttpResponseMessage PostEmbroidery([FromBody]Embroidery embroidery)
         {
 
             EventLog log = null;
@@ -120,7 +121,7 @@ namespace NSEmbroidery.ASP.Controllers.API
                 IKernel kernel = new StandardKernel(new DataModelCreator());
               
                     #region Creating Small Image
-                    Bitmap image = embroidery.Image;
+                    Bitmap image = embroidery.GetImage();
                     if (image != null)
                     {
                         int smallImageWidht = 150;
@@ -135,13 +136,26 @@ namespace NSEmbroidery.ASP.Controllers.API
                         throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest));
                     #endregion
 
-                kernel.Get<IRepository<Embroidery>>().Add(embroidery);
+                embroidery.DateCreated = DateTime.Now;
+
+                var repository = kernel.Get<IRepository<Embroidery>>();
+                repository.Add(embroidery);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
-                if (log != null) log.WriteEntry("Exception: " + ex.Message);
+                if (log != null)
+                {
+                    string str_exception = "";
+                    str_exception += "Exception: " + ex.Message + Environment.NewLine;
+                    if (ex.InnerException.InnerException != null)
+                        str_exception += @"  Inner exception: " + ex.InnerException.InnerException.Message;
+
+               
+
+                    log.WriteEntry(str_exception);
+                }
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             }
         }

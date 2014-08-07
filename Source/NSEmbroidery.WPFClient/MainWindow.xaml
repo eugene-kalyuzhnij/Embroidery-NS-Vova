@@ -7,15 +7,11 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Menu>
-                <MenuItem></MenuItem>
-            </Menu>
 
-            <Frame Grid.Row="1" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
+            <Frame Grid.Row="0" Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
 
         </Grid>
         
